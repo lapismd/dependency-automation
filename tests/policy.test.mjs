@@ -280,6 +280,7 @@ test("config groups compatible updates and makes major and 0.x minor updates dra
     ),
   );
   assert.equal(config.ignoreScripts, true);
+  assert.equal(config.vulnerabilityAlerts.enabled, false);
 });
 test("Docker workers inherit only explicit public PR context", () => {
   const env = {

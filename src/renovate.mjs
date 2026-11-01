@@ -98,6 +98,9 @@ export function repositoryConfig(repo, graph, automationRoot) {
     respectLatest: true,
     minimumReleaseAge: "0 days",
     ignoreScripts: true,
+    // Dependabot retains security coverage. This runner handles version PRs
+    // for the first-party allowlist and does not request alert permissions.
+    vulnerabilityAlerts: { enabled: false },
     lockFileMaintenance: { enabled: false },
     prCreation: "immediate",
     prHourlyLimit: 0,
