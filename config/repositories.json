@@ -16,7 +16,11 @@
     { "repository": "lapismd/lapis-plugins", "phase": "pilot" },
     { "repository": "lapismd/lapis-plugin-tasks", "phase": "full" },
     { "repository": "lapismd/lapis-plugin-notebook", "phase": "full" },
-    { "repository": "lapismd/lapis-desktop", "phase": "full" },
+    {
+      "repository": "lapismd/lapis-desktop",
+      "phase": "full",
+      "holdReason": "Private Profile/API 0.2.3 remains pinned; qualify the unpublished archive projection before enabling dependency writes."
+    },
     { "repository": "lapismd/lapis-server", "phase": "full" },
     { "repository": "lapismd/agent-ui", "phase": "full" },
     { "repository": "lapismd/lapis-ai", "phase": "full" },

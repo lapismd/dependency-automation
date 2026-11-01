@@ -172,6 +172,15 @@ export async function inventory(entries, options = {}) {
         if (nested) registry.set(dep, nested);
       }
     }
+  const unpublished = [...names].filter((n) => !registry.has(n)).sort();
+  for (const edge of edges) {
+    if (!unpublished.includes(edge.name)) continue;
+    const repo = repositories.find((r) => r.repository === edge.repository);
+    if (repo.manifests.some((p) => p.manifest.name === edge.name)) continue;
+    repo.nonPortable.push(
+      `${edge.path}:${edge.type}:${edge.name}: unpublished registry dependency`,
+    );
+  }
   return {
     schemaVersion: 1,
     excludedPackages: options.excludedPackages ?? [],
@@ -180,7 +189,7 @@ export async function inventory(entries, options = {}) {
     edges,
     cycles: runtimeCycles(packages),
     available: availableVersions(registry),
-    unpublished: [...names].filter((n) => !registry.has(n)).sort(),
+    unpublished,
   };
 }
 
@@ -195,7 +204,9 @@ export async function loadAllowlist(
     if (
       !/^(?:lapismd|stevejuma)\/[\w.-]+$/.test(entry.repository) ||
       seen.has(entry.repository) ||
-      !["pilot", "full"].includes(entry.phase)
+      !["pilot", "full"].includes(entry.phase) ||
+      (entry.holdReason !== undefined &&
+        (typeof entry.holdReason !== "string" || !entry.holdReason.trim()))
     )
       throw new Error("Invalid or duplicate repository entry");
     seen.add(entry.repository);

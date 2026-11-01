@@ -126,3 +126,9 @@ Community remains temporarily excluded by operator decision. Restore its
 `phase: "full"` allowlist entry only after
 [its integration PR](https://github.com/lapismd/lapis-community/pull/2) lands; do
 not enable its new version-PR workflow while that integration is held.
+
+Desktop remains in ownership/consumer discovery with an explicit write hold.
+Its private Profile/API 0.2.3 cohort stays pinned. Its unpublished `@lapismd/ai`
+dependency and CI archive projection require qualified Renovate support before
+the hold is removed. Inventory also holds any consumer with an unpublished
+first-party registry dependency, rather than proposing an un-installable PR.
