@@ -85,7 +85,7 @@ export function repositoryConfig(repo, graph, automationRoot) {
     repository: repo.repository,
     enabledManagers: ["npm"],
     includePaths: repo.paths,
-    ignoreDeps: own,
+    ignoreDeps: [...own, ...(graph.excludedPackages ?? [])],
     dependencyDashboard: false,
     dependencyDashboardTitle: "Lapis first-party dependency updates",
     branchPrefix: "lapis-dependencies/",

@@ -1,5 +1,6 @@
 {
   "schemaVersion": 1,
+  "excludedPackages": ["@lapismd/terminal-host"],
   "repositories": [
     {
       "repository": "lapismd/mira-mde",
@@ -30,7 +31,6 @@
     { "repository": "lapismd/agent-redaction", "phase": "full" },
     { "repository": "lapismd/ai-controller", "phase": "full" },
     { "repository": "lapismd/ai-host", "phase": "full" },
-    { "repository": "lapismd/terminal-host", "phase": "full" },
     { "repository": "lapismd/plugin-registry", "phase": "full" },
     { "repository": "stevejuma/jj-store", "phase": "full" }
   ]

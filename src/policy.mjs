@@ -3,7 +3,7 @@ import { minimatch } from "minimatch";
 
 export const firstParty = (name) => /^@(?:lapismd|lapis-notes)\//.test(name);
 export const excluded = (file) =>
-  /(^|\/)(?:node_modules|dist|build|target|storybook-static|fixtures?|__fixtures__|examples?|tests?|\.local|\.git|\.jj)(\/|$)/.test(
+  /(^|\/)(?:node_modules|dist|build|target|storybook-static|fixtures?|__fixtures__|examples?|tests?|desktop-deno|server-deno|\.local|\.git|\.jj)(\/|$)/.test(
     file,
   );
 

@@ -174,6 +174,7 @@ export async function inventory(entries, options = {}) {
     }
   return {
     schemaVersion: 1,
+    excludedPackages: options.excludedPackages ?? [],
     repositories,
     packages,
     edges,
@@ -186,7 +187,7 @@ export async function inventory(entries, options = {}) {
 export async function loadAllowlist(
   url = new URL("../config/repositories.json", import.meta.url),
 ) {
-  const data = JSON.parse(await readFile(url, "utf8"));
+  const data = await loadPolicy(url);
   if (data.schemaVersion !== 1 || !Array.isArray(data.repositories))
     throw new Error("Unsupported repository allowlist");
   const seen = new Set();
@@ -200,4 +201,17 @@ export async function loadAllowlist(
     seen.add(entry.repository);
   }
   return data.repositories;
+}
+
+export async function loadPolicy(
+  url = new URL("../config/repositories.json", import.meta.url),
+) {
+  const data = JSON.parse(await readFile(url, "utf8"));
+  if (
+    data.excludedPackages !== undefined &&
+    (!Array.isArray(data.excludedPackages) ||
+      data.excludedPackages.some((name) => !firstParty(name)))
+  )
+    throw Error("Invalid excluded package policy");
+  return data;
 }

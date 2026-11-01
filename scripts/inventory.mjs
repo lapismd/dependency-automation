@@ -1,5 +1,5 @@
 import { appendFile, mkdir, readFile, writeFile } from "node:fs/promises";
-import { inventory, loadAllowlist } from "../src/github.mjs";
+import { inventory, loadAllowlist, loadPolicy } from "../src/github.mjs";
 import { validateNotification } from "../src/policy.mjs";
 
 const entries = await loadAllowlist();
@@ -12,6 +12,7 @@ if (process.env.GITHUB_EVENT_NAME === "repository_dispatch") {
   validateNotification(event.client_payload, entries);
 }
 const result = await inventory(entries, {
+  excludedPackages: (await loadPolicy()).excludedPackages,
   token: process.env.GH_TOKEN,
   progress: (repository) => console.log(`Inspecting ${repository}`),
 });

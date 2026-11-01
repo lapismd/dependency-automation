@@ -2,6 +2,7 @@ import { readFile, writeFile, mkdir, readdir } from "node:fs/promises";
 import { resolve, join } from "node:path";
 import YAML from "yaml";
 import { loadAllowlist } from "../src/github.mjs";
+import { consumerChecks } from "../src/consumer-ci.mjs";
 
 const [directory, repository, coordinatorRef] = process.argv.slice(2);
 if (
@@ -246,4 +247,10 @@ try {
 } catch (error) {
   if (error.code !== "ENOENT") throw error;
 }
+const checks = consumerChecks(repository, manifest.packageManager, context);
+if (checks)
+  await writeFile(
+    join(workflowFolder, "dependency-check.yml"),
+    YAML.stringify(checks),
+  );
 console.log(`Prepared ${repository} at ${root}`);

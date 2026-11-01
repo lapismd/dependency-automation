@@ -94,7 +94,8 @@ Trusted dependency-bot PRs and existing generated version PRs skip specification
 checks. The policy uses the PR author, not the person rerunning a job. Audits,
 types, unit tests, builds, packaging, interactions, accessibility and existing
 release gates remain active. The copied policy module is maintained here and
-has no runtime npm dependency. Docker workers receive only its explicit public
+uses the installed validator API to retain functional lanes embedded in its
+aggregate check command. Docker workers receive only its explicit public
 PR-context variables, never credentials.
 
 Existing lockfile CI-image workflows refresh digest pins after merge. Dependency
@@ -102,4 +103,11 @@ PRs install their exact candidate lockfile; a previous image digest is never
 relabelled as a build of the new dependency graph. Rust, Git revisions, container
 versions, and third-party dependency automation are not managed here.
 
-`lapis-plugin-docs` is explicitly excluded from this rollout.
+`lapis-plugin-docs` and deprecated `terminal-host` are excluded from this rollout.
+The terminal-host npm package is also ignored in remaining manifests, so stale
+Deno development declarations cannot keep that legacy release chain alive.
+Parked Deno desktop and server workspaces are excluded by workspace discovery.
+AI Host remains included because the current Tauri application consumes its
+portable file-tools leaf through Notes API. AI Controller also supplies portable
+client and memory exports to the active AI plugin; no Deno service is enabled by
+this automation.

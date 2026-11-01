@@ -19,6 +19,7 @@ import {
   botSpecificationExemption,
   skipSpecification,
   specificationDockerArguments,
+  runFunctionalCheckLanes,
 } from "../templates/spec-policy.mjs";
 
 const pkg = (name, deps = {}, extra = {}) => ({
@@ -33,6 +34,8 @@ test("inventory selects active workspaces and excludes parked packages and fixtu
     "packages/parked/package.json",
     "fixtures/x/package.json",
     "packages/api/dist/package.json",
+    "packages/desktop-deno/package.json",
+    "packages/server-deno/package.json",
   ];
   assert.deepEqual(
     activeManifests(
@@ -252,6 +255,7 @@ test("config groups compatible updates and makes major and 0.x minor updates dra
     available: { "@lapismd/mira": ["0.1.4", "0.1.5"] },
     unpublished: [],
     cycles: [],
+    excludedPackages: ["@lapismd/terminal-host"],
   };
   const config = repositoryConfig(repo, graph, "/automation");
   assert.equal(config.automerge, false);
@@ -280,6 +284,7 @@ test("config groups compatible updates and makes major and 0.x minor updates dra
     ),
   );
   assert.equal(config.ignoreScripts, true);
+  assert.ok(config.ignoreDeps.includes("@lapismd/terminal-host"));
   assert.equal(config.vulnerabilityAlerts.enabled, false);
 });
 test("Docker workers inherit only explicit public PR context", () => {
@@ -298,5 +303,40 @@ test("Docker workers inherit only explicit public PR context", () => {
   assert.deepEqual(
     specificationDockerArguments(["create", "image", "other.mjs"], env),
     ["create", "image", "other.mjs"],
+  );
+});
+test("bot spec-check exemptions retain configured functional lanes and their failures", async () => {
+  const commands = [];
+  const loadConfig = async () => ({
+    check: {
+      build: true,
+      first: true,
+      lanes: [
+        {
+          name: "architecture",
+          command: "node",
+          args: ["scripts/check-architecture.mjs"],
+        },
+        { name: "tests", command: "pnpm", args: ["test"] },
+      ],
+    },
+  });
+  assert.equal(
+    await runFunctionalCheckLanes({
+      loadConfig,
+      run: (command, args) => {
+        commands.push([command, ...args]);
+        return { status: 0 };
+      },
+    }),
+    0,
+  );
+  assert.deepEqual(commands, [
+    ["node", "scripts/check-architecture.mjs"],
+    ["pnpm", "test"],
+  ]);
+  assert.equal(
+    await runFunctionalCheckLanes({ loadConfig, run: () => ({ status: 7 }) }),
+    7,
   );
 });

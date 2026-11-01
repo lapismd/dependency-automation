@@ -62,6 +62,34 @@ export function specificationDockerArguments(args, env = process.env) {
   return [args[0], ...context, ...args.slice(1)];
 }
 
+export async function runFunctionalCheckLanes({
+  local = false,
+  root = process.cwd(),
+  loadConfig,
+  run = spawnSync,
+} = {}) {
+  const config = loadConfig
+    ? await loadConfig(root)
+    : await (
+        await import(
+          local
+            ? pathToFileURL(resolve(root, "dist/index.js")).href
+            : "@lapismd/spec-validator"
+        )
+      ).loadResolvedConfig(root);
+  for (const lane of config.check?.lanes ?? []) {
+    const result = run(lane.command, lane.args ?? [], {
+      cwd: root,
+      stdio: "inherit",
+      env: process.env,
+      shell: process.platform === "win32",
+    });
+    if (result.error) throw result.error;
+    if (result.status !== 0) return result.status ?? 1;
+  }
+  return 0;
+}
+
 if (
   process.argv[1] &&
   import.meta.url === pathToFileURL(resolve(process.argv[1])).href
@@ -95,6 +123,10 @@ if (
       });
       if (result.error) throw result.error;
       process.exitCode = result.status ?? 1;
+    } else if (operation === "check") {
+      // The validator's aggregate command may contain package tests and audits.
+      // Skip its specification phases while retaining every configured lane.
+      process.exitCode = await runFunctionalCheckLanes({ local });
     }
   }
 }

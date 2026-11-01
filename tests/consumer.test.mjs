@@ -5,6 +5,75 @@ import { mkdtemp, mkdir, readFile, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import YAML from "yaml";
+import { consumerChecks } from "../src/consumer-ci.mjs";
+
+test("previously uncovered consumers run functional PR checks with read-only authority", () => {
+  for (const repository of ["lapismd/ai-host", "lapismd/lapis-community"]) {
+    const workflow = consumerChecks(repository, "pnpm@10.32.1", {});
+    assert.ok(Object.hasOwn(workflow.on, "pull_request"));
+    assert.deepEqual(workflow.permissions, { contents: "read" });
+    const runs = workflow.jobs.check.steps.map((s) => s.run ?? "").join("\n");
+    assert.match(runs, /--frozen-lockfile/);
+    assert.match(runs, /pnpm audit/);
+    assert.match(runs, /pnpm (checks:release|check\n)/);
+    assert.doesNotMatch(
+      runs,
+      /release:publish|release:prepare|release:version|npm publish/,
+    );
+    assert.ok(
+      workflow.jobs.check.steps
+        .filter((s) => s.uses)
+        .every((s) => /@[a-f0-9]{40}$/.test(s.uses)),
+    );
+    assert.ok(
+      workflow.jobs.check.steps
+        .filter((s) => s.if)
+        .every((s) => s.name.includes("specification")),
+    );
+  }
+  assert.equal(consumerChecks("lapismd/lapis-notes", undefined, {}), null);
+  assert.equal(consumerChecks("lapismd/terminal-host", undefined, {}), null);
+});
+
+test("the bot CLI skips spec lint and executes aggregate functional lanes", async () => {
+  const root = await mkdtemp(join(tmpdir(), "lapis-bot-check-"));
+  const api = join(root, "node_modules/@lapismd/spec-validator");
+  await mkdir(api, { recursive: true });
+  await writeFile(
+    join(api, "package.json"),
+    JSON.stringify({
+      name: "@lapismd/spec-validator",
+      type: "module",
+      exports: "./index.mjs",
+    }),
+  );
+  await writeFile(
+    join(api, "index.mjs"),
+    `export const loadResolvedConfig = async () => (${JSON.stringify({ check: { lanes: [{ command: process.execPath, args: ["-e", 'require("node:fs").writeFileSync("functional.txt", "ran")'] }] } })});`,
+  );
+  await writeFile(
+    join(root, "policy.mjs"),
+    await readFile(new URL("../templates/spec-policy.mjs", import.meta.url)),
+  );
+  const options = {
+    cwd: root,
+    env: {
+      ...process.env,
+      CI: "true",
+      GITHUB_EVENT_PATH: "",
+      LAPIS_CI_EVENT: "pull_request",
+      LAPIS_CI_PR_AUTHOR: "lapismd-dependency-bot[bot]",
+      LAPIS_CI_PR_AUTHOR_TYPE: "Bot",
+    },
+  };
+  execFileSync(
+    process.execPath,
+    ["policy.mjs", "--command", "spec:lint", "exit 9"],
+    options,
+  );
+  execFileSync(process.execPath, ["policy.mjs", "check"], options);
+  assert.equal(await readFile(join(root, "functional.txt"), "utf8"), "ran");
+});
 
 test("consumer integration is repeatable, preserves functional commands and keeps Dependabot security updates", async () => {
   const root = await mkdtemp(join(tmpdir(), "lapis-consumer-"));
