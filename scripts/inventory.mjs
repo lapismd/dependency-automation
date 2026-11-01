@@ -27,6 +27,7 @@ const targets = result.repositories
     (r) =>
       !r.nonPortable.length &&
       !r.missingChangesets &&
+      !r.holdReason &&
       (phase === "full" || r.phase === "pilot"),
   )
   .map((r) => ({
@@ -43,10 +44,10 @@ if (process.env.GITHUB_OUTPUT)
     `matrix=${JSON.stringify({ include: targets })}\ncount=${targets.length}\n`,
   );
 const blocked = result.repositories
-  .filter((r) => r.nonPortable.length || r.missingChangesets)
+  .filter((r) => r.nonPortable.length || r.missingChangesets || r.holdReason)
   .map(
     (r) =>
-      `${r.repository}: ${[...r.nonPortable, ...(r.missingChangesets ? ["Changesets onboarding must land before dependency writes"] : [])].join(", ")}`,
+      `${r.repository}: ${[...r.nonPortable, ...(r.holdReason ? [r.holdReason] : []), ...(r.missingChangesets ? ["Changesets onboarding must land before dependency writes"] : [])].join(", ")}`,
   )
   .join("\n\n");
 const summary = `# First-party npm inventory\n\n${result.repositories.length} repositories; ${result.packages.length} public package owners; ${result.edges.length} consumer edges.\n\nRollout: ${phase}. Writes: ${process.env.LAPIS_WRITE_ENABLED === "true" ? "enabled" : "disabled (dry-run)"}.\n\nRuntime cycles: ${result.cycles.length}. Unpublished references: ${result.unpublished.join(", ") || "none"}.\n\nConsumers waiting for portable registry dependencies:\n\n${blocked || "None"}\n`;

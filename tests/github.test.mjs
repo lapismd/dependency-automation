@@ -2,6 +2,45 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { inventory, requestJson } from "../src/github.mjs";
 
+test("unpublished registry prerequisites hold a private consumer until publication", async () => {
+  let published = false;
+  const fetcher = async (url) => {
+    const path = new URL(url).pathname;
+    let data;
+    if (url.startsWith("https://registry.npmjs.org/")) {
+      if (!published) return { status: 404, ok: false };
+      data = { versions: { "0.2.0": {} }, "dist-tags": { latest: "0.2.0" } };
+    } else if (path.endsWith("/lapis-desktop")) {
+      data = { default_branch: "main", archived: false };
+    } else if (path.includes("/branches/")) {
+      data = { commit: { sha: "a".repeat(40) } };
+    } else if (path.includes("/git/trees/")) {
+      data = { tree: [{ type: "blob", path: "package.json" }] };
+    } else {
+      data = {
+        content: Buffer.from(
+          JSON.stringify({
+            name: "desktop",
+            private: true,
+            dependencies: { "@lapismd/ai": "^0.2.0" },
+          }),
+        ).toString("base64"),
+      };
+    }
+    return { status: 200, ok: true, json: async () => data };
+  };
+  const entries = [{ repository: "lapismd/lapis-desktop", phase: "full" }];
+  const before = await inventory(entries, { fetcher });
+  assert.deepEqual(before.unpublished, ["@lapismd/ai"]);
+  assert.match(before.repositories[0].nonPortable[0], /unpublished registry/);
+  assert.equal(before.edges.length, 1);
+  assert.equal(before.packages.length, 0);
+  published = true;
+  const after = await inventory(entries, { fetcher });
+  assert.deepEqual(after.repositories[0].nonPortable, []);
+  assert.deepEqual(after.unpublished, []);
+});
+
 test("registry failures are failures; only a 404 means unpublished", async () => {
   const fetcher = async () => ({ status: 503, ok: false });
   await assert.rejects(
