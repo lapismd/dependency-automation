@@ -6,6 +6,64 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import YAML from "yaml";
 import { consumerChecks } from "../src/consumer-ci.mjs";
+import { installDockerContext } from "../src/docker-context.mjs";
+
+test("flattened Docker worker bundles stay standalone while host creates forward PR context", async () => {
+  const root = await mkdtemp(join(tmpdir(), "lapis-worker-"));
+  await mkdir(join(root, "scripts/validation"), { recursive: true });
+  await mkdir(join(root, "scripts/dependency-automation"));
+  await mkdir(join(root, "input"));
+  await writeFile(
+    join(root, "scripts/dependency-automation/spec-policy.mjs"),
+    await readFile(new URL("../templates/spec-policy.mjs", import.meta.url)),
+  );
+  await writeFile(
+    join(root, "scripts/validation/docker.mjs"),
+    'import { specificationDockerArguments } from "../dependency-automation/spec-policy.mjs";\nexport function dockerCommand(config, args) {\n  args = specificationDockerArguments(args);\nreturn args;}\nexport const docker = dockerCommand, output = dockerCommand;\n',
+  );
+  await writeFile(
+    join(root, "scripts/validation/runs.mjs"),
+    'import { docker, output } from "./docker.mjs";\nconst bundle = ["worker.mjs", "model.mjs", "docker.mjs"];\nexport const create = () => docker({}, ["create", "image", "/input/worker.mjs"]);\n',
+  );
+  await installDockerContext(root);
+  const first = await readFile(
+    join(root, "scripts/validation/runs.mjs"),
+    "utf8",
+  );
+  await installDockerContext(root);
+  assert.equal(
+    await readFile(join(root, "scripts/validation/runs.mjs"), "utf8"),
+    first,
+  );
+  const portable = await readFile(join(root, "scripts/validation/docker.mjs"));
+  await writeFile(join(root, "input/docker.mjs"), portable);
+  execFileSync(
+    process.execPath,
+    ["--input-type=module", "-e", 'await import("./input/docker.mjs")'],
+    { cwd: root },
+  );
+  const result = execFileSync(
+    process.execPath,
+    [
+      "--input-type=module",
+      "-e",
+      'const {create} = await import("./scripts/validation/runs.mjs"); process.stdout.write(JSON.stringify(create()));',
+    ],
+    {
+      cwd: root,
+      env: {
+        ...process.env,
+        LAPIS_CI_PR_AUTHOR: "lapismd-dependency-bot[bot]",
+      },
+      encoding: "utf8",
+    },
+  );
+  assert.ok(
+    JSON.parse(result).includes(
+      "LAPIS_CI_PR_AUTHOR=lapismd-dependency-bot[bot]",
+    ),
+  );
+});
 
 test("previously uncovered consumers run functional PR checks with read-only authority", () => {
   for (const repository of ["lapismd/ai-host", "lapismd/lapis-community"]) {

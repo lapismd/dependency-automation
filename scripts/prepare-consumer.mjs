@@ -3,6 +3,7 @@ import { resolve, join } from "node:path";
 import YAML from "yaml";
 import { loadAllowlist } from "../src/github.mjs";
 import { consumerChecks } from "../src/consumer-ci.mjs";
+import { installDockerContext } from "../src/docker-context.mjs";
 
 const [directory, repository, coordinatorRef] = process.argv.slice(2);
 if (
@@ -63,21 +64,7 @@ try {
 } catch (error) {
   if (error.code !== "ENOENT") throw error;
 }
-try {
-  const file = join(root, "scripts/validation/docker.mjs");
-  let text = await readFile(file, "utf8");
-  if (!text.includes("specificationDockerArguments")) {
-    text =
-      `import { specificationDockerArguments } from "../dependency-automation/spec-policy.mjs";\n` +
-      text.replace(
-        "export function dockerCommand(config, args) {",
-        "export function dockerCommand(config, args) {\n  args = specificationDockerArguments(args);",
-      );
-    await writeFile(file, text);
-  }
-} catch (error) {
-  if (error.code !== "ENOENT") throw error;
-}
+await installDockerContext(root);
 
 const context = {
   LAPIS_CI_EVENT: "${{ github.event_name }}",
