@@ -28,8 +28,13 @@ never authority for a version bump.
 
 ## GitHub App setup
 
-Create a private GitHub App owned by `lapismd`, named
+Create a GitHub App owned by `lapismd`, named
 `lapismd-dependency-bot` (or set `LAPIS_DEPENDENCY_BOT_LOGIN` in consumers).
+Choose **Any account** (public registration), so the same App can be installed
+on both `lapismd` and `stevejuma/jj-store`. A private organization-owned App can
+only be installed on its owning organization. Public registration does not
+expand this coordinator's explicit repository allowlist.
+
 Disable webhooks. Grant repository contents and pull requests **read/write**,
 metadata **read**, and checks and commit statuses **read**. It needs no workflow
 write, administration, npm, signing, or deployment credentials.
@@ -39,7 +44,8 @@ separately for `stevejuma/jj-store`. Installation tokens are minted per target
 repository and automatically revoked by `actions/create-github-app-token`.
 
 Configure the following organization values, restricting the private-key secret
-to this coordinator and the publisher workflows that notify it:
+to this coordinator, the publisher workflows that notify it, and the
+Notebook and AI Controller version-PR workflows:
 
 | Name                               | Kind                        | Value                                                                                            |
 | ---------------------------------- | --------------------------- | ------------------------------------------------------------------------------------------------ |
@@ -54,9 +60,12 @@ notification key secret in that repository too. No secrets belong in this tree.
 ## Activation and recovery
 
 1. Merge consumer CI/versioning integrations and publisher notification jobs.
-   Enable `LAPIS_DEPENDENCY_VERSION_PR_ENABLED=true` in Notebook, AI Controller
-   and Community after their new Changesets workflows pass review. These
-   workflows only prepare version PRs; they do not publish packages.
+   Enable `LAPIS_DEPENDENCY_VERSION_PR_ENABLED=true` in Notebook and AI Controller
+   after their new Changesets workflows pass review. Community remains held out
+   of the allowlist until its CI integration PR #2 is approved and merged. These
+   workflows use repository-scoped App tokens so generated PRs start functional
+   CI automatically. They only prepare version PRs; existing publication gates
+   remain separate.
 2. Dispatch **Reconcile first-party npm dependencies** with all write variables
    unset. Inspect inventory and Renovate dry-run summaries for the four pilot
    repositories: Mira, Design Core, Notes and Plugins.
@@ -74,7 +83,8 @@ Notifications use `repository_dispatch` / `lapis-npm-published-v1` with
 `repository`, a 40-character `sourceSha`, and `packages: [{name, version}]`.
 Source workflows call the pinned `notify.yml` only after their verification
 job succeeds. Manually published packages without a release workflow are found
-by reconciliation. No new npm publishing workflow is installed for Notebook.
+by reconciliation. The coordinator does not install or invoke an npm publisher. Notebook now has
+its own protected release pipeline; its publication approvals remain separate.
 
 ## Review policy
 
@@ -111,3 +121,8 @@ AI Host remains included because the current Tauri application consumes its
 portable file-tools leaf through Notes API. AI Controller also supplies portable
 client and memory exports to the active AI plugin; no Deno service is enabled by
 this automation.
+
+Community remains temporarily excluded by operator decision. Restore its
+`phase: "full"` allowlist entry only after
+[its integration PR](https://github.com/lapismd/lapis-community/pull/2) lands; do
+not enable its new version-PR workflow while that integration is held.

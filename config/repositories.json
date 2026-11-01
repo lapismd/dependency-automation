@@ -21,7 +21,6 @@
     { "repository": "lapismd/agent-ui", "phase": "full" },
     { "repository": "lapismd/lapis-ai", "phase": "full" },
     { "repository": "lapismd/lapis-terminal", "phase": "full" },
-    { "repository": "lapismd/lapis-community", "phase": "full" },
     { "repository": "lapismd/spec-validator", "phase": "full" },
     {
       "repository": "lapismd/storybook-addon-visual-delta",
