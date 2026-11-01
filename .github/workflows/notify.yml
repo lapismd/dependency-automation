@@ -1,0 +1,56 @@
+name: Notify dependency consumers
+on:
+  workflow_call:
+    inputs:
+      automation-ref:
+        description: Exact coordinator commit used by the caller
+        required: true
+        type: string
+      source-sha:
+        required: true
+        type: string
+    secrets:
+      app-private-key:
+        required: false
+permissions:
+  contents: read
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      HAS_APP_KEY: ${{ secrets.app-private-key != '' }}
+    steps:
+      - name: Require notification setup
+        run: |
+          if [ "$HAS_APP_KEY" != 'true' ]; then
+            echo '::notice::Dependency notification is not activated; the hourly reconciliation remains the recovery path.'
+          fi
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          repository: lapismd/dependency-automation
+          ref: ${{ inputs.automation-ref }}
+          path: automation
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: "24.15.0"
+      - run: corepack enable && corepack prepare pnpm@10.34.5 --activate
+      - run: pnpm --dir automation install --prod --frozen-lockfile --ignore-scripts
+      - id: app
+        if: env.HAS_APP_KEY == 'true'
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3
+        with:
+          client-id: ${{ vars.LAPIS_DEPENDENCY_APP_CLIENT_ID }}
+          private-key: ${{ secrets.app-private-key }}
+          owner: lapismd
+          repositories: dependency-automation
+          permission-contents: write
+      - name: Verify registry versions and send notification
+        if: env.HAS_APP_KEY == 'true'
+        working-directory: automation
+        run: node scripts/notify.mjs
+        env:
+          GH_TOKEN: ${{ steps.app.outputs.token }}
+          SOURCE_READ_TOKEN: ${{ github.token }}
+          SOURCE_REPOSITORY: ${{ github.repository }}
+          SOURCE_SHA: ${{ inputs.source-sha }}

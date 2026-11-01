@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "repositories": [
+    {
+      "repository": "lapismd/mira-mde",
+      "phase": "pilot",
+      "emptyChangeset": true
+    },
+    { "repository": "lapismd/design-core", "phase": "pilot" },
+    {
+      "repository": "lapismd/lapis-notes",
+      "phase": "pilot",
+      "emptyChangeset": true
+    },
+    { "repository": "lapismd/lapis-plugins", "phase": "pilot" },
+    { "repository": "lapismd/lapis-plugin-tasks", "phase": "full" },
+    { "repository": "lapismd/lapis-plugin-notebook", "phase": "full" },
+    { "repository": "lapismd/lapis-desktop", "phase": "full" },
+    { "repository": "lapismd/lapis-server", "phase": "full" },
+    { "repository": "lapismd/agent-ui", "phase": "full" },
+    { "repository": "lapismd/lapis-ai", "phase": "full" },
+    { "repository": "lapismd/lapis-terminal", "phase": "full" },
+    { "repository": "lapismd/lapis-community", "phase": "full" },
+    { "repository": "lapismd/spec-validator", "phase": "full" },
+    {
+      "repository": "lapismd/storybook-addon-visual-delta",
+      "phase": "full",
+      "emptyChangeset": true
+    },
+    { "repository": "lapismd/agent-redaction", "phase": "full" },
+    { "repository": "lapismd/ai-controller", "phase": "full" },
+    { "repository": "lapismd/ai-host", "phase": "full" },
+    { "repository": "lapismd/terminal-host", "phase": "full" },
+    { "repository": "lapismd/plugin-registry", "phase": "full" },
+    { "repository": "stevejuma/jj-store", "phase": "full" }
+  ]
+}

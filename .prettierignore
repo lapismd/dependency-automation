@@ -1,0 +1,6 @@
+node_modules/
+.local/
+.renovate/
+reports/
+pnpm-lock.yaml
+LICENSE.md

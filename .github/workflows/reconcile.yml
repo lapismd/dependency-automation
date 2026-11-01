@@ -1,0 +1,98 @@
+name: Reconcile first-party npm dependencies
+
+on:
+  repository_dispatch:
+    types: [lapis-npm-published-v1]
+  schedule:
+    - cron: "41 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  LAPIS_WRITE_ENABLED: ${{ vars.LAPIS_DEPENDENCY_WRITES == 'true' }}
+  LAPIS_ROLLOUT_PHASE: ${{ vars.LAPIS_DEPENDENCY_PHASE || 'pilot' }}
+
+jobs:
+  inventory:
+    if: github.event_name != 'schedule' || vars.LAPIS_DEPENDENCY_SCHEDULE == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    outputs:
+      matrix: ${{ steps.inventory.outputs.matrix }}
+      count: ${{ steps.inventory.outputs.count }}
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: "24.15.0"
+      - run: corepack enable && corepack prepare pnpm@10.34.5 --activate
+      - run: pnpm install --frozen-lockfile --ignore-scripts
+      - run: pnpm verify
+      - id: inventory
+        run: pnpm inventory
+        env:
+          GH_TOKEN: ${{ github.token }}
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
+        with:
+          name: first-party-inventory
+          path: reports/
+          retention-days: 14
+
+  reconcile:
+    needs: inventory
+    if: needs.inventory.outputs.count != '0'
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix: ${{ fromJSON(needs.inventory.outputs.matrix) }}
+    concurrency:
+      group: dependency-update-${{ matrix.repository }}
+      cancel-in-progress: false
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      LAPIS_TARGET_REPOSITORY: ${{ matrix.repository }}
+      LAPIS_BOT_GIT_AUTHOR: ${{ vars.LAPIS_DEPENDENCY_BOT_GIT_AUTHOR }}
+      LAPIS_INVENTORY: ${{ github.workspace }}/reports/inventory.json
+      LAPIS_RENOVATE_CONFIG: ${{ github.workspace }}/reports/renovate.json
+      HAS_APP_KEY: ${{ secrets.LAPIS_DEPENDENCY_APP_PRIVATE_KEY != '' }}
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: "24.15.0"
+      - run: corepack enable && corepack prepare pnpm@10.34.5 --activate
+      - run: pnpm install --frozen-lockfile --ignore-scripts
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
+        with:
+          name: first-party-inventory
+          path: reports
+      - run: node scripts/configure-renovate.mjs
+      - run: node node_modules/renovate/dist/config-validator.js reports/renovate.json
+      - name: Require installation credentials before writes
+        if: env.LAPIS_WRITE_ENABLED == 'true'
+        run: test "$HAS_APP_KEY" = 'true' && test -n "$LAPIS_BOT_GIT_AUTHOR"
+      - id: app
+        if: env.HAS_APP_KEY == 'true'
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3
+        with:
+          client-id: ${{ vars.LAPIS_DEPENDENCY_APP_CLIENT_ID }}
+          private-key: ${{ secrets.LAPIS_DEPENDENCY_APP_PRIVATE_KEY }}
+          owner: ${{ matrix.owner }}
+          repositories: ${{ matrix.name }}
+          permission-contents: write
+          permission-pull-requests: write
+          permission-checks: read
+          permission-statuses: read
+      - name: Activate the consumer's pinned pnpm
+        env:
+          CONSUMER_PNPM: ${{ matrix.pnpm }}
+        run: corepack prepare "pnpm@$CONSUMER_PNPM" --activate
+      - name: Reconcile published versions
+        run: node node_modules/renovate/dist/renovate.js
+        env:
+          RENOVATE_CONFIG_FILE: ${{ github.workspace }}/renovate.config.cjs
+          RENOVATE_TOKEN: ${{ steps.app.outputs.token || github.token }}
+          LOG_LEVEL: info
