@@ -35,7 +35,7 @@ export function consumerChecks(repository, packageManager, context) {
   ];
   steps.push({
     name: "Install exact candidate dependencies",
-    run: "pnpm install --frozen-lockfile",
+    run: "pnpm install --frozen-lockfile --ignore-pnpmfile",
   });
   if (repository === "lapismd/lapis-community")
     steps.push({ run: "pnpm exec playwright install --with-deps chromium" });
