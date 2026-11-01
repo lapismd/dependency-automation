@@ -258,7 +258,16 @@ test("config groups compatible updates and makes major and 0.x minor updates dra
     excludedPackages: ["@lapismd/terminal-host"],
   };
   const config = repositoryConfig(repo, graph, "/automation");
-  assert.equal(config.automerge, false);
+  assert.equal(config.automerge, true);
+  assert.equal(config.automergeType, "pr");
+  assert.equal(config.platformAutomerge, false);
+  assert.equal(config.ignoreTests, false);
+  assert.equal(config.rebaseWhen, "behind-base-branch");
+  assert.ok(
+    config.packageRules
+      .filter((r) => r.draftPR)
+      .every((r) => r.automerge === false),
+  );
   assert.deepEqual(config.enabledManagers, ["npm"]);
   assert.ok(
     config.packageRules.some((r) => r.groupSlug === "lapis-first-party"),
