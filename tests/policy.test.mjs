@@ -171,6 +171,43 @@ test("repeated compatible updates rewrite one deterministic Changeset", async ()
   await writeChangeset(root, ["@lapismd/d"], { scope: "breaking-upstream" });
   assert.notEqual(changesetPath(), changesetPath("breaking-upstream"));
 });
+test("catalog runtime and peer updates create release intent without releasing development consumers", () => {
+  const options = {
+    workspaceBefore: {
+      catalog: { "@lapismd/mira": "~0.1.4" },
+      catalogs: { ui: { "@lapismd/design-core": "^0.9.0" } },
+    },
+    workspaceAfter: {
+      catalog: { "@lapismd/mira": "~0.1.5" },
+      catalogs: { ui: { "@lapismd/design-core": "^0.10.0" } },
+    },
+  };
+  for (const section of [
+    "dependencies",
+    "peerDependencies",
+    "devDependencies",
+  ]) {
+    const manifest = {
+      name: "@lapismd/consumer",
+      [section]: {
+        "@lapismd/mira": "catalog:",
+        "@lapismd/design-core": "catalog:ui",
+      },
+    };
+    assert.equal(
+      releaseIntent(manifest, manifest, options),
+      section === "devDependencies" ? null : manifest.name,
+    );
+    assert.equal(
+      releaseIntent(
+        { ...manifest, private: true },
+        { ...manifest, private: true },
+        options,
+      ),
+      null,
+    );
+  }
+});
 test("bot exemption uses PR authors, preserves human reruns and never skips functional lanes", () => {
   const env = {
     CI: "true",

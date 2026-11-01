@@ -5,11 +5,29 @@ import YAML from "yaml";
 import { firstParty } from "./policy.mjs";
 
 const sections = ["dependencies", "optionalDependencies", "peerDependencies"];
-export function releaseIntent(before, after, { versionPrivate = false } = {}) {
+export function releaseIntent(
+  before,
+  after,
+  { versionPrivate = false, workspaceBefore = {}, workspaceAfter = {} } = {},
+) {
   if (!after.name || (after.private && !versionPrivate)) return null;
+  const resolve = (values, workspace) =>
+    Object.fromEntries(
+      Object.entries(values ?? {}).map(([name, range]) => {
+        if (typeof range !== "string" || !range.startsWith("catalog:"))
+          return [name, range];
+        const catalog = range.slice(8);
+        return [
+          name,
+          catalog
+            ? workspace.catalogs?.[catalog]?.[name]
+            : workspace.catalog?.[name],
+        ];
+      }),
+    );
   const changed = sections.some((section) => {
-    const a = before[section] ?? {},
-      b = after[section] ?? {};
+    const a = resolve(before[section], workspaceBefore),
+      b = resolve(after[section], workspaceAfter);
     return new Set([...Object.keys(a), ...Object.keys(b)])
       .values()
       .some((name) => firstParty(name) && a[name] !== b[name]);
