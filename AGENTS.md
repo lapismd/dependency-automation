@@ -1,7 +1,9 @@
 # Dependency automation
 
 This private npm workspace owns cross-repository dependency update tooling,
-not application source, package publication, signing, merging, or deployment.
+not application source, package publication, signing, or deployment. Compatible
+dependency PRs may auto-merge only after CI succeeds and repository rules allow it;
+major and 0.x minor updates remain draft PRs for manual review.
 
 - Use Jujutsu and preserve unrelated work. Commit verified slices unsigned.
 - Keep all workflow actions and tools pinned. Default to dry-run mode.

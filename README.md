@@ -3,7 +3,9 @@
 Verified first-party npm releases wake a self-hosted Renovate runner. It reads
 active workspace manifests on each allowlisted repository's default branch,
 checks stable npm versions and their first-party prerequisites, and opens
-dependency PRs. There is no merge, publish, signing, or deployment operation.
+dependency PRs. Compatible updates auto-merge after successful CI and existing
+repository merge rules. Publication, signing and deployment retain their
+separate gates.
 
 The initial configuration is **pilot / dry-run / schedule disabled**. Creating
 the repository or merging its source does not enable dependency writes.
@@ -88,9 +90,14 @@ its own protected release pipeline; its publication approvals remain separate.
 
 ## Review policy
 
-Compatible updates refresh one rolling PR per repository. Each upstream family
-gets a separate draft PR for major or 0.x minor updates. Exact, caret and tilde
-styles remain intact. Existing peer support is retained; widening is proposed
+Compatible updates refresh one rolling PR per repository and auto-merge through
+Renovate on a later reconciliation after all reported checks succeed. Renovate
+must observe an up-to-date branch; existing review and merge requirements still
+apply. `platformAutomerge: false` and `ignoreTests: false` keep failed, pending,
+cancelled, or missing checks from being bypassed by native auto-merge.
+Each upstream family gets a separate draft PR with auto-merge explicitly
+disabled for major or 0.x minor updates. Exact, caret and tilde styles remain
+intact. Existing peer support is retained; widening is proposed
 only when a new version falls outside that support. Runtime cycles use lockfile
 updates for already-compatible ranges to avoid release loops.
 

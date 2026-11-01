@@ -28,6 +28,7 @@ export function repositoryConfig(repo, graph, automationRoot) {
       groupName: null,
       groupSlug: null,
       draftPR: true,
+      automerge: false,
     },
     {
       matchPackageNames: ["@lapismd/**", "@lapis-notes/**"],
@@ -36,6 +37,7 @@ export function repositoryConfig(repo, graph, automationRoot) {
       groupName: null,
       groupSlug: null,
       draftPR: true,
+      automerge: false,
     },
   ];
   for (const [name, versions] of Object.entries(graph.available)) {
@@ -62,6 +64,7 @@ export function repositoryConfig(repo, graph, automationRoot) {
       groupName: `Lapis ${family} compatibility`,
       groupSlug: `lapis-${family}-compatibility`,
       draftPR: true,
+      automerge: false,
     };
     packageRules.push({ ...rule, matchUpdateTypes: ["major"] });
     packageRules.push({
@@ -92,8 +95,11 @@ export function repositoryConfig(repo, graph, automationRoot) {
     pruneStaleBranches: false,
     onboarding: false,
     requireConfig: "ignored",
-    automerge: false,
+    automerge: true,
+    automergeType: "pr",
     platformAutomerge: false,
+    ignoreTests: false,
+    rebaseWhen: "behind-base-branch",
     ignoreUnstable: true,
     respectLatest: true,
     minimumReleaseAge: "0 days",
@@ -114,7 +120,7 @@ export function repositoryConfig(repo, graph, automationRoot) {
       fileFilters: [".changeset/lapis-dependencies-*.md"],
     },
     prBodyNotes: [
-      "First-party npm updates only. Runtime and peer manifest changes include release intent. Specification checks are exempt for the trusted dependency bot; functional checks remain required. Publication and merge require existing operator approval.",
+      "First-party npm updates only. Runtime and peer manifest changes include release intent. Specification checks are exempt for the trusted dependency bot; functional checks remain required. Compatible updates auto-merge only after CI succeeds and repository merge rules permit it. Major and 0.x minor updates remain draft PRs for manual review. Publication retains existing operator approval.",
     ],
   };
 }
