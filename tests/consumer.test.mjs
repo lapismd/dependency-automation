@@ -211,3 +211,37 @@ test("consumer integration is repeatable, preserves functional commands and keep
   assert.match(book.if, /lapismd-dependency-bot\[bot\]/);
   assert.equal(YAML.parse(after[3]).jobs.check.if, undefined);
 });
+
+test("Docs publish notifies dependency consumers from the same boundary as Tasks", async () => {
+  const root = await mkdtemp(join(tmpdir(), "lapis-docs-notify-"));
+  await mkdir(join(root, ".github/workflows"), { recursive: true });
+  await writeFile(
+    join(root, "package.json"),
+    JSON.stringify({ name: "@lapis-notes/lapis-plugin-docs", scripts: {} }),
+  );
+  await writeFile(
+    join(root, ".github/workflows/ci.yml"),
+    "name: CI\non:\n  push:\njobs:\n  publish:\n    runs-on: ubuntu-latest\n    steps:\n      - run: pnpm release:publish\n",
+  );
+  const ref = "b".repeat(40);
+  execFileSync(process.execPath, [
+    "scripts/prepare-consumer.mjs",
+    root,
+    "lapismd/lapis-plugin-docs",
+    ref,
+  ]);
+  const notify = YAML.parse(
+    await readFile(join(root, ".github/workflows/ci.yml"), "utf8"),
+  ).jobs["notify-dependencies"];
+  assert.deepEqual(notify.needs, ["publish"]);
+  assert.equal(notify.if, "always() && needs.publish.result == 'success'");
+  assert.equal(
+    notify.uses,
+    `lapismd/dependency-automation/.github/workflows/notify.yml@${ref}`,
+  );
+  assert.equal(notify.with["automation-ref"], ref);
+  assert.equal(
+    notify.secrets["app-private-key"],
+    "${{ secrets.LAPIS_DEPENDENCY_APP_PRIVATE_KEY }}",
+  );
+});
