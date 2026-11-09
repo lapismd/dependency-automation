@@ -164,7 +164,9 @@ for (const name of await readdir(workflowFolder)) {
     boundary = "publish";
   if (
     !boundary &&
-    repository === "lapismd/lapis-plugin-tasks" &&
+    ["lapismd/lapis-plugin-tasks", "lapismd/lapis-plugin-docs"].includes(
+      repository,
+    ) &&
     name === "ci.yml"
   )
     boundary = "publish";

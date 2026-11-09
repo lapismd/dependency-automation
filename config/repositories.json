@@ -15,6 +15,7 @@
     },
     { "repository": "lapismd/lapis-plugins", "phase": "pilot" },
     { "repository": "lapismd/lapis-plugin-tasks", "phase": "full" },
+    { "repository": "lapismd/lapis-plugin-docs", "phase": "full" },
     { "repository": "lapismd/lapis-plugin-notebook", "phase": "full" },
     {
       "repository": "lapismd/lapis-desktop",

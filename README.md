@@ -120,7 +120,7 @@ PRs install their exact candidate lockfile; a previous image digest is never
 relabelled as a build of the new dependency graph. Rust, Git revisions, container
 versions, and third-party dependency automation are not managed here.
 
-`lapis-plugin-docs` and deprecated `terminal-host` are excluded from this rollout.
+`lapis-plugin-docs` is included in the full rollout with the other standalone plugins. Deprecated `terminal-host` stays excluded.
 The terminal-host npm package is also ignored in remaining manifests, so stale
 Deno development declarations cannot keep that legacy release chain alive.
 Parked Deno desktop and server workspaces are excluded by workspace discovery.
