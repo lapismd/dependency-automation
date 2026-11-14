@@ -32,3 +32,24 @@ test("version PRs use scoped App authentication and retain the activation gate",
     if (step.uses) assert.match(step.uses, /@[a-f0-9]{40}$/);
   }
 });
+
+test("version preparation installs its Deno runtime before Changesets", async () => {
+  const workflow = YAML.parse(
+    await readFile(
+      new URL("../templates/version-packages.yml", import.meta.url),
+      "utf8",
+    ),
+  );
+  const steps = workflow.jobs.version.steps;
+  const runtime = steps.findIndex((step) =>
+    step.uses?.startsWith("denoland/setup-deno@"),
+  );
+  const version = steps.findIndex((step) =>
+    step.uses?.startsWith("changesets/action@"),
+  );
+  assert(
+    runtime >= 0 && runtime < version,
+    "Changesets 3 requires Deno on the runner PATH",
+  );
+  assert.equal(steps[runtime].with["deno-version"], "v2.9.7");
+});

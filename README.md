@@ -106,6 +106,9 @@ public runtime/peer contracts, or an empty Changeset where release-intent rules
 require it. Private application roots do not become publication targets.
 Repositories must complete Changesets onboarding before a runtime update can
 be written. Existing independently versioned plugin packages stay independent.
+Version preparation installs the pinned Deno runtime required by Changesets 3
+before invoking the CLI. This is separate from the Node-only specification
+validator and does not enable a consumer service.
 
 Trusted dependency-bot PRs and existing generated version PRs skip specification
 checks. The policy uses the PR author, not the person rerunning a job. Audits,
