@@ -1,5 +1,20 @@
 # Consolidated Lapis maintenance plan
 
+## Bot review context follow-up
+
+- Implemented: enrich native Renovate notes and the profile writer's managed
+  description with exact public-source evidence, honest CI qualification and
+  working review/recovery links. Native controls and maintainer text remain
+  intact; profile no-op runs remain GET-only. No new checkbox or rollout gate.
+- Qualified locally: the exact profile regression changed from 9 passing / 2
+  failing tests to zero failures; the combined message/profile suite passes all
+  20 tests and full `pnpm verify` passes all 106 tests and three specification
+  lanes. Actionlint, native Renovate configuration validation and the required
+  fresh GET-only public inventory pass. Complete native Notes and historical
+  profile examples were rendered without updating their live PR bodies; previews
+  and scan evidence remain untracked. Hosted source review and a future genuine
+  changed profile/dependency candidate remain separate deployment acceptance.
+
 ## Objective and authorization
 
 Reduce routine PRs, approval clicks, repeated builds and manual dependency

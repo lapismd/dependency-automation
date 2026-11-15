@@ -49,6 +49,17 @@ the single allowed post-upgrade command and explicit write activation.
 - General package scripts and unrestricted environment exposure MUST remain disabled.
 - Reconciliation MUST NOT prune stale branches automatically; wave mode adds explicit repair ownership.
 
+## DA-REC-005 — Native review context
+
+**Requirement.** Generated dependency PR notes MUST add bounded, escaped, public-source review context through Renovate's native `prBodyNotes`, preserving its package table, release notes, configuration, controls and metadata.
+
+### Acceptance details
+
+- Context MUST identify the exact consumer source and available wave observation/policy revision, discovered paths, compatibility and release-intent policy without claiming that earlier CI qualifies a later PR head.
+- Candidates and holds MUST be labelled as repository scan evidence, not the current PR diff; incomplete or absent wave/CI evidence MUST remain explicit.
+- The native rebase/retry checkbox MUST retain its native marker and meaning, with the next eligible coordinator run respecting source/manual-repair holds, current-head CI and repository protections; no unwired action checkbox MAY be added.
+- Updating an existing body MUST replace only one well-formed Lapis-managed section or the exact legacy Lapis note, leaving native bytes and maintainer additions intact; ambiguous sections MUST stop the update.
+
 ## Wave scheduling boundary
 
 The default flat matrix remains the rollback path. Explicit wave mode selects

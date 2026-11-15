@@ -1,3 +1,5 @@
+import { profileNotes, updateProfileBody } from "./pr-messages.mjs";
+
 const bots = new Set(["github-actions[bot]", "lapismd-dependency-bot[bot]"]);
 const branch = "automation/npm-status-refresh";
 const repository = "lapismd/.github";
@@ -82,7 +84,12 @@ export function validateProfile(before, after, packages) {
   return before !== after;
 }
 
-export async function publishProfile({ api, sourceSha, candidate }) {
+export async function publishProfile({
+  api,
+  sourceSha,
+  candidate,
+  now = new Date().toISOString(),
+}) {
   requireValue(/^[a-f0-9]{40}$/.test(sourceSha), "Invalid source revision");
   const main = () => api("git/ref/heads/main");
   requireValue(
@@ -166,6 +173,14 @@ export async function publishProfile({ api, sourceSha, candidate }) {
       head = existing.object.sha;
     }
   }
+  // Reject ambiguous managed text before any branch write. Ordinary identical
+  // candidates returned above remain GET-only, even with an old description.
+  const describe = (candidateSha, body = pr?.body ?? "") =>
+    updateProfileBody(
+      body,
+      profileNotes({ before, candidate, sourceSha, candidateSha, now }),
+    );
+  describe(sourceSha);
   const base = await api(`git/commits/${sourceSha}`);
   const tree = await api("git/trees", "POST", {
     base_tree: base.tree.sha,
@@ -209,7 +224,21 @@ export async function publishProfile({ api, sourceSha, candidate }) {
       head: branch,
       base: "main",
       title: "Refresh npm publication status and versions",
-      body: `Generated from public npm metadata using source ${sourceSha}. The coordinator App starts ordinary CI; publication credentials are unchanged.`,
+      body: describe(commit.sha),
     }));
+  if (pr && !legacy) {
+    // Read again after publication to retain prose added during preparation.
+    // Uncertain/invalid updates stop; no automatic write retry is permitted.
+    const current = await api(`pulls/${pr.number}`);
+    requireValue(
+      current.user?.login === pr.user.login &&
+        current.head?.repo?.full_name === repository &&
+        current.head?.sha === commit.sha,
+      "Profile review ownership changed; reconcile description manually",
+    );
+    const body = describe(commit.sha, current.body ?? "");
+    if (body !== current.body)
+      await api(`pulls/${pr.number}`, "PATCH", { body });
+  }
   return { state: "published", number: result.number, sha: commit.sha };
 }
