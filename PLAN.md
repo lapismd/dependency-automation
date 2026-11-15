@@ -144,9 +144,9 @@ migration is not complete and no reduction in approval clicks is claimed yet.
 
 - [x] Land and run the manual read-only App probe for .github, Plugins and Notes.
 - [x] Record installation or credential-access gaps without retrieving values.
-- [ ] Keep key use central; design the profile write worker around verified
+- [x] Keep key use central; design the profile write worker around verified
       originating workflows, source revisions, allowed files and expected diffs.
-- [ ] Qualify one App-authored profile PR starting CI without manual approval.
+- [x] Qualify one App-authored profile PR starting CI without manual approval.
 - [ ] Extend the qualified pattern to generated version PRs.
 
 The probe uses the existing coordinator secret, requests a token scoped to one
@@ -213,6 +213,34 @@ Maintenance main run 43752491073 passed both check and deployment; deployment
 7808718582 reports success for `8120ce8492114427dce1fee52e176775f2868f2c`.
 The public Pages entry point returned HTTP 200. Shared monitoring adoption is
 hosted-qualified; the remaining S4 wave, issue and action features are planned.
+
+The creator handover PR #10 merged as `93a6f54e`. Hosted pilot 43753392589
+passed and replaced the legacy PR with App-created lapismd/.github#11, head
+`77ff9bfe`. Its ordinary PR check 43753449724 passed without workflow approval;
+PR #11 merged as `11e8fdaa703ef18f7d0ea9e1cf8c8b71e2c376e8`. A repeat pilot
+43753589998 passed and returned `{"state":"unchanged"}` with no new PR.
+The old inherited head also received a later successful CI run 43753190173,
+so its initially missing run is not evidence of a persistent GitHub defect.
+
+The qualified workflow now has an hourly schedule gated by the explicit
+`LAPIS_PROFILE_REFRESH_ENABLED` repository variable. Keep the gate disabled
+until the schedule change lands; enabling it is part of this approved rollout.
+Manual dispatch remains available for recovery. Writer state remains confined
+to the existing rolling branch and PRs; no source key distribution is needed.
+
+Plugins version-PR authentication is locally qualified separately: the existing
+encrypted App key is already consumed by its successful release notification
+workflow. The migration scopes its PR writer to this repository, retains public
+eligibility and the existing version command, and pins action revisions. There
+are currently no pending eligible changesets; do not manufacture a package bump
+just to exercise the writer. Hosted migration/next eligible candidate acceptance
+will be recorded with the source PR.
+
+Source PR: https://github.com/lapismd/lapis-plugins/pull/140 (head `4e4a650b`).
+Local qualification passed 232 release-tooling tests, all three specification
+lanes, audit under the existing policy, actionlint and formatting. The original
+eligibility case and new authentication case both pass independently. Hosted
+CI remains pending; this does not claim a generated version PR has run yet.
 
 Rollback: remove the audit workflow/command and optional monitoring field;
 dependency reconciliation and publication retain their existing behavior.

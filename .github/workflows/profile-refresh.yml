@@ -1,6 +1,8 @@
 name: Refresh organization npm profile
 on:
   workflow_dispatch:
+  schedule:
+    - cron: "23 * * * *"
 permissions:
   contents: read
 concurrency:
@@ -8,7 +10,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   prepare:
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main' && (github.event_name != 'schedule' || vars.LAPIS_PROFILE_REFRESH_ENABLED == 'true')
     runs-on: ubuntu-latest
     timeout-minutes: 5
     outputs:
