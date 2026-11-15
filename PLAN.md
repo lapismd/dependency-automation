@@ -106,7 +106,7 @@ the individual consumer migration if validation fails; do not weaken checks.
 - [x] Confirm dependency App installation and narrow permissions.
 - [x] Record the full rollout plan before implementation.
 - [x] Implement and locally verify monitoring-only policy and authentication audit.
-- [ ] Confirm pilot repository installation/secret provisioning.
+- [x] Confirm pilot repository installation/secret provisioning through hosted probes.
 - [ ] Migrate and qualify .github profile-refresh pilot.
 - [ ] Migrate and qualify generated version PR consumers.
 - [ ] Adopt monitoring policy in Maintenance; audit final-check coverage.
@@ -142,8 +142,8 @@ migration is not complete and no reduction in approval clicks is claimed yet.
 
 ### S1b readiness and authentication migration
 
-- [ ] Land and run the manual read-only App probe for .github, Plugins and Notes.
-- [ ] Record installation or credential-access gaps without retrieving values.
+- [x] Land and run the manual read-only App probe for .github, Plugins and Notes.
+- [x] Record installation or credential-access gaps without retrieving values.
 - [ ] Keep key use central; design the profile write worker around verified
       originating workflows, source revisions, allowed files and expected diffs.
 - [ ] Qualify one App-authored profile PR starting CI without manual approval.
@@ -157,6 +157,19 @@ Local readiness validation: workflow-policy tests passed 4/4, the full suite
 passed 30/30, formatting and actionlint passed, and generated Renovate config
 validated (optional native RE2 fallback warning retained). Hosted probe results
 remain pending until the manual workflow lands on main.
+
+PR #8 merged as `cdd744cd`. Plugins probe 43751191293 and Notes probe
+43751193508 passed. Initial .github probe 43751188837 found an installation
+404 with both credentials available. The user added .github to the existing
+installation; rerun 43751406794 passed. All three pilots now have qualified
+read-only App access, without retrieving, copying or rotating any secret.
+
+Maintenance's monitoring-policy adapter is being qualified independently while
+the central profile PR writer is prepared. This is partial S4 adoption, not
+completion of the planned wave, issues or automation-history UI.
+Consumer PR: https://github.com/lapismd/lapis-maintenance/pull/6. Local
+qualification passed 188 unit tests, 18 browser tests, 175 Storybook scenarios,
+seven PWA checks, type checks, builds and specs. Hosted CI/Pages is pending.
 
 Rollback: remove the audit workflow/command and optional monitoring field;
 dependency reconciliation and publication retain their existing behavior.
