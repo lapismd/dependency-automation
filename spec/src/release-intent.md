@@ -40,3 +40,8 @@ Changeset writing to `src/changesets.mjs`.
 
 Changesets prepare versions. They do not authorize npm publication, signed
 archives, GitHub release assets or registry submission.
+
+DA-TOOL-003 adds a manifest/lock comparison after the existing scripts-disabled
+frozen install and before Changeset writes. New unqualified CLI adoption or
+incompatible cohort changes fail; unchanged legacy tooling is reported without
+forcing a consumer migration. Advisory policy and publication remain source-owned.

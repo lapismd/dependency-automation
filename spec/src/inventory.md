@@ -68,3 +68,10 @@ Workflow expectations honor exact changed-path and default-branch trigger
 filters; non-triggering image/deployment workflows are not invented missing
 checks, while unknown path coverage remains fail-closed and every observed
 current workflow still participates in qualification.
+
+Tooling observations follow DA-TOOL-002. Production discovery includes root
+lock evidence and records the exact source SHA with cohort findings. Those
+observations neither add update targets nor turn missing evidence into success.
+Reviewed Node CLI bytes remain distinct from whole-recipe capability. Root
+Deno formatter declarations are reported as requiring source qualification,
+not proof that a generic Node-only contract may replace an existing runtime.

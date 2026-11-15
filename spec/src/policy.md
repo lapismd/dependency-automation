@@ -52,3 +52,7 @@ coverage holds without widening credentials or revealing source names/bodies.
 
 Monitoring token detection includes Changesets' explicit `github-token` input;
 this classification does not expand dependency targets or installation scope.
+The separate config/tooling.json contract follows DA-TOOL-001 through
+DA-TOOL-003. Its repository-specific cohorts describe tooling rather than
+dependency edges or permissions. It cannot add advisory exceptions,
+change rollout phases, enable writes or activate excluded hosts.

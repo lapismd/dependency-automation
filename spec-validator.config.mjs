@@ -40,6 +40,11 @@ export default defineConfig(headingRequirements(), {
       rules: [
         {
           pattern:
+            "^src/tooling\\.mjs$|^config/tooling\\.json$|^scripts/qualify-tooling\\.mjs$",
+          chapters: ["spec/src/tooling.md"],
+        },
+        {
+          pattern:
             "^src/wave(?:s|-evidence|-state)\\.mjs$|^scripts/(?:wave-state|validate-wave-target)\\.mjs$",
           chapters: ["spec/src/waves.md"],
         },

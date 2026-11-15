@@ -47,9 +47,12 @@ version PRs; it does not publish them.
 - First-party version-update ignores MAY prevent duplicate version PRs while the coordinator owns those scopes.
 - Newly supplied PR pipelines MUST invoke the repository's existing validation commands with read-only authority.
 
-## Current runtime and remaining migration
+## Versioning runtime qualification
 
-The retained onboarding template currently selects Changesets 3 and installs
-its pinned Deno runtime. This is existing consumer tooling, not the coordinator
-or specification runtime. The Deno-free versioning/cohort migration remains
-planned in the rollout; this book does not claim it is complete.
+DA-TOOL-001 governs the generated Node-only versioning contract. Onboarding
+preserves a supported existing CLI major and copies its exact runtime guard.
+Onboarding must refuse to overwrite a different source-owned version recipe;
+that consumer requires explicit source integration.
+The version-only template validates the installed CLI before App minting and
+does not install Deno. Notes' separate frozen-host prerequisites remain owned by
+Notes; no consumer migration is implied by this upstream template correction.

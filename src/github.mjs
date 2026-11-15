@@ -172,7 +172,7 @@ export async function discoverRepository(entry, options = {}) {
       info.private === false || info.visibility === "public"
         ? "public"
         : "unknown",
-    ...(options.waveEvidence
+    ...(options.waveEvidence || options.toolingEvidence
       ? {
           lock: paths.includes("pnpm-lock.yaml")
             ? YAML.parse(await file("pnpm-lock.yaml"))
@@ -181,6 +181,13 @@ export async function discoverRepository(entry, options = {}) {
       : {}),
     defaultBranch: info.default_branch,
     packageManager: root.packageManager,
+    ...(options.toolingEvidence
+      ? {
+          toolingInputs: paths.filter((path) =>
+            ["deno.json", "deno.jsonc"].includes(path),
+          ),
+        }
+      : {}),
     manifests,
     workspace,
     nonPortable,

@@ -68,7 +68,7 @@ Link PRs and evidence here; do not turn a local test into a rollout claim.
 | S3 Coordinate dependency/release waves    | dependency-automation             | Planned     | Idempotent upstream-to-downstream progress with explicit blockers        |
 | S4 Maintenance integration                | lapis-maintenance                 | Planned     | One UI explains waves, issues, actions and exceptions                    |
 | S5 Release/registry batching and recovery | publishers + plugin-registry      | Planned     | Batches preserve signing and resume failed publication safely            |
-| S6 Deno-free tooling and drift prevention | dependency-automation + consumers | Planned     | Supported tooling cohort cannot silently drift                           |
+| S6 Deno-free tooling and drift prevention | dependency-automation + consumers | In progress | Supported tooling cohort cannot silently drift                           |
 
 ## S1: shared policy and trusted PR authentication
 
@@ -479,7 +479,7 @@ without repeating completed qualification or publishing duplicate releases.
 ## S6: tooling and drift control
 
 1. Select and qualify a supported Deno-free versioning contract. Audit CLI API and
-   command compatibility before replacing Changesets 3 or its Deno installer.
+   command compatibility before removing runtime setup or changing CLI majors.
 2. Migrate templates and active consumers together; leave excluded hosts alone.
 3. Keep Storybook/Playwright/Vitest as tested compatibility cohorts. Assign a
    single owner to each first/third-party update class; retain security coverage.
@@ -491,6 +491,39 @@ without repeating completed qualification or publishing duplicate releases.
 Verify a fresh generated consumer without Deno, expected version/release output,
 real consumer acceptance and expired/mismatched exception rejection. Do not
 introduce package patches or disable audits to make migration pass.
+
+### S6a source foundation — 2026-11-15
+
+- [x] Verify official registry metadata, tarball integrity and upstream executable bytes for Changesets 2.31.1 and 3.0.3; both are Node-only, correcting the earlier Deno requirement assumption.
+- [x] Execute fresh generated Prettier-only consumers on Node 24 without Deno for both CLI majors; prove the Deno-config coexistence negative and block it before App minting rather than force another formatter.
+- [x] Add central source-observed cohorts for six repositories, explicit missing coverage, and production candidate rejection before release-intent writes.
+- [x] Preserve existing CLI majors and refuse to overwrite source-owned version recipes; remove redundant Deno only from the upstream version template.
+- [ ] Qualify hosted source checks and operator-reviewed deployment.
+- [ ] Adopt and qualify the guard in active consumers, including AI Controller's currently Deno-required formatter/task boundary and Notes' separate portable/frozen setup boundary; no installer removal without whole-recipe proof.
+- [ ] Implement central required-check, runtime-exclusion, activation and deployed-template/pin drift coverage.
+- [ ] Implement exact source-authoritative advisory/path/version/source/artifact/expiry policy with expired and mismatched rejection.
+- [ ] Qualify all remaining tool cohorts and source/consumer tuples; S6 is not complete.
+
+See [the exact-source tooling rollout inventory and runbook](docs/tooling-rollout.md).
+Local qualification: the original missing-module target failed once; the
+repaired tooling tests pass 11/11 and pnpm verify passes 91/91 plus all three
+spec lanes. Both explicit qualify-tooling commands pass on Node 24.19.0,
+including Prettier-only mutation and the CLI 3 Deno-config negative. Actionlint
+and generated Renovate validation pass; optional native RE2 uses its existing
+RegExp fallback. Doctor and semantic QMD discovery pass. Hosted qualification
+and consumer adoption remain pending.
+The read-only inventory remains 19 repositories, 43 owners, 220 edges, zero
+cycles and zero coverage holds. Fifteen resolved Changesets CLIs match the two
+reviewed Node contracts; thirteen repository cohorts are still unconfigured.
+The coordinator's unchanged Renovate graph has one LOW and four MODERATE
+instances across deepmerge, glob and minimatch advisories; the runbook retains
+their exact IDs and paths. No waiver or clean full-audit claim is introduced.
+
+Current parent operator checkpoint: writes=false, phase=pilot, waves=true,
+schedule=true and wave-state writes absent/off. Hosted read-only pilot
+43769439228 was queued on main 519e6cd9; its later receipt belongs to the parent.
+These current settings supersede old flat-mode settings as a live claim, while
+the earlier dated records remain historical. This slice changes no activation.
 
 ## Measurement and completion
 
@@ -533,9 +566,11 @@ not completion claims for all six slices.
   gates, successful promotion and repeated warm/no-op acceptance remain pending.
 - **S3:** PR16 merged as `519e6cd9efc5c8bd6de920d4bcf2acdff1c30792`,
   implementing production wave admission and durable public-safe state behind
-  disabled new gates. All 80 tests and three spec lanes pass; PR and main check
+  default-off new gates. All 80 tests and three spec lanes pass; PR and main check
   43768772692 succeeded. Reviewed public state, real foundation-wave/replay and
-  rollout activation remain pending; existing flat-mode settings are unchanged.
+  write activation remain pending. The later read-only cutover enables waves
+  and schedule with writes=false/phase=pilot and state writes absent/off;
+  see the S6a operator checkpoint for its queued hosted receipt.
 - **S4:** Maintenance7 merged at
   `4b65439b34153e284eb6dadbb6e7ac7178650d23`; main check and Pages deployment
   run43765876743 succeeded, and the public entry point returned HTTP200.

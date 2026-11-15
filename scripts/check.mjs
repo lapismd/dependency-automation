@@ -3,7 +3,23 @@ import { readdir, readFile } from "node:fs/promises";
 import { join } from "node:path";
 import YAML from "yaml";
 import { loadAllowlist } from "../src/github.mjs";
+import { loadToolingPolicy } from "../src/tooling.mjs";
 await loadAllowlist();
+await loadToolingPolicy();
+const versionTemplate = YAML.parse(
+  await readFile("templates/version-packages.yml", "utf8"),
+);
+const versionSteps = versionTemplate.jobs.version.steps;
+if (
+  versionSteps.some((step) => step.uses?.startsWith("denoland/")) ||
+  !versionSteps.some(
+    (step) =>
+      step.run === "node scripts/dependency-automation/versioning-contract.mjs",
+  )
+)
+  throw Error(
+    "Version template must retain the reviewed Node-only runtime guard",
+  );
 for (const dir of ["src", "scripts", "templates", "tests"]) {
   for (const file of await readdir(dir))
     if (file.endsWith(".mjs"))

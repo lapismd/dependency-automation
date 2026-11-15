@@ -1,8 +1,10 @@
 import { execFileSync } from "node:child_process";
 import { readFile, writeFile } from "node:fs/promises";
+import { assertVersioningRuntime } from "./versioning-contract.mjs";
 
 // Only prepares source versions and the lockfile. Publication is deliberately
 // absent; the existing operator-owned publication workflow remains authority.
+await assertVersioningRuntime();
 execFileSync("pnpm", ["exec", "changeset", "version"], { stdio: "inherit" });
 const pkg = JSON.parse(await readFile("package.json", "utf8"));
 try {
