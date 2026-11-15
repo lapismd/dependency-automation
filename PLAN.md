@@ -240,7 +240,12 @@ Source PR: https://github.com/lapismd/lapis-plugins/pull/140 (head `4e4a650b`).
 Local qualification passed 232 release-tooling tests, all three specification
 lanes, audit under the existing policy, actionlint and formatting. The original
 eligibility case and new authentication case both pass independently. Hosted
-CI remains pending; this does not claim a generated version PR has run yet.
+PR CI 43753844810 passed every applicable lane, including all four Storybook
+shards, static Storybook, release artifacts and the final validator. PR #140
+merged as `46fab6d8c4de28d5a4121b7e90a060210c4ab265`. Main version workflow
+43755294462 passed and correctly found no eligible changeset. This qualifies
+deployment and the empty-release path; a real generated candidate remains
+pending. Notes and the remaining eligible version consumers still need migration.
 
 Schedule PR #11 passed check 43754016968 and merged as `457c4ed3`.
 `LAPIS_PROFILE_REFRESH_ENABLED=true` was set through `gh variable set` and
@@ -279,8 +284,9 @@ until both consumers qualify; rollback must still install the candidate graph.
 - [x] Inspect shared-image and Plugins dependency-context contracts.
 - [x] Implement reusable dependency-only input identity/receipt helper in Lapis CI.
 - [x] Qualify the standalone helper and actual Plugins context locally.
-- [ ] Merge/qualify shared helper: https://github.com/lapismd/lapis-ci/pull/2.
-- [ ] Add attested producer and verified immutable-digest resolver.
+- [x] Merge/qualify shared helper: https://github.com/lapismd/lapis-ci/pull/2.
+- [ ] Qualify verified immutable-digest resolver: https://github.com/lapismd/lapis-ci/pull/3.
+- [ ] Add the source-owned attested producer and staging-to-identity promotion.
 - [ ] Migrate/qualify Plugins, then Notes, including cache-miss frozen installs.
 - [ ] Remove obsolete pin producers and superseded bot PRs after acceptance.
 
@@ -299,9 +305,30 @@ GitHub outputs. Plugins' real `prepareCiDependencyContext` output passed the
 same acceptance command with 29 files and identity
 `sha256:7e3e60b15a059a7926107cb7fc8bd278f862e2a0c654ca978e3cfabe4642f7c1`.
 Its public patch README initially exposed one acceptance failure; explicitly
-allowing and hashing that data repaired the exact command. Hosted CI is pending.
+allowing and hashing that data repaired the exact command. Hosted CI 43754667449
+passed its native image build and smoke gate. PR #2 merged as `982b122a`.
 No image contents, digest pins, producers or consumer workflows have changed in
 this foundation slice; it does not yet reduce image-pin PRs.
+
+### S2 resolver qualification in progress
+
+Lapis CI PR #3 adds the shared read-only resolver. It derives current inputs
+itself, resolves a full-identity lookup tag to an immutable multi-architecture
+index, verifies GitHub's signed producer identity and compares the complete
+input receipt. Subject digest, both platform descriptors, main workflow, hosted
+runner and certificate-bound source commit must agree. Invalid signatures or
+provenance fail; known cache/service outages use the reviewed base image for
+the source's unconditional candidate frozen install. No signing key or App
+writer is used by the resolver.
+
+The focused target initially failed once for its missing module, then passed
+18/18. `pnpm verify` passes 29/29 repository tests. Formatter passed. A real
+read-only GHCR lookup for Plugins' 29-file identity returned `miss` and its
+reviewed base digest. CLI policy/schema details were checked against the
+supported GitHub CLI/Sigstore sources. Hosted helper CI, positive custom
+attestation publication and actual source cold/warm execution remain pending.
+The producer must attest its staging digest before promoting the full identity
+tag, so incomplete publication cannot advertise an unverified cache entry.
 
 ## S3: dependency and release waves
 
