@@ -1,5 +1,7 @@
 # LapisMD dependency automation
 
+[![Specification](https://img.shields.io/badge/specification-live-2563eb)](https://lapismd.github.io/dependency-automation/)
+
 The [canonical specification](spec/src/index.md) describes current functionality,
 authority boundaries and [workflow/module wiring](spec/src/wiring.md). Its
 [published book](https://lapismd.github.io/dependency-automation/) is built from
