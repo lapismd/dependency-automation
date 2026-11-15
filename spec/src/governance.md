@@ -31,7 +31,7 @@ QMD search is discovery; the returned canonical file remains authoritative.
 
 ### Acceptance details
 
-- Local checks MUST use the Jujutsu diff; CI MUST inspect its complete source range.
+- Local checks MUST use Jujutsu when available and Git otherwise; CI MUST inspect its complete source range.
 - Tests and generated artifacts MUST NOT stand in for owning chapter changes.
 - Maintainers MUST run `pnpm spec:search` before broad canonical scans; conceptual queries MAY use `--semantic`.
 - `spec-validator doctor` and QMD checks MUST verify host wiring without entering CI's network-independent canonical checks.
