@@ -50,6 +50,16 @@ governed by DA-DOC-002. Canonical source remains under `spec/src`.
 - Only committed specification source MAY determine the public book.
 - Secrets, tokens, private API bodies and live report snapshots MUST NOT be copied into the book or its artifact.
 
+## DA-GOV-005 — Patched worker dependency resolutions
+
+**Requirement.** The coordinator MUST use patched glob and minimatch resolutions while preserving the reviewed Renovate worker's file-selection and cleanup contracts.
+
+### Acceptance details
+
+- Installed direct and transitive resolutions MUST use glob at least 14.0.2 and minimatch at least 11.0.1 for GHSA-3g3m-2fjr-6pw4 and GHSA-g3hv-75wg-m249 respectively.
+- Compatibility tests MUST exercise the actual Renovate matcher and the resolved glob/rimraf selection and bounded-cleanup behavior.
+- Other audit findings MUST remain visible without inheriting waivers from another repository or release.
+
 ## Source change map
 
 `spec-validator.config.mjs` is executable authority for path classification.

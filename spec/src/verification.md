@@ -35,6 +35,7 @@
 | DA-GOV-002  | Implemented | Single-ID matrix and original missing-row rejection; complete local/hosted spec validation passed.                                        |
 | DA-GOV-003  | Implemented | Mapped source negative probe, doctor 11/11, actual QMD search and main spec-first acceptance.                                             |
 | DA-GOV-004  | Implemented | Ignore rules, book-only artifact regression and deployed output; public operational-report paths return 404.                              |
+| DA-GOV-005  | In progress | Installed floors and API compatibility: `tests/renovate-runtime.test.mjs`; hosted checks pending.                                         |
 | DA-DOC-001  | Implemented | Released Node validator, pinned mdBook, 42 tests and all three spec lanes; Pages book job 43759765158 passed.                             |
 | DA-DOC-002  | Implemented | Main-only isolated deployment 7809666306 succeeded; all indexed chapters, navigation, CSS and JavaScript read back over HTTPS.            |
 | DA-WAVE-001 | Implemented | 80-test source qualification, wave/evidence/CAS regressions and production admission wiring; hosted pilot pending.                        |
