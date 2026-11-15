@@ -7,7 +7,7 @@ on:
         required: true
         default: .github
         type: choice
-        options: [.github, lapis-plugins, lapis-notes]
+        options: [.github, lapis-plugins, lapis-notes, lapis-ai, lapis-server]
 permissions:
   contents: read
 jobs:
@@ -25,7 +25,7 @@ jobs:
         run: |
           set -euo pipefail
           case "$TARGET_NAME" in
-            .github|lapis-plugins|lapis-notes) ;;
+            .github|lapis-plugins|lapis-notes|lapis-ai|lapis-server) ;;
             *) echo '::error::Target is outside the reviewed pilot scope.'; exit 1 ;;
           esac
           if [[ "$HAS_APP_KEY" != true || "$HAS_APP_ID" != true ]]; then

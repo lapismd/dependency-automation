@@ -32,7 +32,7 @@ workflow YAML. It is not a complete call-graph or workflow-security analysis.
 
 ### Acceptance details
 
-- The pilot choice MUST remain constrained to the reviewed repositories.
+- The pilot choice MUST remain constrained to `.github`, `lapis-plugins`, `lapis-notes`, `lapis-ai` and `lapis-server`.
 - The token's installation scope MUST contain exactly that repository.
 - Repository and PR reads MUST succeed without changing branches, PRs, reviews, settings or secrets.
 - Successful reads MUST NOT be reported as proof of write readiness.
