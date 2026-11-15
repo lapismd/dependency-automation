@@ -68,7 +68,7 @@ function fixture({
             {
               number: 9,
               head: { sha: head, repo: { full_name: "lapismd/.github" } },
-              user: { login: "github-actions[bot]" },
+              user: { login: "lapismd-dependency-bot[bot]" },
             },
           ];
     if (path.startsWith("compare/"))
@@ -101,6 +101,7 @@ function fixture({
     if (path.startsWith("git/refs/")) return {};
     if (path === "git/refs") return {};
     if (path === "pulls") return { number: 10 };
+    if (path === "pulls/9") return {};
     throw Error(`Unexpected API call ${method} ${path}`);
   };
   return { api, calls, sourceSha: main, candidate: after };
@@ -126,6 +127,26 @@ test("rolling profile update preserves history and uses a fast-forward ref write
   assert.deepEqual(commit.body.parents, ["b".repeat(40), "a".repeat(40)]);
   const ref = f.calls.find((c) => c.method === "PATCH");
   assert.equal(ref.body.force, false);
+});
+
+test("legacy token-created PR is replaced once after a validated branch update", async () => {
+  const f = fixture({ duplicate: true });
+  const original = f.api;
+  f.api = async (path, ...args) => {
+    const result = await original(path, ...args);
+    if (path.startsWith("pulls?state=open"))
+      result[0].user.login = "github-actions[bot]";
+    return result;
+  };
+  assert.equal((await publishProfile(f)).number, 10);
+  const closeIndex = f.calls.findIndex((c) => c.path === "pulls/9");
+  assert(
+    f.calls.findIndex(
+      (c) => c.path.startsWith("git/refs/") && c.method === "PATCH",
+    ) < closeIndex,
+  );
+  assert.deepEqual(f.calls[closeIndex].body, { state: "closed" });
+  assert(f.calls.findIndex((c) => c.path === "pulls") > closeIndex);
 });
 
 test("a retained branch is reused only at an exactly matched merged bot PR", async () => {

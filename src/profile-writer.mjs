@@ -137,6 +137,7 @@ export async function publishProfile({ api, sourceSha, candidate }) {
     requireValue(existing.encoding === "base64", "Unsupported branch encoding");
     if (
       Buffer.from(existing.content, "base64").toString("utf8") === candidate &&
+      pr.user.login === "lapismd-dependency-bot[bot]" &&
       comparison.status === "ahead" &&
       comparison.commits.at(-1).author.login === "lapismd-dependency-bot[bot]"
     )
@@ -197,8 +198,13 @@ export async function publishProfile({ api, sourceSha, candidate }) {
       sha: commit.sha,
     });
   }
+  // Complete the one-time creator handover so qualification includes an
+  // App-created PR, after validating and updating the legacy PR's head.
+  // Closing/replacing keeps the branch history and leaves ordinary CI intact.
+  const legacy = pr?.user.login === "github-actions[bot]";
+  if (legacy) await api(`pulls/${pr.number}`, "PATCH", { state: "closed" });
   const result =
-    pr ??
+    (legacy ? undefined : pr) ??
     (await api("pulls", "POST", {
       head: branch,
       base: "main",
