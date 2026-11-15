@@ -51,6 +51,14 @@ no App key. Findings do not fail the run; missing coverage does.
 
 ## GitHub App setup
 
+The manual **Verify maintenance App readiness** workflow probes one explicit
+pilot (`.github`, Plugins or Notes) using the coordinator's existing encrypted
+credentials. It requests only repository/PR read access, verifies the token is
+restricted to that repository and reports readiness without changing targets.
+Run it on `main`; no secret value must be retrieved or copied. Failure to mint a
+token means installation/credential setup needs inspection. Successful reads do
+not prove write readiness; that is established by the subsequent reviewed pilot.
+
 Create a GitHub App owned by `lapismd`, named
 `lapismd-dependency-bot` (or set `LAPIS_DEPENDENCY_BOT_LOGIN` in consumers).
 Choose **Any account** (public registration), so the same App can be installed

@@ -136,7 +136,27 @@ migration is not complete and no reduction in approval clicks is claimed yet.
 - Authenticated read-only `pnpm inventory`: 19 repositories, 43 package owners,
   220 edges, zero runtime cycles. Desktop's unpublished dependency/hold remains.
 - Reports are ignored local artifacts under `reports/`; hosted reports have
-  14-day retention. The new workflow requires hosted qualification after landing.
+  14-day retention. PR #7 merged as `7a0110219fd7f4eec24ad2294b7635807e2e8e97`.
+  Main CI run 43747651889 and hosted audit run 43747653779 both passed; artifact
+  14174058961 proves report upload. S1a is hosted-qualified.
+
+### S1b readiness and authentication migration
+
+- [ ] Land and run the manual read-only App probe for .github, Plugins and Notes.
+- [ ] Record installation or credential-access gaps without retrieving values.
+- [ ] Keep key use central; design the profile write worker around verified
+      originating workflows, source revisions, allowed files and expected diffs.
+- [ ] Qualify one App-authored profile PR starting CI without manual approval.
+- [ ] Extend the qualified pattern to generated version PRs.
+
+The probe uses the existing coordinator secret, requests a token scoped to one
+explicit repository with read-only contents/PR permissions, and performs GETs
+only. It does not prove write readiness or alter App installation/settings.
+
+Local readiness validation: workflow-policy tests passed 4/4, the full suite
+passed 30/30, formatting and actionlint passed, and generated Renovate config
+validated (optional native RE2 fallback warning retained). Hosted probe results
+remain pending until the manual workflow lands on main.
 
 Rollback: remove the audit workflow/command and optional monitoring field;
 dependency reconciliation and publication retain their existing behavior.

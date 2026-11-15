@@ -1,0 +1,62 @@
+name: Verify maintenance App readiness
+on:
+  workflow_dispatch:
+    inputs:
+      repository:
+        description: Explicit pilot repository to inspect without modifying it
+        required: true
+        default: .github
+        type: choice
+        options: [.github, lapis-plugins, lapis-notes]
+permissions:
+  contents: read
+jobs:
+  readiness:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      TARGET_NAME: ${{ inputs.repository }}
+      HAS_APP_KEY: ${{ secrets.LAPIS_DEPENDENCY_APP_PRIVATE_KEY != '' }}
+      HAS_APP_ID: ${{ vars.LAPIS_DEPENDENCY_APP_CLIENT_ID != '' }}
+    steps:
+      - name: Validate pilot and existing credential availability
+        shell: bash
+        run: |
+          set -euo pipefail
+          case "$TARGET_NAME" in
+            .github|lapis-plugins|lapis-notes) ;;
+            *) echo '::error::Target is outside the reviewed pilot scope.'; exit 1 ;;
+          esac
+          if [[ "$HAS_APP_KEY" != true || "$HAS_APP_ID" != true ]]; then
+            echo '::error::Existing App credentials are unavailable to the coordinator. Check the configured variable and secret access; no secret value needs to be retrieved.'
+            exit 1
+          fi
+      - name: Mint read-only token for one pilot repository
+        id: app
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3
+        with:
+          client-id: ${{ vars.LAPIS_DEPENDENCY_APP_CLIENT_ID }}
+          private-key: ${{ secrets.LAPIS_DEPENDENCY_APP_PRIVATE_KEY }}
+          owner: lapismd
+          repositories: ${{ inputs.repository }}
+          permission-contents: read
+          permission-pull-requests: read
+      - name: Verify repository scope and read access
+        env:
+          GH_TOKEN: ${{ steps.app.outputs.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          expected="lapismd/$TARGET_NAME"
+          gh api --method GET installation/repositories |
+            jq -e --arg expected "$expected" '.total_count == 1 and .repositories[0].full_name == $expected' >/dev/null
+          gh api --method GET "repos/$expected" --jq '{repository:.full_name,defaultBranch:.default_branch}'
+          gh api --method GET "repos/$expected/pulls?state=open&per_page=1" --jq 'length' >/dev/null
+          {
+            echo '## Maintenance App readiness'
+            echo "Repository: $expected"
+            echo 'Existing credentials available; token restricted to this repository; repository and PR reads succeeded.'
+            echo 'Token requested read-only access. No branches, PRs, reviews, settings or secrets were changed.'
+            echo 'This verifies read readiness only; the write pilot still requires qualification.'
+          } >> "$GITHUB_STEP_SUMMARY"
