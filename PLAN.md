@@ -64,7 +64,7 @@ Link PRs and evidence here; do not turn a local test into a rollout claim.
 | Slice                                     | Owner                             | Status      | Exit condition                                                           |
 | ----------------------------------------- | --------------------------------- | ----------- | ------------------------------------------------------------------------ |
 | S1 Policy and trusted PR authentication   | dependency-automation + consumers | In progress | Routine trusted PRs start CI; monitoring does not grant update authority |
-| S2 Remove dependency-image pin churn      | lapis-ci + Plugins, then Notes    | Planned     | Normal lockfile bumps generate zero image-pin PRs                        |
+| S2 Remove dependency-image pin churn      | lapis-ci + Plugins, then Notes    | In progress | Normal lockfile bumps generate zero image-pin PRs                        |
 | S3 Coordinate dependency/release waves    | dependency-automation             | Planned     | Idempotent upstream-to-downstream progress with explicit blockers        |
 | S4 Maintenance integration                | lapis-maintenance                 | Planned     | One UI explains waves, issues, actions and exceptions                    |
 | S5 Release/registry batching and recovery | publishers + plugin-registry      | Planned     | Batches preserve signing and resume failed publication safely            |
@@ -155,8 +155,8 @@ only. It does not prove write readiness or alter App installation/settings.
 
 Local readiness validation: workflow-policy tests passed 4/4, the full suite
 passed 30/30, formatting and actionlint passed, and generated Renovate config
-validated (optional native RE2 fallback warning retained). Hosted probe results
-remain pending until the manual workflow lands on main.
+validated (optional native RE2 fallback warning retained). The hosted probes
+below qualified that local boundary after the workflow landed.
 
 PR #8 merged as `cdd744cd`. Plugins probe 43751191293 and Notes probe
 43751193508 passed. Initial .github probe 43751188837 found an installation
@@ -171,7 +171,7 @@ Consumer PR: https://github.com/lapismd/lapis-maintenance/pull/6. Local
 qualification passed 188 unit tests, 18 browser tests, 175 Storybook scenarios,
 seven PWA checks, type checks, builds and specs. Hosted PR check 43752014387
 passed and PR #6 merged as `8120ce8492114427dce1fee52e176775f2868f2c`.
-Main/Pages run 43752491073 is pending.
+Main/Pages qualification is recorded below.
 
 The central profile pilot uses separate generation and publication jobs.
 Generation executes the source-owned `.github` updater with read-only access
@@ -183,9 +183,9 @@ updates preserve history with fast-forward-only ref writes; identical pending
 candidates perform no writes. An orphaned branch after an uncertain PR write
 needs reconciliation rather than automatic overwrite.
 
-The workflow is manual-only. Before its first dispatch, retire the old `.github`
-hourly writer through a source PR, retaining updater tests. Qualify the rolling
-PR with App-authored CI before enabling the coordinator schedule. The focused
+The initial pilot was manual-only. The old `.github` hourly writer was retired
+through a source PR, retaining updater tests, before the first dispatch.
+App-authored CI qualified the rolling PR before schedule activation. The focused
 regression started with one failed module target; repaired writer tests pass
 8/8 and combined workflow tests pass 13/13. Retained branches are reusable only
 when their exact head belongs to a merged bot PR; uncertain orphan branches
@@ -242,6 +242,13 @@ lanes, audit under the existing policy, actionlint and formatting. The original
 eligibility case and new authentication case both pass independently. Hosted
 CI remains pending; this does not claim a generated version PR has run yet.
 
+Schedule PR #11 passed check 43754016968 and merged as `457c4ed3`.
+`LAPIS_PROFILE_REFRESH_ENABLED=true` was set through `gh variable set` and
+read back successfully. The original source writer is retired; the coordinator
+is the sole scheduled producer. The ordinary PR check, separate writer identity,
+branch-history guards and no-op replay were all hosted-qualified before this
+activation. The next hourly firing remains a rollout observation.
+
 Rollback: remove the audit workflow/command and optional monitoring field;
 dependency reconciliation and publication retain their existing behavior.
 
@@ -266,6 +273,35 @@ Validate cold/warm/cache-missing paths, mismatched identity and provenance,
 both architectures, functional lanes and local/hosted parity. A normal lockfile
 update must create no follow-up image-pin PR. Retain the old resolver for rollback
 until both consumers qualify; rollback must still install the candidate graph.
+
+### S2 progress — shared input identity
+
+- [x] Inspect shared-image and Plugins dependency-context contracts.
+- [x] Implement reusable dependency-only input identity/receipt helper in Lapis CI.
+- [x] Qualify the standalone helper and actual Plugins context locally.
+- [ ] Merge/qualify shared helper: https://github.com/lapismd/lapis-ci/pull/2.
+- [ ] Add attested producer and verified immutable-digest resolver.
+- [ ] Migrate/qualify Plugins, then Notes, including cache-miss frozen installs.
+- [ ] Remove obsolete pin producers and superseded bot PRs after acceptance.
+
+The old Plugins tag includes only a truncated lockfile hash, while its actual
+build context also reads a Dockerfile, manifests, workspace configuration and
+patches. The new helper binds all permitted context bytes, paths, file/directory
+modes, shared toolchain digest and both platforms. Its lookup tag uses the full
+SHA-256. Source repositories still own context assembly and dependency layers.
+Hidden configuration/secrets, source scripts, installed packages, symlinks and
+incomplete contexts fail closed; no new Deno tooling is introduced.
+
+Lapis CI head `5bfddfc6` passes `pnpm verify` (11/11 tests) and formatting.
+The focused missing-module target initially failed once, then passed 4/4 after
+implementation. Standalone CLI acceptance checks out-of-context receipts and
+GitHub outputs. Plugins' real `prepareCiDependencyContext` output passed the
+same acceptance command with 29 files and identity
+`sha256:7e3e60b15a059a7926107cb7fc8bd278f862e2a0c654ca978e3cfabe4642f7c1`.
+Its public patch README initially exposed one acceptance failure; explicitly
+allowing and hashing that data repaired the exact command. Hosted CI is pending.
+No image contents, digest pins, producers or consumer workflows have changed in
+this foundation slice; it does not yet reduce image-pin PRs.
 
 ## S3: dependency and release waves
 
