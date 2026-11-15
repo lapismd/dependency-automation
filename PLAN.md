@@ -508,3 +508,45 @@ For each slice append commit/PR links, exact commands and pass/failure counts,
 hosted run IDs, deployment/registry receipts, remaining gaps and rollback status.
 Update checkboxes only after the named boundary is proven. Do not equate zero
 open PRs with no unresolved issues or unfinished releases.
+
+## November 15 rollout checkpoint
+
+The following are qualified source/deployment results and pending acceptance,
+not completion claims for all six slices.
+
+- **S1:** Profile consolidation is hosted-qualified. Plugins version authentication
+  is merged; Notes' merged version job passed App minting and Changesets on main.
+  Visual Delta authentication PR77 merged after all eight hosted checks passed,
+  with no dependency or release change. Mira41, Core85, AI13 and Server92 are
+  reviewable source PRs awaiting hosted qualification; remaining version writers
+  are being migrated separately. AI/Server's genuinely missing App configuration
+  was provisioned from the operator-authorized existing key, and installation
+  probes proved exact single-repository read scope. This change extends the
+  manual read-only hosted probe to those two targets; their hosted reads and
+  next genuine App-created version candidates remain pending.
+- **S2:** Shared publisher/resolver helpers are merged. The first Plugins producer
+  built and signed its index but failed before promotion because two CLI identity
+  selectors conflicted. Lapis CI PR5 corrects this and passed native hosted CI;
+  real pinned CLI/full resolver verification accepted the existing signed stage
+  against independently reconstructed inputs. Plugins145 advances the helper
+  cohort, and Notes135 adopts the same no-pin-PR contract. Their hosted consumer
+  gates, successful promotion and repeated warm/no-op acceptance remain pending.
+- **S3:** PR16 merged as `519e6cd9efc5c8bd6de920d4bcf2acdff1c30792`,
+  implementing production wave admission and durable public-safe state behind
+  disabled new gates. All 80 tests and three spec lanes pass; PR and main check
+  43768772692 succeeded. Reviewed public state, real foundation-wave/replay and
+  rollout activation remain pending; existing flat-mode settings are unchanged.
+- **S4:** Maintenance7 merged at
+  `4b65439b34153e284eb6dadbb6e7ac7178650d23`; main check and Pages deployment
+  run43765876743 succeeded, and the public entry point returned HTTP200.
+  Current report/issue views and confirmed batch actions are deployed. Real S3
+  report and disposable batch acceptance remain pending; fixture tests do not
+  claim live command execution.
+- **S5/S6:** Source-owned registry reuse/resume and Deno-free tooling/cohort drift
+  enforcement are under implementation. Existing registry batching is retained;
+  no new publication or audit exception is implied.
+
+The Visual Delta raw full audit still reports the existing LOW development-only
+advisory; production audit is clean. Its consumed 0.1.5 release exception was
+not transferred to authentication source or another release. Future dependency
+and publication work retains its governing audit gates.
