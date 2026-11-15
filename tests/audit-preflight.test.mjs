@@ -1,14 +1,23 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { execFileSync } from "node:child_process";
-import { mkdtemp, mkdir, writeFile, readFile, chmod } from "node:fs/promises";
+import { execFileSync, spawnSync } from "node:child_process";
+import {
+  mkdtemp,
+  mkdir,
+  writeFile,
+  readFile,
+  chmod,
+  cp,
+} from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import YAML from "yaml";
 import { auditPreflight } from "../src/audit-preflight.mjs";
 
 test("actual preflight subprocess binds source/lock and rejects dirty or malformed evidence", async () => {
-  for (const colocated of [false, true]) {
+  const hasJj =
+    spawnSync("jj", ["--version"], { stdio: "ignore" }).status === 0;
+  for (const colocated of hasJj ? [false, true] : [true]) {
     const root = await mkdtemp(join(tmpdir(), "lapis-audit-preflight-"));
     await mkdir(join(root, "config"));
     await mkdir(join(root, "bin"));
@@ -31,24 +40,41 @@ test("actual preflight subprocess binds source/lock and rejects dirty or malform
       `#!${process.execPath}\nconsole.log(${JSON.stringify(JSON.stringify(audit))});\n`,
     );
     await chmod(command, 0o755);
-    execFileSync(
-      "jj",
-      ["git", "init", ...(colocated ? ["--colocate"] : []), root],
-      { stdio: "pipe" },
-    );
-    for (const [key, value] of [
-      ["user.name", "Fixture"],
-      ["user.email", "fixture@example.test"],
-      ["signing.behavior", "drop"],
-    ])
-      execFileSync("jj", ["config", "set", "--repo", key, value], {
+    if (hasJj) {
+      execFileSync(
+        "jj",
+        ["git", "init", ...(colocated ? ["--colocate"] : []), root],
+        { stdio: "pipe" },
+      );
+      for (const [key, value] of [
+        ["user.name", "Fixture"],
+        ["user.email", "fixture@example.test"],
+        ["signing.behavior", "drop"],
+      ])
+        execFileSync("jj", ["config", "set", "--repo", key, value], {
+          cwd: root,
+          stdio: "pipe",
+        });
+      execFileSync("jj", ["commit", "-m", "Frozen fixture"], {
         cwd: root,
         stdio: "pipe",
       });
-    execFileSync("jj", ["commit", "-m", "Frozen fixture"], {
-      cwd: root,
-      stdio: "pipe",
-    });
+    } else {
+      // Hosted checkouts use Git; copy only public object/ref/index data, never
+      // checkout config (which may contain persisted authentication headers).
+      const git = join(process.cwd(), ".git");
+      const target = join(root, ".git");
+      await mkdir(target);
+      for (const name of ["objects", "refs", "HEAD", "index", "packed-refs"]) {
+        try {
+          await cp(join(git, name), join(target, name), { recursive: true });
+        } catch (error) {
+          if (error.code !== "ENOENT") throw error;
+        }
+      }
+      for (const name of ["package.json", "pnpm-lock.yaml"])
+        await cp(join(process.cwd(), name), join(root, name));
+    }
     const original = process.env.PATH;
     process.env.PATH = `${join(root, "bin")}:${original}`;
     try {

@@ -128,6 +128,14 @@ version was available at the observed registry boundary. The
 ends November 21 or at a known fix, whichever comes first. It is not an approval
 and is outside the empty runtime approval authority.
 
+Hosted check 43777315092 exposed one new fixture portability failure: Actions
+did not have `jj` installed (107 passed, 1 failed before the fixture assertions).
+The repaired fixture always exercises the actual hosted Git source-binding path
+when Jujutsu is unavailable, using only public Git objects/refs/index data and
+never copying checkout credential configuration. Local runs additionally retain
+both isolated and colocated Jujutsu coverage. The exact two-test target passes
+with normal tooling and with a restricted Node/Git-only PATH, with zero skips.
+
 Hosted qualification/deployment, active consumer guard adoption, actual
 consumer recipe portability, additional cohort qualification and source-owner
 remediation of drift/unknowns remain required S6 work. This source slice does

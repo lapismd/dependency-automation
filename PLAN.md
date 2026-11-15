@@ -594,6 +594,12 @@ all three spec lanes, and actionlint passed. The exact advisory command exited
 1 for the expected unapproved LOW; the disabled proposal matches its binding
 and is rejected by the approval schema because no actual approval time exists.
 
+Hosted run 43777315092 found the new test fixture's assumed `jj` installation:
+107 passed/1 failed before its assertions. The fixture now exercises the actual
+Git path without Jujutsu on hosted checkouts, retaining local isolated/colocated
+Jujutsu coverage and all assertions. The exact target passes 2/2 both normally
+and with a Node/Git-only PATH, with no skipped tests or new CI tool dependency.
+
 ## Measurement and completion
 
 Capture a dated baseline and compare a representative release wave after rollout:
