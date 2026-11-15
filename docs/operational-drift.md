@@ -117,6 +117,17 @@ dependency graph it denied one unapproved LOW deepmerge path and four
 known-fix MODERATE glob/minimatch paths. Separate dependency remediation belongs
 to PR19; no approval, dependency override or package/lock change is added here.
 
+After PR19 merged as f0e071c0b812366d59eda1a5d468fd148db167ff, PR21 was
+rebased while preserving GOV-005 and its worker tests. A fresh frozen install
+and real preflight resolved dependency source `7141c2ba56bfc46f620d7020bcc61808d8192ba7`
+and lock SHA256 `889c017f647b35c3955e79683c9915d5bfc7e7b660a3b9a1c481b7098d0c5b2c`.
+The preflight now reports exactly one unapproved LOW at
+`.>renovate>deepmerge`, version 4.3.1, and denies writes; no fixed published
+version was available at the observed registry boundary. The
+[disabled bounded review proposal](proposals/deepmerge-low-2026-11-21.md)
+ends November 21 or at a known fix, whichever comes first. It is not an approval
+and is outside the empty runtime approval authority.
+
 Hosted qualification/deployment, active consumer guard adoption, actual
 consumer recipe portability, additional cohort qualification and source-owner
 remediation of drift/unknowns remain required S6 work. This source slice does

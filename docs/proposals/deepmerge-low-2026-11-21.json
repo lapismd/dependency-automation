@@ -1,0 +1,29 @@
+{
+  "enabled": false,
+  "status": "operator-review-required",
+  "proposedApproval": {
+    "advisory": "GHSA-gcqx-w48m-w2h4",
+    "package": "deepmerge",
+    "version": "4.3.1",
+    "path": ".>renovate>deepmerge",
+    "severity": "low",
+    "sourceSha": "7141c2ba56bfc46f620d7020bcc61808d8192ba7",
+    "lockSha256": "889c017f647b35c3955e79683c9915d5bfc7e7b660a3b9a1c481b7098d0c5b2c",
+    "approvedAt": null,
+    "expiresAt": "2026-11-21T00:00:00.000Z",
+    "review": "https://github.com/lapismd/dependency-automation/pull/21"
+  },
+  "evidence": {
+    "dependencyRemediation": "https://github.com/lapismd/dependency-automation/pull/19",
+    "advisoryControlReview": "https://github.com/lapismd/dependency-automation/pull/21",
+    "advisory": "https://github.com/advisories/GHSA-gcqx-w48m-w2h4",
+    "registry": "https://registry.npmjs.org/deepmerge",
+    "observedAt": "2026-11-15T23:52:43.217Z",
+    "latestPublishedVersion": "4.3.1",
+    "patchedRange": "<0.0.0",
+    "findings": 1,
+    "writeAdmission": "held-unapproved"
+  },
+  "termination": "Expiry or a known published fix, whichever occurs first; source/lock/path/version/advisory changes invalidate the binding.",
+  "scope": "Renovate automation runtime with scoped bot writes; not an application shipping dependency. All other findings remain blocking."
+}

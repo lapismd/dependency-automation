@@ -578,6 +578,22 @@ does not approve a waiver and no Visual Delta exception transfers here.
 
 See [operational drift and exact admission runbook](docs/operational-drift.md).
 
+S6b PR21 is https://github.com/lapismd/dependency-automation/pull/21, rebased on
+PR19 merge `f0e071c0b812366d59eda1a5d468fd148db167ff` while retaining GOV-005,
+its patched worker tests and the exact remediated package/lock graph. Fresh
+frozen installation plus actual advisory preflight now reports only the LOW
+deepmerge 4.3.1 path and holds writes. The exact dependency source and lock
+binding appear in the [disabled operator proposal](docs/proposals/deepmerge-low-2026-11-21.md),
+ending 2026-11-21T00:00:00Z or a known upstream fix, whichever comes first.
+It concerns the automation runtime with scoped bot writes, not an application
+shipping dependency. The approved list remains empty and all other findings
+remain blocking; explicit user acceptance has not been inferred.
+
+Rebase qualification: frozen install passed, `pnpm verify` passed 108 tests and
+all three spec lanes, and actionlint passed. The exact advisory command exited
+1 for the expected unapproved LOW; the disabled proposal matches its binding
+and is rejected by the approval schema because no actual approval time exists.
+
 ## Measurement and completion
 
 Capture a dated baseline and compare a representative release wave after rollout:
