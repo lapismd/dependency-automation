@@ -1,5 +1,6 @@
 import { readFile } from "node:fs/promises";
 import YAML from "yaml";
+import { monitoringRepositories } from "./maintenance-policy.mjs";
 import {
   activeManifests,
   dependencies,
@@ -224,5 +225,6 @@ export async function loadPolicy(
       data.excludedPackages.some((name) => !firstParty(name)))
   )
     throw Error("Invalid excluded package policy");
+  monitoringRepositories(data);
   return data;
 }

@@ -1,5 +1,8 @@
 # LapisMD dependency automation
 
+The [consolidated maintenance plan and progress tracker](PLAN.md) records the
+cross-repository rollout, owners, acceptance gates and remaining work.
+
 Verified first-party npm releases wake a self-hosted Renovate runner. It reads
 active workspace manifests on each allowlisted repository's default branch,
 checks stable npm versions and their first-party prerequisites, and opens
@@ -27,6 +30,24 @@ be read with the workflow's token. Inventory outputs live under ignored
 references, and runtime strongly connected components. A registry error fails
 the scan; only HTTP 404 means unpublished. The release notification is a hint,
 never authority for a version bump.
+
+## Read-only maintenance audit
+
+Run `pnpm maintenance:audit` with a read-only `GH_TOKEN` to write
+`reports/maintenance-audit.json`. The report includes source revisions,
+workflow paths, known PR creator authentication and explicit coverage gaps.
+It inspects direct gh PR commands and known creation actions; scripts and
+reusable workflow internals still need review. Findings are recommendations,
+not permission to write or proof that a PR can merge.
+
+`monitoring.repositories` adds monitoring-only infrastructure;
+`monitoring.excludedRepositories` takes precedence for this audit. Neither
+changes the dependency update allowlist, active rollout settings or holds.
+Maintenance UI adoption is tracked separately in S4 of [the plan](PLAN.md).
+Read failures produce a partial report and a nonzero exit status.
+The read-only `Audit maintenance policy` workflow runs daily and on manual
+dispatch, retaining its JSON artifact for 14 days. It creates no PRs and uses
+no App key. Findings do not fail the run; missing coverage does.
 
 ## GitHub App setup
 
