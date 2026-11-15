@@ -31,3 +31,9 @@ The book is hosted under the repository's GitHub Pages project path. `pages.yml`
 builds the exact main revision, runs all checks, uploads its book-only artifact
 and deploys it. It does not read source secrets, mint a dependency App token,
 perform inventory/audit collection or enable dependency writes.
+
+Book verification and reconciliation install the same frozen coordinator graph.
+DA-GOV-005 qualifies patched upstream glob/minimatch resolutions against the
+retained Renovate runner; Node, pnpm and mdBook pins remain independently fixed.
+An unchanged LOW deepmerge finding is not a clean full audit or a transferred
+exception from a consumer release.
