@@ -3,6 +3,45 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 import YAML from "yaml";
 
+test("profile generation is isolated from the central App writer", async () => {
+  const workflow = YAML.parse(
+    await readFile(
+      new URL("../.github/workflows/profile-refresh.yml", import.meta.url),
+      "utf8",
+    ),
+  );
+  assert.deepEqual(workflow.permissions, { contents: "read" });
+  assert.equal(workflow.on.schedule, undefined);
+  const { prepare, publish } = workflow.jobs;
+  assert.equal(publish.needs, "prepare");
+  assert.match(prepare.if, /refs\/heads\/main/);
+  assert.match(publish.if, /refs\/heads\/main/);
+  assert(!JSON.stringify(prepare).includes("secrets."));
+  assert(!JSON.stringify(prepare).includes("create-github-app-token"));
+  const app = publish.steps.find((step) => step.id === "app");
+  assert.equal(app.with.repositories, ".github");
+  assert.equal(app.with["permission-contents"], "write");
+  assert.equal(app.with["permission-pull-requests"], "write");
+  assert(
+    !publish.steps.some((step) =>
+      /update-npm-status|pnpm|npm install/.test(step.run ?? ""),
+    ),
+  );
+  for (const job of [prepare, publish]) {
+    assert.equal(
+      job.steps.find((step) => step.uses?.startsWith("actions/checkout@")).with[
+        "persist-credentials"
+      ],
+      false,
+    );
+  }
+  const download = publish.steps.find((step) =>
+    step.uses?.startsWith("actions/download-artifact@"),
+  );
+  assert.equal(download.with["run-id"], undefined);
+  assert.equal(download.with["github-token"], undefined);
+});
+
 test("App readiness uses existing credentials for read-only explicit pilot targets", async () => {
   const workflow = YAML.parse(
     await readFile(

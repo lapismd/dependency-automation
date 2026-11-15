@@ -169,7 +169,31 @@ the central profile PR writer is prepared. This is partial S4 adoption, not
 completion of the planned wave, issues or automation-history UI.
 Consumer PR: https://github.com/lapismd/lapis-maintenance/pull/6. Local
 qualification passed 188 unit tests, 18 browser tests, 175 Storybook scenarios,
-seven PWA checks, type checks, builds and specs. Hosted CI/Pages is pending.
+seven PWA checks, type checks, builds and specs. Hosted PR check 43752014387
+passed and PR #6 merged as `8120ce8492114427dce1fee52e176775f2868f2c`.
+Main/Pages run 43752491073 is pending.
+
+The central profile pilot uses separate generation and publication jobs.
+Generation executes the source-owned `.github` updater with read-only access
+and no App secret. Publication runs coordinator code only, downloads the same
+run's README artifact, validates npm-cell grammar against the exact current
+source and configured packages, and mints one-repository App access. Manual
+branch commits, unexpected files and stale source stop publication. Rolling
+updates preserve history with fast-forward-only ref writes; identical pending
+candidates perform no writes. An orphaned branch after an uncertain PR write
+needs reconciliation rather than automatic overwrite.
+
+The workflow is manual-only. Before its first dispatch, retire the old `.github`
+hourly writer through a source PR, retaining updater tests. Qualify the rolling
+PR with App-authored CI before enabling the coordinator schedule. The focused
+regression started with one failed module target; repaired writer tests pass
+8/8 and combined workflow tests pass 13/13. Retained branches are reusable only
+when their exact head belongs to a merged bot PR; uncertain orphan branches
+remain blocked. Full local verification passed 39 tests, formatting, syntax,
+workflow pins and actionlint. Generated Renovate validation passed with the
+known optional native RE2 fallback warning. Read-only registry inventory still
+reports 19 repositories, 43 package owners, 220 edges and no cycles; Desktop's
+hold remains. Hosted write acceptance is pending.
 
 Rollback: remove the audit workflow/command and optional monitoring field;
 dependency reconciliation and publication retain their existing behavior.

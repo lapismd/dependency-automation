@@ -171,3 +171,17 @@ Its private Profile/API 0.2.3 cohort stays pinned. Its unpublished `@lapismd/ai`
 dependency and CI archive projection require qualified Renovate support before
 the hold is removed. Inventory also holds any consumer with an unpublished
 first-party registry dependency, rather than proposing an un-installable PR.
+
+## Central profile authentication pilot
+
+`profile-refresh.yml` is manual-only during qualification. It runs `.github`'s
+own npm-status generator without credentials, then validates and publishes the
+README using a separate coordinator worker and an App token scoped to `.github`.
+No private key is copied to the source repository. Do not dispatch until the old
+source writer has been retired; see [the rollout tracker](PLAN.md).
+
+Stale source or concurrent branch edits fail closed; regenerate after inspecting
+the current main and rolling PR. Manual repair commits stop automated updates.
+If a write outcome is uncertain, inspect `automation/npm-status-refresh` and its
+open PR before retrying. The worker will not overwrite an orphaned branch or
+retry an uncertain write. Ordinary checks and merge policy remain in force.
