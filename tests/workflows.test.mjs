@@ -133,7 +133,7 @@ test("version PRs use scoped App authentication and retain the activation gate",
   }
 });
 
-test("version preparation installs its Deno runtime before Changesets", async () => {
+test("version preparation retains its pinned Node runtime and frozen install", async () => {
   const workflow = YAML.parse(
     await readFile(
       new URL("../templates/version-packages.yml", import.meta.url),
@@ -142,16 +142,16 @@ test("version preparation installs its Deno runtime before Changesets", async ()
   );
   const steps = workflow.jobs.version.steps;
   const runtime = steps.findIndex((step) =>
-    step.uses?.startsWith("denoland/setup-deno@"),
+    step.uses?.startsWith("actions/setup-node@"),
   );
   const version = steps.findIndex((step) =>
     step.uses?.startsWith("changesets/action@"),
   );
   assert(
     runtime >= 0 && runtime < version,
-    "Changesets 3 requires Deno on the runner PATH",
+    "Changesets uses the supported Node runtime",
   );
-  assert.equal(steps[runtime].with["deno-version"], "v2.9.7");
+  assert.equal(steps[runtime].with["node-version"], "24.15.0");
 });
 
 test("wave admission gates the production matrix and isolates trusted-main state authority", async () => {

@@ -1,0 +1,110 @@
+{
+  "schemaVersion": 1,
+  "node": "24.15.0",
+  "versioning": {
+    "2.31.1": {
+      "runtime": "node",
+      "bin": "bin.js",
+      "binSha256": "c17dddb4b7cf4733109a995caa33f2a9bdb01ffdfe71bce6f2d184dc52276a29",
+      "engines": null,
+      "integrity": "sha512-uO05WTcRBwuVOJVSW8Cmpqw6q0WDL53ajGCMyszutvOe5toOnunbpM4jZzf+qxBOz7i0AzopZ8diBuewjmF40w==",
+      "sourceSha": "a897bb8ac115fa65343a8bfe53654040c1542a80"
+    },
+    "3.0.3": {
+      "runtime": "node",
+      "bin": "bin.js",
+      "binSha256": "322da1d9fd0f95fa4e9d47badf66e2e6f78315645986f249ae1a15e048770c2d",
+      "engines": "^22.11 || ^24 || >=26",
+      "integrity": "sha512-L1i67bMfkK6iC/kDejuNO4pFgTRcWIObsD6Qof2woP1I4M8tj17DGlcpRaTzTv1DYSP5EMwWdEtR8X0Pj5Jg3Q==",
+      "sourceSha": "c9269c01af5f3f7463adc648890fc3a8a729dd18"
+    }
+  },
+  "repositories": {
+    "lapismd/lapis-plugins": {
+      "sourceSha": "a9b949745829ec5ba727118ebbf5ced21d9e053b",
+      "pnpm": "10.34.5",
+      "tools": {
+        "@changesets/cli": "^2.31.1",
+        "@lapismd/spec-validator": "0.2.0",
+        "@playwright/test": "1.61.1",
+        "storybook": "~10.6.2",
+        "@storybook/addon-vitest": "~10.6.2",
+        "vite": "^7.3.7",
+        "vitest": "~4.1.12",
+        "@vitest/browser-playwright": "~4.1.12"
+      }
+    },
+    "lapismd/lapis-notes": {
+      "sourceSha": "3b4c2e0246bcc8b415ed8a1ff0467c5743e0ccb1",
+      "pnpm": "10.34.5",
+      "tools": {
+        "@changesets/cli": "^3.0.3",
+        "@lapismd/spec-validator": "0.2.0",
+        "@playwright/test": "1.61.1",
+        "playwright": "1.61.1",
+        "storybook": "~10.6.5",
+        "@storybook/addon-vitest": "~10.6.5",
+        "vite": "^7.3.7",
+        "vitest": "~4.1.12",
+        "@vitest/browser-playwright": "~4.1.12"
+      }
+    },
+    "lapismd/mira-mde": {
+      "sourceSha": "11d376297c84247161ff80d80bc3fe7a489a21c8",
+      "pnpm": "10.32.1",
+      "tools": {
+        "@changesets/cli": "^3.0.3",
+        "@lapismd/spec-validator": "0.2.0",
+        "@playwright/test": "1.62.1",
+        "playwright": "1.62.1",
+        "storybook": "~10.6.2",
+        "@storybook/addon-vitest": "~10.6.2",
+        "vite": "^7.3.7",
+        "vitest": "~4.1.12",
+        "@vitest/browser-playwright": "~4.1.12"
+      }
+    },
+    "lapismd/design-core": {
+      "sourceSha": "c1e19ba19fda5d608d7ab788694056b5425b4856",
+      "pnpm": "10.32.1",
+      "tools": {
+        "@changesets/cli": "^3.0.3",
+        "@lapismd/spec-validator": "0.2.0",
+        "@playwright/test": "1.64.1",
+        "playwright": "^1.64.1",
+        "storybook": "~10.6.5",
+        "@storybook/addon-vitest": "~10.6.5",
+        "vite": "^8.3.5",
+        "vitest": "~5.0.5",
+        "@vitest/browser-playwright": "~5.0.5"
+      }
+    },
+    "lapismd/storybook-addon-visual-delta": {
+      "sourceSha": "abcb2e6d7698594d162a418419a737486a2fc019",
+      "pnpm": "10.32.1",
+      "tools": {
+        "@changesets/cli": "^3.0.3",
+        "@lapismd/spec-validator": "0.2.0",
+        "@playwright/test": "1.65.1",
+        "playwright": "1.65.1",
+        "storybook": "10.6.7",
+        "vite": "^8.3.8",
+        "vitest": "~5.1.0"
+      }
+    },
+    "lapismd/lapis-plugin-notebook": {
+      "sourceSha": "4405b5c61768d3537708c8fed7d0b11d7b8e7b91",
+      "pnpm": "10.32.1",
+      "tools": {
+        "@changesets/cli": "^3.0.3",
+        "@lapismd/spec-validator": "0.2.0",
+        "playwright": "1.64.1",
+        "storybook": "10.6.5",
+        "@storybook/addon-vitest": "10.6.5",
+        "vite": "6.4.5",
+        "vitest": "4.1.12",
+        "@vitest/browser-playwright": "4.1.12"
+      }
+    }
+  }
+}

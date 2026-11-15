@@ -78,3 +78,8 @@ The coordinator state branch is operational storage, never canonical book input.
 
 The wave pilot/recovery runbook is operational guidance linked from README;
 canonical wave requirements and workflow gates remain authoritative.
+
+Tooling policy, runtime checks and qualification map to tooling.md.
+The ordinary repository checker validates the central contract as well as the
+version template, so a Deno-only or unreviewed template cannot silently enter
+normal verification. Registry qualification remains separate from offline tests.

@@ -10,6 +10,7 @@ import { planWaves, recoverEmptyOperation } from "../src/waves.mjs";
 import { readWaveState } from "../src/wave-state.mjs";
 import { execFileSync } from "node:child_process";
 import { validateNotification, validateCompletion } from "../src/policy.mjs";
+import { assessTooling, loadToolingPolicy } from "../src/tooling.mjs";
 
 const entries = await loadAllowlist();
 let hint;
@@ -33,10 +34,14 @@ const waveMode = process.env.LAPIS_WAVES_ENABLED === "true";
 const result = await inventory(entries, {
   publicOnly: true,
   waveEvidence: waveMode,
+  toolingEvidence: true,
   excludedPackages: (await loadPolicy()).excludedPackages,
   token: process.env.GH_TOKEN,
   progress: (repository) => console.log(`Inspecting ${repository}`),
 });
+const toolingPolicy = await loadToolingPolicy();
+for (const repo of result.repositories)
+  repo.tooling = assessTooling(repo, toolingPolicy);
 if (hint) {
   const { verifyHint } = await import("../src/wave-evidence.mjs");
   result.hint = await verifyHint(hint, entries, {

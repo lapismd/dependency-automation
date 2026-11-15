@@ -7,6 +7,7 @@
 - [Dependency and release waves](waves.md)
 - [Release intent](release-intent.md)
 - [Consumer integration](consumer-integration.md)
+- [Deno-free tooling and cohort drift](tooling.md)
 - [Release notifications](notifications.md)
 - [Monitoring and App readiness](monitoring.md)
 - [Organization profile refresh](profile.md)

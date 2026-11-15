@@ -27,10 +27,9 @@ jobs:
           corepack enable
           package_manager="$(node -p 'require("./package.json").packageManager')"
           corepack prepare "$package_manager" --activate
-      - uses: denoland/setup-deno@22d081ff2d3a40755e97629de92e3bcbfa7cf2ed # v2
-        with:
-          deno-version: "v2.9.7"
       - run: pnpm install --frozen-lockfile --ignore-pnpmfile
+      - name: Validate the reviewed Node versioning executable
+        run: node scripts/dependency-automation/versioning-contract.mjs
       - name: Mint a token for this repository's version PR
         id: app
         uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3

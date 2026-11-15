@@ -41,6 +41,9 @@
 | DA-WAVE-002 | Implemented | 80-test source qualification, wave/evidence/CAS regressions and production admission wiring; hosted pilot pending.                        |
 | DA-WAVE-003 | Implemented | 80-test source qualification, wave/evidence/CAS regressions and production admission wiring; hosted pilot pending.                        |
 | DA-WAVE-004 | Implemented | 80-test source qualification, wave/evidence/CAS regressions and production admission wiring; hosted pilot pending.                        |
+| DA-TOOL-001 | In progress | tests/tooling.test.mjs; Node-only generated fixture; hosted/consumer qualification pending.                                               |
+| DA-TOOL-002 | In progress | Source/lock cohort observations and pairing regressions; production inventory integration.                                                |
+| DA-TOOL-003 | In progress | guardToolingChange in prepare-pr; runtime, integrity, major and cohort rejection tests.                                                   |
 
 Detailed bootstrap commands, failure counts and hosted handoff live in
 [the specification/Pages qualification record](https://github.com/lapismd/dependency-automation/blob/main/spec/records/2026-11-15-canonical-spec-and-pages.md).

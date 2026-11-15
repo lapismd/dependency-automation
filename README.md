@@ -213,3 +213,14 @@ operation identities. State writes have a separate default-off gate and remain
 on a dedicated public-safe coordinator branch. See the [pilot, recovery and
 rollback runbook](docs/wave-pilot.md) before any activation. Hosted release-chain
 acceptance remains pending; merging source does not activate either gate.
+
+## Tooling contract foundation
+
+The upstream version template uses the reviewed Node-only Changesets contract
+and validates it before App minting. Existing CLI majors and source-owned
+recipes remain intact. Production candidate preparation rejects newly
+unqualified runtime bytes and incompatible cohort changes before release intent;
+inventory reports source-bound cohort observations and missing coverage.
+See the [S6 tooling rollout and remaining gates](docs/tooling-rollout.md).
+Consumer adoption, central operational drift coverage and exact advisory
+policy are still required; this foundation does not complete S6 or enable writes.

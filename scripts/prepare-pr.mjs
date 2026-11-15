@@ -1,8 +1,9 @@
 import { execFileSync } from "node:child_process";
-import { readFile } from "node:fs/promises";
+import { readFile, access } from "node:fs/promises";
 import YAML from "yaml";
 import { releaseIntent, writeChangeset } from "../src/changesets.mjs";
 import { activeManifests } from "../src/policy.mjs";
+import { guardToolingChange, loadToolingPolicy } from "../src/tooling.mjs";
 
 const root = process.cwd();
 if (!process.env.RENOVATE_POST_UPGRADE_COMMAND_DATA_FILE)
@@ -23,6 +24,45 @@ execFileSync(
 );
 const git = (args) =>
   execFileSync("git", args, { cwd: root, encoding: "utf8" });
+const formattingInputs = ["deno.json", "deno.jsonc"];
+const previousInputs = git([
+  "ls-tree",
+  "--name-only",
+  "HEAD",
+  "--",
+  ...formattingInputs,
+])
+  .trim()
+  .split("\n")
+  .filter((path) => formattingInputs.includes(path));
+const currentInputs = [];
+for (const path of formattingInputs) {
+  try {
+    await access(path);
+    currentInputs.push(path);
+  } catch (error) {
+    if (error.code !== "ENOENT") throw error;
+  }
+}
+const snapshot = (manifest, lock, toolingInputs) => ({
+  repository: process.env.LAPIS_AUTOMATION_REPOSITORY,
+  manifests: [{ path: "package.json", manifest }],
+  lock,
+  toolingInputs,
+});
+guardToolingChange(
+  snapshot(
+    JSON.parse(git(["show", "HEAD:package.json"])),
+    YAML.parse(git(["show", "HEAD:pnpm-lock.yaml"])),
+    previousInputs,
+  ),
+  snapshot(
+    JSON.parse(await readFile("package.json", "utf8")),
+    YAML.parse(await readFile("pnpm-lock.yaml", "utf8")),
+    currentInputs,
+  ),
+  await loadToolingPolicy(),
+);
 const changedFiles = git(["diff", "--name-only", "HEAD", "--"])
   .trim()
   .split("\n")
