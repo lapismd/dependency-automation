@@ -105,7 +105,7 @@ the individual consumer migration if validation fails; do not weaken checks.
 - [x] Inspect existing bots, configuration, issues, image generation and UI.
 - [x] Confirm dependency App installation and narrow permissions.
 - [x] Record the full rollout plan before implementation.
-- [ ] Implement and verify monitoring-only policy and authentication audit.
+- [x] Implement and locally verify monitoring-only policy and authentication audit.
 - [ ] Confirm pilot repository installation/secret provisioning.
 - [ ] Migrate and qualify .github profile-refresh pilot.
 - [ ] Migrate and qualify generated version PR consumers.
@@ -114,6 +114,32 @@ the individual consumer migration if validation fails; do not weaken checks.
 Organization secret-selection API access returned HTTP 403 on 2026-11-15.
 Installation metadata is readable. This limits provisioning verification, not
 local policy/audit implementation. Never record credential values in evidence.
+
+### S1a local qualification — 2026-11-15
+
+The first implementation adds backward-compatible monitoring policy, validated
+exclusions, `pnpm maintenance:audit`, and a daily/manual read-only Actions report.
+It does not change the 19 dependency-update entries or remove any consumer hold.
+The Maintenance browser still needs the S4 policy adapter. Authentication
+migration is not complete and no reduction in approval clicks is claimed yet.
+
+- Focused original regression: 4 passed, 1 failed (missing infrastructure scope).
+  Repaired target: 5 passed, 0 failed; combined policy/workflow tests: 8/8.
+- `pnpm verify`: formatting, syntax, policy and workflow pins passed; 29 tests
+  passed, 0 failed.
+- `actionlint .github/workflows/*.yml`: passed, including the new report job.
+- Generated Plugins Renovate configuration validated successfully. Validator
+  warned that optional native RE2 was unavailable and used RegExp fallback.
+- Authenticated read-only `pnpm maintenance:audit`: 25 repositories inspected,
+  zero unavailable; 15 GITHUB_TOKEN creator steps, one App reference and two
+  unverified references. Findings are limited to the documented detector scope.
+- Authenticated read-only `pnpm inventory`: 19 repositories, 43 package owners,
+  220 edges, zero runtime cycles. Desktop's unpublished dependency/hold remains.
+- Reports are ignored local artifacts under `reports/`; hosted reports have
+  14-day retention. The new workflow requires hosted qualification after landing.
+
+Rollback: remove the audit workflow/command and optional monitoring field;
+dependency reconciliation and publication retain their existing behavior.
 
 ## S2: remove lockfile-image PRs
 

@@ -1,5 +1,25 @@
 {
   "schemaVersion": 1,
+  "monitoring": {
+    "repositories": [
+      "lapismd/.github",
+      "lapismd/dependency-automation",
+      "lapismd/lapis-ci",
+      "lapismd/lapis-maintenance",
+      "lapismd/homebrew-tap",
+      "lapismd/workspace-bootstrap",
+      "lapismd/lapis-website",
+      "lapismd/lapis-plugin-terminal"
+    ],
+    "excludedRepositories": [
+      "lapismd/lapis-community",
+      "lapismd/nostr-auth",
+      "lapismd/nostr-relay",
+      "lapismd/terminal-host",
+      "lapismd/ai-host",
+      "lapismd/ai-controller"
+    ]
+  },
   "excludedPackages": ["@lapismd/terminal-host"],
   "repositories": [
     {

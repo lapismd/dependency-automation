@@ -3,6 +3,27 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 import YAML from "yaml";
 
+test("maintenance reporting has read-only authority and preserves partial reports", async () => {
+  const workflow = YAML.parse(
+    await readFile(
+      new URL("../.github/workflows/maintenance-audit.yml", import.meta.url),
+      "utf8",
+    ),
+  );
+  assert.deepEqual(workflow.permissions, { contents: "read" });
+  assert.equal(workflow.on.schedule.length, 1);
+  assert("workflow_dispatch" in workflow.on);
+  const steps = workflow.jobs.audit.steps;
+  assert(!steps.some((step) => step.uses?.includes("create-github-app-token")));
+  const audit = steps.find((step) => step.run === "pnpm maintenance:audit");
+  assert.deepEqual(audit.env, { GH_TOKEN: "${{ github.token }}" });
+  const artifact = steps.find((step) =>
+    step.uses?.startsWith("actions/upload-artifact@"),
+  );
+  assert.equal(artifact.if, "always()");
+  assert.equal(artifact.with.path, "reports/maintenance-audit.json");
+});
+
 test("version PRs use scoped App authentication and retain the activation gate", async () => {
   const workflow = YAML.parse(
     await readFile(
