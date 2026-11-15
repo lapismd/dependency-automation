@@ -195,6 +195,25 @@ known optional native RE2 fallback warning. Read-only registry inventory still
 reports 19 repositories, 43 package owners, 220 edges and no cycles; Desktop's
 hold remains. Hosted write acceptance is pending.
 
+Coordinator pilot PR #9 merged as `8db2dbb9`; source migration PR
+lapismd/.github#10 merged as `e7bd42ca`. Hosted pilot 43752971286 passed
+generation and publication. Commit `34fcfe8e` is attributed to the dependency
+App and updates only the permitted profile diff against main. The inherited
+PR #9, created by github-actions, has no Actions run for that new head. Its
+older action-required run 43743636923 was approved using `gh` and passed;
+that old-head result is not current-head acceptance.
+
+The follow-up performs a one-time creator handover: after validating and
+updating the bot-owned branch, close the legacy github-actions PR and create
+an App-owned replacement. Ordinary checks remain required; no schedule is
+enabled yet. The new regression covers even an identical candidate on a legacy
+PR, so deduplication cannot prevent the handover. Writer tests pass 9/9.
+
+Maintenance main run 43752491073 passed both check and deployment; deployment
+7808718582 reports success for `8120ce8492114427dce1fee52e176775f2868f2c`.
+The public Pages entry point returned HTTP 200. Shared monitoring adoption is
+hosted-qualified; the remaining S4 wave, issue and action features are planned.
+
 Rollback: remove the audit workflow/command and optional monitoring field;
 dependency reconciliation and publication retain their existing behavior.
 
