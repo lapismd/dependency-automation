@@ -11,10 +11,11 @@ test("profile generation is isolated from the central App writer", async () => {
     ),
   );
   assert.deepEqual(workflow.permissions, { contents: "read" });
-  assert.equal(workflow.on.schedule, undefined);
+  assert.equal(workflow.on.schedule.length, 1);
   const { prepare, publish } = workflow.jobs;
   assert.equal(publish.needs, "prepare");
   assert.match(prepare.if, /refs\/heads\/main/);
+  assert.match(prepare.if, /LAPIS_PROFILE_REFRESH_ENABLED == 'true'/);
   assert.match(publish.if, /refs\/heads\/main/);
   assert(!JSON.stringify(prepare).includes("secrets."));
   assert(!JSON.stringify(prepare).includes("create-github-app-token"));

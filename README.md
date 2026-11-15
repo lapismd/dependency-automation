@@ -174,11 +174,13 @@ first-party registry dependency, rather than proposing an un-installable PR.
 
 ## Central profile authentication pilot
 
-`profile-refresh.yml` is manual-only during qualification. It runs `.github`'s
+`profile-refresh.yml` runs hourly when `LAPIS_PROFILE_REFRESH_ENABLED=true`,
+with manual dispatch for recovery. It runs `.github`'s
 own npm-status generator without credentials, then validates and publishes the
 README using a separate coordinator worker and an App token scoped to `.github`.
-No private key is copied to the source repository. Do not dispatch until the old
-source writer has been retired; see [the rollout tracker](PLAN.md).
+No private key is copied to the source repository. The old source writer is
+retired and App-created CI/no-change acceptance is recorded in
+[the rollout tracker](PLAN.md).
 
 Stale source or concurrent branch edits fail closed; regenerate after inspecting
 the current main and rolling PR. Manual repair commits stop automated updates.
