@@ -434,7 +434,10 @@ It recognizes Notebook's pinned v2 `with.github-token` App reference and
 Terminal's pinned v1 input, retaining legacy explicit environment precedence.
 Source workflow evidence remains separate from actual generated-candidate CI.
 
-Source PR and immutable head receipts are recorded at handoff; hosted S3
+Source [PR #16](https://github.com/lapismd/dependency-automation/pull/16)
+contains verified source commit
+[`417c1698a963`](https://github.com/lapismd/dependency-automation/commit/417c1698a963).
+It is based on merged specification-entrypoint main `ee307a21`; hosted S3
 acceptance and gate activation remain pending the operator's review.
 
 ## S4: bundle operator features into Maintenance
