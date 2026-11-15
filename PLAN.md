@@ -512,6 +512,12 @@ including Prettier-only mutation and the CLI 3 Deno-config negative. Actionlint
 and generated Renovate validation pass; optional native RE2 uses its existing
 RegExp fallback. Doctor and semantic QMD discovery pass. Hosted qualification
 and consumer adoption remain pending.
+
+Source PR: https://github.com/lapismd/dependency-automation/pull/18, code commit
+5ba5c22029f999f1768db9df88bc6c0f94af3d95, based on merged readiness/S3 main
+cf6eda3feba058408ca183f9beae0eff203bad22. This is the S6a foundation only.
+Actual AI Controller version acceptance found Deno formatting selected by its
+intentional deno.json; its installer remains required under that policy.
 The read-only inventory remains 19 repositories, 43 owners, 220 edges, zero
 cycles and zero coverage holds. Fifteen resolved Changesets CLIs match the two
 reviewed Node contracts; thirteen repository cohorts are still unconfigured.
