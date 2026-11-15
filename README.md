@@ -1,5 +1,8 @@
 # LapisMD dependency automation
 
+The [consolidated maintenance plan and progress tracker](PLAN.md) records the
+cross-repository rollout, owners, acceptance gates and remaining work.
+
 Verified first-party npm releases wake a self-hosted Renovate runner. It reads
 active workspace manifests on each allowlisted repository's default branch,
 checks stable npm versions and their first-party prerequisites, and opens
