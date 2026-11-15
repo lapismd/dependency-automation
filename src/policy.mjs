@@ -175,5 +175,56 @@ export function validateNotification(payload, repositories) {
       throw new Error(
         "Notification requires stable first-party package versions",
       );
-  return payload;
+  return {
+    repository: payload.repository,
+    sourceSha: payload.sourceSha,
+    packages: payload.packages.map(({ name, version }) => ({ name, version })),
+  };
+}
+
+export function validateCompletion(payload, repositories) {
+  if (
+    !repositories.some((r) => r.repository === payload.repository) ||
+    !/^[a-f0-9]{40}$/.test(payload.sourceSha ?? "")
+  )
+    throw Error("Invalid completion source or revision");
+  return { repository: payload.repository, sourceSha: payload.sourceSha };
+}
+
+export function workflowApplies(trigger, branch, changedPaths = null) {
+  if (!trigger || typeof trigger !== "object") return true;
+  const matches = (value, patterns) => {
+    let selected = false;
+    for (const pattern of patterns)
+      if (
+        minimatch(value, pattern.startsWith("!") ? pattern.slice(1) : pattern, {
+          dot: true,
+        })
+      )
+        selected = !pattern.startsWith("!");
+    return selected;
+  };
+  if (
+    (trigger.tags || trigger["tags-ignore"]) &&
+    !trigger.branches &&
+    !trigger["branches-ignore"]
+  )
+    return false;
+  if (trigger.branches && !matches(branch, trigger.branches)) return false;
+  if (trigger["branches-ignore"] && matches(branch, trigger["branches-ignore"]))
+    return false;
+  if (trigger.paths || trigger["paths-ignore"]) {
+    if (!changedPaths) return null;
+    if (
+      trigger.paths &&
+      !changedPaths.some((path) => matches(path, trigger.paths))
+    )
+      return false;
+    if (
+      trigger["paths-ignore"] &&
+      changedPaths.every((path) => matches(path, trigger["paths-ignore"]))
+    )
+      return false;
+  }
+  return true;
 }

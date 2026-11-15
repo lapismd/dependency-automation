@@ -9,21 +9,21 @@ values, live operational reports or copied repository inventories.
 
 ### Acceptance details
 
-- Inventory and audit jobs MUST remain readers; per-target reconciliation and profile publication MUST be the explicit writer boundaries.
+- Inventory and audit jobs MUST remain readers; per-target reconciliation, profile publication and the separately gated coordinator state job MUST be the explicit writer boundaries.
 - Notifications MUST call the registry-verifying notifier after a source-owned verified publication boundary.
 - Documentation delivery MUST upload only the generated specification book.
 
 ## Hosted entrypoints
 
-| Workflow                | Trigger and jobs                              | Inputs and entrypoints                                                                   | Outputs and authority                                                   |
-| ----------------------- | --------------------------------------------- | ---------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
-| `check.yml`             | PR/main checks                                | Frozen install, `pnpm verify`                                                            | Source/spec qualification; contents read                                |
-| `reconcile.yml`         | Publication dispatch, hourly catch-up, manual | `inventory` → matrix `reconcile`; inventory/config scripts → Renovate → `prepare-pr.mjs` | Ignored report artifacts; dry-run or explicit one-repository App writes |
-| `notify.yml`            | Reusable publisher call                       | Exact coordinator/source revisions → `scripts/notify.mjs`                                | Registry-verified dispatch to coordinator; no npm publisher             |
-| `maintenance-audit.yml` | Daily/manual                                  | Shared monitoring policy → `scripts/audit-maintenance.mjs`                               | Read-only partial/complete JSON report, 14-day artifact                 |
-| `app-readiness.yml`     | Manual main-only                              | One constrained pilot and existing encrypted App credentials                             | Scope/repository/PR read proof; no target writes                        |
-| `profile-refresh.yml`   | Gated hourly/manual                           | Source generator → same-run artifact → coordinator `publish-profile.mjs`                 | Guarded rolling profile PR using scoped App writes                      |
-| `pages.yml`             | Main push/manual main                         | Frozen install and complete verification → generated `spec/book`                         | Book-only Pages artifact; isolated Pages deployment authority           |
+| Workflow                | Trigger and jobs                                         | Inputs and entrypoints                                                                   | Outputs and authority                                                   |
+| ----------------------- | -------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| `check.yml`             | PR/main checks                                           | Frozen install, `pnpm verify`                                                            | Source/spec qualification; contents read                                |
+| `reconcile.yml`         | Publication/completion dispatch, hourly catch-up, manual | `inventory` → matrix `reconcile`; inventory/config scripts → Renovate → `prepare-pr.mjs` | Ignored report artifacts; dry-run or explicit one-repository App writes |
+| `notify.yml`            | Reusable publisher call                                  | Exact coordinator/source revisions → `scripts/notify.mjs`                                | Registry-verified dispatch to coordinator; no npm publisher             |
+| `maintenance-audit.yml` | Daily/manual                                             | Shared monitoring policy → `scripts/audit-maintenance.mjs`                               | Read-only partial/complete JSON report, 14-day artifact                 |
+| `app-readiness.yml`     | Manual main-only                                         | One constrained pilot and existing encrypted App credentials                             | Scope/repository/PR read proof; no target writes                        |
+| `profile-refresh.yml`   | Gated hourly/manual                                      | Source generator → same-run artifact → coordinator `publish-profile.mjs`                 | Guarded rolling profile PR using scoped App writes                      |
+| `pages.yml`             | Main push/manual main                                    | Frozen install and complete verification → generated `spec/book`                         | Book-only Pages artifact; isolated Pages deployment authority           |
 
 ## Source flow
 
@@ -48,3 +48,13 @@ policy + GitHub default-branch manifests + npm metadata
 | Monitoring policy / audit    | `src/maintenance-policy.mjs`, `scripts/audit-maintenance.mjs`                                                                   |
 | Profile validation / writes  | `src/profile-writer.mjs`, `scripts/publish-profile.mjs`                                                                         |
 | Repository/spec checks       | `scripts/check.mjs`, `spec-validator.config.mjs`, package scripts                                                               |
+
+## Wave wiring
+
+`inventory` reads state and current evidence, then emits the admitted matrix and
+candidate state. `wave-state` publishes that state only from trusted main with
+its separate gate; matrix `reconcile` requires that publication in writable wave
+mode. `validate-wave-target.mjs` refreshes target revision and branch ownership
+before Renovate. `src/waves.mjs`, `src/wave-evidence.mjs` and
+`src/wave-state.mjs` own planning, observation and state CAS respectively.
+The default-off wave gate leaves the original flat matrix available for rollback.

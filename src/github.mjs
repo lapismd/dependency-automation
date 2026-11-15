@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import YAML from "yaml";
 import { monitoringRepositories } from "./maintenance-policy.mjs";
@@ -8,6 +9,8 @@ import {
   firstParty,
   runtimeCycles,
   availableVersions,
+  stableVersions,
+  workflowApplies,
 } from "./policy.mjs";
 
 export async function requestJson(
@@ -33,6 +36,16 @@ export async function discoverRepository(entry, options = {}) {
   const prefix = `https://api.github.com/repos/${entry.repository}`;
   const info = await requestJson(prefix, options);
   if (info.archived) return null;
+  if (
+    options.publicOnly &&
+    info.private !== false &&
+    info.visibility !== "public"
+  )
+    return {
+      coverageOnly: true,
+      opaqueId: createHash("sha256").update(entry.repository).digest("hex"),
+      reason: "non-public or unclassified source held",
+    };
   const branch = await requestJson(
     `${prefix}/branches/${encodeURIComponent(info.default_branch)}`,
     options,
@@ -47,8 +60,11 @@ export async function discoverRepository(entry, options = {}) {
     .filter((p) => p.type === "blob" && !excluded(p.path))
     .map((p) => p.path);
   async function file(path) {
+    const blob = tree.tree.find((p) => p.path === path)?.sha;
     const value = await requestJson(
-      `${prefix}/contents/${path}?ref=${sha}`,
+      blob
+        ? `${prefix}/git/blobs/${blob}`
+        : `${prefix}/contents/${path}?ref=${sha}`,
       options,
     );
     return Buffer.from(value.content, "base64").toString("utf8");
@@ -66,6 +82,59 @@ export async function discoverRepository(entry, options = {}) {
       path,
       manifest: path === "package.json" ? root : JSON.parse(await file(path)),
     });
+  const pushWorkflows = [],
+    prWorkflows = [],
+    prWorkflowRules = [];
+  const workflowDocuments = [];
+  if (options.waveEvidence)
+    for (const path of paths.filter((p) =>
+      /^\.github\/workflows\/[^/]+\.ya?ml$/.test(p),
+    ))
+      workflowDocuments.push({ path, workflow: YAML.parse(await file(path)) });
+  let changedPaths = null;
+  if (
+    workflowDocuments.some(
+      ({ workflow }) =>
+        workflow.on?.push?.paths || workflow.on?.push?.["paths-ignore"],
+    )
+  ) {
+    const files = [];
+    for (let page = 1; page <= 30; page++) {
+      const commit = await requestJson(
+        `${prefix}/commits/${sha}?per_page=100&page=${page}`,
+        options,
+      );
+      if (!Array.isArray(commit.files))
+        throw Error("Incomplete current commit path coverage");
+      files.push(
+        ...commit.files.flatMap((f) => [
+          f.filename,
+          ...(f.previous_filename ? [f.previous_filename] : []),
+        ]),
+      );
+      if (commit.files.length < 100) {
+        changedPaths = files;
+        break;
+      }
+    }
+  }
+  for (const { path, workflow } of workflowDocuments) {
+    const triggers = workflow.on;
+    const has = (event) =>
+      triggers === event ||
+      (Array.isArray(triggers) && triggers.includes(event)) ||
+      (triggers && Object.hasOwn(triggers, event));
+    if (
+      has("push") &&
+      workflowApplies(triggers.push, info.default_branch, changedPaths) !==
+        false
+    )
+      pushWorkflows.push(path);
+    if (has("pull_request")) {
+      prWorkflows.push(path);
+      prWorkflowRules.push({ path, trigger: triggers.pull_request ?? null });
+    }
+  }
   const nonPortable = [];
   for (const p of manifests)
     for (const section of [
@@ -91,8 +160,25 @@ export async function discoverRepository(entry, options = {}) {
   const missingChangesets =
     needsChangesets && !paths.includes(".changeset/config.json");
   return {
-    ...entry,
+    repository: entry.repository,
+    phase: entry.phase,
+    ...(entry.emptyChangeset ? { emptyChangeset: true } : {}),
+    ...(entry.holdReason ? { holdReason: entry.holdReason } : {}),
     sourceSha: sha,
+    pushWorkflows,
+    prWorkflows,
+    prWorkflowRules,
+    visibility:
+      info.private === false || info.visibility === "public"
+        ? "public"
+        : "unknown",
+    ...(options.waveEvidence
+      ? {
+          lock: paths.includes("pnpm-lock.yaml")
+            ? YAML.parse(await file("pnpm-lock.yaml"))
+            : null,
+        }
+      : {}),
     defaultBranch: info.default_branch,
     packageManager: root.packageManager,
     manifests,
@@ -109,10 +195,25 @@ export async function discoverRepository(entry, options = {}) {
 
 export async function inventory(entries, options = {}) {
   const repositories = [];
+  const coverage = [];
   for (const entry of entries) {
-    options.progress?.(entry.repository);
-    const repo = await discoverRepository(entry, options);
-    if (repo) repositories.push(repo);
+    let repo;
+    try {
+      repo = await discoverRepository(entry, options);
+    } catch (error) {
+      if (!options.publicOnly) throw error;
+      coverage.push({
+        opaqueId: createHash("sha256").update(entry.repository).digest("hex"),
+        reason: "source unavailable; held",
+      });
+      continue;
+    }
+    if (repo?.coverageOnly)
+      coverage.push({ opaqueId: repo.opaqueId, reason: repo.reason });
+    else if (repo) {
+      options.progress?.(repo.repository);
+      repositories.push(repo);
+    }
   }
   const packages = repositories
     .flatMap((r) => r.manifests)
@@ -184,6 +285,29 @@ export async function inventory(entries, options = {}) {
   }
   return {
     schemaVersion: 1,
+    coverage,
+    ...(options.waveEvidence
+      ? {
+          registry: Object.fromEntries(
+            [...registry].map(([name, data]) => [
+              name,
+              Object.fromEntries(
+                stableVersions(data).map((version) => [
+                  version,
+                  {
+                    dependencies: data.versions[version].dependencies,
+                    peerDependencies: data.versions[version].peerDependencies,
+                    peerDependenciesMeta:
+                      data.versions[version].peerDependenciesMeta,
+                    gitHead: data.versions[version].gitHead,
+                    integrity: data.versions[version].dist?.integrity,
+                  },
+                ]),
+              ),
+            ]),
+          ),
+        }
+      : {}),
     excludedPackages: options.excludedPackages ?? [],
     repositories,
     packages,

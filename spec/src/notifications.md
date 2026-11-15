@@ -33,3 +33,13 @@ The notifier uses a coordinator-scoped App token for `repository_dispatch` and
 the caller's read token for source discovery. Its pinned checkout runs the
 requested coordinator commit. The notification key remains encrypted in the
 existing workflow secret boundary; this repository stores no key values.
+
+The reusable notifier accepts `source-event: completed` for a source-owned
+successful CI/merge boundary. Its `lapis-dependency-completed-v1` hint contains
+only repository and exact source SHA; it never qualifies CI by itself. Both
+hint kinds are verified against public exact-source discovery on receipt;
+publication coordinates are checked again against registry integrity. Full
+scans coalesce by immutable registry identities regardless of arrival order.
+
+Receivers retain only the documented source/version coordinates, discarding
+unknown payload fields before writing public artifacts.

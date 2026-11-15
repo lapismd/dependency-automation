@@ -6,6 +6,11 @@ on:
         description: Exact coordinator commit used by the caller
         required: true
         type: string
+      source-event:
+        description: published or completed; completion only wakes authoritative reconciliation
+        required: false
+        default: published
+        type: string
       source-sha:
         required: true
         type: string
@@ -53,4 +58,5 @@ jobs:
           GH_TOKEN: ${{ steps.app.outputs.token }}
           SOURCE_READ_TOKEN: ${{ github.token }}
           SOURCE_REPOSITORY: ${{ github.repository }}
+          SOURCE_EVENT_KIND: ${{ inputs.source-event }}
           SOURCE_SHA: ${{ inputs.source-sha }}

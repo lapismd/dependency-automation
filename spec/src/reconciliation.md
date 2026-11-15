@@ -47,10 +47,19 @@ the single allowed post-upgrade command and explicit write activation.
 - Tokens MUST be minted for one selected repository with contents/PR writes and checks/status reads.
 - The only allowed post-upgrade command MUST be the exact coordinator `prepare-pr.mjs` entrypoint.
 - General package scripts and unrestricted environment exposure MUST remain disabled.
-- Reconciliation MUST NOT prune stale branches automatically; explicit repair ownership remains future wave work.
+- Reconciliation MUST NOT prune stale branches automatically; wave mode adds explicit repair ownership.
 
-## Current scheduling boundary
+## Wave scheduling boundary
 
-The hourly scan is catch-up for missed notifications, not persistent wave state.
-Current concurrency limits and per-repository locks control runner execution;
-topological release-wave admission and operation reconciliation remain planned.
+The default flat matrix remains the rollback path. Explicit wave mode selects
+only admitted consumers and restricts generated versions to their admitted
+candidate set. Durable admission precedes writable consumer execution; current
+source/repair ownership is read again before invoking Renovate. See [waves](waves.md).
+
+Wave-mode auto-merge additionally requires complete current PR-head workflow
+coverage, an exact already-qualified candidate and current source ancestry.
+Revalidation refreshes the inventory before generating executable rules. A new
+or regenerated head waits for its own CI rather than inheriting an earlier green
+head. Closed breaking-family branches hold that family; compatible work in a
+different family remains eligible. Workspace catalogs move only with all their
+references jointly admitted, including preservation of peer support.

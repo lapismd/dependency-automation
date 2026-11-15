@@ -94,12 +94,12 @@ Configure the following organization values, restricting the private-key secret
 to this coordinator, the publisher workflows that notify it, and the
 Notebook and AI Controller version-PR workflows:
 
-| Name                               | Kind                        | Value                                                                                            |
-| ---------------------------------- | --------------------------- | ------------------------------------------------------------------------------------------------ |
-| `LAPIS_DEPENDENCY_APP_CLIENT_ID`   | variable                    | App client ID                                                                                    |
-| `LAPIS_DEPENDENCY_APP_PRIVATE_KEY` | secret                      | App-generated PEM key                                                                            |
-| `LAPIS_DEPENDENCY_BOT_GIT_AUTHOR`  | coordinator variable        | `lapismd-dependency-bot[bot] <APP_USER_ID+lapismd-dependency-bot[bot]@users.noreply.github.com>` |
-| `LAPIS_DEPENDENCY_BOT_LOGIN`       | consumer variable, optional | Alternate installed App login                                                                    |
+| Name                               | Kind                                    | Value                                                                                            |
+| ---------------------------------- | --------------------------------------- | ------------------------------------------------------------------------------------------------ |
+| `LAPIS_DEPENDENCY_APP_CLIENT_ID`   | variable                                | App client ID                                                                                    |
+| `LAPIS_DEPENDENCY_APP_PRIVATE_KEY` | secret                                  | App-generated PEM key                                                                            |
+| `LAPIS_DEPENDENCY_BOT_GIT_AUTHOR`  | coordinator variable                    | `lapismd-dependency-bot[bot] <APP_USER_ID+lapismd-dependency-bot[bot]@users.noreply.github.com>` |
+| `LAPIS_DEPENDENCY_BOT_LOGIN`       | coordinator/consumer variable, optional | Alternate installed App login                                                                    |
 
 For `stevejuma/jj-store`, configure the corresponding client-ID variable and
 notification key secret in that repository too. No secrets belong in this tree.
@@ -203,3 +203,13 @@ the current main and rolling PR. Manual repair commits stop automated updates.
 If a write outcome is uncertain, inspect `automation/npm-status-refresh` and its
 open PR before retrying. The worker will not overwrite an orphaned branch or
 retry an uncertain write. Ordinary checks and merge policy remain in force.
+
+## Dependency and release wave pilot
+
+S3 admission is available behind the default-off `LAPIS_DEPENDENCY_WAVES` gate.
+It derives package/path release chains, constrains the actual reconciliation
+matrix and versions, preserves scoped repair branches and reconciles durable
+operation identities. State writes have a separate default-off gate and remain
+on a dedicated public-safe coordinator branch. See the [pilot, recovery and
+rollback runbook](docs/wave-pilot.md) before any activation. Hosted release-chain
+acceptance remains pending; merging source does not activate either gate.

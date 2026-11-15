@@ -376,6 +376,67 @@ multiple publishers, held consumers, cycles, partial failure and repair commits.
 Prove one foundation release reaches affected consumers without duplicate PRs.
 Roll back scheduling to existing reconciliation without losing pending work.
 
+### S3 source implementation — default-off pilot prepared
+
+- [x] Derive package/path updates and release chains from exact lock importers,
+      public source manifests and registry metadata.
+- [x] Wire admitted targets and exact allowed versions into the production
+      reconciliation matrix; retain flat-mode rollback.
+- [x] Persist versioned operations/publication identities with generation/ref
+      concurrency checks and uncertain-write read-back on a dedicated state branch.
+- [x] Preserve scoped repair/abandoned compatibility branches, joint catalogs,
+      current workflow coverage and exact qualified PR candidates.
+- [x] Prepare public-safe Maintenance report, completion hint and manual empty-attempt recovery contracts.
+- [ ] Qualify hosted state publication, the next real foundation release chain,
+      replay/no-duplicate behavior and per-consumer surfaces before activation.
+
+New wave and state-write gates remain OFF; no remote state branch, setting,
+consumer PR, release or protection was changed by this slice. Existing publisher
+signing/publication authority and the separate jj-store installation remain.
+The [pilot/recovery/rollback runbook](docs/wave-pilot.md) names concrete gate,
+read-back, source-owned completion callback and recovery steps. Maintenance can
+read `report.json` at the exact state branch commit after a reviewed pilot;
+absence before activation is expected. Operational snapshots remain ignored and
+are not canonical/public book content.
+
+Local qualification uses Node 24.15.0 and the existing released Deno-free
+spec-validator 0.2.0. `pnpm exec spec-validator doctor` passed 11/11 and
+`pnpm spec:search --semantic "dependency release waves admission reconciliation ownership"`
+returned actual QMD results. `pnpm verify` passes 80/80 tests, formatting,
+syntax/action pins and all three canonical lanes. `actionlint` 1.7.12 passes.
+All 19 generated global Renovate configurations validate without config
+errors/warnings; the actual admitted Notes wave config also passes the CLI.
+The known optional native RE2 fallback warning remains unchanged.
+
+The exact initial `node --test tests/waves.test.mjs` target failed once because
+the new test file did not exist; it now passes 22/22. Wave/state/evidence/workflow
+regressions cover duplicates, out-of-order/missed hints, unpublished/held sources,
+multiple publishers, dev versus release chains, package SCCs, path/coupled catalog
+admission, scoped repairs, incomplete/early CI, partial/uncertain writes, CAS,
+originating run retention, peer widening and superseded source intent. A temporary
+synthetic state-test report identity mismatch and a development syntax error each
+failed once and are repaired; all functional failures are now zero. Canonical
+format/map failures were corrected with no requirement or assertion weakening.
+
+Authenticated GET-only inventory through the existing gh CLI authentication
+finds 19 public repositories, 43 public package owners, 220 edges, zero runtime
+cycles and zero coverage gaps. It admits Design Core 0.13.4 in Notes API,
+File Explorer, UI and Workspace while Plugins waits for the affected publisher
+contracts; existing compatibility branches remain scoped/retained. Desktop's
+unpublished AI dependency and explicit Profile/API hold remain. No credentials
+were extracted: a local ignored transport delegates GitHub GETs to `gh api`;
+registry reads remain public. State/report write tests use synthetic storage.
+
+The concurrent S1 detector correction is also included: the exact
+`node --test --test-name-pattern 'Changesets github-token input' tests/maintenance-policy.test.mjs`
+regression changed from one failure to one pass; its owning suite passes 6/6.
+It recognizes Notebook's pinned v2 `with.github-token` App reference and
+Terminal's pinned v1 input, retaining legacy explicit environment precedence.
+Source workflow evidence remains separate from actual generated-candidate CI.
+
+Source PR and immutable head receipts are recorded at handoff; hosted S3
+acceptance and gate activation remain pending the operator's review.
+
 ## S4: bundle operator features into Maintenance
 
 1. Follow its spec-first workflow and existing controller/read/command ports.
