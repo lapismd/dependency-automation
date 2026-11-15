@@ -4,6 +4,10 @@ The authority order is workspace/repository guidance, canonical requirements,
 source/public contracts and tests, then operational README and rollout records.
 QMD search is discovery; the returned canonical file remains authoritative.
 
+The repository description, About website and README specification badge link
+to the [published book](https://lapismd.github.io/dependency-automation/)
+governed by DA-DOC-002. Canonical source remains under `spec/src`.
+
 ## DA-GOV-001 — Canonical functionality
 
 **Requirement.** Protected coordinator behavior MUST have concise canonical requirements and mapped source ownership before or with implementation changes.
