@@ -1,5 +1,10 @@
 # LapisMD dependency automation
 
+The [canonical specification](spec/src/index.md) describes current functionality,
+authority boundaries and [workflow/module wiring](spec/src/wiring.md). Its
+[published book](https://lapismd.github.io/dependency-automation/) is built from
+the same committed chapters. Planned rollout features remain explicitly pending.
+
 The [consolidated maintenance plan and progress tracker](PLAN.md) records the
 cross-repository rollout, owners, acceptance gates and remaining work.
 
@@ -20,9 +25,18 @@ Use Node 24.15.0 and the pinned pnpm version:
 ```sh
 pnpm install --frozen-lockfile --ignore-scripts
 pnpm verify
+pnpm spec:search --semantic "dependency availability and reconciliation"
+pnpm exec spec-validator doctor
 actionlint .github/workflows/*.yml
 pnpm inventory
 ```
+
+`pnpm verify` includes canonical validation, the mdBook build and mapped
+spec-first checks in addition to the existing source checks/tests. Local builds
+require mdBook 0.5.4. CI installs that exact version; QMD search and model downloads
+remain local discovery tools. Generated `spec/book/` stays ignored. Pages deploys
+only that book from verified main, with deployment permissions isolated from
+the read-only build job.
 
 `GH_TOKEN` is a read token for inventory discovery; public repositories can also
 be read with the workflow's token. Inventory outputs live under ignored

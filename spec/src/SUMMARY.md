@@ -1,0 +1,16 @@
+# Summary
+
+- [Overview and ownership](index.md)
+- [Repository policy](policy.md)
+- [Inventory and registry availability](inventory.md)
+- [Reconciliation and review policy](reconciliation.md)
+- [Release intent](release-intent.md)
+- [Consumer integration](consumer-integration.md)
+- [Release notifications](notifications.md)
+- [Monitoring and App readiness](monitoring.md)
+- [Organization profile refresh](profile.md)
+- [Workflow and module wiring](wiring.md)
+- [Specification governance](governance.md)
+- [Public specification delivery](publishing.md)
+- [Rollout and remaining work](rollout.md)
+- [Verification](verification.md)

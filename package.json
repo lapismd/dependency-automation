@@ -14,7 +14,14 @@
     "inventory": "node scripts/inventory.mjs",
     "maintenance:audit": "node scripts/audit-maintenance.mjs",
     "renovate:validate": "renovate-config-validator",
-    "verify": "pnpm check && pnpm test"
+    "verify": "pnpm check && pnpm test && pnpm spec:check",
+    "spec:validate": "spec-validator validate",
+    "spec:check": "spec-validator check",
+    "spec:first": "spec-validator first",
+    "spec:build": "spec-validator build",
+    "spec:serve": "spec-validator serve",
+    "spec:search": "spec-validator search",
+    "spec:index": "spec-validator index"
   },
   "dependencies": {
     "minimatch": "11.0.3",
@@ -22,6 +29,7 @@
     "yaml": "2.9.1"
   },
   "devDependencies": {
+    "@lapismd/spec-validator": "^0.2.0",
     "prettier": "3.7.4",
     "renovate": "44.199.0"
   }

@@ -1,0 +1,14 @@
+[book]
+title = "LapisMD Dependency Automation Specification"
+authors = ["LapisMD contributors"]
+description = "Canonical behavior, authority boundaries and workflow wiring of the LapisMD dependency coordinator."
+language = "en"
+src = "src"
+
+[build]
+build-dir = "book"
+create-missing = false
+
+[output.html]
+git-repository-url = "https://github.com/lapismd/dependency-automation"
+site-url = "/dependency-automation/"

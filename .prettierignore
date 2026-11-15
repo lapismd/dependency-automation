@@ -4,3 +4,6 @@ node_modules/
 reports/
 pnpm-lock.yaml
 LICENSE.md
+spec/book/
+spec/.generated/
+.qmd/index.sqlite*

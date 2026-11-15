@@ -1,0 +1,56 @@
+# Inventory and registry availability
+
+`src/github.mjs` performs authenticated GitHub GETs and public registry reads.
+`src/policy.mjs` selects active manifests, resolves catalog ranges, discovers
+runtime cycles and computes eligible stable versions. `scripts/inventory.mjs`
+writes ignored local reports and a gated reconciliation matrix.
+
+## DA-INV-001 — Revision-bound discovery
+
+**Requirement.** Inventory MUST discover active workspace manifests at an exact source revision and retain ownership, consumer and portability evidence.
+
+### Acceptance details
+
+- The default branch commit MUST be resolved before tree/file reads; explicit notification revisions MAY select a particular source commit.
+- Truncated trees, missing root manifests and duplicate public package owners MUST fail discovery.
+- Workspace includes/excludes and catalogs MUST determine active first-party dependency edges.
+- Private application manifests MAY be consumers but MUST NOT become public package owners.
+
+## DA-INV-002 — Registry authority
+
+**Requirement.** Registry metadata MUST determine available stable versions; notification payloads MUST NOT authorize a version that the registry cannot qualify.
+
+### Acceptance details
+
+- Only HTTP 404 MAY mean unpublished; other registry failures MUST fail the scan.
+- Candidates MUST be stable, non-deprecated and no newer than a valid stable `latest` tag.
+- First-party runtime and required peer prerequisites MUST be available recursively until the candidate set converges.
+- An optional first-party peer MAY be absent without excluding the candidate.
+
+## DA-INV-003 — Portable target eligibility
+
+**Requirement.** Inventory MUST withhold reconciliation targets whose source cannot support a portable registry update.
+
+### Acceptance details
+
+- First-party `link:` or `file:` dependencies and unpublished external prerequisites MUST hold the consumer.
+- Required Changesets onboarding and explicit holds MUST be satisfied before inclusion in the matrix.
+- The selected rollout phase MUST restrict the matrix, and each consumer MUST pin an exact pnpm version.
+- Reports MUST retain blocked reasons rather than describe held consumers as healthy writable targets.
+
+## DA-INV-004 — Runtime cycle discovery
+
+**Requirement.** Inventory MUST identify runtime strongly connected components so already-compatible cyclic dependencies can avoid repeated release bumps.
+
+### Acceptance details
+
+- Runtime and optional-runtime edges MUST participate, including internal workspace edges.
+- Components with multiple members or a self-edge MUST be reported deterministically.
+- Cycle-aware rules MUST use lockfile updates for applicable compatible runtime ranges.
+
+## Operational reports
+
+The report contains `schemaVersion`, exact repository source revisions,
+manifests, package owners, consumer edges, cycles, eligible versions and
+unpublished names. These operational reports remain under ignored `reports/`
+and Actions artifacts; the public specification site does not embed them.

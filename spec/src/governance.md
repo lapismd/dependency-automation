@@ -1,0 +1,70 @@
+# Specification governance
+
+The authority order is workspace/repository guidance, canonical requirements,
+source/public contracts and tests, then operational README and rollout records.
+QMD search is discovery; the returned canonical file remains authoritative.
+
+## DA-GOV-001 — Canonical functionality
+
+**Requirement.** Protected coordinator behavior MUST have concise canonical requirements and mapped source ownership before or with implementation changes.
+
+### Acceptance details
+
+- `SUMMARY.md` MUST index every canonical chapter.
+- Requirements MUST have unique `DA-<AREA>-NNN` identifiers, one normative statement and two to four acceptance bullets.
+- Planned rollout work MUST remain distinct from implemented and verified behavior.
+- Supporting records and generated books MUST NOT replace canonical authority.
+
+## DA-GOV-002 — Verification evidence
+
+**Requirement.** Every requirement MUST have exactly one verification row with an allowed status and concrete evidence.
+
+### Acceptance details
+
+- Missing, duplicate or orphan requirement rows MUST fail validation.
+- Status MUST be `Implemented`, `In progress` or `Planned`.
+- Local, hosted and consumer qualification MUST be reported separately.
+
+## DA-GOV-003 — Spec-first and discovery
+
+**Requirement.** Protected changes MUST update every mapped canonical owner, and unresolved change discovery or unmapped protected paths MUST fail closed.
+
+### Acceptance details
+
+- Local checks MUST use the Jujutsu diff; CI MUST inspect its complete source range.
+- Tests and generated artifacts MUST NOT stand in for owning chapter changes.
+- Maintainers MUST run `pnpm spec:search` before broad canonical scans; conceptual queries MAY use `--semantic`.
+- `spec-validator doctor` and QMD checks MUST verify host wiring without entering CI's network-independent canonical checks.
+
+## DA-GOV-004 — Generated and private state
+
+**Requirement.** Generated book output, QMD databases, operational reports, caches and credentials MUST remain outside tracked canonical source and public site input.
+
+### Acceptance details
+
+- Ignore rules MUST cover `spec/book/`, `.qmd/index.sqlite*`, `reports/`, `.renovate/` and local state.
+- Only committed specification source MAY determine the public book.
+- Secrets, tokens, private API bodies and live report snapshots MUST NOT be copied into the book or its artifact.
+
+## Source change map
+
+`spec-validator.config.mjs` is executable authority for path classification.
+
+| Protected area                                             | Canonical owner                                                                              |
+| ---------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| Discovery, registry closure, inventory                     | Inventory                                                                                    |
+| Repository/monitoring scope                                | Repository policy                                                                            |
+| Generated Renovate configuration / runner                  | Reconciliation                                                                               |
+| Post-upgrade release intent                                | Release intent                                                                               |
+| Consumer workflows, wrappers and templates                 | Consumer integration                                                                         |
+| Audit and authentication detector                          | Monitoring                                                                                   |
+| Profile validator and writer                               | Organization profile refresh                                                                 |
+| Notification entrypoint                                    | Release notifications                                                                        |
+| Hosted workflows                                           | Owning function plus workflow wiring; check/Pages additionally govern specification delivery |
+| Spec config, book/QMD wiring, guidance, repository checker | Governance                                                                                   |
+| Package manifest / lockfile                                | Governance and specification delivery                                                        |
+
+The repository uses the released Deno-free `@lapismd/spec-validator` range.
+`pnpm verify` retains formatter, syntax/workflow-pin checks and the complete
+functional test suite, then runs canonical validation, book build and spec-first.
+Rollout status-only edits in `PLAN.md` do not require unrelated canonical edits.
