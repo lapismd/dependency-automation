@@ -72,3 +72,9 @@ The repository uses the released Deno-free `@lapismd/spec-validator` range.
 `pnpm verify` retains formatter, syntax/workflow-pin checks and the complete
 functional test suite, then runs canonical validation, book build and spec-first.
 Rollout status-only edits in `PLAN.md` do not require unrelated canonical edits.
+
+Wave planning/evidence/state and their CLI entrypoints map to `waves.md`.
+The coordinator state branch is operational storage, never canonical book input.
+
+The wave pilot/recovery runbook is operational guidance linked from README;
+canonical wave requirements and workflow gates remain authoritative.

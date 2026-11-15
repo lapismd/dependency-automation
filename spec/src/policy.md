@@ -42,3 +42,13 @@ Monitoring exclusions and update entries deliberately serve different purposes.
 For example, a repository may retain a portable package consumer entry while
 its service-oriented root remains excluded from broad monitoring. An explicit
 hold keeps a repository discoverable for explanation without making it writable.
+
+## Public operational coverage
+
+The allowlist does not establish repository visibility. Discovery classifies
+visibility before collecting source. Public coordinator artifacts/state contain
+only verified public sources; inaccessible/non-public entries produce opaque
+coverage holds without widening credentials or revealing source names/bodies.
+
+Monitoring token detection includes Changesets' explicit `github-token` input;
+this classification does not expand dependency targets or installation scope.

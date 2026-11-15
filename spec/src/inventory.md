@@ -54,3 +54,17 @@ The report contains `schemaVersion`, exact repository source revisions,
 manifests, package owners, consumer edges, cycles, eligible versions and
 unpublished names. These operational reports remain under ignored `reports/`
 and Actions artifacts; the public specification site does not embed them.
+
+Wave mode additionally reads pnpm lock importers at the exact tree revision via
+Git blobs (including large lockfiles), registry integrity/dependency contracts,
+and complete current workflow/check/status evidence. Missing lock or observation
+coverage remains explicit. Flat mode retains its existing discovery contract.
+
+Qualification collects push and PR workflow contracts separately and observes
+all current workflow runs/checks/statuses. Branch evidence retains PR/commit
+authors, exact ancestry and candidate lock data; rerun actors are not owners.
+
+Workflow expectations honor exact changed-path and default-branch trigger
+filters; non-triggering image/deployment workflows are not invented missing
+checks, while unknown path coverage remains fail-closed and every observed
+current workflow still participates in qualification.

@@ -117,3 +117,39 @@ test("an arbitrary token output is not proof of App authentication", () => {
     "unverified",
   );
 });
+
+test("Changesets github-token input is recognized with legacy explicit-env precedence", () => {
+  const app = {
+    id: "app",
+    uses: "actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510",
+  };
+  const result = auditWorkflowAuthentication({
+    jobs: {
+      version: {
+        steps: [
+          app,
+          {
+            uses: "changesets/action@ae32849d5ba541f9ae29e40e22a623bc13562f51",
+            with: {
+              "github-token": "${{ steps.app.outputs.token }}",
+              "version-script": "pnpm release:version",
+            },
+          },
+          {
+            uses: "changesets/action@63a615b9cd06ba9a3e6d13796c7fbcb080a60a0b",
+            with: { "github-token": "${{ github.token }}" },
+          },
+          {
+            uses: "changesets/action@63a615b9cd06ba9a3e6d13796c7fbcb080a60a0b",
+            with: { "github-token": "${{ steps.app.outputs.token }}" },
+            env: { GITHUB_TOKEN: "${{ github.token }}" },
+          },
+        ],
+      },
+    },
+  });
+  assert.deepEqual(
+    result.map((f) => f.authentication),
+    ["github-app", "github-token", "github-token"],
+  );
+});

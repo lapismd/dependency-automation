@@ -151,3 +151,43 @@ test("version preparation installs its Deno runtime before Changesets", async ()
   );
   assert.equal(steps[runtime].with["deno-version"], "v2.9.7");
 });
+
+test("wave admission gates the production matrix and isolates trusted-main state authority", async () => {
+  const workflow = YAML.parse(
+    await readFile(
+      new URL("../.github/workflows/reconcile.yml", import.meta.url),
+      "utf8",
+    ),
+  );
+  assert.deepEqual(workflow.permissions, { contents: "read" });
+  assert.match(
+    workflow.env.LAPIS_WAVES_ENABLED,
+    /LAPIS_DEPENDENCY_WAVES == 'true'/,
+  );
+  assert.match(
+    workflow.env.LAPIS_WAVE_STATE_WRITES,
+    /LAPIS_DEPENDENCY_WAVE_STATE_WRITES == 'true'/,
+  );
+  assert.match(workflow.jobs.inventory.if, /refs\/heads\/main/);
+  const state = workflow.jobs["wave-state"];
+  assert.match(state.if, /refs\/heads\/main/);
+  assert.match(state.if, /LAPIS_DEPENDENCY_WAVE_STATE_WRITES == 'true'/);
+  assert.deepEqual(state.permissions, { contents: "write" });
+  assert(!JSON.stringify(state).includes("secrets."));
+  const download = state.steps.find((s) =>
+    s.uses?.startsWith("actions/download-artifact@"),
+  );
+  assert.equal(download.with["run-id"], undefined);
+  assert.equal(download.with["github-token"], undefined);
+  const reconcile = workflow.jobs.reconcile;
+  assert.deepEqual(reconcile.needs, ["inventory", "wave-state"]);
+  assert.match(reconcile.if, /needs\.wave-state\.result == 'success'/);
+  assert.match(reconcile.if, /LAPIS_DEPENDENCY_WAVES != 'true'/);
+  const validate = reconcile.steps.findIndex(
+    (s) => s.run === "node scripts/validate-wave-target.mjs",
+  );
+  const execute = reconcile.steps.findIndex((s) =>
+    s.run?.endsWith("renovate.js"),
+  );
+  assert(validate > 0 && validate < execute);
+});

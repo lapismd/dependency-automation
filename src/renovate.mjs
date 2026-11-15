@@ -1,4 +1,7 @@
 import { resolve } from "node:path";
+import semver from "semver";
+import { dependencies } from "./policy.mjs";
+import { lockVersion } from "./wave-evidence.mjs";
 
 export function repositoryConfig(repo, graph, automationRoot) {
   const own = graph.packages
@@ -84,6 +87,122 @@ export function repositoryConfig(repo, graph, automationRoot) {
         rangeStrategy: "update-lockfile",
       });
     }
+  const admission = graph.waveAdmission?.nodes.find(
+    (n) => n.repository === repo.repository,
+  );
+  if (graph.waveAdmission) {
+    const qualifiedRolling = (pr) =>
+      pr.head?.ref === "lapis-dependencies/lapis-first-party" &&
+      pr.qualification?.state === "qualified" &&
+      pr.basedOnCurrentSource &&
+      pr.candidate?.visibility === "public" &&
+      admission?.admittedUpdates.every((u) => {
+        const manifest = pr.candidate.manifests.find(
+          (p) => p.path === u.path,
+        )?.manifest;
+        const range =
+          manifest &&
+          dependencies(manifest, pr.candidate.workspace).find(
+            (e) => e.name === u.name && e.type === u.type,
+          )?.range;
+        if (u.type === "peerDependencies")
+          return (
+            semver.validRange(range) &&
+            semver.satisfies(u.target, range) &&
+            semver.subset(u.range, range)
+          );
+        const resolved = lockVersion(pr.candidate, u).version;
+        return (
+          resolved && semver.gte(resolved, u.target) && range === u.targetRange
+        );
+      });
+    // Existing PRs may merge only with complete current-head qualification.
+    // A regenerated/new head must acquire fresh CI on a later reconciliation.
+    packageRules.push({
+      matchPackageNames: ["@lapismd/**", "@lapis-notes/**"],
+      automerge: false,
+    });
+    for (const pr of repo.evidence?.prs ?? [])
+      if (qualifiedRolling(pr))
+        packageRules.push({
+          matchPackageNames: ["@lapismd/**", "@lapis-notes/**"],
+          matchUpdateTypes: ["patch", "minor"],
+          matchCurrentVersion: ">=1.0.0",
+          automerge: true,
+        });
+    for (const pr of repo.evidence?.prs ?? [])
+      if (qualifiedRolling(pr))
+        packageRules.push({
+          matchPackageNames: ["@lapismd/**", "@lapis-notes/**"],
+          matchUpdateTypes: ["patch"],
+          matchCurrentVersion: "<1.0.0",
+          automerge: true,
+        });
+    if (
+      admission?.status !== "admitted" ||
+      admission.sourceSha !== repo.sourceSha
+    )
+      throw Error("Wave target is not admitted at this source revision");
+    // Last matching rules restrict even otherwise eligible registry versions.
+    packageRules.push({
+      matchPackageNames: ["@lapismd/**", "@lapis-notes/**"],
+      enabled: false,
+    });
+    for (const edge of graph.edges.filter(
+      (e) => e.repository === repo.repository,
+    )) {
+      const targets = [
+        ...new Set(
+          admission.admittedUpdates
+            .filter(
+              (u) =>
+                u.name === edge.name &&
+                u.path === edge.path &&
+                u.type === edge.type,
+            )
+            .map((u) => u.target),
+        ),
+      ];
+      const match = {
+        matchPackageNames: [edge.name],
+        matchFileNames: [edge.path],
+        matchDepTypes: [edge.type],
+      };
+      packageRules.push(
+        targets.length
+          ? {
+              ...match,
+              enabled: true,
+              allowedVersions: `/^(?:${targets.map((v) => v.replaceAll(".", "\\.")).join("|")})$/`,
+            }
+          : { ...match, enabled: false },
+      );
+    }
+    const catalogNames = new Set(
+      admission.admittedUpdates
+        .filter((u) =>
+          repo.manifests
+            .find((p) => p.path === u.path)
+            ?.manifest[u.type]?.[u.name]?.startsWith("catalog:"),
+        )
+        .map((u) => u.name),
+    );
+    for (const name of catalogNames) {
+      const targets = [
+        ...new Set(
+          admission.admittedUpdates
+            .filter((u) => u.name === name)
+            .map((u) => u.target),
+        ),
+      ];
+      packageRules.push({
+        matchPackageNames: [name],
+        matchFileNames: ["pnpm-workspace.yaml"],
+        enabled: true,
+        allowedVersions: `/^(?:${targets.map((v) => v.replaceAll(".", "\\.")).join("|")})$/`,
+      });
+    }
+  }
   return {
     repository: repo.repository,
     enabledManagers: ["npm"],

@@ -2,21 +2,38 @@ name: Reconcile first-party npm dependencies
 
 on:
   repository_dispatch:
-    types: [lapis-npm-published-v1]
+    types: [lapis-npm-published-v1, lapis-dependency-completed-v1]
   schedule:
     - cron: "41 * * * *"
   workflow_dispatch:
+    inputs:
+      recover-operation:
+        description: Optional exact uncertain operation ID; retry only a proven empty completed attempt
+        required: false
+        type: string
+      expected-state-revision:
+        description: Required with recovery; exact current state branch commit SHA
+        required: false
+        type: string
 
 permissions:
   contents: read
 
 env:
   LAPIS_WRITE_ENABLED: ${{ vars.LAPIS_DEPENDENCY_WRITES == 'true' }}
+  LAPIS_WAVES_ENABLED: ${{ vars.LAPIS_DEPENDENCY_WAVES == 'true' }}
+  LAPIS_WAVE_STATE_WRITES: ${{ vars.LAPIS_DEPENDENCY_WAVE_STATE_WRITES == 'true' }}
+  LAPIS_BOT_LOGIN: ${{ vars.LAPIS_DEPENDENCY_BOT_LOGIN || 'lapismd-dependency-bot[bot]' }}
+  LAPIS_BOT_GIT_AUTHOR: ${{ vars.LAPIS_DEPENDENCY_BOT_GIT_AUTHOR }}
   LAPIS_ROLLOUT_PHASE: ${{ vars.LAPIS_DEPENDENCY_PHASE || 'pilot' }}
+
+concurrency:
+  group: dependency-reconciliation
+  cancel-in-progress: false
 
 jobs:
   inventory:
-    if: github.event_name != 'schedule' || vars.LAPIS_DEPENDENCY_SCHEDULE == 'true'
+    if: github.ref == 'refs/heads/main' && (github.event_name != 'schedule' || vars.LAPIS_DEPENDENCY_SCHEDULE == 'true')
     runs-on: ubuntu-latest
     timeout-minutes: 30
     outputs:
@@ -26,6 +43,7 @@ jobs:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
           fetch-depth: 0
+          persist-credentials: false
       - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
         with:
           node-version: "24.15.0"
@@ -39,15 +57,43 @@ jobs:
         run: pnpm inventory
         env:
           GH_TOKEN: ${{ github.token }}
+          LAPIS_WAVE_RECOVER_OPERATION: ${{ inputs.recover-operation }}
+          LAPIS_WAVE_EXPECTED_STATE: ${{ inputs.expected-state-revision }}
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
         with:
           name: first-party-inventory
           path: reports/
           retention-days: 14
 
-  reconcile:
+  wave-state:
     needs: inventory
-    if: needs.inventory.outputs.count != '0'
+    if: github.ref == 'refs/heads/main' && vars.LAPIS_DEPENDENCY_WAVES == 'true' && vars.LAPIS_DEPENDENCY_WAVE_STATE_WRITES == 'true'
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: "24.15.0"
+      - run: corepack enable && corepack prepare pnpm@10.34.5 --activate
+      - run: pnpm install --frozen-lockfile --ignore-scripts
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
+        with:
+          name: first-party-inventory
+          path: reports
+      - run: node scripts/wave-state.mjs
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+  reconcile:
+    needs: [inventory, wave-state]
+    if: >-
+      always() && needs.inventory.result == 'success' && needs.inventory.outputs.count != '0' &&
+      (vars.LAPIS_DEPENDENCY_WAVES != 'true' || vars.LAPIS_DEPENDENCY_WRITES != 'true' || needs.wave-state.result == 'success')
     strategy:
       fail-fast: false
       max-parallel: 4
@@ -74,8 +120,6 @@ jobs:
         with:
           name: first-party-inventory
           path: reports
-      - run: node scripts/configure-renovate.mjs
-      - run: node node_modules/renovate/dist/config-validator.js reports/renovate.json
       - name: Require installation credentials before writes
         if: env.LAPIS_WRITE_ENABLED == 'true'
         run: test "$HAS_APP_KEY" = 'true' && test -n "$LAPIS_BOT_GIT_AUTHOR"
@@ -91,6 +135,12 @@ jobs:
           permission-pull-requests: write
           permission-checks: read
           permission-statuses: read
+      - name: Revalidate wave source and repair ownership
+        run: node scripts/validate-wave-target.mjs
+        env:
+          GH_TOKEN: ${{ steps.app.outputs.token || github.token }}
+      - run: node scripts/configure-renovate.mjs
+      - run: node node_modules/renovate/dist/config-validator.js reports/renovate.json
       - name: Activate the consumer's pinned pnpm
         env:
           CONSUMER_PNPM: ${{ matrix.pnpm }}

@@ -44,3 +44,9 @@ complete required-check-coverage audit, persistent issue collector or unattended
 operator UI is implemented by this report. Maintenance's separate browser
 adapter consumes monitoring defaults while retaining its own credential and
 command boundaries.
+
+Changesets creators may reference `with.github-token` as well as the legacy
+`GITHUB_TOKEN` environment variable. The detector retains the legacy explicit
+environment precedence and recognizes the source's pinned v2 input-only App
+reference; unknown outputs remain unverified. It reports references, not actual
+token values or proof that a particular action version can execute successfully.

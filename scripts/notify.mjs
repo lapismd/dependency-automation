@@ -4,7 +4,11 @@ import {
   discoverRepository,
   requestJson,
 } from "../src/github.mjs";
-import { firstParty, validateNotification } from "../src/policy.mjs";
+import {
+  firstParty,
+  validateNotification,
+  validateCompletion,
+} from "../src/policy.mjs";
 
 const entries = await loadAllowlist();
 const repository = process.env.SOURCE_REPOSITORY;
@@ -15,9 +19,15 @@ if (!entry || !/^[a-f0-9]{40}$/.test(sourceSha ?? ""))
 const repo = await discoverRepository(entry, {
   token: process.env.SOURCE_READ_TOKEN,
   revision: sourceSha,
+  publicOnly: true,
 });
+if (repo?.visibility !== "public")
+  throw Error("Notification requires verified public source coverage");
+const eventKind = process.env.SOURCE_EVENT_KIND ?? "published";
+if (!["published", "completed"].includes(eventKind))
+  throw Error("Unsupported notification kind");
 const packages = [];
-for (const { manifest } of repo.manifests) {
+for (const { manifest } of eventKind === "published" ? repo.manifests : []) {
   if (
     manifest.private ||
     !firstParty(manifest.name) ||
@@ -38,13 +48,13 @@ for (const { manifest } of repo.manifests) {
     throw new Error("Published package identity or integrity is missing");
   packages.push({ name: manifest.name, version: manifest.version });
 }
-if (!packages.length) {
+if (!packages.length && eventKind === "published") {
   console.log("No published stable source packages to notify");
 } else {
-  const client_payload = validateNotification(
-    { repository, sourceSha, packages },
-    entries,
-  );
+  const client_payload =
+    eventKind === "published"
+      ? validateNotification({ repository, sourceSha, packages }, entries)
+      : validateCompletion({ repository, sourceSha }, entries);
   const response = await fetch(
     "https://api.github.com/repos/lapismd/dependency-automation/dispatches",
     {
@@ -55,7 +65,10 @@ if (!packages.length) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        event_type: "lapis-npm-published-v1",
+        event_type:
+          eventKind === "published"
+            ? "lapis-npm-published-v1"
+            : "lapis-dependency-completed-v1",
         client_payload,
       }),
       signal: AbortSignal.timeout(30000),

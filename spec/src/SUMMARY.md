@@ -4,6 +4,7 @@
 - [Repository policy](policy.md)
 - [Inventory and registry availability](inventory.md)
 - [Reconciliation and review policy](reconciliation.md)
+- [Dependency and release waves](waves.md)
 - [Release intent](release-intent.md)
 - [Consumer integration](consumer-integration.md)
 - [Release notifications](notifications.md)

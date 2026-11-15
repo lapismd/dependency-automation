@@ -39,6 +39,11 @@ export default defineConfig(headingRequirements(), {
       ],
       rules: [
         {
+          pattern:
+            "^src/wave(?:s|-evidence|-state)\\.mjs$|^scripts/(?:wave-state|validate-wave-target)\\.mjs$",
+          chapters: ["spec/src/waves.md"],
+        },
+        {
           pattern: "^src/policy\\.mjs$",
           chapters: ["spec/src/inventory.md", "spec/src/notifications.md"],
         },

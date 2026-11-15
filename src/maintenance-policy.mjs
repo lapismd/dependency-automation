@@ -45,8 +45,10 @@ export function auditWorkflowAuthentication(workflow) {
       const token =
         step.with?.token ??
         (step.uses?.startsWith("changesets/action@")
-          ? env.GITHUB_TOKEN
-          : (env.GH_TOKEN ?? env.GITHUB_TOKEN)) ??
+          ? (env.GITHUB_TOKEN ?? step.with?.["github-token"])
+          : (env.GH_TOKEN ??
+            env.GITHUB_TOKEN ??
+            step.with?.["github-token"])) ??
         "";
       const appId = /^\$\{\{\s*steps\.([\w-]+)\.outputs\.token\s*\}\}$/.exec(
         token,
