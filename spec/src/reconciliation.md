@@ -36,7 +36,7 @@ the single allowed post-upgrade command and explicit write activation.
 - Only `LAPIS_DEPENDENCY_WRITES=true` MAY enable writes; unset values MUST select full dry-run.
 - Full phase MUST require `LAPIS_DEPENDENCY_PHASE=full`; other values MUST retain pilot selection.
 - Scheduled scans MUST require `LAPIS_DEPENDENCY_SCHEDULE=true`; manual diagnosis MUST remain available.
-- Write jobs MUST require the configured App key and bot author before running writable reconciliation.
+- Writable planning and App minting MUST pass the actual coordinator advisory preflight, with App key and bot author additionally required before writable reconciliation.
 
 ## DA-REC-004 — Constrained execution
 

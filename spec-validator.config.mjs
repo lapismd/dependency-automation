@@ -44,6 +44,11 @@ export default defineConfig(headingRequirements(), {
         },
         {
           pattern:
+            "^src/(?:advisories|audit-preflight|operational-drift)\\.mjs$|^scripts/audit-preflight\\.mjs$|^config/(?:advisories|operations)\\.json$",
+          chapters: ["spec/src/operational-drift.md"],
+        },
+        {
+          pattern:
             "^src/tooling\\.mjs$|^config/tooling\\.json$|^scripts/qualify-tooling\\.mjs$",
           chapters: ["spec/src/tooling.md"],
         },

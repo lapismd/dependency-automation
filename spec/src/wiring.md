@@ -51,6 +51,13 @@ policy + GitHub default-branch manifests + npm metadata
 
 ## Wave wiring
 
+`src/audit-preflight.mjs` runs the complete coordinator audit before inventory
+can plan writable admissions. `scripts/audit-preflight.mjs` repeats the real
+check before the App-token step. Read-only matrix execution no longer mints a
+write-capable App token. The operational maintenance audit resolves local
+composites from exact-source tree blobs and reads required-check/activation
+metadata without changing settings.
+
 `inventory` reads state and current evidence, then emits the admitted matrix and
 candidate state. `wave-state` publishes that state only from trusted main with
 its separate gate; matrix `reconcile` requires that publication in writable wave

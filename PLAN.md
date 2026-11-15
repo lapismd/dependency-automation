@@ -513,10 +513,10 @@ introduce package patches or disable audits to make migration pass.
 - [x] Execute fresh generated Prettier-only consumers on Node 24 without Deno for both CLI majors; prove the Deno-config coexistence negative and block it before App minting rather than force another formatter.
 - [x] Add central source-observed cohorts for six repositories, explicit missing coverage, and production candidate rejection before release-intent writes.
 - [x] Preserve existing CLI majors and refuse to overwrite source-owned version recipes; remove redundant Deno only from the upstream version template.
-- [ ] Qualify hosted source checks and operator-reviewed deployment.
+- [x] Qualify hosted S6a source checks and reviewed source merge through PR18; consumer deployment remains below.
 - [ ] Adopt and qualify the guard in active consumers, including AI Controller's currently Deno-required formatter/task boundary and Notes' separate portable/frozen setup boundary; no installer removal without whole-recipe proof.
-- [ ] Implement central required-check, runtime-exclusion, activation and deployed-template/pin drift coverage.
-- [ ] Implement exact source-authoritative advisory/path/version/source/artifact/expiry policy with expired and mismatched rejection.
+- [x] Implement central required-check, runtime-exclusion, activation and deployed-template/pin drift source coverage in S6b; hosted deployment and remediation remain below.
+- [x] Implement exact source-authoritative advisory/path/version/source/artifact/expiry policy with expired and mismatched rejection in S6b; the approval list remains empty.
 - [ ] Qualify all remaining tool cohorts and source/consumer tuples; S6 is not complete.
 
 See [the exact-source tooling rollout inventory and runbook](docs/tooling-rollout.md).
@@ -545,6 +545,38 @@ schedule=true and wave-state writes absent/off. Hosted read-only pilot
 43769439228 was queued on main 519e6cd9; its later receipt belongs to the parent.
 These current settings supersede old flat-mode settings as a live claim, while
 the earlier dated records remain historical. This slice changes no activation.
+
+### S6b operational/advisory source controls — 2026-11-15
+
+- [x] Implement bounded production drift reporting for exact-source template pins/Node runtimes, recursively resolved local composites, retained exclusions and allowlisted activation observations.
+- [x] Implement conservative protection/effective-rule versus PR-job candidate coverage, preserving unavailable/conditional/unknown outcomes and all current-head functional gates.
+- [x] Record single version-update owners and retain Dependabot security coverage, including repair of existing untyped first-party ignores in source preparation.
+- [x] Implement exact advisory/path/version/severity/dependency-source/lock/expiry decisions with an empty approval authority, known-fix rejection and stale-approval cleanup.
+- [x] Run actual coordinator audit before writable wave planning and repeat before reconcile App minting; preserve read-only/state-only pilot behavior.
+- [ ] Qualify hosted source checks and operator-reviewed deployment of these controls.
+- [ ] Resolve consumer ownership/pin/runtime/check gaps with each source owner; source observations are not full workflow-security analysis.
+- [ ] Complete active consumer guard/recipe adoption and remaining cohort qualification; S6 remains in progress.
+
+The S6a hosted source check subsequently passed and PR18 merged at
+468d1c91e41d88e705708346bb72e05f6c18b880. The current checkpoint is
+writes=false/phase=pilot/waves=true/schedule=true/state-writes=true;
+state-only hosted run43772797422 passed. The earlier off/queued records above
+remain dated history, superseded by this checkpoint without changing settings.
+
+Local S6b source verification passed 104 tests and three spec lanes after
+correcting two new spec-shape errors. Doctor11/11, semantic QMD and actionlint
+passed. The live GET-only maintenance audit inspected25 public repositories,
+resolved101 local-action invocations and reported3 unavailable required-check
+settings,8 static-candidate matches and14 source gaps. It retained46 unknown
+bodies and explicit drift rather than declaring them clean. Activation matched
+the current checkpoint. Registry inventory remained19repositories/43owners/
+220edges/0cycles/0coverage. Its local wave run omitted bot identity and is not
+write-readiness proof. The unchanged coordinator graph remains held by one
+unapproved LOW deepmerge path plus four known-fix MODERATE paths; PR19 separately
+remediates the moderates. The approved list remains empty; credential authority
+does not approve a waiver and no Visual Delta exception transfers here.
+
+See [operational drift and exact admission runbook](docs/operational-drift.md).
 
 ## Measurement and completion
 

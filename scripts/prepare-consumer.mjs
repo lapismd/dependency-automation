@@ -219,15 +219,20 @@ try {
         ignore = update.get("ignore", true);
       }
       for (const scope of ["@lapismd/*", "@lapis-notes/*"]) {
-        if (!ignore.items.some((v) => v.get("dependency-name") === scope))
+        const existing = ignore.items.find(
+          (v) => v.get("dependency-name") === scope,
+        );
+        const updateTypes = [
+          "version-update:semver-major",
+          "version-update:semver-minor",
+          "version-update:semver-patch",
+        ];
+        if (existing) existing.set("update-types", doc.createNode(updateTypes));
+        else
           ignore.add(
             doc.createNode({
               "dependency-name": scope,
-              "update-types": [
-                "version-update:semver-major",
-                "version-update:semver-minor",
-                "version-update:semver-patch",
-              ],
+              "update-types": updateTypes,
             }),
           );
       }

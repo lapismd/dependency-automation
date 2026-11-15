@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "nodeVersion": "24.15.0",
+  "actionPins": {
+    "actions/checkout": ["d23441a48e516b6c34aea4fa41551a30e30af803"],
+    "actions/setup-node": ["249970729cb0ef3589644e2896645e5dc5ba9c38"],
+    "actions/create-github-app-token": [
+      "64ab729a6294000f5aa4a4bc0b73d1f32bc45510"
+    ],
+    "changesets/action": ["63a615b9cd06ba9a3e6d13796c7fbcb080a60a0b"]
+  },
+  "requiredMonitoringExclusions": [
+    "lapismd/lapis-community",
+    "lapismd/nostr-auth",
+    "lapismd/nostr-relay",
+    "lapismd/terminal-host",
+    "lapismd/ai-host",
+    "lapismd/ai-controller"
+  ],
+  "requiredExcludedPackages": ["@lapismd/terminal-host"],
+  "updateOwners": {
+    "firstPartyVersions": "coordinator",
+    "thirdPartyVersions": "dependabot",
+    "security": "dependabot"
+  },
+  "activation": {
+    "LAPIS_DEPENDENCY_WRITES": "false",
+    "LAPIS_DEPENDENCY_PHASE": "pilot",
+    "LAPIS_DEPENDENCY_WAVES": "true",
+    "LAPIS_DEPENDENCY_SCHEDULE": "true",
+    "LAPIS_DEPENDENCY_WAVE_STATE_WRITES": "true"
+  }
+}

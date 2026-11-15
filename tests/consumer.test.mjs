@@ -155,7 +155,7 @@ test("consumer integration is repeatable, preserves functional commands and keep
   );
   await writeFile(
     join(root, ".github/dependabot.yml"),
-    "version: 2\nupdates:\n  - package-ecosystem: npm\n    directory: /\n    schedule:\n      interval: weekly\n",
+    "version: 2\nupdates:\n  - package-ecosystem: npm\n    directory: /\n    schedule:\n      interval: weekly\n    ignore:\n      - dependency-name: '@lapismd/*'\n",
   );
   await writeFile(
     join(root, ".github/workflows/ci.yml"),

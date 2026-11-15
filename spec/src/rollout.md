@@ -21,3 +21,8 @@ S6 now has a source implementation for Node-only version preparation, central
 cohort observations and candidate drift rejection. Hosted qualification and
 consumer adoption remain separate; existing frozen Deno host sources and all
 advisory exception rules remain unchanged.
+
+S6b adds production maintenance drift reporting and exact coordinator advisory
+admission with an empty approval list, before dependency write planning and App
+minting. Hosted/consumer adoption and remediation of reported unknowns remain
+separate; a matching static check name is not a complete security qualification.
