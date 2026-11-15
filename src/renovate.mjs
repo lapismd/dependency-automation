@@ -2,6 +2,7 @@ import { resolve } from "node:path";
 import semver from "semver";
 import { dependencies } from "./policy.mjs";
 import { lockVersion } from "./wave-evidence.mjs";
+import { dependencyNotes } from "./pr-messages.mjs";
 
 export function repositoryConfig(repo, graph, automationRoot) {
   const own = graph.packages
@@ -238,8 +239,6 @@ export function repositoryConfig(repo, graph, automationRoot) {
       dataFileTemplate: '{"branchName":"{{{branchName}}}"}',
       fileFilters: [".changeset/lapis-dependencies-*.md"],
     },
-    prBodyNotes: [
-      "First-party npm updates only. Runtime and peer manifest changes include release intent. Specification checks are exempt for the trusted dependency bot; functional checks remain required. Compatible updates auto-merge only after CI succeeds and repository merge rules permit it. Major and 0.x minor updates remain draft PRs for manual review. Publication retains existing operator approval.",
-    ],
+    prBodyNotes: [dependencyNotes(repo, graph)],
   };
 }

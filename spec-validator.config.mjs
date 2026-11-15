@@ -39,6 +39,10 @@ export default defineConfig(headingRequirements(), {
       ],
       rules: [
         {
+          pattern: "^src/pr-messages\\.mjs$",
+          chapters: ["spec/src/reconciliation.md", "spec/src/profile.md"],
+        },
+        {
           pattern:
             "^src/tooling\\.mjs$|^config/tooling\\.json$|^scripts/qualify-tooling\\.mjs$",
           chapters: ["spec/src/tooling.md"],

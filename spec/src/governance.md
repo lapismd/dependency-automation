@@ -93,3 +93,6 @@ Tooling policy, runtime checks and qualification map to tooling.md.
 The ordinary repository checker validates the central contract as well as the
 version template, so a Deno-only or unreviewed template cannot silently enter
 normal verification. Registry qualification remains separate from offline tests.
+
+The bounded PR-message renderer maps to reconciliation and profile requirements;
+operational previews and real source snapshots remain untracked.

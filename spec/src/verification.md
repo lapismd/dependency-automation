@@ -14,6 +14,7 @@
 | DA-REC-002  | Implemented | Compatible/breaking Renovate rules; `tests/automerge.test.mjs` and `tests/policy.test.mjs`; repository merge rules remain external gates. |
 | DA-REC-003  | Implemented | Explicit environment/variable gates in `reconcile.yml`, `scripts/inventory.mjs` and `renovate.config.cjs`.                                |
 | DA-REC-004  | Implemented | Per-target token permissions, single allowed post-upgrade command and environment whitelist; source/config tests.                         |
+| DA-REC-005  | Implemented | Native-body preservation, escaped/bounded renderer and wave/CI qualification regressions in `tests/pr-messages.test.mjs`.                 |
 | DA-REL-001  | Implemented | Branch-context and exact frozen install in `scripts/prepare-pr.mjs`; generated post-upgrade contract.                                     |
 | DA-REL-002  | Implemented | `releaseIntent`, catalog handling and onboarding guard; `tests/policy.test.mjs`.                                                          |
 | DA-REL-003  | Implemented | `writeChangeset`; repeated compatible-update regression in `tests/policy.test.mjs`.                                                       |
@@ -30,6 +31,7 @@
 | DA-PR-002   | Implemented | `validateProfile` grammar/diff boundary and stale-source checks; `tests/profile-writer.test.mjs`.                                         |
 | DA-PR-003   | Implemented | History-preserving update, duplicate, manual repair and retained-branch tests in `tests/profile-writer.test.mjs`.                         |
 | DA-PR-004   | Implemented | Ordered legacy handover, no blind write retries and orphan guard; profile writer tests and hosted replay.                                 |
+| DA-PR-005   | Implemented | Managed profile context, maintainer-text preservation, ambiguous-marker and GET-only duplicate regressions in profile/message tests.      |
 | DA-WIRE-001 | Implemented | Explicit source/workflow map, parsed workflow tests and all 14 public chapters; hosted qualification in the supporting record.            |
 | DA-GOV-001  | Implemented | Canonical 35-requirement baseline, local validation and hosted check 43759765126 passed.                                                  |
 | DA-GOV-002  | Implemented | Single-ID matrix and original missing-row rejection; complete local/hosted spec validation passed.                                        |

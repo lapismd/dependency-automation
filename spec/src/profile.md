@@ -48,6 +48,17 @@ same workflow run and publishes a narrowly checked rolling PR.
 - An orphaned branch after an uncertain PR write MUST stop automatic overwrite.
 - API failures MUST avoid response-body or credential logging.
 
+## DA-PR-005 — Profile review context
+
+**Requirement.** A legitimate changed profile candidate MUST describe its bounded public npm-cell changes, exact source/candidate revisions, validation boundary and real review/recovery links in a managed PR-body section.
+
+### Acceptance details
+
+- Context MUST distinguish completed source/diff validation from ordinary candidate CI and maintainer review; it MUST NOT imply publication authority or completed candidate checks.
+- Rolling updates MUST preserve maintainer text outside the managed section and reject ambiguous markers before writes; the exact legacy generated description MAY be upgraded.
+- An identical pending or unchanged candidate MUST retain its GET-only no-op behavior, including when its description predates the managed section.
+- Only existing manual workflow/review links MAY be offered; no refresh checkbox MAY appear without an implemented backend.
+
 ## Scheduling and merge boundary
 
 The scheduler is hourly with manual recovery. It does not automatically merge
