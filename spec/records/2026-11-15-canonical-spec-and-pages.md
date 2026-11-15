@@ -71,3 +71,23 @@ claimed from a local book build.
 Hosted PR, main Pages deployment and production read-back remain the handoff
 acceptance steps. The public site must contain the canonical home/wiring pages
 and working assets while excluding source reports and credential-bearing files.
+
+## Hosted qualification
+
+PR #13 passed check 43759195434 and merged as
+`2bd58ec82d1541db26e58c891d47493c9ec96ef2`. Main check 43759765126 passed,
+and Pages run 43759765158 passed both book and deployment jobs. Deployment
+7809666306 reports success for that exact source commit at
+<https://lapismd.github.io/dependency-automation/>.
+
+HTTPS read-back passed for all 14 indexed chapters. Wiring content includes
+the actual source-module and workflow names; policy/publication requirement
+IDs render. The dynamic TOC includes the chapter links, and generated CSS and
+book JavaScript assets return 200. mdBook 0.5 loads its TOC from an asset, so
+the initial read-back's static-home navigation assumption was replaced by
+checking the actual TOC asset and linked chapter URLs; the site was unchanged.
+Public `reports/inventory.json` and `reports/maintenance-audit.json` paths
+return 404. Operational snapshots were not copied into the artifact.
+
+The canonical baseline and delivery requirements are now implemented. This
+qualifies the specification/Pages request, not completion of S1–S6 rollout.

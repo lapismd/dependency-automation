@@ -330,6 +330,32 @@ attestation publication and actual source cold/warm execution remain pending.
 The producer must attest its staging digest before promoting the full identity
 tag, so incomplete publication cannot advertise an unverified cache entry.
 
+Resolver PR #3 is merged as `e20b534b`; its hosted native image gate passed.
+Shared publisher/tooling PR #4 is also merged after 44 helper tests and hosted
+validation. The reviewed cohort `617eb34fc337832401ef81feb9a2673033874e3b`
+binds Buildx and immutable BuildKit inputs into identity. Exact host CLI setup
+uses the shared toolchain checksums. An isolated native controller smoke built
+and checked an amd64/arm64 OCI index; full source fetch/publication remains a
+consumer gate.
+
+Plugins adoption PR #141, head `4ae020c1`, preserves the required `image-pin`
+check through a fail-closed gate, keeps all frozen installs and delegates
+serialized publication without pin-PR write authority. Local source tooling,
+specs, audit and fresh-base installs passed; hosted CI 43759889627 is pending.
+Signed publication, full cold/warm consumer acceptance and obsolete bot review
+cleanup remain required before claiming zero image-pin PRs.
+
+### Parallel canonical specification and Pages — qualified
+
+The additional user-requested canonical coordinator book has 14 chapters and
+35 requirements, an explicit workflow/module map and strict spec-first
+governance. PR #13 merged as `2bd58ec8`. Main check 43759765126 and Pages run
+43759765158 passed; deployment 7809666306 succeeded. All indexed chapters,
+TOC, CSS and JavaScript were read back over HTTPS at
+<https://lapismd.github.io/dependency-automation/>. Operational report paths
+are absent. This delivery ran in parallel with the shared publisher and Plugins
+adoption; it does not change the remaining slice statuses.
+
 ## S3: dependency and release waves
 
 1. Extend discovered graph edges with update type, compatibility, release intent,

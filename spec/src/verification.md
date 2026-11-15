@@ -30,13 +30,13 @@
 | DA-PR-002   | Implemented | `validateProfile` grammar/diff boundary and stale-source checks; `tests/profile-writer.test.mjs`.                                         |
 | DA-PR-003   | Implemented | History-preserving update, duplicate, manual repair and retained-branch tests in `tests/profile-writer.test.mjs`.                         |
 | DA-PR-004   | Implemented | Ordered legacy handover, no blind write retries and orphan guard; profile writer tests and hosted replay.                                 |
-| DA-WIRE-001 | In progress | Current source/workflow map and parsed workflow tests; Pages wiring awaits hosted deployment acceptance.                                  |
-| DA-GOV-001  | In progress | Canonical chapter coverage and `pnpm spec:validate`; bootstrap qualification in the supporting record.                                    |
-| DA-GOV-002  | In progress | Single-ID verification validator; missing rows fail the original bootstrap target.                                                        |
-| DA-GOV-003  | In progress | Mapped spec-first rules, QMD configuration and negative path tests; host/CI qualification recorded separately.                            |
-| DA-GOV-004  | In progress | Ignore rules and book-only Pages artifact boundary; Pages contract regression.                                                            |
-| DA-DOC-001  | In progress | Deno-free validator and pinned mdBook CI; local book/hosted acceptance pending in the supporting record.                                  |
-| DA-DOC-002  | In progress | Main-only isolated Pages workflow and artifact-permission test; deployment acceptance remains pending.                                    |
+| DA-WIRE-001 | Implemented | Explicit source/workflow map, parsed workflow tests and all 14 public chapters; hosted qualification in the supporting record.            |
+| DA-GOV-001  | Implemented | Canonical 35-requirement baseline, local validation and hosted check 43759765126 passed.                                                  |
+| DA-GOV-002  | Implemented | Single-ID matrix and original missing-row rejection; complete local/hosted spec validation passed.                                        |
+| DA-GOV-003  | Implemented | Mapped source negative probe, doctor 11/11, actual QMD search and main spec-first acceptance.                                             |
+| DA-GOV-004  | Implemented | Ignore rules, book-only artifact regression and deployed output; public operational-report paths return 404.                              |
+| DA-DOC-001  | Implemented | Released Node validator, pinned mdBook, 42 tests and all three spec lanes; Pages book job 43759765158 passed.                             |
+| DA-DOC-002  | Implemented | Main-only isolated deployment 7809666306 succeeded; all indexed chapters, navigation, CSS and JavaScript read back over HTTPS.            |
 
 Detailed bootstrap commands, failure counts and hosted handoff live in
 [the specification/Pages qualification record](https://github.com/lapismd/dependency-automation/blob/main/spec/records/2026-11-15-canonical-spec-and-pages.md).
