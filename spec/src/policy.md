@@ -62,3 +62,8 @@ class owners, retained exclusions and a dated activation checkpoint, without
 granting settings authority. `config/advisories.json` is the separately reviewed
 exact approval authority under DA-OPS-002; its initial list is empty. Source
 observations and raw audit findings cannot create approvals.
+
+The November 16 operator decision adds one exact coordinator deepmerge entry
+with the reviewed dependency-source/lock binding and November 21 expiry.
+This changes only advisory admission under DA-OPS-002; repository scope,
+existing holds, rollout phase and the separate write gate remain unchanged.

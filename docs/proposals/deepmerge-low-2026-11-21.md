@@ -1,5 +1,10 @@
 # Disabled proposal: coordinator deepmerge LOW
 
+Historical proposal retained for the reviewed tuple. The operator subsequently
+approved that exact scope on November 16; see the
+[decision record](../approved-coordinator-advisory.md). This proposal and its
+adjacent JSON remain disabled; only `config/advisories.json` is runtime authority.
+
 This is a concrete proposal for operator review, **not an approval**. It is
 outside `config/advisories.json`, whose approval list remains empty. Current
 dependency-write admission remains held. The adjacent
