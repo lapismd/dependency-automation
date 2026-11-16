@@ -1,5 +1,6 @@
 import { readFile } from "node:fs/promises";
 import semver from "semver";
+import { validateSourceCiPolicy } from "./tooling-ci.mjs";
 import {
   validateCohortEvidence,
   assessCohortEvidence,
@@ -60,7 +61,7 @@ export function validateToolingPolicy(policy) {
   for (const [repository, cohort] of Object.entries(policy.repositories)) {
     if (
       !/^(lapismd|stevejuma)\/[\w.-]+$/.test(repository) ||
-      !keys(cohort, ["sourceSha", "pnpm", "tools", "evidence"]) ||
+      !keys(cohort, ["sourceSha", "pnpm", "tools", "evidence", "ci"]) ||
       !sha(cohort.sourceSha) ||
       !semver.valid(cohort.pnpm) ||
       !keys(cohort.tools, [...tools]) ||
@@ -69,6 +70,7 @@ export function validateToolingPolicy(policy) {
       )
     )
       throw Error("Invalid tooling policy cohort");
+    if (cohort.ci !== undefined) validateSourceCiPolicy(cohort.ci);
     if (cohort.evidence) validateCohortEvidence(cohort.evidence, cohort);
   }
   return policy;
@@ -189,7 +191,11 @@ export function assessTooling(snapshot, policy) {
         ? manifest.engines.node
         : null,
     },
-    pnpm: { observed: manager, expected: cohort?.pnpm ?? null },
+    pnpm: {
+      observed: manager,
+      expected: cohort?.pnpm ?? null,
+      recordedProvenance: cohort?.evidence?.packageManager ?? null,
+    },
     versioning: {
       state: !cli
         ? "not-declared"

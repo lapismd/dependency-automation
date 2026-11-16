@@ -106,3 +106,6 @@ operational previews and real source snapshots remain untracked.
 
 Completion policy, verifier and reusable workflow are mapped to notifications
 and waves, with source-inventory isolation and explicit workflow wiring.
+
+Tooling CI, provenance and refresh modules map to DA-TOOL-005/006 in the tooling
+chapter; selectors and source evidence grant no write or portability authority.

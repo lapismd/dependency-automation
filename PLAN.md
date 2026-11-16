@@ -608,7 +608,7 @@ and with a Node/Git-only PATH, with no skipped tests or new CI tool dependency.
 - [x] Record the latest observed successful default-branch source pipelines separately from unqualified version recipes: nine match inspected source; Server remains prior-source.
 - [x] Preserve explicit holds and frozen-root exclusions, existing CLI majors, dependency/audit authority and activation controls.
 - [x] Qualify this source PR on hosted CI and deploy through the parent operator.
-- [ ] Refresh the six older cohort records and resolve any remaining current-source CI gaps without inventing portability claims.
+- [x] Implement the older-six exact evidence refresh with reviewed CI jobs, preserved supported constraints and explicit missing/prior source context; hosted refresh deployment remains below.
 - [x] Add an upstream reusable runtime guard in Lapis CI, then prove and adopt one actual portable consumer recipe with its custom command/config unchanged.
 
 The GET-only collector produced ten review candidates with zero unavailable
@@ -745,13 +745,13 @@ receipts remain historical. Remaining consumer and wave gates are still open.
 - **S2:** Plugins #145 merged at b045e791. Corrected signed producer43771402027
   succeeded; repeat43775859652 reused its immutable image. After the genuine
   Plugins #147 release changed inputs, producer43776275040 succeeded on75c71903.
-  Full fresh warm CI43778011166 passed on that source, selecting signed digest
+  Full fresh warm CI 43778011166 passed on that source, selecting signed digest
   bc8095bf540fa25911d93cd5fd0ea5525b7cbf78bfbe6290fcc4e7d982a87c6e
   for identity d2906e0bc190b705f432dfef3f49b7199e267486426c40c7b2b60996f1f42cea.
   Earlier warm43775857516 was cancelled by a newer push and is not a pass.
   Notes #135 was rebased onto unrelated Sync main ee6615b2 at bce9c51a;
   exact7 adoption tests,120 release tests,6spec lanes/69 regressions,
-  audit/release policy/format/actionlint passed. Refreshed full CI43779143189
+  audit/release policy/format/actionlint passed. Refreshed full CI 43779143189
   and subsequent Notes signed producer/warm/reuse acceptance remain pending.
 - **S3:** State-only43772797422 succeeded with inventory/state writes and zero
   consumer writes. Maintenance's deployed report reader accepted the real
@@ -771,7 +771,7 @@ receipts remain historical. Remaining consumer and wave gates are still open.
   qualified artifact14186364002, SHA256034fffde2bcbfca706eb014c000570263f390e5a81335d195b23571376308424,
   candidate38293e83 and three approved queue entries together. Repeat
   preparation43778013307 and writer43778015392 returned unchanged with zero
-  verification/build time. Invalid preparation attempt999 in43778309268
+  verification/build time. Invalid preparation attempt999 in 43778309268
   rejected before writer-token creation; correct replay43778496424 returned
   the same candidate unchanged without signing/rebuilding. Hosted tests
   complement the unit partial-upload recovery regression; they do not claim
@@ -782,7 +782,7 @@ receipts remain historical. Remaining consumer and wave gates are still open.
 - **Rich messages:** Coordinator #20 merged3aa6c8b5 and its main/spec Pages runs
   passed. Genuine scheduled profile refresh43778000008 created App-authored
   .github #12 with package delta tables, source/candidate links and recovery
-  guidance. Ordinary CI43778051079 passed without workflow approval;
+  guidance. Ordinary CI 43778051079 passed without workflow approval;
   reviewed npm-cell-only changes merged0bd71150. Notes #126's native content and
   checkbox remain intact outside its managed context.
 - **S6:** Coordinator #21 mergedc803882b after119tests/3spec and hosted43778093986
@@ -877,7 +877,7 @@ Caller adoption remains separate from this source boundary repair.
 The exact Notes126 candidate49531dc1 passed all required CI after its one
 unchanged failed-job rerun. Manual replay43794621762 completed without a new
 candidate or duplicate PR, and correctly retained merge admission: File Explorer
-still resolved Core0.13.3 under its unchanged compound support range, while the
+still resolved Core 0.13.3 under its unchanged compound support range, while the
 planner incorrectly expected a narrowed `^0.13.4` manifest. Three other admitted
 manifests had updated. No merge or workflow gate was bypassed.
 
@@ -908,3 +908,73 @@ or provenance, changed support and ordinary ranges keep their publication wait.
 This updates only derived state through normal reconciliation, with no live state
 edit or generated package release; actual accepted-main qualification is pending.
 The exact regression changed from1 failure to1 pass with six negative controls.
+
+### S6d exact older-cohort refresh source — November 16
+
+All 16cohorts now have exact source, root manifest/lock hashes and resolved-tool
+context. The older six retain every supported tool range and pnpm version;
+actual wider source declarations remain observations rather than widened policy.
+Explicit source workflow/job policies bind complete successful required jobs to
+source/run/attempt. Skipped, duplicate, partial, mismatched or unavailable jobs
+cannot qualify. Older ten run-only observations remain labelled accordingly.
+
+Refreshed Plugins 0abf4958 and Notes 1e49d754 retain prior-source functional
+receipts 43795232129/43795264453 at 46c08176/40e3e357. Core 9cf94b7c has
+same-source CI 43773566523. Notes' prior PWA validation/deployment passed
+while retaining its quarantined skipped interaction job. VD abcb2e6d actual CI 43766653716
+passes all four required jobs. Mira d681bdd6 remains unavailable: release-only
+success skipped artifact validation. Notebook 4405b5c6 failed spec-first mappings
+in 43704372870, so 43615472367 remains explicitly prior-source 1e2f0f84.
+
+VD's absent root packageManager stays absent. Its recorded pnpm 10.32.1 pin binds
+exact release workflow bytes/job/step separately; changed commands cannot
+silently produce a new accepted pin. Notes retains deno.json and its shared
+frozen setup. No work on excluded AI Controller/AI Host/Terminal Host, consumer
+source, package/lock, advisory bindings, activation or write authority occurs.
+
+The GET-only collector now supports explicit existing-cohort refresh, preserves
+policy ranges/versions and emits ignored review proposals. It rejects held,
+excluded and unknown requested scope. Central supported-cohort drift control
+remains distinct from whole-project recipe portability; S6 is not marked done.
+
+Pending: hosted review/deployment and inventory read-back for this refresh;
+remaining eligible Node guard adoption; source-owned Notebook canonical repair
+and Mira validation context. Recipes remain unqualified in cohort metadata.
+
+### Concurrent pilot caller checkpoint — November 16
+
+Notes release #137 merged 308acb05; completion callers Notes #140 and Plugins #150
+merged 1e49d75421899183cb4f0fb14ae613a172872eeb and
+0abf495865443859760929d55c6d7a97fb20d3b9 after their full PR checks passed.
+Core #86 merged 8c9d4974becd27506c506575e52829905c8656a9 with 11 checks green;
+Mira #42 merged 345e6390ec61b61d3c512c6dd40ac8218a9ee34e after its repaired
+check lanes passed. Source guards retain shared helper 6511f29e and unchanged
+version recipes/configuration/major contracts. Cohort source observations above
+remain dated; these later source changes must remain visible as drift.
+
+Genuine Plugins completion 43798984826 passed pre-App verified-current-completion,
+verified source 0abf4958 and sent its verified completion wake-up. Receiver
+repository_dispatch 43799022094 completed inventory and was still writing wave
+state at the parent's last checkpoint. All four pilot callers are merged, but
+receiver settlement, durable wave progression and the whole S3 chain are not
+claimed complete. No repeat polling or activation change is part of this slice.
+
+Local S6d qualification: 26 focused tooling tests, 179 full tests and three spec
+lanes pass. Actual GET-only refresh returns all 16 eligible proposals; inventory
+retains 19 repositories, 43 owners and 220 edges with zero cycles/coverage holds.
+All 19 actual global native Renovate configs, formatter, actionlint, doctor and
+QMD discovery pass. Package/lock and approved LOW policy bytes remain unchanged.
+[Exact source qualification](spec/records/2026-11-16-six-cohort-refresh.md)
+retains initial failures, observed CI limits and pending hosted delivery.
+
+### Remaining dependency intake / main specification handoff
+
+- [ ] Repair the S1/S6 source policy handoff so trusted dependency intake carries accurate mapped canonical evidence or a verified merge handoff before claiming main qualification. PR-only bot specification exemptions do not qualify main, and main spec-first remains binding.
+
+Root owns Notebook repair PR #37 (9549549b8883): the two original missing-map
+findings become zero over the original intake base; three Docker specification
+lanes plus routing/parity and App ownership pass. This is a canonical-only repair
+with no product/dependency graph change. Trusted dependency PR #36 (Core 0.13.4)
+may recreate the main-map gap unless the owning preparation/handoff policy is
+fixed. This remaining work is outside the cohort refresh and grants no waiver,
+new runtime qualification or manufactured release intent.

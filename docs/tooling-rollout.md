@@ -1,6 +1,7 @@
 # S6 tooling rollout and remaining gates
 
-This runbook records the first source foundation. It is not completion of S6.
+This runbook retains the source foundation and current remaining S6 gates.
+It does not claim completion of every consumer recipe or excluded Deno portability.
 Existing source-owned version recipes, CLI majors, frozen hosts and publication
 approvals remain authoritative. Re-read exact main revisions before adoption.
 
@@ -46,15 +47,17 @@ Root Deno inputs were observed for Notes, AI Controller and AI Host. They are
 explicit source-qualification holds for the generic contract, not proof that
 every such legacy recipe needs the same formatter or may be changed.
 
-The coordinator's separate raw full audit has one LOW and four MODERATE
-instances across three advisories in its unchanged Renovate graph:
+At the historical November 15 foundation audit, the then-current Renovate
+graph had one LOW and four MODERATE instances across three advisories:
 
 - GHSA-gcqx-w48m-w2h4: deepmerge 4.3.1 through Renovate.
 - GHSA-3g3m-2fjr-6pw4: glob 13.0.6 directly through Renovate and 10.5.0 through its GCP detector, gaxios and rimraf chain.
 - GHSA-g3hv-75wg-m249: minimatch 10.2.6 directly through Renovate and 9.0.9 through the same GCP chain.
 
-This slice changes no package manifest/lockfile and creates no exception.
-Do not describe that graph as clean; owning remediation remains required.
+Subsequent source remediation and the separate November 16 exact approval
+supersede that historical graph. The current unchanged dependency graph reports
+only the existing exact-approved LOW deepmerge tuple. This evidence refresh
+changes no package/lock bytes or advisory bindings and creates no exception.
 
 ## Exact consumer version boundaries
 
@@ -62,7 +65,9 @@ This read-only snapshot covers all fifteen declared CLIs in the nineteen-repo
 inventory. It inspects direct workflow steps only; image contents, reusable
 workflows and script internals require source-owned acceptance. The graph still
 has 43 owners, 220 edges, zero runtime cycles and zero source coverage holds.
-Six tool cohorts are recorded; thirteen repositories remain explicitly unconfigured.
+At this historical foundation checkpoint six tool cohorts were recorded;
+thirteen repositories were then unconfigured. Current sixteen-cohort coverage
+and remaining recipe/source gaps are described below.
 
 | Repository                           | Exact source                                                                                                                                      | Workflow / job                                   | Direct Deno setup | Action version command      |
 | ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------ | ----------------- | --------------------------- |
@@ -109,15 +114,25 @@ the qualified Changesets configuration and rejects mixed contexts before App
 minting. Existing consumers need explicit integration and whole-recipe
 acceptance; a reviewed Node CLI is not a Deno-free capability receipt.
 
-## Mandatory remaining S6 work
+## Current remaining S6 work
 
-- [ ] Adopt and qualify the guard in active source owners, preserving each exact recipe and CLI major; generated-template acceptance alone is insufficient.
-- [ ] Establish and qualify AI Controller's source-owned portable-task/formatter boundary; its current setup is required by actual formatting, so retain it until that boundary is proven.
-- [ ] Separate Notes' portable version setup from its shared Deno-verifying ci-setup composite, preserving frozen-host CI and proving the exact source-owned recipe before removing any prerequisite.
-- [ ] Expand recorded cohorts beyond six source snapshots and qualify each source/consumer tuple before any tool upgrade.
-- [ ] Add central read-only drift coverage for required/final checks, runtime exclusions, actual activation variables and deployed workflow/template pins, with unavailable/stale coverage distinct from success.
-- [ ] Add source-authoritative advisory references with exact advisory, dependency path, vulnerable version, source/artifact binding and expiry; test expired, changed and mismatched cases. Preserve every current source approval and never introduce blanket ignores.
-- [ ] Complete hosted qualification and prospective inventory review, then operator-approved pilot deployment/adoption; no new write/state/host authority comes from this source PR.
+- [x] Record all sixteen eligible public cohorts with exact source/manifest/lock/resolved-tool evidence; preserve supported constraints and report drift.
+- [x] Deliver the shared source-owned version-runtime guard and actual Plugins/Core/Mira recipe proofs separately from source CI.
+- [x] Refresh the older six source observations with reviewed CI paths/required-job receipts and honest package-manager provenance.
+- [ ] Qualify and deploy this refresh PR and confirm the resulting inventory/report read-back.
+- [ ] Finish eligible Node consumer guard adoption under each exact source-owned recipe; retain existing CLI majors and all functional gates. Core/Mira adoption and source-owned failure repairs remain independently reviewed work.
+- [ ] Address Notebook's source-owned missing canonical mappings before claiming current-source CI success; retain Mira's unavailable source-pipeline context until actual eligible validation exists.
+
+Frozen AI Controller, AI Host and Terminal Host are excluded. Notes' root Deno
+and frozen setup remain an explicit separate boundary, not a required migration
+or permission to remove prerequisites. Supported-cohort drift enforcement and
+whole-recipe portability are different exit conditions. CLI metadata alone
+qualifies neither arbitrary project recipes nor all consumer adoption.
+
+Current source/recipe receipts, default/existing refresh commands, failure
+limits and Visual Delta's undeclared-manifest/workflow-pin distinction are in
+[the cohort evidence ledger](cohort-evidence.md). Source advisory approval and
+activation remain unchanged; this slice does not add a waiver or writer scope.
 
 Candidate preparation is already production-wired: it compares previous and
 candidate manifest/lock evidence after the existing scripts-disabled frozen
@@ -126,7 +141,7 @@ CLI major changes and newly incompatible cohort changes fail closed. Unchanged
 legacy tooling remains visible without forcing a migration. Dependabot retains
 security coverage; the coordinator retains first-party update ownership.
 
-## Current operator checkpoint
+## Historical foundation operator checkpoint
 
 The parent's reviewed S3 cutover uses writes=false, phase=pilot, waves=true and
 schedule=true, with wave-state writes absent/off. Read-only hosted pilot

@@ -71,6 +71,7 @@ test("successful source CI never promotes an unqualified whole recipe", () => {
   assert.equal(result.lock, "matches-recorded-lock");
   assert.equal(result.recipe.qualification, "unqualified");
   assert.equal(result.recipe.command, null);
+  assert.equal(result.sourceCi.assurance, "historical-run-only");
   assert.throws(
     () =>
       validateCohortEvidence(
