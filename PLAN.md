@@ -85,6 +85,53 @@ Link PRs and evidence here; do not turn a local test into a rollout claim.
 | S5 Release/registry batching and recovery | publishers + plugin-registry      | Registry batch and recovery qualified             | Batches preserve signing and resume failed publication safely            |
 | S6 Deno-free tooling and drift prevention | dependency-automation + consumers | Guards landed; consumer adoption in progress      | Supported tooling cohort cannot silently drift                           |
 
+## Current release checkpoint — November 16
+
+This checkpoint supersedes dated implementation snapshots below; they remain
+historical evidence, not current activation defaults. S3 and S6 are still open.
+
+- [x] All four pilot completion callers are merged and have genuine successful
+      dispatches. Plugins' repeated completion advanced the receiver without a
+      duplicate candidate. Shared source and callback receipts are recorded in
+      [publication evidence](docs/publication-evidence.md).
+- [x] Coordinator publication proof PR29 merged `3f64220c`. Its 215 tests and
+      three specification lanes pass, followed by successful main source CI. The
+      hosted reconciliation `43809436156` is validating the deployed collector.
+- [x] Notes API0.6.6 and AppProfile0.2.3 published from `1e49d754`. Independent
+      registry read-back matched retained artifact bytes. Rerunning only failed
+      jobs in release `43800122156` completed verification and both GitHub releases
+      on attempt2, without rebuild or republish. Both packages remain on `next`.
+- [x] Notes metadata-cache hardening PR141 merged `a90761f1` after hosted CI;
+      124 release tests and real registry-consumer acceptance passed locally.
+- [x] Tasks recurrence readiness PR27 merged `faafd55f` after all ten hosted
+      gates passed. Its full local lanes include2930 units,29 native/provider
+      cases and66 interaction/accessibility cases. Version PR25 must incorporate
+      this source repair and obtain fresh qualification before release.
+- [x] Notebook canonical repair PR37 merged `1d66bb8b`; main CI, version,
+      Storybook Pages and registry publication workflows all succeeded.
+- [x] Hosted public artifact access works with the existing contents-read
+      workflow token. The earlier App Actions-read setup request is withdrawn;
+      no permission, secret or installation change is required. Remove the unused
+      optional reader mint while preserving every artifact/provenance gate.
+- [ ] Complete the genuine pilot chain,
+      including the compound-range lock update and replay. Latest-only admission
+      remains in force; observed `next` publication is not permission to promote
+      a tag or admit a channel. Restore scheduled/full rollout only after acceptance.
+- [x] Shared exact development-audit helper PR10 merged `2c756d80` after hosted
+      CI passed. Source
+      review regressions reject changes during collection, decision-time expiry
+      and untracked dependency inputs; its full suite passes72 cases.
+- [ ] Release the source-owned Mira Mermaid repair and its genuine Editor
+      dependency-floor patch, then validate Docs against released packages.
+      Docs' packed production peer closure must be clean before its distinct
+      expiring development-only decision and shared guard can deploy.
+- [ ] Qualify remaining eligible version recipes, including AI's actual Node22
+      and native prerequisites, before adopting guards. A portable CLI alone is
+      insufficient proof. Excluded Deno-only packages/hosts remain excluded.
+- [ ] Repair trusted dependency intake's mapped canonical handoff so future
+      merges do not repeat Notebook's main spec-first failure. Preserve the main
+      gate and narrow PR exemption while preparing accurate source-owned evidence.
+
 ## S1: shared policy and trusted PR authentication
 
 1. Add a monitoring-only repository list alongside the existing update allowlist.

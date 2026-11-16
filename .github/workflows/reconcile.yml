@@ -36,8 +36,6 @@ jobs:
     if: github.ref == 'refs/heads/main' && (github.event_name != 'schedule' || vars.LAPIS_DEPENDENCY_SCHEDULE == 'true')
     runs-on: ubuntu-latest
     timeout-minutes: 30
-    env:
-      HAS_PUBLICATION_APP_KEY: ${{ secrets.LAPIS_DEPENDENCY_APP_PRIVATE_KEY != '' }}
     outputs:
       matrix: ${{ steps.inventory.outputs.matrix }}
       count: ${{ steps.inventory.outputs.count }}
@@ -56,45 +54,10 @@ jobs:
           tool: mdbook@0.5.4
       - uses: lapismd/lapis-ci/actions/setup-gh@bfa9743d8b403681ef7fb81ae3c5e53a99e3de55 # gh 2.102.0
       - run: pnpm verify
-      - name: Check existing public App artifact-read capability
-        id: publication-capability
-        if: env.LAPIS_WAVES_ENABLED == 'true' && env.HAS_PUBLICATION_APP_KEY == 'true'
-        continue-on-error: true
-        env:
-          GH_TOKEN: ${{ github.token }}
-          APP_CLIENT_ID: ${{ vars.LAPIS_DEPENDENCY_APP_CLIENT_ID }}
-        shell: bash
-        run: |
-          set -euo pipefail
-          if gh api --method GET apps/lapismd-dependency-bot --jq '{client_id,permissions}' |
-            jq -e --arg id "$APP_CLIENT_ID" '.client_id == $id and (.permissions.actions == "read" or .permissions.actions == "write")' >/dev/null; then
-            echo 'eligible=true' >> "$GITHUB_OUTPUT"
-          else
-            echo 'eligible=false' >> "$GITHUB_OUTPUT"
-            echo '::notice::Existing App lacks proven artifact-read capability; publication evidence remains held. Registration permissions are unchanged.'
-          fi
-      - name: Qualify coordinator audit before publication reader minting
-        id: publication-audit
-        if: steps.publication-capability.outputs.eligible == 'true'
-        continue-on-error: true
-        run: node scripts/audit-preflight.mjs
-      - name: Mint Notes-only publication evidence read token
-        id: publication-reader
-        if: env.LAPIS_WAVES_ENABLED == 'true' && steps.publication-capability.outputs.eligible == 'true' && steps.publication-audit.outcome == 'success'
-        continue-on-error: true
-        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3
-        with:
-          client-id: ${{ vars.LAPIS_DEPENDENCY_APP_CLIENT_ID }}
-          private-key: ${{ secrets.LAPIS_DEPENDENCY_APP_PRIVATE_KEY }}
-          owner: lapismd
-          repositories: lapis-notes
-          permission-contents: read
-          permission-actions: read
       - id: inventory
         run: pnpm inventory
         env:
           GH_TOKEN: ${{ github.token }}
-          LAPIS_PUBLICATION_READ_TOKEN: ${{ steps.publication-reader.outputs.token }}
           LAPIS_WAVE_RECOVER_OPERATION: ${{ inputs.recover-operation }}
           LAPIS_WAVE_EXPECTED_STATE: ${{ inputs.expected-state-revision }}
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
