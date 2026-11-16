@@ -421,6 +421,96 @@ test("discovery binds original public source policy bytes to its immutable revis
 });
 
 import { repositoryConfig } from "../src/renovate.mjs";
+import { mkdtemp, rm, writeFile } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
+
+test("native Renovate admits the exact canonical override alongside its dev dependency only", async (t) => {
+  const f = fixture();
+  f.graph.waveAdmission = planWaves(f.graph, f.state, options).report;
+  const config = repositoryConfig(f.repo, f.graph, "/automation");
+  const { GlobalConfig } =
+    await import("../node_modules/renovate/dist/config/global.js");
+  const { extractPnpmWorkspaceFile } =
+    await import("../node_modules/renovate/dist/modules/manager/npm/extract/pnpm.js");
+  const { applyPackageRules } =
+    await import("../node_modules/renovate/dist/util/package-rules/index.js");
+  const root = await mkdtemp(join(tmpdir(), "lapis-native-override-"));
+  t.after(async () => {
+    GlobalConfig.reset();
+    await rm(root, { recursive: true, force: true });
+  });
+  GlobalConfig.set({ localDir: root });
+  await writeFile(
+    join(root, "pnpm-lock.yaml"),
+    recorded.before["pnpm-lock.yaml"],
+  );
+  const extracted = await extractPnpmWorkspaceFile(
+    f.repo.workspace,
+    "pnpm-workspace.yaml",
+  );
+  const core = extracted.deps.find((dep) => dep.depName === dependency);
+  assert.equal(core.depType, "pnpm-workspace.overrides");
+  assert.equal(core.currentValue, "0.13.3");
+  const effective = (dep, packageFile) =>
+    applyPackageRules({
+      ...config,
+      ...dep,
+      packageFile,
+      currentVersion: "0.13.3",
+      updateType: "patch",
+    });
+  const override = await effective(core, "pnpm-workspace.yaml");
+  assert.equal(override.enabled, true, "the paired override must be enabled");
+  assert.match("0.13.4", new RegExp(override.allowedVersions.slice(1, -1)));
+  assert.doesNotMatch(
+    "0.13.5",
+    new RegExp(override.allowedVersions.slice(1, -1)),
+  );
+  const dev = await effective(
+    { ...core, depType: "devDependencies" },
+    "package.json",
+  );
+  assert.equal(dev.enabled, true);
+  for (const [dep, file] of [
+    [{ ...core, depType: "peerDependencies" }, "package.json"],
+    [{ ...core, depType: "dependencies" }, "package.json"],
+    [core, "other/pnpm-workspace.yaml"],
+    [{ ...core, depName: "other>" + dependency }, "pnpm-workspace.yaml"],
+    [
+      { ...core, depName: "@lapis-notes/api", packageName: "@lapis-notes/api" },
+      "pnpm-workspace.yaml",
+    ],
+    [{ ...core, depType: "pnpm.catalog.default" }, "pnpm-workspace.yaml"],
+  ]) {
+    assert.equal((await effective(dep, file)).enabled, false);
+  }
+});
+
+test("native artifact reporting retains failures without requiring status-write permission", async () => {
+  const f = fixture();
+  f.graph.waveAdmission = planWaves(f.graph, f.state, options).report;
+  const generated = repositoryConfig(f.repo, f.graph, "/automation");
+  const { setArtifactErrorStatus } =
+    await import("../node_modules/renovate/dist/workers/repository/update/branch/artifacts.js");
+  const { getConfig } =
+    await import("../node_modules/renovate/dist/config/defaults.js");
+  const { mergeChildConfig } =
+    await import("../node_modules/renovate/dist/config/utils.js");
+  const errors = [
+    { fileName: "pnpm-lock.yaml", stderr: "fixture preparation failed" },
+  ];
+  const config = {
+    ...mergeChildConfig(getConfig(), generated),
+    branchName: "lapis-dependencies/lapis-first-party",
+    artifactErrors: errors,
+  };
+  assert.equal(config.statusCheckNames?.artifactError, null);
+  await setArtifactErrorStatus(config);
+  assert.deepEqual(config.artifactErrors, errors);
+  assert.equal(config.ignoreTests, false);
+});
+
 test("an admitted development regeneration retains native paths and cannot auto-merge the stale failed PR", () => {
   const f = fixture();
   f.repo.evidence.prs.push({

@@ -49,6 +49,12 @@ the single allowed post-upgrade command and explicit write activation.
 - General package scripts and unrestricted environment exposure MUST remain disabled.
 - Reconciliation MUST NOT prune stale branches automatically; wave mode adds explicit repair ownership.
 
+## Native artifact reporting
+
+Native artifact-error status writes MUST be disabled for the status-read-only
+token. Preparation errors MUST retain native PR reporting and functional CI/merge
+gates rather than require additional status-write authority.
+
 ## DA-REC-005 — Native review context
 
 **Requirement.** Generated dependency PR notes MUST add bounded, escaped, public-source review context through Renovate's native `prBodyNotes`, preserving its package table, release notes, configuration, controls and metadata.
@@ -88,3 +94,7 @@ state/write admission. Unavailable artifact access leaves evidence unknown.
 Opted-in canonical preparation extends post-upgrade file filters with only its
 reviewed exact chapter paths. The runner still executes only the shared
 preparation command, with lifecycle scripts disabled and manual branches held.
+When its single-development profile independently qualifies, the exact matching
+`pnpm-workspace.overrides` edge MUST be admitted alongside the root development
+dependency at the same target. This does not enable peer/runtime edges, another
+workspace file, compound selectors, catalogs or other overrides.

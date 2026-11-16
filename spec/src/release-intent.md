@@ -59,6 +59,9 @@ forcing a consumer migration. Advisory policy and publication remain source-owne
 
 ## Independent development admission
 
+Native generation MUST admit both the development manifest edge and its exact
+same-name workspace override; an admitted manifest alone is not a complete candidate.
+
 DA-WAVE-007 reuses the same development fact validation for independent admission.
 Its single forward patch must retain public peers and exact source-owned override
 closure. Retaining source policy bytes in the internal public inventory binds

@@ -13,7 +13,7 @@
 | DA-REC-001  | Implemented | Restricted `repositoryConfig` plus central `renovate.config.cjs`; generated configuration validation.                                                               |
 | DA-REC-002  | Implemented | Compatible/breaking Renovate rules; `tests/automerge.test.mjs` and `tests/policy.test.mjs`; repository merge rules remain external gates.                           |
 | DA-REC-003  | Implemented | Explicit environment/variable gates in `reconcile.yml`, `scripts/inventory.mjs` and `renovate.config.cjs`.                                                          |
-| DA-REC-004  | Implemented | Per-target token permissions, single allowed post-upgrade command and environment whitelist; source/config tests.                                                   |
+| DA-REC-004  | Implemented | Per-target permissions, one allowed command and environment whitelist; native artifact reporting regression retains errors without status-write authority.          |
 | DA-REL-001  | Implemented | Branch-context and exact frozen install in `scripts/prepare-pr.mjs`; generated post-upgrade contract.                                                               |
 | DA-REL-002  | Implemented | `releaseIntent`, catalog handling and onboarding guard; `tests/policy.test.mjs`.                                                                                    |
 | DA-REL-003  | Implemented | `writeChangeset`; repeated compatible-update regression in `tests/policy.test.mjs`.                                                                                 |
@@ -58,7 +58,7 @@
 | DA-TOOL-006 | In progress | 26 focused tests; GET-only refresh 16/16; inventory 19 repos/43 owners/220 edges; ranges and provenance preserved; hosted pending.                                  |
 | DA-PUB-001  | Implemented | Real crypto/mutation/source/recovery tests and hosted43809436156 API/FileExplorer/Profile proof; strict release/channel gates retained.                             |
 | DA-PUB-002  | Implemented | Pinned CLI, bounded public observations, retained receipts, Maintenance parser and hosted43809436156 proof; no App inventory credentials.                           |
-| DA-REL-004  | In progress | Actual Notebook Core fixture and preparation/filter negatives; preparer and owning source deployed, peer-edge review qualified; normal bot regeneration pending.    |
+| DA-REL-004  | In progress | Actual Notebook fixture/preparation negatives; native extractor/rule regression admits only the paired exact override; hosted complete regeneration pending.        |
 | DA-WAVE-007 | In progress | 59 admission regressions; actual Notebook1→0; fresh GET-only19/43/220 plan retains six waits; hosted regeneration pending.                                          |
 
 Detailed bootstrap commands, failure counts and hosted handoff live in
