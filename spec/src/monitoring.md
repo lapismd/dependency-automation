@@ -13,7 +13,7 @@ workflow YAML. It is not a complete call-graph or workflow-security analysis.
 - Reports MUST include schema version, collection time, repository source SHA and workflow paths.
 - Read, parse or truncated-tree failures MUST produce an unavailable coverage entry and a failing exit status.
 - Partial reports MUST still be written and retained by the hosted workflow.
-- Unexpected errors, API bodies, tokens and environment values MUST NOT enter reports.
+- Unexpected errors, API bodies, tokens and unallowlisted environment values MUST NOT enter reports.
 
 ## DA-MON-002 — Bounded authentication findings
 
@@ -54,3 +54,9 @@ Changesets creators may reference `with.github-token` as well as the legacy
 environment precedence and recognizes the source's pinned v2 input-only App
 reference; unknown outputs remain unverified. It reports references, not actual
 token values or proof that a particular action version can execute successfully.
+
+The audit may observe its five allowlisted activation settings from GitHub's
+resolved vars context when the Variables API is unavailable. This fallback
+requires the exact coordinator repository, main ref, audit workflow ref,
+supported event and source SHA; local or incomplete contexts remain unavailable.
+Reports retain sanitized values and their provenance under DA-OPS-001.

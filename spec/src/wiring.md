@@ -58,6 +58,12 @@ write-capable App token. The operational maintenance audit resolves local
 composites from exact-source tree blobs and reads required-check/activation
 metadata without changing settings.
 
+`maintenance-audit.yml` passes only the five allowlisted activation variables
+from GitHub's vars context. When the Variables API is unavailable, the collector
+requires that exact main workflow/repository/ref/event/revision context and
+labels the observation source. It retains contents-read authority and adds no
+App token, settings permission or write API.
+
 `inventory` reads state and current evidence, then emits the admitted matrix and
 candidate state. `wave-state` publishes that state only from trusted main with
 its separate gate; matrix `reconcile` requires that publication in writable wave

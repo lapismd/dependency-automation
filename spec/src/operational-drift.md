@@ -9,7 +9,7 @@
 - Local composite actions MUST be resolved recursively at the same source revision; missing, cyclic or unsupported action/workflow bodies MUST remain explicit coverage gaps.
 - Reviewed action pins and Node versions MUST be compared without interpreting arbitrary scripts as a complete security analysis.
 - Required-check settings MUST be read separately from source PR-job candidates; inaccessible protection/rules APIs MUST NOT prove coverage or absence of requirements.
-- Activation reads MUST retain only allowlisted public-safe booleans/phase; exclusions and first-party version versus third-party/security ownership MUST remain visible without changing settings.
+- Activation reads MUST retain only allowlisted public-safe booleans/phase from the Variables API or the exact main audit workflow's observed Actions context, with explicit provenance; exclusions and update ownership MUST remain visible without changing settings.
 
 ## DA-OPS-002 — Exact advisory decisions
 

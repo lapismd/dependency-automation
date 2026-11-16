@@ -22,6 +22,11 @@ jobs:
       - run: pnpm maintenance:audit
         env:
           GH_TOKEN: ${{ github.token }}
+          LAPIS_DEPENDENCY_WRITES: ${{ vars.LAPIS_DEPENDENCY_WRITES }}
+          LAPIS_DEPENDENCY_PHASE: ${{ vars.LAPIS_DEPENDENCY_PHASE }}
+          LAPIS_DEPENDENCY_WAVES: ${{ vars.LAPIS_DEPENDENCY_WAVES }}
+          LAPIS_DEPENDENCY_SCHEDULE: ${{ vars.LAPIS_DEPENDENCY_SCHEDULE }}
+          LAPIS_DEPENDENCY_WAVE_STATE_WRITES: ${{ vars.LAPIS_DEPENDENCY_WAVE_STATE_WRITES }}
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
         if: always()
         with:

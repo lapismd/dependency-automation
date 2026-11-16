@@ -142,3 +142,33 @@ Hosted qualification/deployment, active consumer guard adoption, actual
 consumer recipe portability, additional cohort qualification and source-owner
 remediation of drift/unknowns remain required S6 work. This source slice does
 not complete S6.
+
+## Hosted activation observations without wider credentials
+
+Hosted audit 43781137104 completed its reads but could not call the Variables
+API using the ordinary workflow token. Its activation result was correctly
+unavailable. The trusted main audit workflow now supplies the five reviewed
+values through GitHub's resolved vars context, retaining contents-read authority.
+
+The collector prefers complete API observations and labels their source as
+`repository-variables-api`. If that API is unavailable, the fallback requires
+GitHub Actions, the exact coordinator repository, main ref, exact audit workflow
+ref, a full source SHA, a manual or scheduled event and all five supplied names.
+It labels that evidence `github-actions-vars` with the workflow source SHA.
+Values are still bounded to booleans/phase; empty, invalid and missing values
+remain explicit. Other environment values never enter the report. Local shells,
+untrusted/incomplete contexts and policy defaults cannot prove actual settings.
+
+The original exact `node --test --test-name-pattern 'hosted activation'
+tests/operational-drift.test.mjs` regression failed once with unavailable evidence.
+The repaired exact target passes two tests and the owning suite passes ten,
+including invalid context/value, API precedence and workflow permission/wiring
+coverage. Hosted read-back of the source label and actual values remains a
+deployment gate. No App token, settings permission, secret or write API is added.
+
+The first full run passed122/123 and exposed the existing exact workflow-env
+contract. That assertion now enumerates the original workflow token plus exactly
+five public vars; it still rejects every other key and retains no-App/read-only
+checks. Its exact target passes1/1. Rebase onto the merged cohort evidence
+preserved TOOL-004 and the approved advisory entry; combined verification passes
+127tests and all3spec lanes. The only conflict was verification-table formatting.
