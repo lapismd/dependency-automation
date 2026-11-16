@@ -124,3 +124,7 @@ blanket main specification exemption is introduced.
 The independent canonical development admission module maps to dependency waves
 and release intent. Its source-policy byte binding remains an internal inventory
 contract; Maintenance report and durable state schemas remain unchanged.
+
+The channel policy/projection and static publisher reader map to publications
+and waves. Only source-reviewed cohort coordinates/scopes are committed; live
+proofs and operational artifacts remain ignored and outside public book uploads.

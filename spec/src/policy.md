@@ -1,5 +1,10 @@
 # Repository policy
 
+The reviewed Notes channel cohort follows DA-PUB-003 with exact package,
+version, integrity and consumer-manifest scopes. It adds no repository entries,
+removes no holds and changes no phase, schedule or write activation. DA-POL-001
+through DA-POL-003 retain their existing authority and excluded hosts.
+
 `config/repositories.json` is the versioned authority for dependency-update
 entries, monitoring additions/exclusions and excluded package names. It is not
 a live installation or secret store.
@@ -100,3 +105,9 @@ package exclusions or held publisher. Source review and actual normal bot
 regeneration remain separate from source qualification of DA-WAVE-007; the
 [bounded pilot runbook](../../docs/notebook-canonical-pilot.md) retains acceptance
 and rollback.
+
+PR34's explicit operator decision rebinds the single existing coordinator
+runtime LOW to source9d657a74 and locka3e1f05f…ca61b8b after the required
+validator update. This replaces the old exact tuple and preserves expiry,
+known-fix rejection and every other audit failure under DA-OPS-002. No write
+scope, activation setting, phase, package signing or deployment gate changes.

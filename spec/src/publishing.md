@@ -1,5 +1,11 @@
 # Public specification delivery
 
+The source-qualified validator update uses released Node-only0.2.1 and its
+normal frozen registry lockfile. DA-DOC-001/002 retain the same verification,
+book-only artifact and Pages permission boundary. The changed dependency graph
+does not inherit the prior exact-lock advisory exception; writable automation
+remains held until that new binding has its own operator decision.
+
 The public book is documentation. It does not publish operational reports or
 replace the repository's source/deployment authorization boundaries.
 

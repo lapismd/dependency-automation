@@ -24,7 +24,7 @@ const exactArray = (value, field) => {
     fail("publication-coverage-incomplete");
   return rows;
 };
-function validRun(run, context, policy, info) {
+export function validRun(run, context, policy, info) {
   if (
     run.id !== context.runId ||
     run.run_attempt !== context.runAttempt ||
@@ -41,7 +41,7 @@ function validRun(run, context, policy, info) {
   )
     fail("publication-run-mismatch");
 }
-async function jobs(reader, base, context) {
+export async function jobs(reader, base, context) {
   return exactArray(
     await reader.json(
       `${base}/actions/runs/${context.runId}/attempts/${context.runAttempt}/jobs?per_page=100`,
@@ -50,7 +50,7 @@ async function jobs(reader, base, context) {
   );
 }
 const job = (rows, name) => rows.filter((r) => r.name === name);
-function requireJobs(rows, names) {
+export function requireJobs(rows, names) {
   for (const name of names)
     if (
       job(rows, name).length !== 1 ||
@@ -406,6 +406,28 @@ export async function verifyPublisherSource(
     }
     if (!verification) fail("publication-verification-incomplete");
   }
+  return {
+    artifact,
+    verification,
+    ...(await verifySourceContract(
+      reader,
+      base,
+      context,
+      info,
+      metadata,
+      owner,
+    )),
+  };
+}
+
+export async function verifySourceContract(
+  reader,
+  base,
+  context,
+  info,
+  metadata,
+  owner,
+) {
   const source = await reader.json(
     `${base}/contents/${owner.path}?ref=${context.sourceSha}`,
     256 * 1024,
@@ -433,8 +455,6 @@ export async function verifyPublisherSource(
     info,
   );
   return {
-    artifact,
-    verification,
     sourceContractSha256,
     sourceCiSha256,
     dependencyContractSha256: dependencyContractDigest(metadata),

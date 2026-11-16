@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "production": true,
+  "generatedFrom": "75c7190341d34210d62b20552c324b9bd12ef6f9",
+  "releases": [
+    {
+      "repository": "lapismd/lapis-plugins",
+      "packageName": "@lapis-notes/history",
+      "pluginId": "history",
+      "version": "0.5.1",
+      "releaseTag": "history@0.5.1",
+      "assetName": "history-0.5.1.lapis-plugin",
+      "sourceCommit": "75c7190341d34210d62b20552c324b9bd12ef6f9",
+      "signingKeyId": "lapis-plugin-release-2026-06",
+      "trust": "static-ed25519",
+      "changelog": {
+        "title": "History 0.5.1",
+        "description": "### Patch Changes\n\n- [#146](https://github.com/lapismd/lapis-plugins/pull/146) [`03edd84`](https://github.com/lapismd/lapis-plugins/commit/03edd845b35cb3e33f4c963fce3ea787f8e373c4) Thanks [@stevejuma](https://github.com/stevejuma)! - Keep remote action keyboard navigation to one tab stop per enabled button, while retaining tooltip access for disabled actions."
+      },
+      "npm": {
+        "path": ".release/npm/lapis-notes-history-0.5.1.tgz",
+        "sha256": "6bc912435ad8095fadca1a4368c7dd6c906d4c17b450f388993bd861c7805049",
+        "size": 175257
+      },
+      "bundle": {
+        "path": ".release/plugins/history-0.5.1/history-0.5.1.lapis-plugin",
+        "checksumPath": ".release/plugins/history-0.5.1/history-0.5.1.lapis-plugin.sha256",
+        "sha256": "e64bc44b949e9c5844c05bf88540f95aab815741fe6fb1fea6eecc2be6477745",
+        "size": 190857
+      }
+    }
+  ]
+}

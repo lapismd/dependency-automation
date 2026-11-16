@@ -29,6 +29,36 @@ helpers. Lapis Maintenance owns the operator UI, controllers and adapters.
 Packages retain their tests, compatibility decisions, signing and publication
 credentials. Shared component defects remain with their source package.
 
+## Current shared-readiness follow-up
+
+- Shared Lapis CI [PR16](https://github.com/lapismd/lapis-ci/pull/16) prepares
+  bounded read-only install-metadata readiness with explicit owner budgets and
+  npm/pnpm peer policies. Local source qualification passes170 tests and the
+  isolated actual npm12 profile passes21 cases. Hosted Linux validation passed;
+  the existing macOS check was queued at the last observation. Landing remains
+  pending; no native/image gate is waived.
+- Tasks [PR30](https://github.com/lapismd/lapis-plugin-tasks/pull/30) is draft.
+  All ten PR checks pass and the retained actual0.2.1 artifact passes the new
+  verifier. Its exact fresh main-hosted version-recipe case is prepared in
+  shared PR16; the actual recipe run has not yet executed.
+- Docs [PR19](https://github.com/lapismd/lapis-plugin-docs/pull/19) is draft.
+  Both exact regressions,27 release-boundary tests,84 full units and required
+  source lanes pass. The genuine retained0.3.0 artifact passes readiness,
+  frozen reinstall,636 signatures,178 attestations and publint. Its separately
+  reviewed audit binding preserves the existing development-only LOW expiry;
+  hosted head CI43929333858 passes; the exact new whole-recipe case/run
+  remains pending.
+- Notes' landed source-owned readiness remains qualified separately. Shared
+  adoption/deduplication and Mira adoption remain open; no manual recovery is
+  counted as completing the multi-publisher exit condition.
+- Terminal PR24 is merged. Exact main CI, Cargo publication, version automation
+  and specification deployment pass. Its separate whole-version native profile
+  remains part of S6 and is not inferred from the registry retry repair.
+- The operator explicitly approved PR34's exact coordinator validator-update
+  advisory rebinding. Its policy child retains November21 expiry and every
+  other audit failure. Hosted source acceptance, controlled real chain and
+  idempotent replay remain S3 gates; scheduling/rollout scope is unchanged.
+
 ## Evidence at planning time
 
 - Coordinator run 43739383423 reported 19 repositories, 43 public package
@@ -149,23 +179,18 @@ Writes remain enabled only for the reviewed pilot; full scheduling is disabled.
       and registry workflows succeeded. Independent review preserves readable
       peer edges and rejects opaque ambiguity;565 units,69 interaction/axe cases
       and both cold packed consumers passed locally.
-- [ ] Admit and qualify normal bot regeneration of Notebook PR36 with accurate
-      managed canonical slots. Pilot PR32 merged `e72ce609`; normal reconcile
-      `43838472240` regenerated bot head `030da1e`, but changed only the dev
-      manifest. Actual CI `43839212355` correctly rejected the incomplete
-      override/lock/canonical facts. Native extraction/rule testing reproduces
-      the missing companion override admission. Native artifact-error status
-      reporting also conflicts with the deliberately status-read-only token and
-      can abort before PR explanation; its supported no-status configuration
-      must retain errors and CI. Both repairs are locally in progress, not
-      hosted acceptance. All six unrelated publication waits, Notebook-only
-      pilot scope and disabled global scheduling remain.
+- [x] Notebook normal bot regeneration is qualified. Coordinator PR33 merged
+      `728ef239`; actual bot head6671dd0d contains all five exact managed files.
+      Notebook PR36 merged `adc4b650` and main CI43852663104 succeeded. Existing
+      publication waits, ownership and CI gates remain binding.
 - [x] Adopt and exercise the AI guard on main. Hosted native whole-recipe
       proof `43814544020` passed on Node22/Rust with Deno absent. Source PR14 passes all current PR
       gates and merged through the queue as `1e6743d0`. Its fixture repairs
       pass1078 Rust tests,43 renderer tests and packaging checks. Main guard job `43829636541`
       and main CI `43829636444` succeeded; remaining consumer qualification remains.
-- [ ] Qualify/adopt remaining Server, Agent UI, Terminal and jj-store version
+- [x] Agent UI whole-recipe proof43846835719 passed; source guard PR40 merged
+      `1643b8da`, with successful main CI, version automation and Pages.
+- [ ] Qualify/adopt remaining Server, Terminal and jj-store version
       recipes and supported cohorts. Compatible Server security repairs are in
       progress; remaining production KaTeX and development deepmerge findings
       are explicit. A portable CLI alone is insufficient whole-recipe evidence.
@@ -1076,3 +1101,29 @@ with no product/dependency graph change. Trusted dependency PR #36 (Core 0.13.4)
 may recreate the main-map gap unless the owning preparation/handoff policy is
 fixed. This remaining work is outside the cohort refresh and grants no waiver,
 new runtime qualification or manufactured release intent.
+
+### Scoped cohort and static publisher source checkpoint — November 16
+
+The preserved S3 changes now pass333 tests, canonical source/book checks,
+actionlint,20 generated Renovate config validations and the actual Maintenance
+report parser. Fresh GET-only inventory retains19 repositories,43 owners,
+220 edges and no cycles/coverage gaps; all52 reviewed channel scopes match
+active manifest edges. Default/flat availability and raw channel facts remain
+unchanged. The separate Plugins static reader verifies real npm/Sigstore and
+Ed25519 evidence without weakening Notes or publication/current-CI gates.
+
+The required validator0.2.1 update changes the dependency graph, so its exact
+old-lock deepmerge decision cannot be transferred. Audit still finds only the
+same LOW4.3.1 path with no released fix. Approval for a new exact binding is
+required before writable deployment; expiry is not extended. Hosted deployment,
+genuine downstream release chain and replay remain pending.
+
+Terminal PR24 merged6808f839 after both required checks passed. Its main CI
+received no runner: GitHub reports hosted macOS capacity failure before any
+step. One failed-job rerun was requested; native main qualification is pending.
+Pages and version automation passed. Notes readiness is deployed atb23f596c;
+shared extraction and Tasks→Docs→Mira adoption remain pending S5 work. jj-store's
+source tooling intake remains blocked by its recorded accessibility failures.
+
+[Source qualification and failure record](spec/records/2026-11-16-scoped-channels-static-proof.md)
+records actual tests, corrected preparation failures and remaining gates.

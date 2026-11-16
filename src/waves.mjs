@@ -1,5 +1,6 @@
 import { createHash } from "node:crypto";
 import semver from "semver";
+import { channelProjection } from "./channels.mjs";
 import { runtimeCycles } from "./policy.mjs";
 import {
   verifiedPublication,
@@ -183,8 +184,10 @@ function released(intent, graph, repo) {
   if (
     !metadata?.integrity ||
     !verifiedPublication(metadata, repo, own) ||
-    metadata.publication.channel.admitted !== true ||
-    !(graph.available[intent.name] ?? []).includes(own.version)
+    (metadata.publication.channel.admitted !== true &&
+      !channelProjection(graph).publication(intent.name, own.version)) ||
+    (!(graph.available[intent.name] ?? []).includes(own.version) &&
+      !channelProjection(graph).publication(intent.name, own.version))
   )
     return false;
   return intent.requires.every((req) => {
@@ -209,8 +212,10 @@ function obsoleteCompoundIntent(intent, graph, repo) {
     !semver.valid(own.version) ||
     !metadata?.integrity ||
     !verifiedPublication(metadata, repo, own) ||
-    metadata.publication.channel.admitted !== true ||
-    !(graph.available[intent.name] ?? []).includes(own.version)
+    (metadata.publication.channel.admitted !== true &&
+      !channelProjection(graph).publication(intent.name, own.version)) ||
+    (!(graph.available[intent.name] ?? []).includes(own.version) &&
+      !channelProjection(graph).publication(intent.name, own.version))
   )
     return false;
   return intent.requires.every((req) => {
@@ -287,6 +292,7 @@ export function planWaves(graph, previous = emptyState(), options = {}) {
     throw Error(
       "Stored source coverage unavailable; hold state without exposing coordinates",
     );
+  const channels = channelProjection(graph);
   const excluded = new Set(graph.excludedPackages ?? []);
   const nodes = graph.repositories.map((repo) => {
     const evidence = repo.evidence;
@@ -332,7 +338,7 @@ export function planWaves(graph, previous = emptyState(), options = {}) {
       // Internal packages stay with their source publisher; Renovate ignores them.
       if (repo.manifests.some((p) => p.manifest.name === edge.name)) continue;
       const resolved = lockVersion(repo, edge);
-      const versions = graph.available[edge.name] ?? [];
+      const versions = channels.versions(edge);
       const target = versions.at(-1);
       if (!target) {
         holds.push(`${edge.name}: unavailable registry prerequisite`);
@@ -488,7 +494,10 @@ export function planWaves(graph, previous = emptyState(), options = {}) {
       )?.manifest;
       const metadata = graph.registry?.[release.name]?.[own?.version];
       const publication = metadata?.publication;
-      if (publication?.channel.admitted === false)
+      if (
+        publication?.channel.admitted === false &&
+        !channels.publication(release.name, own.version)
+      )
         node.waits.push({
           package: release.name,
           repository: node.repository,

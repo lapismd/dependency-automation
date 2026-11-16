@@ -1,5 +1,9 @@
 import { readFile } from "node:fs/promises";
 import semver from "semver";
+import {
+  verifyStaticPublisherSource,
+  validateStaticPublisher,
+} from "./publication-static.mjs";
 import { stableVersions } from "./policy.mjs";
 import { loadPublicationVerifier, hash } from "./publication-tool.mjs";
 import { publicationReader, limits } from "./publication-transport.mjs";
@@ -49,7 +53,11 @@ export async function loadPublicationPolicy(entries = undefined) {
     !sha(p.tool.setupRef)
   )
     fail();
-  for (const [repository, policy] of Object.entries(p.publishers ?? {}))
+  for (const [repository, policy] of Object.entries(p.publishers ?? {})) {
+    if (policy.kind === "plugins-static-v1") {
+      validateStaticPublisher(repository, policy, entries);
+      continue;
+    }
     if (
       !entries.some((e) => e.repository === repository) ||
       !keys(policy, [
@@ -85,6 +93,7 @@ export async function loadPublicationPolicy(entries = undefined) {
       )
     )
       fail();
+  }
   return p;
 }
 
@@ -310,14 +319,14 @@ export async function observePublications(
           await verifier(),
           artifactBytes,
         );
-        const source = await verifyPublisherSource(
-          reader,
-          context,
-          publisher,
-          info,
-          record,
-          { ...owner, sourceSha: repo.sourceSha },
-        );
+        const source = await (
+          publisher.kind === "plugins-static-v1"
+            ? verifyStaticPublisherSource
+            : verifyPublisherSource
+        )(reader, context, publisher, info, record, {
+          ...owner,
+          sourceSha: repo.sourceSha,
+        });
         evidence.state = "verified";
         evidence.reason = "verified-publication";
         evidence.matchesCurrentContract =
