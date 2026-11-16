@@ -88,3 +88,14 @@ changed current source/artifacts and unqualified version recipes.
 Completion callbacks settle before the full inventory starts under DA-WAVE-005.
 Their PR head revisions are verified independently and never passed as graph
 discovery overrides.
+
+Current public owned versions remain in normalized registry observations even
+outside latest eligibility under DA-PUB-001/002. Optional-runtime contracts are
+retained alongside runtime/peer metadata. Production wave inventory collects
+bounded authenticated public publication evidence; flat selection and the
+latest-only candidate closure remain unchanged.
+
+Publication artifact reads may use the existing App with only Notes contents/Actions
+read scope; ordinary discovery and coordinator state retain their separate
+workflow token and public-only coverage. Missing artifact-read access remains
+an explicit publication hold rather than requiring broader credentials.

@@ -216,3 +216,56 @@ test("workflow applicability excludes non-triggering paths/tags while unknown pa
     false,
   );
 });
+
+test("current next-tagged publication remains observable outside latest update eligibility", async () => {
+  const name = "@lapis-notes/file-explorer";
+  const fetcher = async (url) => {
+    let value;
+    if (url.startsWith("https://registry.npmjs.org/"))
+      value = {
+        name,
+        "dist-tags": { latest: "0.1.0", next: "0.2.8" },
+        versions: {
+          "0.1.0": {
+            name,
+            version: "0.1.0",
+            dist: { integrity: "sha512-old" },
+          },
+          "0.2.8": {
+            name,
+            version: "0.2.8",
+            dist: { integrity: "sha512-new" },
+          },
+        },
+      };
+    else if (url.endsWith("/lapis-notes"))
+      value = {
+        id: 1,
+        full_name: "lapismd/lapis-notes",
+        private: false,
+        visibility: "public",
+        archived: false,
+        default_branch: "main",
+      };
+    else if (url.includes("/branches/")) value = { commit: { sha } };
+    else if (url.includes("/git/trees/"))
+      value = { tree: [{ type: "blob", path: "package.json" }] };
+    else if (url.includes("/contents/package.json"))
+      value = {
+        content: Buffer.from(
+          JSON.stringify({ name, version: "0.2.8" }),
+        ).toString("base64"),
+      };
+    else throw Error("Unexpected publication fixture read");
+    return { ok: true, status: 200, json: async () => value };
+  };
+  const graph = await inventory(
+    [{ repository: "lapismd/lapis-notes", phase: "pilot" }],
+    { fetcher, publicOnly: true, waveEvidence: true },
+  );
+  assert(
+    graph.registry[name]["0.2.8"],
+    "published own version must remain observable even when next is not admitted",
+  );
+  assert.deepEqual(graph.available[name], ["0.1.0"]);
+});

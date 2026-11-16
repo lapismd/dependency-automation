@@ -33,9 +33,11 @@ qualification still supplies execution-specific current-head gates.
 Only five allowlisted activation variables are retained, restricted to booleans
 and phase values. Other values and unexpected API/error bodies never enter the
 report. The checkpoint is an observation baseline, not a settings writer or
-permission to activate. The current operator checkpoint is writes=false,
-phase=pilot, waves=true, schedule=true and wave-state writes=true, as exercised
-by state-only hosted run 43772797422. No activation is changed by this slice.
+permission to activate. The current reviewed operator checkpoint is writes=true,
+phase=pilot, waves=true, schedule=false and wave-state writes=true following
+manual pilot run [43786666847](https://github.com/lapismd/dependency-automation/actions/runs/43786666847). The previous state-only checkpoint was run 43772797422.
+This source records that explicit transition; it changes no external setting
+or absent-variable/default-off workflow semantics.
 
 The public GitHub API documentation defines the separate
 [branch protection](https://docs.github.com/en/rest/branches/branch-protection)

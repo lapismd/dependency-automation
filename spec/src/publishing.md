@@ -37,3 +37,7 @@ DA-GOV-005 qualifies patched upstream glob/minimatch resolutions against the
 retained Renovate runner; Node, pnpm and mdBook pins remain independently fixed.
 An unchanged LOW deepmerge finding is not a clean full audit or a transferred
 exception from a consumer release.
+
+Source and book checks also prepare the pinned standard GitHub CLI for offline
+public provenance regressions. It receives no credentials; only immutable test
+inputs and static public trust material enter those subprocesses.

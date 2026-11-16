@@ -17,3 +17,5 @@
 - [Public specification delivery](publishing.md)
 - [Rollout and remaining work](rollout.md)
 - [Verification](verification.md)
+
+- [Published source evidence and channels](publications.md)

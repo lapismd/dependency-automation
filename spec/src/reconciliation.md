@@ -76,3 +76,11 @@ different family remains eligible. Workspace catalogs move only with all their
 references jointly admitted, including preservation of peer support.
 
 Compound runtime support follows [DA-WAVE-006](waves.md#da-wave-006--compound-support-ranges): per-path native lockfile rules preserve existing support while exact candidate lock and CI evidence continue to gate auto-merge.
+
+Wave inventory prepares the exact reviewed standard provenance-verifier CLI
+through the owned pinned setup action. Verification remains a read-only
+publication-evidence gate and never broadens the latest-only candidate policy.
+
+The separately scoped Notes publication reader has no write permission, does
+not replace coordinator state/discovery identity and is enabled only in wave
+mode; unavailable read credentials leave publication evidence unknown.

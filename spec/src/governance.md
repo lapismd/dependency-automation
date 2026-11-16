@@ -109,3 +109,9 @@ and waves, with source-inventory isolation and explicit workflow wiring.
 
 Tooling CI, provenance and refresh modules map to DA-TOOL-005/006 in the tooling
 chapter; selectors and source evidence grant no write or portability authority.
+
+Publication verifier/transport/source observation and its policy map to
+publications.md. The reviewed Node runtime, owned setup-gh standard CLI pin and bundled
+public trust data do not change package manifests, lockfiles or advisory
+approval bindings. Public immutable crypto fixtures are test inputs, never
+operational snapshots or production fallback evidence.

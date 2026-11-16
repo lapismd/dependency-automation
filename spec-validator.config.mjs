@@ -40,6 +40,11 @@ export default defineConfig(headingRequirements(), {
       rules: [
         {
           pattern:
+            "^src/publication(?:s|-tool|-transport|-source|-evidence)\\.mjs$|^config/publications\\.json$|^scripts/inspect-publications\\.mjs$",
+          chapters: ["spec/src/publications.md", "spec/src/waves.md"],
+        },
+        {
+          pattern:
             "^src/completion\\.mjs$|^scripts/qualify-completion\\.mjs$|^config/completions\\.json$",
           chapters: ["spec/src/notifications.md", "spec/src/waves.md"],
         },

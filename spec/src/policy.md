@@ -85,3 +85,7 @@ permitted source events. It adds no dependency write scope, removes no hold,
 and excludes the notification callback itself and the deferred Nostr publisher.
 Unknown or recreated workflow identities require explicit source review before
 notification adoption.
+
+Publication policy reviews source-owned publisher workflow identities and exact
+verification-tool bytes under DA-PUB-001/002. It adds no update repositories,
+channel admission, source signing authority or publication permission.

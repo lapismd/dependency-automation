@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "tool": {
+    "node": "24.15.0",
+    "gh": "2.102.0",
+    "sha256": "7469124f706944133d6a169691dd1c6c3511b12e85878d255e044e2948df4c9b",
+    "trustSeedSha256": "1300a33af16967e998983b364ab9988cd5c20e94c44e75d642dbeda1dbc255d9",
+    "setupRef": "bfa9743d8b403681ef7fb81ae3c5e53a99e3de55"
+  },
+  "publishers": {
+    "lapismd/lapis-notes": {
+      "workflowId": 344605363,
+      "workflow": ".github/workflows/release.yml",
+      "ref": "refs/heads/main",
+      "event": "workflow_dispatch",
+      "environment": "npm-production",
+      "artifactPrefix": "lapis-notes-release-",
+      "manifest": "release-manifest.json",
+      "prepareJob": "Validate release candidate / release-artifacts",
+      "qualificationJob": "Validate release candidate / validate",
+      "publishJob": "Publish packages",
+      "verifyJob": "Verify published packages",
+      "releaseJob": "Create GitHub releases"
+    }
+  }
+}
