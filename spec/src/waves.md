@@ -75,3 +75,4 @@ Maintenance through GitHub Contents at the branch's immutable revision.
 - Targets already inside a compound support range MUST retain that range and use native `update-lockfile` rules for the admitted path and dependency type.
 - Targets outside compound support MUST remain held for source-owned compatibility review rather than silently narrowing the public contract.
 - The exact existing candidate MUST resolve the admitted target under the preserved range and pass its own current CI before auto-merge.
+- Earlier compound publication waits MAY be superseded only after qualified current main locks satisfy every target under an identical registry-verified published support range, without claiming a new publication.

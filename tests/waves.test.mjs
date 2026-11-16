@@ -831,3 +831,81 @@ test("compound runtime support outside its contract requires source compatibilit
     ),
   );
 });
+
+test("persisted compound release waits retire only after qualified main locks and identical published support", () => {
+  const graph = fixture(),
+    repo = graph.repositories[1],
+    range = "^0.7.0 || ^1.0.0";
+  repo.manifests[0].manifest.dependencies["@lapismd/foundation"] = range;
+  graph.edges[0].range = range;
+  const state = emptyState();
+  state.releases["@lapismd/publisher"] = {
+    name: "@lapismd/publisher",
+    repository: repo.repository,
+    sourceSha: "c".repeat(40),
+    baseline: "1.0.0",
+    requires: [
+      { name: "@lapismd/foundation", type: "dependencies", target: "1.0.1" },
+    ],
+    status: "waiting",
+    policyRevision,
+  };
+  const metadata = graph.registry["@lapismd/publisher"]["1.0.0"];
+  Object.assign(metadata, {
+    gitHead: "d".repeat(40),
+    dependencies: { "@lapismd/foundation": range },
+  });
+  repo.lock.importers["."].dependencies["@lapismd/foundation"].version =
+    "1.0.1";
+  const result = planWaves(graph, state, options);
+  assert.equal(
+    result.state.releases["@lapismd/publisher"].status,
+    "superseded",
+    "No publication is needed for unchanged published support",
+  );
+  assert.equal(
+    result.state.releases["@lapismd/publisher"].supersededSourceSha,
+    repo.sourceSha,
+  );
+  assert.notEqual(
+    result.state.releases["@lapismd/publisher"].status,
+    "published",
+  );
+  for (const mutate of [
+    (g) => {
+      g.repositories[1].lock.importers["."].dependencies[
+        "@lapismd/foundation"
+      ].version = "1.0.0";
+    },
+    (g) => {
+      g.repositories[1].evidence.runs[0].status = "in_progress";
+      g.repositories[1].evidence.runs[0].conclusion = null;
+    },
+    (g) => {
+      delete g.registry["@lapismd/publisher"]["1.0.0"].integrity;
+    },
+    (g) => {
+      delete g.registry["@lapismd/publisher"]["1.0.0"].gitHead;
+    },
+    (g) => {
+      g.registry["@lapismd/publisher"]["1.0.0"].dependencies[
+        "@lapismd/foundation"
+      ] = "^1.0.0";
+    },
+    (g) => {
+      g.repositories[1].manifests[0].manifest.dependencies[
+        "@lapismd/foundation"
+      ] = "^1.0.0";
+      g.edges[0].range = "^1.0.0";
+    },
+  ]) {
+    const bad = structuredClone(graph);
+    mutate(bad);
+    assert.equal(
+      planWaves(bad, state, options).state.releases["@lapismd/publisher"]
+        .status,
+      "waiting",
+    );
+  }
+  assert.doesNotThrow(() => planWaves(graph, result.state, options));
+});

@@ -177,6 +177,40 @@ function released(intent, graph, repo) {
   });
 }
 
+// Earlier planners could invent publication intent for a lock-only compound
+// update. Retire only that disproved wait, never claim a new publication.
+function obsoleteCompoundIntent(intent, graph, repo) {
+  const entry = repo.manifests.find((p) => p.manifest.name === intent.name);
+  const own = entry?.manifest;
+  const metadata = graph.registry?.[intent.name]?.[own?.version];
+  if (
+    !entry ||
+    !semver.valid(own.version) ||
+    !metadata?.integrity ||
+    !/^[a-f0-9]{40}$/.test(metadata.gitHead ?? "") ||
+    !(graph.available[intent.name] ?? []).includes(own.version)
+  )
+    return false;
+  return intent.requires.every((req) => {
+    const range = own[req.type]?.[req.name];
+    if (
+      !["dependencies", "optionalDependencies"].includes(req.type) ||
+      typeof range !== "string" ||
+      !range.includes("||") ||
+      !semver.validRange(range) ||
+      !semver.satisfies(req.target, range) ||
+      metadata[req.type]?.[req.name] !== range
+    )
+      return false;
+    const resolved = lockVersion(repo, {
+      path: entry.path,
+      type: req.type,
+      name: req.name,
+    }).version;
+    return resolved && semver.gte(resolved, req.target);
+  });
+}
+
 // Package SCCs prevent false repository cycles (A's API -> B -> A's app).
 function cyclicPackages(graph) {
   const packages = graph.packages.map((p) => ({
@@ -388,6 +422,17 @@ export function planWaves(graph, previous = emptyState(), options = {}) {
         release.requires.every(
           (req) => !Object.hasOwn(sourceManifest?.[req.type] ?? {}, req.name),
         )
+      ) {
+        release.status = "superseded";
+        release.supersededSourceSha = node.sourceSha;
+      }
+      if (
+        release.status === "waiting" &&
+        release.sourceSha !== node.sourceSha &&
+        release.requires.length &&
+        !intents.has(release.name) &&
+        node.acceptance.state === "qualified" &&
+        obsoleteCompoundIntent(release, graph, repo)
       ) {
         release.status = "superseded";
         release.supersededSourceSha = node.sourceSha;

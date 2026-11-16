@@ -53,7 +53,7 @@
 | DA-OPS-003  | In progress | Inventory pre-admission audit and repeated pre-App preflight; read-only/state-only behavior preserved; hosted acceptance pending.                                   |
 | DA-NOT-003  | Implemented | Completion/workflow regressions reject stale/fork/unknown evidence; actual CLI metadata-only test permits one dispatch and forbids candidate files and npm reads.   |
 | DA-WAVE-005 | Implemented | Callback settlement, pending-check timing and default-branch graph isolation regressions in `tests/completion.test.mjs`; hosted adoption pending.                   |
-| DA-WAVE-006 | Implemented | Compound-range regressions use the native Renovate rule engine and range updater, requiring the target lock and current candidate CI while retaining support.       |
+| DA-WAVE-006 | Implemented | Native Renovate and persisted-state tests retain support and require exact lock/CI/published-contract evidence to retire obsolete waits.                            |
 
 Detailed bootstrap commands, failure counts and hosted handoff live in
 [the specification/Pages qualification record](https://github.com/lapismd/dependency-automation/blob/main/spec/records/2026-11-15-canonical-spec-and-pages.md).
