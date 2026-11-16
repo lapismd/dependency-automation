@@ -71,3 +71,8 @@ The November 16 operator decision adds one exact coordinator deepmerge entry
 with the reviewed dependency-source/lock binding and November 21 expiry.
 This changes only advisory admission under DA-OPS-002; repository scope,
 existing holds, rollout phase and the separate write gate remain unchanged.
+
+Hosted activation observations may use the five values supplied by the trusted
+main audit workflow when its read token cannot query the Variables API. This
+read-only evidence follows DA-OPS-001; it cannot create defaults, change settings
+or grant writer authority.

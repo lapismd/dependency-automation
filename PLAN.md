@@ -76,14 +76,14 @@ Statuses: planned, in progress, locally verified, PR open, landed, qualified.
 A slice is complete only when its deployment/consumer acceptance is recorded.
 Link PRs and evidence here; do not turn a local test into a rollout claim.
 
-| Slice                                     | Owner                             | Status                                       | Exit condition                                                           |
-| ----------------------------------------- | --------------------------------- | -------------------------------------------- | ------------------------------------------------------------------------ |
-| S1 Policy and trusted PR authentication   | dependency-automation + consumers | Consumers mostly qualified; Server pending   | Routine trusted PRs start CI; monitoring does not grant update authority |
-| S2 Remove dependency-image pin churn      | lapis-ci + Plugins, then Notes    | Plugins qualified; Notes in review           | Normal lockfile bumps generate zero image-pin PRs                        |
-| S3 Coordinate dependency/release waves    | dependency-automation             | State pilot qualified; release wave pending  | Idempotent upstream-to-downstream progress with explicit blockers        |
-| S4 Maintenance integration                | lapis-maintenance                 | Deployed; live read/action ports qualified   | One UI explains waves, issues, actions and exceptions                    |
-| S5 Release/registry batching and recovery | publishers + plugin-registry      | Registry batch and recovery qualified        | Batches preserve signing and resume failed publication safely            |
-| S6 Deno-free tooling and drift prevention | dependency-automation + consumers | Guards landed; consumer adoption in progress | Supported tooling cohort cannot silently drift                           |
+| Slice                                     | Owner                             | Status                                            | Exit condition                                                           |
+| ----------------------------------------- | --------------------------------- | ------------------------------------------------- | ------------------------------------------------------------------------ |
+| S1 Policy and trusted PR authentication   | dependency-automation + consumers | Auth sources merged; final receipts pending       | Routine trusted PRs start CI; monitoring does not grant update authority |
+| S2 Remove dependency-image pin churn      | lapis-ci + Plugins, then Notes    | Plugins qualified; Notes cache acceptance pending | Normal lockfile bumps generate zero image-pin PRs                        |
+| S3 Coordinate dependency/release waves    | dependency-automation             | State pilot qualified; release wave pending       | Idempotent upstream-to-downstream progress with explicit blockers        |
+| S4 Maintenance integration                | lapis-maintenance                 | Deployed; live read/action ports qualified        | One UI explains waves, issues, actions and exceptions                    |
+| S5 Release/registry batching and recovery | publishers + plugin-registry      | Registry batch and recovery qualified             | Batches preserve signing and resume failed publication safely            |
+| S6 Deno-free tooling and drift prevention | dependency-automation + consumers | Guards landed; consumer adoption in progress      | Supported tooling cohort cannot silently drift                           |
 
 ## S1: shared policy and trusted PR authentication
 
@@ -812,3 +812,35 @@ fallback. The local read-only wave omits bot identity and does not claim hosted
 writable admission. Policy CI/deployment and controlled admitted-wave acceptance
 are subsequent gates. The operator has also granted standing approval for
 logical completion decisions while retaining functional and scope boundaries.
+
+### Hosted activation evidence with existing read authority
+
+Hosted audit43781137104 succeeded while retaining an unavailable activation
+observation because its read-only workflow token could not read the Variables API. A follow-up
+passes only the five allowlisted values from the trusted main audit workflow's
+resolved vars context, labels the exact provenance/source SHA and preserves API
+precedence. Unknown contexts and missing/invalid values cannot become checkpoint
+defaults or clean evidence. Read authority stays contents-only with no App token
+or settings permission. The exact hosted-activation regression changed from
+one failure to two passing tests; its complete owning suite passes10/10.
+See the operational runbook for deployment/read-back qualification.
+
+Further qualification: Server92 passed all eight hosted checks and merged
+`a63b96a20c08a840bd481227b961582d99f700b3`. Notes135 passed the refreshed full
+CI and merged`66a05073805d8fd7b45bc555afbd9f8b2903f747`; its first signed producer
+43781514488 is running. Plugins' obsolete bot-only pin130 was closed after the
+full warm proof, retaining its branch and all frozen/excluded routes.
+
+Maintenance recovery dispatch passed through the deployed production dispatch
+controller, parser, immediate fresh preflight, command port and non-retrying
+writer. Exactly one POST selected current main11680335, workflow419578924,
+blob83d48b27 and verified empty preparation43781629698/1. Result43782359968
+succeeded with inspect success/publication skipped, main unchanged and zero PRs
+before/after. This qualifies actual recovery command wiring without a browser
+credential export, duplicate dispatch, build or signing.
+
+Cohort22 merged588e6189. The activation-observation slice preserves its TOOL004
+row and the explicit approved advisory; combined127tests and3spec lanes pass.
+The broader suite's old exact workflow-env expectation was updated to enumerate
+only the original token and five public vars, keeping its strict whitelist and
+read-only/no-App assertions; the exact regression passes1/1 after one failure.

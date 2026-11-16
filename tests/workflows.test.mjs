@@ -95,7 +95,15 @@ test("maintenance reporting has read-only authority and preserves partial report
   const steps = workflow.jobs.audit.steps;
   assert(!steps.some((step) => step.uses?.includes("create-github-app-token")));
   const audit = steps.find((step) => step.run === "pnpm maintenance:audit");
-  assert.deepEqual(audit.env, { GH_TOKEN: "${{ github.token }}" });
+  assert.deepEqual(audit.env, {
+    GH_TOKEN: "${{ github.token }}",
+    LAPIS_DEPENDENCY_WRITES: "${{ vars.LAPIS_DEPENDENCY_WRITES }}",
+    LAPIS_DEPENDENCY_PHASE: "${{ vars.LAPIS_DEPENDENCY_PHASE }}",
+    LAPIS_DEPENDENCY_WAVES: "${{ vars.LAPIS_DEPENDENCY_WAVES }}",
+    LAPIS_DEPENDENCY_SCHEDULE: "${{ vars.LAPIS_DEPENDENCY_SCHEDULE }}",
+    LAPIS_DEPENDENCY_WAVE_STATE_WRITES:
+      "${{ vars.LAPIS_DEPENDENCY_WAVE_STATE_WRITES }}",
+  });
   const artifact = steps.find((step) =>
     step.uses?.startsWith("actions/upload-artifact@"),
   );

@@ -227,12 +227,35 @@ export function requiredCheckCoverage(documents, protection, rules) {
   };
 }
 
-export function activationCoverage(response, policy) {
+export function activationCoverage(response, policy, environment) {
+  let source = "repository-variables-api";
   if (
     !Array.isArray(response?.variables) ||
     response.total_count > response.variables.length
-  )
-    return { state: "unavailable" };
+  ) {
+    if (
+      environment?.GITHUB_ACTIONS !== "true" ||
+      environment.GITHUB_REPOSITORY !== "lapismd/dependency-automation" ||
+      environment.GITHUB_REF !== "refs/heads/main" ||
+      !/^[a-f0-9]{40}$/.test(environment.GITHUB_SHA ?? "") ||
+      !["workflow_dispatch", "schedule"].includes(
+        environment.GITHUB_EVENT_NAME,
+      ) ||
+      environment.GITHUB_WORKFLOW_REF !==
+        "lapismd/dependency-automation/.github/workflows/maintenance-audit.yml@refs/heads/main" ||
+      activationNames.some((name) => !Object.hasOwn(environment, name))
+    )
+      return { state: "unavailable" };
+    // GitHub resolves these five vars in the trusted audit job. Do not infer
+    // values from policy defaults, other environment keys or a local shell.
+    response = {
+      variables: activationNames.map((name) => ({
+        name,
+        value: environment[name] === "" ? undefined : environment[name],
+      })),
+    };
+    source = "github-actions-vars";
+  }
   const values = activationNames.map((name) => {
     const value = response.variables.find((v) => v.name === name)?.value;
     const valid = (
@@ -247,6 +270,10 @@ export function activationCoverage(response, policy) {
   });
   return {
     state: values.every((v) => v.matches) ? "matches-checkpoint" : "drift",
+    source,
+    ...(source === "github-actions-vars"
+      ? { sourceSha: environment.GITHUB_SHA }
+      : {}),
     values,
   };
 }

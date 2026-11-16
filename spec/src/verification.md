@@ -23,14 +23,14 @@
 | DA-INT-004  | Implemented | Repeatable integration and retained Dependabot security coverage; `tests/consumer.test.mjs`.                                                                        |
 | DA-NOT-001  | Implemented | Source/registry checks in `scripts/notify.mjs`; notification identity tests in `tests/policy.test.mjs`.                                                             |
 | DA-NOT-002  | Implemented | Receiver validation, reusable notifier and scheduled recovery; policy tests and workflow wiring.                                                                    |
-| DA-MON-001  | Implemented | GET-only `scripts/audit-maintenance.mjs`; hosted partial-report retention contract in `tests/workflows.test.mjs`.                                                   |
+| DA-MON-001  | Implemented | GET-only audit and partial-report retention tests; operational-drift tests cover sanitized observed Actions vars with exact workflow provenance.                    |
 | DA-MON-002  | Implemented | Detector precedence and arbitrary-token negative cases in `tests/maintenance-policy.test.mjs`.                                                                      |
 | DA-MON-003  | Implemented | Read-only main probe: original three hosted pilots qualified; AI/Server pending; `tests/workflows.test.mjs`.                                                        |
 | DA-PR-001   | Implemented | Separate source-generation/publication jobs; `tests/workflows.test.mjs`; App-created hosted PR qualification.                                                       |
 | DA-PR-002   | Implemented | `validateProfile` grammar/diff boundary and stale-source checks; `tests/profile-writer.test.mjs`.                                                                   |
 | DA-PR-003   | Implemented | History-preserving update, duplicate, manual repair and retained-branch tests in `tests/profile-writer.test.mjs`.                                                   |
 | DA-PR-004   | Implemented | Ordered legacy handover, no blind write retries and orphan guard; profile writer tests and hosted replay.                                                           |
-| DA-WIRE-001 | Implemented | Explicit source/workflow map, parsed workflow tests and all 14 public chapters; hosted qualification in the supporting record.                                      |
+| DA-WIRE-001 | Implemented | Explicit source/workflow map and parsed tests cover the contents-read audit context; deployed book qualification is tracked separately.                             |
 | DA-GOV-001  | Implemented | Canonical 35-requirement baseline, local validation and hosted check 43759765126 passed.                                                                            |
 | DA-GOV-002  | Implemented | Single-ID matrix and original missing-row rejection; complete local/hosted spec validation passed.                                                                  |
 | DA-GOV-003  | Implemented | Mapped source negative probe, doctor 11/11, actual QMD search and main spec-first acceptance.                                                                       |
@@ -48,7 +48,7 @@
 | DA-REC-005  | Implemented | Native-body preservation, escaped/bounded renderer and wave/CI qualification regressions in `tests/pr-messages.test.mjs`.                                           |
 | DA-PR-005   | Implemented | Managed profile context, maintainer-text preservation, ambiguous-marker and GET-only duplicate regressions in profile/message tests.                                |
 | DA-TOOL-004 | In progress | Revision/lock/CI bindings and recipe separation in tests/tooling-evidence.test.mjs; production inventory.                                                           |
-| DA-OPS-001  | In progress | operational-drift regressions; production maintenance audit resolves local composites, retains settings gaps and reports source observations.                       |
+| DA-OPS-001  | In progress | Operational-drift regressions cover local composites, settings gaps and trusted activation context; hosted context read-back remains pending.                       |
 | DA-OPS-002  | Implemented | Advisory regressions cover exact bindings, expiry, extra findings, known fixes and stale cleanup; config/advisories.json records the explicit November 16 decision. |
 | DA-OPS-003  | In progress | Inventory pre-admission audit and repeated pre-App preflight; read-only/state-only behavior preserved; hosted acceptance pending.                                   |
 

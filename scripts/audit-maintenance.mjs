@@ -124,6 +124,7 @@ for (const repository of monitoringRepositories(policy)) {
       report.activation = activationCoverage(
         await optional(`${prefix}/actions/variables?per_page=100`),
         operations,
+        process.env,
       );
     result.coverage = "inspected";
   } catch {
