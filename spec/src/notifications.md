@@ -7,7 +7,7 @@ package publication.
 
 ## DA-NOT-001 — Verified source notification
 
-**Requirement.** Notifications MUST validate an allowlisted source revision and discover its stable public first-party packages before dispatch.
+**Requirement.** Publication notifications MUST validate an allowlisted source revision and discover its stable public first-party packages before dispatch.
 
 ### Acceptance details
 
@@ -37,9 +37,10 @@ existing workflow secret boundary; this repository stores no key values.
 The dedicated reusable `completion.yml` accepts only trusted default-branch
 `workflow_run` callers. Its `lapis-dependency-completed-v1` hint contains public
 repository/source coordinates and the notifying callback run/attempt identity;
-it never qualifies CI by itself. Both hint kinds are verified against public
-exact-source discovery on receipt;
-publication coordinates are checked again against registry integrity. Full
+it never qualifies CI by itself. Publication hints use exact public source
+discovery; completion hints use public workflow and current-head metadata only,
+without fetching candidate trees/files or npm metadata. Publication coordinates
+are checked again against registry integrity. Full
 scans coalesce by immutable registry identities regardless of arrival order.
 
 Receivers retain only the documented source/version coordinates, discarding
@@ -53,5 +54,5 @@ unknown payload fields before writing public artifacts.
 
 - Trusted pinned coordinator code MUST compare the actual run ID, attempt, SHA, event and exact allowed workflow ID/path with read-only GitHub evidence; unknown, failed, stale or inaccessible coverage MUST withhold dispatch.
 - The source MUST be explicitly public, and its head MUST match an open same-repository PR or the current default branch; revalidation immediately before dispatch MUST reject a moved head.
-- Default-branch `workflow_run` callers MUST execute no candidate code, artifacts or caches, retain the existing notification credential boundary, and exclude their own workflow from completion triggers.
+- Default-branch `workflow_run` callers MUST read or execute no candidate files, code, artifacts or caches, retain the existing notification credential boundary, and exclude their own workflow from completion triggers.
 - Completion hints MUST leave all-current-head CI, repair ownership, registry discovery and merge/publication authority unchanged.

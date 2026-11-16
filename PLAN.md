@@ -863,3 +863,11 @@ to writes=true, phase=pilot, waves=true, state-writes=true, schedule=false. The
 previous audit checkpoint records the earlier observed settings; this paragraph
 records the transition without changing external settings or claiming scheduled
 recovery is active. No callback was activated by this shared source change.
+
+Shared completion review found the final notifier still performed unconditional
+publication discovery before its completed-event branch. The actual CLI test
+reproduced one forbidden candidate-tree read; discovery is now isolated to
+publication notifications. Completion dispatch performs only verified public
+GitHub metadata reads, with separate source-read/coordinator-write credentials.
+The exact target passes1/1 with one dispatch and no tree/blob/file/npm requests.
+Caller adoption remains separate from this source boundary repair.

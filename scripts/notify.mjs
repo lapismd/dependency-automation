@@ -16,17 +16,11 @@ const sourceSha = process.env.SOURCE_SHA;
 const entry = entries.find((r) => r.repository === repository);
 if (!entry || !/^[a-f0-9]{40}$/.test(sourceSha ?? ""))
   throw new Error("Invalid notification source");
-const repo = await discoverRepository(entry, {
-  token: process.env.SOURCE_READ_TOKEN,
-  revision: sourceSha,
-  publicOnly: true,
-});
-if (repo?.visibility !== "public")
-  throw Error("Notification requires verified public source coverage");
 const eventKind = process.env.SOURCE_EVENT_KIND ?? "published";
 if (!["published", "completed"].includes(eventKind))
   throw Error("Unsupported notification kind");
 let notification;
+let manifests = [];
 if (eventKind === "completed") {
   const { currentCompletion } = await import("./qualify-completion.mjs");
   const completion = await currentCompletion();
@@ -37,9 +31,18 @@ if (eventKind === "completed") {
   )
     throw Error("Completion changed or is unverified; no dispatch was sent");
   notification = completion.notification;
+} else {
+  const repo = await discoverRepository(entry, {
+    token: process.env.SOURCE_READ_TOKEN,
+    revision: sourceSha,
+    publicOnly: true,
+  });
+  if (repo?.visibility !== "public")
+    throw Error("Notification requires verified public source coverage");
+  manifests = repo.manifests;
 }
 const packages = [];
-for (const { manifest } of eventKind === "published" ? repo.manifests : []) {
+for (const { manifest } of manifests) {
   if (
     manifest.private ||
     !firstParty(manifest.name) ||

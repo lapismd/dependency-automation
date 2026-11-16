@@ -51,7 +51,7 @@
 | DA-OPS-001  | In progress | Operational-drift regressions cover local composites, settings gaps and trusted activation context; hosted context read-back remains pending.                       |
 | DA-OPS-002  | Implemented | Advisory regressions cover exact bindings, expiry, extra findings, known fixes and stale cleanup; config/advisories.json records the explicit November 16 decision. |
 | DA-OPS-003  | In progress | Inventory pre-admission audit and repeated pre-App preflight; read-only/state-only behavior preserved; hosted acceptance pending.                                   |
-| DA-NOT-003  | Implemented | `tests/completion.test.mjs` and parsed workflow tests reject stale/fork/failed/unknown/path-mismatched evidence and late head moves; hosted adoption pending.       |
+| DA-NOT-003  | Implemented | Completion/workflow regressions reject stale/fork/unknown evidence; actual CLI metadata-only test permits one dispatch and forbids candidate files and npm reads.   |
 | DA-WAVE-005 | Implemented | Callback settlement, pending-check timing and default-branch graph isolation regressions in `tests/completion.test.mjs`; hosted adoption pending.                   |
 
 Detailed bootstrap commands, failure counts and hosted handoff live in

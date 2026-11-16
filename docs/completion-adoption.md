@@ -101,3 +101,11 @@ Remove/disable the source callback to roll back event adoption. Existing
 publication notifications, manual scans, scheduled recovery gate, wave/flat
 rollback and all consumer protections remain available. No setting is enabled
 by merging either source PR.
+
+Shared-source review also exercises the actual notifier entrypoint: completion
+verification and its final dispatcher read only GitHub workflow/current-head
+metadata. They do not run publication discovery, read candidate trees/blobs/files,
+or query npm. The actual CLI regression initially rejected an unexpected
+candidate-tree request; after isolating discovery to the publication branch it
+passes with one exact coordinator dispatch and no candidate or registry reads.
+The source-read and coordinator-write credentials stay distinct.
