@@ -109,15 +109,16 @@ historical evidence, not current activation defaults. S3 and S6 are still open.
       this source repair and obtain fresh qualification before release.
 - [x] Notebook canonical repair PR37 merged `1d66bb8b`; main CI, version,
       Storybook Pages and registry publication workflows all succeeded.
-- [ ] Enable Actions read on the existing bot registration and accept the
-      installation permission update. Current public App metadata lacks Actions;
-      the deployed capability check skips token minting and preserves the artifact
-      verification hold. This is account setup, not secret retrieval or rotation.
-- [ ] Complete hosted publication-proof read-back and the genuine pilot chain,
+- [x] Hosted public artifact access works with the existing contents-read
+      workflow token. The earlier App Actions-read setup request is withdrawn;
+      no permission, secret or installation change is required. Remove the unused
+      optional reader mint while preserving every artifact/provenance gate.
+- [ ] Complete the genuine pilot chain,
       including the compound-range lock update and replay. Latest-only admission
       remains in force; observed `next` publication is not permission to promote
       a tag or admit a channel. Restore scheduled/full rollout only after acceptance.
-- [ ] Merge the shared exact development-audit helper after final CI. Source
+- [x] Shared exact development-audit helper PR10 merged `2c756d80` after hosted
+      CI passed. Source
       review regressions reject changes during collection, decision-time expiry
       and untracked dependency inputs; its full suite passes72 cases.
 - [ ] Release the source-owned Mira Mermaid repair and its genuine Editor

@@ -26,25 +26,26 @@ Production inventory uses the same collector in wave mode; flat rollback does
 not require publication-proof collection. Preparing this standard CLI changes
 no npm dependency, lock byte or exact advisory approval binding.
 
-Public artifact ZIP downloads require authenticated Actions read access, even
-though their metadata is public. Trusted-main wave inventory first checks the existing public App identity
-and Actions permission, then may mint only `lapis-notes` contents/Actions read
-permissions if that capability and the coordinator preflight qualify.
-An actual coordinator audit preflight must qualify before this reader mint.
-That token is passed only to publication collection; coordinator discovery/state
-retain `GITHUB_TOKEN`, and no write permission is requested. Missing key/access
-leaves evidence unknown without blocking read-only collection or widening
-credentials. The proof verifier subprocess receives neither token. Hosted
-Notes read-token capability remains an explicit qualification after merge.
-The actual public App registration currently exposes checks/read, contents/write,
-metadata/read, pull_requests/write and statuses/read, with no Actions permission.
-The capability check therefore skips minting without exposing the key or changing
-registration, and artifact access remains an explicit hold. Unauthenticated
-artifact ZIP download returned 401 and FileExplorer has no public release asset.
-Signed npm provenance independently binds tarball/source/run, but the source
-verification helper installs/exercises packages and does not independently prove
-manifest-byte equivalence; it cannot silently replace this artifact gate.
-A differently named assurance requires a separate reviewed proof contract.
+Hosted public artifact downloads reuse inventory's existing contents-read
+`GITHUB_TOKEN`. No reader App token, key access, additional permission or account
+setup is required. Unauthenticated downloads returned401, but that did not
+establish that this existing authenticated authority was insufficient.
+
+Actual main reconciliation
+[43809436156](https://github.com/lapismd/dependency-automation/actions/runs/43809436156)
+proved full artifact and provenance acceptance for API0.6.6, AppProfile0.2.3 and
+FileExplorer0.2.8 using the existing workflow token while the proposed App reader
+was skipped. Inventory and durable state publication succeeded; consumer writes
+were skipped because current chain/channel gates were held. The collector made
+64 requests and read5730361 bytes. The earlier Actions-read setup request is
+withdrawn; no permission expansion is needed. Missing future access remains an
+explicit hold, with no automatic credential widening. The verifier subprocess
+still receives no token. Raw artifacts/reports remain ignored and local.
+
+Signed npm provenance independently binds tarball/source/run. The source
+verification helper does not independently prove manifest-byte equivalence, so
+retained artifact equivalence remains required rather than being replaced by a
+weaker assurance. Both proofs now qualify through existing read authority.
 
 ## Verification boundary
 
@@ -128,7 +129,8 @@ These hints never replace source publication or all-current-head gates.
 The reviewed manual pilot checkpoint is writes=true, phase=pilot, waves=true,
 schedule=false, state-writes=true following run 43786666847. The policy records
 this already authorized transition; this slice changes no remote setting or
-default-off behavior. Hosted collection/admission after merge remains required.
+default-off behavior. Hosted collection/state publication43809436156 succeeded; genuine channel/chain
+admission remains required.
 The separate canonical handoff gap is outside this publication-proof slice.
 
 To roll back, disable consumer writes first, restore flat mode only after
@@ -137,3 +139,10 @@ needed. Keep prior receipts and branches. Unknown/missing/expired evidence
 requires renewed read-only observation or source-owned publication recovery,
 never invented gitHead, next-to-latest promotion, signing-key retrieval or a
 blind retry of an uncertain write.
+
+The credential-removal regression first failed because inventory still exposed
+an unused App-key/mint path; it now passes, with215 full tests and all three
+canonical lanes, formatter, actionlint, doctor11/11 and QMD discovery. An initial
+local full run correctly rejected the mise shim's Node24.19; rerunning with the
+actual pinned Node24.15/pnpm/gh directories passes without changing the verifier.
+Hosted GET inventory above retains19 repositories,43 owners and220 edges.

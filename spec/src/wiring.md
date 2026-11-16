@@ -87,9 +87,8 @@ Lapis CI `setup-gh` action at the reviewed immutable publication-policy pin.
 Publication collection verifies its exact binary/runtime/trust bytes before
 offline provenance checks; it grants no artifact execution or publication authority.
 
-The trusted-main wave inventory may mint an existing-App Notes-only token with
-contents/Actions read permissions for authenticated public artifact downloads
-only after existing public App identity/permission capability is proven and the actual coordinator audit preflight qualifies.
-It is passed only to publication observation; coordinator discovery/state and
-per-target writers retain separate tokens and gates. Missing read setup does
-not skip collection or fabricate evidence, and wave-off mode never mints it.
+Trusted-main wave inventory uses its existing contents-read workflow token for
+public artifact downloads, with no App key, reader mint or permission probe.
+Discovery and publication collection remain public-only; missing read access
+keeps the publication unknown. Per-target writers retain their separate App
+credentials, actual audit preflight and admission gates.

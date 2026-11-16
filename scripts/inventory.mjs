@@ -52,7 +52,6 @@ for (const release of Object.values(publicationSnapshot?.state.releases ?? {}))
     (publicationVersions[release.name] ??= []).push(release.baseline);
 const result = await inventory(entries, {
   publicationVersions,
-  publicationToken: process.env.LAPIS_PUBLICATION_READ_TOKEN,
   publicOnly: true,
   waveEvidence: waveMode,
   toolingEvidence: true,

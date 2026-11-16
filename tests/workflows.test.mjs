@@ -339,65 +339,26 @@ test("publication readers and offline verification use the exact owned standard 
   }
 });
 
-test("publication access stays in the existing Notes-only read App boundary", async () => {
+test("publication inventory reuses existing read authority without App credentials", async () => {
   const workflow = YAML.parse(
     await readFile(
       new URL("../.github/workflows/reconcile.yml", import.meta.url),
       "utf8",
     ),
   );
-  const reader = workflow.jobs.inventory.steps.find(
-    (s) => s.id === "publication-reader",
-  );
   assert.match(workflow.jobs.inventory.if, /refs\/heads\/main/);
-  assert.match(reader.if, /LAPIS_WAVES_ENABLED == 'true'/);
-  assert.match(reader.if, /publication-audit.outcome == 'success'/);
-  assert.match(reader.if, /publication-capability.outputs.eligible == 'true'/);
-  const capability = workflow.jobs.inventory.steps.find(
-    (s) => s.id === "publication-capability",
+  assert.deepEqual(workflow.permissions, { contents: "read" });
+  const inventory = workflow.jobs.inventory;
+  assert.doesNotMatch(
+    JSON.stringify(inventory),
+    /secrets\.|create-github-app-token|publication-reader|publication-capability|permission-actions/,
   );
-  assert.match(
-    capability.run,
-    /gh api --method GET apps\/lapismd-dependency-bot/,
-  );
-  assert.match(capability.run, /client_id == \$id/);
-  assert(!JSON.stringify(capability).includes("private-key"));
-  assert(!JSON.stringify(capability).includes("PATCH"));
-  const auditIndex = workflow.jobs.inventory.steps.findIndex(
-    (s) => s.id === "publication-audit",
-  );
-  assert(
-    auditIndex <
-      workflow.jobs.inventory.steps.findIndex(
-        (s) => s.id === "publication-reader",
-      ),
-  );
-  assert.equal(
-    workflow.jobs.inventory.steps[auditIndex].run,
-    "node scripts/audit-preflight.mjs",
-  );
-  assert.equal(reader["continue-on-error"], true);
-  assert.equal(reader.with.repositories, "lapis-notes");
-  assert.equal(reader.with.owner, "lapismd");
-  assert.deepEqual(
-    Object.fromEntries(
-      Object.entries(reader.with).filter(([k]) => k.startsWith("permission-")),
-    ),
-    { "permission-contents": "read", "permission-actions": "read" },
-  );
-  assert.equal(
-    reader.with["private-key"],
-    "${{ secrets.LAPIS_DEPENDENCY_APP_PRIVATE_KEY }}",
-  );
-  const env = workflow.jobs.inventory.steps.find(
-    (s) => s.id === "inventory",
-  ).env;
+  const env = inventory.steps.find((s) => s.id === "inventory").env;
   assert.equal(env.GH_TOKEN, "${{ github.token }}");
-  assert.equal(
-    env.LAPIS_PUBLICATION_READ_TOKEN,
-    "${{ steps.publication-reader.outputs.token }}",
+  assert.equal(env.LAPIS_PUBLICATION_READ_TOKEN, undefined);
+  const entrypoint = await readFile(
+    new URL("../scripts/inventory.mjs", import.meta.url),
+    "utf8",
   );
-  assert(
-    !JSON.stringify(workflow.jobs["wave-state"]).includes("publication-reader"),
-  );
+  assert.doesNotMatch(entrypoint, /LAPIS_PUBLICATION_READ_TOKEN/);
 });

@@ -95,7 +95,7 @@ retained alongside runtime/peer metadata. Production wave inventory collects
 bounded authenticated public publication evidence; flat selection and the
 latest-only candidate closure remain unchanged.
 
-Publication artifact reads may use the existing App with only Notes contents/Actions
-read scope; ordinary discovery and coordinator state retain their separate
-workflow token and public-only coverage. Missing artifact-read access remains
-an explicit publication hold rather than requiring broader credentials.
+Publication artifact reads reuse the existing contents-read workflow token for
+explicitly public repositories. Inventory requests no App credentials or extra
+permissions. Missing artifact-read access remains an explicit publication hold;
+it does not justify widening access automatically.
