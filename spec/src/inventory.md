@@ -80,3 +80,7 @@ observations neither add update targets nor turn missing evidence into success.
 Reviewed Node CLI bytes remain distinct from whole-recipe capability. Root
 Deno formatter declarations are reported as requiring source qualification,
 not proof that a generic Node-only contract may replace an existing runtime.
+
+Tooling discovery additionally hashes the exact root manifest and lockfile bytes
+under DA-TOOL-004, so historical cohort CI context remains visibly distinct from
+changed current source/artifacts and unqualified version recipes.

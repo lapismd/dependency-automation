@@ -105,6 +105,360 @@
         "vitest": "4.1.12",
         "@vitest/browser-playwright": "4.1.12"
       }
+    },
+    "lapismd/lapis-plugin-tasks": {
+      "sourceSha": "b5ee4eb73dc8ee5593c7e7de456bd37978389c65",
+      "pnpm": "10.34.5",
+      "tools": {
+        "@changesets/cli": "^3.0.3",
+        "@lapismd/spec-validator": "^0.2.0",
+        "playwright": "1.62.1",
+        "storybook": "10.6.5",
+        "@storybook/addon-vitest": "10.6.5",
+        "vite": "6.4.5",
+        "vitest": "4.1.12",
+        "@vitest/browser-playwright": "4.1.12"
+      },
+      "evidence": {
+        "observedAt": "2026-11-16T00:15:07.341Z",
+        "manifestSha256": "d47fe20567ce8fa3526d5c36a0c08020981de2b2731ac680d6f1fdd6da6fc6df",
+        "lockSha256": "01839dfb38f21a20592c07dd2d33d00ec3bcbf75fa631fb5b4115572dfd56887",
+        "resolved": {
+          "@changesets/cli": "3.0.3",
+          "@lapismd/spec-validator": "0.2.0",
+          "playwright": "1.62.1",
+          "storybook": "10.6.5",
+          "@storybook/addon-vitest": "10.6.5",
+          "vite": "6.4.5",
+          "vitest": "4.1.12",
+          "@vitest/browser-playwright": "4.1.12"
+        },
+        "sourceCi": {
+          "state": "same-source",
+          "runId": "43776791410",
+          "sourceSha": "b5ee4eb73dc8ee5593c7e7de456bd37978389c65",
+          "workflow": ".github/workflows/ci.yml",
+          "completedAt": "2026-11-16T00:10:49Z"
+        },
+        "recipe": {
+          "qualification": "unqualified",
+          "command": "node scripts/release.mjs version",
+          "runtimeInputs": []
+        }
+      }
+    },
+    "lapismd/lapis-plugin-docs": {
+      "sourceSha": "073f4a58ddcb414ad5ce93b4107c4262438290ff",
+      "pnpm": "10.32.1",
+      "tools": {
+        "@changesets/cli": "^3.0.3",
+        "@lapismd/spec-validator": "^0.2.0",
+        "storybook": "10.5.7",
+        "@storybook/addon-vitest": "10.5.7",
+        "vite": "6.4.3",
+        "vitest": "4.1.10",
+        "@vitest/browser-playwright": "4.1.10"
+      },
+      "evidence": {
+        "observedAt": "2026-11-16T00:15:10.061Z",
+        "manifestSha256": "3df2cc9fa92fabd2e45321ab275e1ab0d8951309b08902d7a57d86a73d9cc4bf",
+        "lockSha256": "38dd03686981c527197d83b083907d1b92f3140d8403497c2ebe79558e3d77ca",
+        "resolved": {
+          "@changesets/cli": "3.0.3",
+          "@lapismd/spec-validator": "0.2.0",
+          "storybook": "10.5.7",
+          "@storybook/addon-vitest": "10.5.7",
+          "vite": "6.4.3",
+          "vitest": "4.1.10",
+          "@vitest/browser-playwright": "4.1.10"
+        },
+        "sourceCi": {
+          "state": "same-source",
+          "runId": "43773572649",
+          "sourceSha": "073f4a58ddcb414ad5ce93b4107c4262438290ff",
+          "workflow": ".github/workflows/ci.yml",
+          "completedAt": "2026-11-16T00:11:13Z"
+        },
+        "recipe": {
+          "qualification": "unqualified",
+          "command": "node scripts/release.mjs version",
+          "runtimeInputs": []
+        }
+      }
+    },
+    "lapismd/lapis-server": {
+      "sourceSha": "c32b5ae48b24c98dfa8de2004cf68e0496cd63bd",
+      "pnpm": "10.34.5",
+      "tools": {
+        "@changesets/cli": "^3.0.3",
+        "@lapismd/spec-validator": "^0.2.0",
+        "@playwright/test": "1.61.1",
+        "storybook": "^10.6.5",
+        "@storybook/addon-vitest": "^10.6.5",
+        "vite": "^6.4.5",
+        "vitest": "^5.0.5",
+        "@vitest/browser-playwright": "5.0.5"
+      },
+      "evidence": {
+        "observedAt": "2026-11-16T00:15:13.838Z",
+        "manifestSha256": "4b894d04ef2c2509ae840df35d8d1a18e38e9e9ddd332ab2f8315b7d08624819",
+        "lockSha256": "223849d23bad4efc5e3d10e532ef50ecf21d4a010aab48fb0d9b3692fa70b80b",
+        "resolved": {
+          "@changesets/cli": "3.0.3",
+          "@lapismd/spec-validator": "0.2.0",
+          "@playwright/test": "1.61.1",
+          "storybook": "10.6.5",
+          "@storybook/addon-vitest": "10.6.5",
+          "vite": "6.4.5",
+          "vitest": "5.0.5",
+          "@vitest/browser-playwright": "5.0.5"
+        },
+        "sourceCi": {
+          "state": "prior-source",
+          "runId": "43766382664",
+          "sourceSha": "7efbdca64b47635bb07814f80d82a89490a99ca1",
+          "workflow": ".github/workflows/ci.yml",
+          "completedAt": "2026-11-15T22:57:41Z"
+        },
+        "recipe": {
+          "qualification": "unqualified",
+          "command": "changeset version && pnpm install --lockfile-only && prettier package.json CHANGELOG.md --write",
+          "runtimeInputs": []
+        }
+      }
+    },
+    "lapismd/agent-ui": {
+      "sourceSha": "036310e9bbc481fae60683d916f0ff3a2d8da488",
+      "pnpm": "10.34.5",
+      "tools": {
+        "@changesets/cli": "^2.31.1",
+        "@lapismd/spec-validator": "^0.2.0",
+        "@playwright/test": "1.61.1",
+        "storybook": "10.5.7",
+        "@storybook/addon-vitest": "10.5.7",
+        "vite": "8.3.5",
+        "vitest": "4.1.11",
+        "@vitest/browser-playwright": "4.1.11"
+      },
+      "evidence": {
+        "observedAt": "2026-11-16T00:15:18.292Z",
+        "manifestSha256": "0866be71e9d953140575478f21d6b2dbb84db16be28a87f0fef17da537a2fb32",
+        "lockSha256": "182000a8c5fb29f92a4b6c45c7c0c299afec5ab3833073e6d40096ead586bc69",
+        "resolved": {
+          "@changesets/cli": "2.31.1",
+          "@lapismd/spec-validator": "0.2.0",
+          "@playwright/test": "1.61.1",
+          "storybook": "10.5.7",
+          "@storybook/addon-vitest": "10.5.7",
+          "vite": "8.3.5",
+          "vitest": "4.1.11",
+          "@vitest/browser-playwright": "4.1.11"
+        },
+        "sourceCi": {
+          "state": "same-source",
+          "runId": "43776785797",
+          "sourceSha": "036310e9bbc481fae60683d916f0ff3a2d8da488",
+          "workflow": ".github/workflows/check.yml",
+          "completedAt": "2026-11-15T23:50:35Z"
+        },
+        "recipe": {
+          "qualification": "unqualified",
+          "command": null,
+          "runtimeInputs": []
+        }
+      }
+    },
+    "lapismd/lapis-ai": {
+      "sourceSha": "3e29e16f15652ba239d256af49ffcba314355a5e",
+      "pnpm": "10.34.5",
+      "tools": {
+        "@changesets/cli": "^2.31.1",
+        "@lapismd/spec-validator": "^0.2.0"
+      },
+      "evidence": {
+        "observedAt": "2026-11-16T00:15:21.652Z",
+        "manifestSha256": "3a52ab4901665ecef4093447e176108e09c03248fe2e08126cfc71fb46129c30",
+        "lockSha256": "925de41aeef67f9e9e874b310003e72ddd23760dfa63ce8522699e0a5a7e4f86",
+        "resolved": {
+          "@changesets/cli": "2.31.1",
+          "@lapismd/spec-validator": "0.2.0"
+        },
+        "sourceCi": {
+          "state": "same-source",
+          "runId": "43772596174",
+          "sourceSha": "3e29e16f15652ba239d256af49ffcba314355a5e",
+          "workflow": ".github/workflows/ci.yml",
+          "completedAt": "2026-11-15T23:19:07Z"
+        },
+        "recipe": {
+          "qualification": "unqualified",
+          "command": "node scripts/changeset-version.mjs",
+          "runtimeInputs": []
+        }
+      }
+    },
+    "lapismd/lapis-terminal": {
+      "sourceSha": "21616e502eaec123a83caf00db1606bedd9c926b",
+      "pnpm": "10.32.1",
+      "tools": {
+        "@changesets/cli": "2.31.1",
+        "@lapismd/spec-validator": "^0.2.0",
+        "@playwright/test": "^1.63.0",
+        "storybook": "10.5.7",
+        "@storybook/addon-vitest": "10.5.7",
+        "vite": "^8.3.1",
+        "vitest": "^4.1.11",
+        "@vitest/browser-playwright": "^4.1.11"
+      },
+      "evidence": {
+        "observedAt": "2026-11-16T00:15:25.656Z",
+        "manifestSha256": "9727099a4ba19ebc42273f71d749db3b9736695d4c3f60cda22b5e1c860a98f4",
+        "lockSha256": "e0cfefcb37c61c0ef7b8769c85b0cbaee64192b5427665fb2d7a4a10ddf2e564",
+        "resolved": {
+          "@changesets/cli": "2.31.1",
+          "@lapismd/spec-validator": "0.2.0",
+          "@playwright/test": "1.64.1",
+          "storybook": "10.5.7",
+          "@storybook/addon-vitest": "10.5.7",
+          "vite": "8.3.4",
+          "vitest": "4.1.12",
+          "@vitest/browser-playwright": "4.1.12"
+        },
+        "sourceCi": {
+          "state": "same-source",
+          "runId": "43773578011",
+          "sourceSha": "21616e502eaec123a83caf00db1606bedd9c926b",
+          "workflow": ".github/workflows/ci.yml",
+          "completedAt": "2026-11-15T23:21:15Z"
+        },
+        "recipe": {
+          "qualification": "unqualified",
+          "command": "node scripts/changeset-version.mjs",
+          "runtimeInputs": []
+        }
+      }
+    },
+    "lapismd/spec-validator": {
+      "sourceSha": "758a315e0adaf949afa89db731d3f16854aed57b",
+      "pnpm": "10.34.5",
+      "tools": {},
+      "evidence": {
+        "observedAt": "2026-11-16T00:15:27.958Z",
+        "manifestSha256": "c1434650318ad3d7bb187cfe986643f221e10abcdd01f7598e90a6f67a33ab0b",
+        "lockSha256": "aadeaff84d0148db32da193fd911bd1bef5dfd67d307dbc83e50f4983d501fc8",
+        "resolved": {},
+        "sourceCi": {
+          "state": "same-source",
+          "runId": "41314596478",
+          "sourceSha": "758a315e0adaf949afa89db731d3f16854aed57b",
+          "workflow": ".github/workflows/check.yml",
+          "completedAt": "2026-11-01T14:08:36Z"
+        },
+        "recipe": {
+          "qualification": "unqualified",
+          "command": null,
+          "runtimeInputs": []
+        }
+      }
+    },
+    "lapismd/agent-redaction": {
+      "sourceSha": "3cf32015d265aa35c889813709913f8f997a06e6",
+      "pnpm": "10.32.1",
+      "tools": {
+        "@lapismd/spec-validator": "^0.2.0",
+        "vitest": "^4.1.0"
+      },
+      "evidence": {
+        "observedAt": "2026-11-16T00:15:30.383Z",
+        "manifestSha256": "943cb0ca5cf9ddb72a931355366b942ed900470446b7cf5d099c66bf5e6b7af4",
+        "lockSha256": "5650673b429d8938de8f282123670f9c5cb0ef4766dcb7bbb88a08c1442c92c2",
+        "resolved": {
+          "@lapismd/spec-validator": "0.2.0",
+          "vitest": "4.1.12"
+        },
+        "sourceCi": {
+          "state": "same-source",
+          "runId": "43525551529",
+          "sourceSha": "3cf32015d265aa35c889813709913f8f997a06e6",
+          "workflow": ".github/workflows/ci.yml",
+          "completedAt": "2026-11-13T23:20:21Z"
+        },
+        "recipe": {
+          "qualification": "unqualified",
+          "command": null,
+          "runtimeInputs": []
+        }
+      }
+    },
+    "lapismd/plugin-registry": {
+      "sourceSha": "d416054d782277172477d20c627bc25fd219d2ab",
+      "pnpm": "10.32.1",
+      "tools": {
+        "@playwright/test": "^1.62.1"
+      },
+      "evidence": {
+        "observedAt": "2026-11-16T00:15:33.801Z",
+        "manifestSha256": "a60ced265b487fcc9d6cdfc1080ef780a84d30f5acfe296218326839828fde55",
+        "lockSha256": "a971f3e44694c5c5bc9b3e23aa60af64903d54ffa36aaace37e7c4a7ea2bd1b4",
+        "resolved": {
+          "@playwright/test": "1.62.1"
+        },
+        "sourceCi": {
+          "state": "same-source",
+          "runId": "43779004943",
+          "sourceSha": "d416054d782277172477d20c627bc25fd219d2ab",
+          "workflow": ".github/workflows/checks.yml",
+          "completedAt": "2026-11-16T00:14:39Z"
+        },
+        "recipe": {
+          "qualification": "unqualified",
+          "command": null,
+          "runtimeInputs": []
+        }
+      }
+    },
+    "stevejuma/jj-store": {
+      "sourceSha": "62959b5dc8bbf90fbc6d9c91af023eea0048142f",
+      "pnpm": "10.32.1",
+      "tools": {
+        "@changesets/cli": "^2.31.1",
+        "@lapismd/spec-validator": "^0.2.0",
+        "@playwright/test": "1.63.0",
+        "playwright": "1.63.0",
+        "storybook": "10.5.7",
+        "@storybook/addon-vitest": "10.5.7",
+        "vite": "^8.3.1",
+        "vitest": "^4.1.11",
+        "@vitest/browser-playwright": "^4.1.11"
+      },
+      "evidence": {
+        "observedAt": "2026-11-16T00:15:38.855Z",
+        "manifestSha256": "17296288c927b60f12cf4828a4098afd158b05a2cdd7049ef49af4f6b1db710e",
+        "lockSha256": "152bc7d586fbfcee8054005f7e02235d1e28481dd8cd839c4e19245814b19441",
+        "resolved": {
+          "@changesets/cli": "2.31.1",
+          "@lapismd/spec-validator": "0.2.0",
+          "@playwright/test": "1.63.0",
+          "playwright": "1.63.0",
+          "storybook": "10.5.7",
+          "@storybook/addon-vitest": "10.5.7",
+          "vite": "8.3.1",
+          "vitest": "4.1.11",
+          "@vitest/browser-playwright": "4.1.11"
+        },
+        "sourceCi": {
+          "state": "same-source",
+          "runId": "43773584601",
+          "sourceSha": "62959b5dc8bbf90fbc6d9c91af023eea0048142f",
+          "workflow": ".github/workflows/ci.yml",
+          "completedAt": "2026-11-15T23:47:10Z"
+        },
+        "recipe": {
+          "qualification": "unqualified",
+          "command": "changeset version && node scripts/release-version.mjs && pnpm install --lockfile-only --ignore-pnpmfile && prettier --write package.json CHANGELOG.md",
+          "runtimeInputs": []
+        }
+      }
     }
   }
 }

@@ -57,6 +57,10 @@ DA-TOOL-003. Its repository-specific cohorts describe tooling rather than
 dependency edges or permissions. It cannot add advisory exceptions,
 change rollout phases, enable writes or activate excluded hosts.
 
+Expanded tooling records may retain exact source/artifact hashes, resolved
+versions and historical successful source-CI context under DA-TOOL-004; that
+metadata never qualifies a whole version recipe or grants dependency writes.
+
 `config/operations.json` records reviewed template references, single update
 class owners, retained exclusions and a dated activation checkpoint, without
 granting settings authority. `config/advisories.json` is the separately reviewed

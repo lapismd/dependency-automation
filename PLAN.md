@@ -602,6 +602,36 @@ and with a Node/Git-only PATH, with no skipped tests or new CI tool dependency.
 
 ## Measurement and completion
 
+### S6c expanded cohort source evidence — 2026-11-16
+
+- [x] Add ten missing eligible public cohorts, retaining exact source/manifest/lock/resolved-tool context in the production policy and inventory assessment.
+- [x] Record the latest observed successful default-branch source pipelines separately from unqualified version recipes: nine match inspected source; Server remains prior-source.
+- [x] Preserve explicit holds and frozen-root exclusions, existing CLI majors, dependency/audit authority and activation controls.
+- [ ] Qualify this source PR on hosted CI and deploy through the parent operator.
+- [ ] Refresh the six older cohort records and resolve any remaining current-source CI gaps without inventing portability claims.
+- [ ] Add an upstream reusable runtime guard in Lapis CI, then prove and adopt one actual portable consumer recipe with its custom command/config unchanged.
+
+The GET-only collector produced ten review candidates with zero unavailable
+entries. Tasks43776791410 and Docs43773572649 completed after the parent's
+existing npm-production approvals; recorded successful context is therefore
+current-source rather than the earlier held-run observations. Actual Node24
+whole-recipe qualification remains unproven for every new record. No consumer
+implementation is duplicated and no Deno prerequisite is removed. The
+[cohort evidence ledger](docs/cohort-evidence.md) links each exact run and
+describes limits, source constraints and the next shared-helper ownership step.
+
+Local qualification: the initial new evidence target failed once before its
+module existed; the repaired focused discovery/tooling set passed 26 tests.
+Final `pnpm verify` passed 123 tests and all three spec lanes after correcting
+one new specification-section placement error. Doctor passed 11/11, semantic
+QMD discovery and actionlint passed, and the current latest Deno-free validator
+remains 0.2.0. A real read-only registry inventory retained 19 repositories,
+43 owners and 220 edges with zero cycles/coverage holds. All ten new evidence
+records matched current source and lock bytes; nine CI observations matched
+source and Server remained prior-source. All ten recipes remained unqualified.
+This base revision's advisory authority remains untouched; the parent owns the
+separate user-approved exact LOW policy slice and any later rebase preserving it.
+
 ### Combined message/advisory checkpoint — 2026-11-16
 
 PR20 merged at `3aa6c8b51b6ecbde3f9fb5b5453de39b2cb4669a`; main check

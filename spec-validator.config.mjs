@@ -49,7 +49,7 @@ export default defineConfig(headingRequirements(), {
         },
         {
           pattern:
-            "^src/tooling\\.mjs$|^config/tooling\\.json$|^scripts/qualify-tooling\\.mjs$",
+            "^src/tooling(?:-evidence)?\\.mjs$|^config/tooling\\.json$|^scripts/(?:qualify-tooling|inspect-tooling-cohorts)\\.mjs$",
           chapters: ["spec/src/tooling.md"],
         },
         {

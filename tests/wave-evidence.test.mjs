@@ -1,5 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import { discoverRepository, inventory } from "../src/github.mjs";
 import { observeRepository, verifyHint, pages } from "../src/wave-evidence.mjs";
 import { validateCompletion } from "../src/policy.mjs";
@@ -39,6 +40,8 @@ test("unavailable public coverage discards API body and repository name", async 
 
 test("exact git blobs support lockfiles larger than Contents limit", async () => {
   const calls = [];
+  const manifestContent = '{ "name": "source", "private": true }\n';
+  const lockContent = `# ${"x".repeat(1024 * 1024)}\nlockfileVersion: '9.0'\nimporters:\n  .: {}\n`;
   const fetcher = async (url) => {
     calls.push(url);
     const path = new URL(url).pathname;
@@ -57,22 +60,25 @@ test("exact git blobs support lockfiles larger than Contents limit", async () =>
           },
         ],
       });
-    if (path.endsWith("/manifest"))
-      return ok(blob(JSON.stringify({ name: "source", private: true })));
-    if (path.endsWith("/lock"))
-      return ok(
-        blob(
-          `# ${"x".repeat(1024 * 1024)}\nlockfileVersion: '9.0'\nimporters:\n  .: {}\n`,
-        ),
-      );
+    if (path.endsWith("/manifest")) return ok(blob(manifestContent));
+    if (path.endsWith("/lock")) return ok(blob(lockContent));
     return ok(blob("on: [push, pull_request]\njobs: {}\n"));
   };
   const result = await discoverRepository(repo, {
     publicOnly: true,
     waveEvidence: true,
+    toolingEvidence: true,
     fetcher,
   });
   assert.equal(result.lock.lockfileVersion, "9.0");
+  for (const [field, content] of [
+    ["toolingManifestSha256", manifestContent],
+    ["toolingLockSha256", lockContent],
+  ])
+    assert.equal(
+      result[field],
+      createHash("sha256").update(content).digest("hex"),
+    );
   assert.deepEqual(result.pushWorkflows, [".github/workflows/check.yml"]);
   assert(calls.some((u) => u.includes(`/git/trees/${sha}`)));
   assert(!calls.some((u) => u.includes("/contents/")));

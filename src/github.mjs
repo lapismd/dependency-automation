@@ -71,7 +71,8 @@ export async function discoverRepository(entry, options = {}) {
   }
   if (!paths.includes("package.json"))
     throw new Error(`Missing root npm manifest: ${entry.repository}`);
-  const root = JSON.parse(await file("package.json"));
+  const manifestContent = await file("package.json");
+  const root = JSON.parse(manifestContent);
   const workspace = paths.includes("pnpm-workspace.yaml")
     ? YAML.parse(await file("pnpm-workspace.yaml"))
     : {};
@@ -159,6 +160,11 @@ export async function discoverRepository(entry, options = {}) {
   );
   const missingChangesets =
     needsChangesets && !paths.includes(".changeset/config.json");
+  const lockContent =
+    (options.waveEvidence || options.toolingEvidence) &&
+    paths.includes("pnpm-lock.yaml")
+      ? await file("pnpm-lock.yaml")
+      : null;
   return {
     repository: entry.repository,
     phase: entry.phase,
@@ -174,15 +180,19 @@ export async function discoverRepository(entry, options = {}) {
         : "unknown",
     ...(options.waveEvidence || options.toolingEvidence
       ? {
-          lock: paths.includes("pnpm-lock.yaml")
-            ? YAML.parse(await file("pnpm-lock.yaml"))
-            : null,
+          lock: lockContent ? YAML.parse(lockContent) : null,
         }
       : {}),
     defaultBranch: info.default_branch,
     packageManager: root.packageManager,
     ...(options.toolingEvidence
       ? {
+          toolingManifestSha256: createHash("sha256")
+            .update(manifestContent)
+            .digest("hex"),
+          toolingLockSha256: lockContent
+            ? createHash("sha256").update(lockContent).digest("hex")
+            : null,
           toolingInputs: paths.filter((path) =>
             ["deno.json", "deno.jsonc"].includes(path),
           ),
