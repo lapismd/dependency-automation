@@ -55,3 +55,35 @@ a separate exact binding decision; the proposed expiry remains November21UTC.
 Pending: operator-reviewed advisory rebinding, hosted source acceptance,
 read-only wave inventory against genuine current publisher evidence, reviewed
 pilot deployment, actual downstream chain/replay and remaining S5/S6 consumers.
+
+## Explicit rebinding activation
+
+The operator subsequently replied “Approve this exact rebinding” to the exact
+9d657a74 /a3e1f05f source/lock proposal. The policy-only child records that
+approval at2026-11-16T18:32:00.563Z and replaces the stale single entry, keeping
+November21 at00:00UTC expiry or a known fix sooner. No repository permissions,
+phase, scheduling, holds, channels or additional findings are admitted.
+
+The exact original `node scripts/audit-preflight.mjs` at18:30:55.646Z returned
+allowed=false with one unapproved finding and one stale approval. After the
+reviewed policy replacement, the same command at18:32:01.456Z returns
+allowed=true with one exact-approved finding and zero stale entries. It
+independently re-reads official registry fix metadata; raw full audit still
+contains one LOW. This is policy admission, not a clean audit or hosted rollout.
+
+The final policy child passes333 tests, all three specification lanes and
+formatting/source checks on the pinned Node24.15/pnpm10.34.5/GitHubCLI2.102
+runtime. Actionlint passes. Explicit Renovate validation passes all20 existing
+source/cohort configurations. An initial invocation added unsupported --global
+and exited99 before validation; the tool's documented positional file invocation
+passes20/20. No config or assertion changed to accommodate that CLI error.
+
+Fresh GET-only inventory and the final hosted source/controlled pilot receipts
+remain separate gates; this record will not treat a local acceptance as a real
+dependency/release chain or an idempotent replay.
+
+Fresh GET-only public inventory completes with19 repositories,43 owners,
+220 edges, zero cycles and zero coverage gaps. The rebind does not alter the
+source graph or scope policy. All52 channel scopes are rechecked against those
+actual active manifest edges before commit. Fresh per-repository Renovate
+configs are generated from this snapshot; reports remain ignored.

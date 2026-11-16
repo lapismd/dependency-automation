@@ -1,6 +1,6 @@
 # Exact coordinator advisory rebinding proposal
 
-Status: disabled; operator decision required. Existing approval policy is unchanged.
+Status: explicitly approved by the operator and activated in the reviewed policy child.
 
 The mandatory released Deno-free spec-validator0.2.1 update changes only that
 development dependency resolution. The frozen Renovate runtime still reports
@@ -8,7 +8,7 @@ exactly one LOW finding and no other vulnerabilities. This proposal changes no
 advisory, package version, path, severity or expiry, and grants no new workflow,
 repository, rollout or publication authority.
 
-Proposed replacement binding:
+Approved replacement binding:
 
 | Field                    | Exact value                                                        |
 | ------------------------ | ------------------------------------------------------------------ |
@@ -37,3 +37,11 @@ history so the bound dependency source remains independently reproducible.
 records333 tests, three specification lanes,20 real configuration validations,
 the Maintenance parser and fresh19-repository/43-owner/220-edge inventory.
 Hosted checks and writable rollout remain separate gates.
+
+The operator explicitly replied “Approve this exact rebinding” to the exact
+source/lock/path/expiry proposal in this thread. Activation was recorded at
+2026-11-16T18:32:00.563Z. Only the stale policy entry is replaced; no additional
+approval, finding, repository scope, rollout phase or expiry is added.
+The actual pre-activation command still held this tuple with one unapproved
+finding and one stale prior binding. Fresh post-activation qualification and
+current-head hosted checks remain required before deployment.

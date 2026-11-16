@@ -45,3 +45,10 @@ schedule=false and state-writes=true following the explicit manual pilot
 cutover. This comparison checkpoint does not change absent-variable/default-off
 workflow semantics or external settings. Genuine callback/receiver qualification
 is recorded separately from pending publication or replay outcomes.
+
+The operator separately approved the validator-update rebinding in PR34 to
+dependency source9d657a74 and exact lock SHA256a3e1f05f…ca61b8b. This replaces
+the stale prior tuple without extending the November21 expiry or adding any
+advisory, package path, scope or rollout authority. `config/advisories.json`
+remains the sole machine-readable approval authority; raw audit observations
+and version recipes cannot renew it.

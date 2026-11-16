@@ -29,6 +29,36 @@ helpers. Lapis Maintenance owns the operator UI, controllers and adapters.
 Packages retain their tests, compatibility decisions, signing and publication
 credentials. Shared component defects remain with their source package.
 
+## Current shared-readiness follow-up
+
+- Shared Lapis CI [PR16](https://github.com/lapismd/lapis-ci/pull/16) prepares
+  bounded read-only install-metadata readiness with explicit owner budgets and
+  npm/pnpm peer policies. Local source qualification passes170 tests and the
+  isolated actual npm12 profile passes21 cases. Hosted Linux validation passed;
+  the existing macOS check was queued at the last observation. Landing remains
+  pending; no native/image gate is waived.
+- Tasks [PR30](https://github.com/lapismd/lapis-plugin-tasks/pull/30) is draft.
+  All ten PR checks pass and the retained actual0.2.1 artifact passes the new
+  verifier. Its exact fresh main-hosted version-recipe case is prepared in
+  shared PR16; the actual recipe run has not yet executed.
+- Docs [PR19](https://github.com/lapismd/lapis-plugin-docs/pull/19) is draft.
+  Both exact regressions,27 release-boundary tests,84 full units and required
+  source lanes pass. The genuine retained0.3.0 artifact passes readiness,
+  frozen reinstall,636 signatures,178 attestations and publint. Its separately
+  reviewed audit binding preserves the existing development-only LOW expiry;
+  hosted head CI43929333858 passes; the exact new whole-recipe case/run
+  remains pending.
+- Notes' landed source-owned readiness remains qualified separately. Shared
+  adoption/deduplication and Mira adoption remain open; no manual recovery is
+  counted as completing the multi-publisher exit condition.
+- Terminal PR24 is merged. Exact main CI, Cargo publication, version automation
+  and specification deployment pass. Its separate whole-version native profile
+  remains part of S6 and is not inferred from the registry retry repair.
+- The operator explicitly approved PR34's exact coordinator validator-update
+  advisory rebinding. Its policy child retains November21 expiry and every
+  other audit failure. Hosted source acceptance, controlled real chain and
+  idempotent replay remain S3 gates; scheduling/rollout scope is unchanged.
+
 ## Evidence at planning time
 
 - Coordinator run 43739383423 reported 19 repositories, 43 public package

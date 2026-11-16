@@ -105,3 +105,9 @@ package exclusions or held publisher. Source review and actual normal bot
 regeneration remain separate from source qualification of DA-WAVE-007; the
 [bounded pilot runbook](../../docs/notebook-canonical-pilot.md) retains acceptance
 and rollback.
+
+PR34's explicit operator decision rebinds the single existing coordinator
+runtime LOW to source9d657a74 and locka3e1f05f…ca61b8b after the required
+validator update. This replaces the old exact tuple and preserves expiry,
+known-fix rejection and every other audit failure under DA-OPS-002. No write
+scope, activation setting, phase, package signing or deployment gate changes.

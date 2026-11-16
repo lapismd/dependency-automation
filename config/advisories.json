@@ -8,11 +8,11 @@
       "version": "4.3.1",
       "path": ".>renovate>deepmerge",
       "severity": "low",
-      "sourceSha": "7141c2ba56bfc46f620d7020bcc61808d8192ba7",
-      "lockSha256": "889c017f647b35c3955e79683c9915d5bfc7e7b660a3b9a1c481b7098d0c5b2c",
-      "approvedAt": "2026-11-16T00:19:11.000Z",
+      "sourceSha": "9d657a7458e40ca84962a12c9b8e361534b3470f",
+      "lockSha256": "a3e1f05fe6a25925d61b6af7baf5316c24156a0b71319611f6e3298bbca61b8b",
+      "approvedAt": "2026-11-16T18:32:00.563Z",
       "expiresAt": "2026-11-21T00:00:00.000Z",
-      "review": "https://github.com/lapismd/dependency-automation/pull/21"
+      "review": "https://github.com/lapismd/dependency-automation/pull/34"
     }
   ]
 }
