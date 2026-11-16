@@ -1,5 +1,9 @@
 import { readFile } from "node:fs/promises";
 import semver from "semver";
+import {
+  validateCohortEvidence,
+  assessCohortEvidence,
+} from "./tooling-evidence.mjs";
 
 const tools = new Set([
   "@changesets/cli",
@@ -56,7 +60,7 @@ export function validateToolingPolicy(policy) {
   for (const [repository, cohort] of Object.entries(policy.repositories)) {
     if (
       !/^(lapismd|stevejuma)\/[\w.-]+$/.test(repository) ||
-      !keys(cohort, ["sourceSha", "pnpm", "tools"]) ||
+      !keys(cohort, ["sourceSha", "pnpm", "tools", "evidence"]) ||
       !sha(cohort.sourceSha) ||
       !semver.valid(cohort.pnpm) ||
       !keys(cohort.tools, [...tools]) ||
@@ -65,6 +69,7 @@ export function validateToolingPolicy(policy) {
       )
     )
       throw Error("Invalid tooling policy cohort");
+    if (cohort.evidence) validateCohortEvidence(cohort.evidence, cohort);
   }
   return policy;
 }
@@ -177,6 +182,7 @@ export function assessTooling(snapshot, policy) {
     sourceSha: snapshot.sourceSha,
     cohort: cohort ? "recorded-source" : "unconfigured",
     cohortSourceSha: cohort?.sourceSha ?? null,
+    evidence: assessCohortEvidence(snapshot, cohort),
     node: {
       versioningRuntime: policy.node,
       sourceEngines: semver.validRange(manifest.engines?.node)

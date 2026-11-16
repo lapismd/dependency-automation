@@ -36,6 +36,17 @@ does not upgrade consumers, remove frozen-host prerequisites or activate writes.
 - Existing excluded hosts, source-owned advisory bindings, expiries and security update ownership must remain unchanged.
 - Rollout and write authority must remain governed by existing operator gates.
 
+## DA-TOOL-004 — Cohort evidence and recipe separation
+
+**Requirement.** Expanded cohort records MUST retain exact manifest/lock and successful source-CI context separately from whole-recipe runtime qualification.
+
+### Acceptance details
+
+- Records MUST bind exact source, manifest/lock SHA256, resolved tool versions and the latest observed successful default-branch source-pipeline run, with prior-source or unavailable evidence explicit.
+- A successful source-CI run MUST NOT qualify a version recipe as Deno-free, and an absent manifest command MUST NOT imply an absent workflow recipe.
+- Inventory MUST report source/lock drift and missing evidence without turning historical source success into current qualification.
+- Collection MUST remain GET-only within eligible public allowlist entries, preserving holds, excluded hosts, frozen tasks and all existing consumer gates.
+
 ## Registry evidence and rollout limits
 
 The planning assumption that Changesets 3 requires Deno is corrected by the

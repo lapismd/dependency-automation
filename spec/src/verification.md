@@ -47,6 +47,7 @@
 | DA-TOOL-003 | In progress | guardToolingChange in prepare-pr; runtime, integrity, major and cohort rejection tests.                                                                             |
 | DA-REC-005  | Implemented | Native-body preservation, escaped/bounded renderer and wave/CI qualification regressions in `tests/pr-messages.test.mjs`.                                           |
 | DA-PR-005   | Implemented | Managed profile context, maintainer-text preservation, ambiguous-marker and GET-only duplicate regressions in profile/message tests.                                |
+| DA-TOOL-004 | In progress | Revision/lock/CI bindings and recipe separation in tests/tooling-evidence.test.mjs; production inventory.                                                           |
 | DA-OPS-001  | In progress | operational-drift regressions; production maintenance audit resolves local composites, retains settings gaps and reports source observations.                       |
 | DA-OPS-002  | Implemented | Advisory regressions cover exact bindings, expiry, extra findings, known fixes and stale cleanup; config/advisories.json records the explicit November 16 decision. |
 | DA-OPS-003  | In progress | Inventory pre-admission audit and repeated pre-App preflight; read-only/state-only behavior preserved; hosted acceptance pending.                                   |
