@@ -45,3 +45,14 @@ DA-TOOL-003 adds a manifest/lock comparison after the existing scripts-disabled
 frozen install and before Changeset writes. New unqualified CLI adoption or
 incompatible cohort changes fail; unchanged legacy tooling is reported without
 forcing a consumer migration. Advisory policy and publication remain source-owned.
+
+## DA-REL-004 — Source-owned canonical intake
+
+**Requirement.** Opted-in dependency preparation MUST carry accurate source-owned canonical facts into the same candidate without exempting main specification checks.
+
+### Acceptance details
+
+- The immutable admitted source MUST authorize a bounded declarative policy, exact canonical paths and unambiguous managed slots; missing or changed policy and manual content MUST remain held.
+- The initial profile MUST permit only one compatible development package, its matching existing override and mechanical registry lock closure while retaining public contracts and existing release intent, with exact selected-version boundaries preserving unrelated prefix-sharing identities.
+- Preparation MUST preserve authored content and emit deterministic current facts without executing candidate code or asserting unrun qualification.
+- Exact output paths MUST survive native Renovate filtering, and stale sources, unexpected changes and unsupported lock deltas MUST fail before writes.

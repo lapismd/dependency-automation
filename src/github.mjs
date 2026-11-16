@@ -2,6 +2,11 @@ import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import YAML from "yaml";
 import semver from "semver";
+import {
+  intakePolicyPath,
+  intakeHash,
+  validateIntakePolicy,
+} from "./canonical-intake.mjs";
 import { monitoringRepositories } from "./maintenance-policy.mjs";
 import {
   activeManifests,
@@ -137,6 +142,16 @@ export async function discoverRepository(entry, options = {}) {
       prWorkflowRules.push({ path, trigger: triggers.pull_request ?? null });
     }
   }
+  let canonicalIntake;
+  if (paths.includes(intakePolicyPath)) {
+    const bytes = await file(intakePolicyPath);
+    if (Buffer.byteLength(bytes) > 8192)
+      throw Error("Oversized canonical intake policy");
+    canonicalIntake = {
+      policy: validateIntakePolicy(JSON.parse(bytes), entry.repository),
+      sha256: intakeHash(bytes),
+    };
+  }
   const nonPortable = [];
   for (const p of manifests)
     for (const section of [
@@ -172,6 +187,7 @@ export async function discoverRepository(entry, options = {}) {
     ...(entry.emptyChangeset ? { emptyChangeset: true } : {}),
     ...(entry.holdReason ? { holdReason: entry.holdReason } : {}),
     sourceSha: sha,
+    ...(canonicalIntake ? { canonicalIntake } : {}),
     pushWorkflows,
     prWorkflows,
     prWorkflowRules,

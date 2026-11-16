@@ -115,3 +115,8 @@ publications.md. The reviewed Node runtime, owned setup-gh standard CLI pin and 
 public trust data do not change package manifests, lockfiles or advisory
 approval bindings. Public immutable crypto fixtures are test inputs, never
 operational snapshots or production fallback evidence.
+
+Shared canonical-intake preparation and its immutable-source filesystem adapter
+map to release intent and consumer integration. Declarative source opt-ins add
+only exact reviewed canonical output paths; no executable consumer code or
+blanket main specification exemption is introduced.

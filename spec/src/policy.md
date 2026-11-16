@@ -89,3 +89,7 @@ notification adoption.
 Publication policy reviews source-owned publisher workflow identities and exact
 verification-tool bytes under DA-PUB-001/002. It adds no update repositories,
 channel admission, source signing authority or publication permission.
+
+Source-owned canonical intake is an optional preparation capability, not an
+activation or repository-scope change. Invalid policies fail closed; existing
+phase, portability, package exclusions and manual-repair holds remain binding.

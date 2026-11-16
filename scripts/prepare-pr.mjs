@@ -3,6 +3,7 @@ import { readFile, access } from "node:fs/promises";
 import YAML from "yaml";
 import { releaseIntent, writeChangeset } from "../src/changesets.mjs";
 import { activeManifests } from "../src/policy.mjs";
+import { intakePolicyPath } from "../src/canonical-intake.mjs";
 import { guardToolingChange, loadToolingPolicy } from "../src/tooling.mjs";
 
 const root = process.cwd();
@@ -15,6 +16,15 @@ const context = JSON.parse(
 );
 if (typeof context.branchName !== "string" || !context.branchName)
   throw Error("Invalid Renovate branch context");
+let hasCanonicalPolicy = false;
+try {
+  await access(intakePolicyPath);
+  hasCanonicalPolicy = true;
+} catch (error) {
+  if (error.code !== "ENOENT") throw error;
+}
+if (hasCanonicalPolicy && !context.canonicalPolicySha256)
+  throw Error("Canonical intake held: missing admitted source policy context");
 // Renovate has already regenerated candidate artifacts. Prove that the exact
 // candidate installs without rewriting its lockfile or executing package code.
 execFileSync(
@@ -101,6 +111,16 @@ for (const path of changed) {
   if (!after.private && (changedFiles.includes(path) || intent))
     publicManifestChanged = true;
   changes.push(intent);
+}
+if (context.canonicalPolicySha256) {
+  const { prepareCanonicalFiles } =
+    await import("../src/canonical-intake-files.mjs");
+  await prepareCanonicalFiles({
+    root,
+    repository: process.env.LAPIS_AUTOMATION_REPOSITORY,
+    sourceSha: context.sourceSha,
+    policySha256: context.canonicalPolicySha256,
+  });
 }
 const empty =
   process.env.LAPIS_EMPTY_CHANGESET === "1" && publicManifestChanged;
