@@ -201,3 +201,113 @@ test("wave admission gates the production matrix and isolates trusted-main state
   );
   assert(validate > 0 && validate < execute);
 });
+
+test("generic notifier rejects completion calls before App minting", async () => {
+  const workflow = YAML.parse(
+    await readFile(
+      new URL("../.github/workflows/notify.yml", import.meta.url),
+      "utf8",
+    ),
+  );
+  const steps = workflow.jobs.notify.steps;
+  const app = steps.findIndex((step) => step.id === "app");
+  assert(
+    steps
+      .slice(0, app)
+      .some((step) =>
+        step.run?.includes("Completion calls require completion.yml"),
+      ),
+    "a completion call must use the verified workflow_run boundary before any App token is minted",
+  );
+});
+
+test("completion workflow verifies before minting and executes only pinned coordinator code", async () => {
+  const workflow = YAML.parse(
+    await readFile(
+      new URL("../.github/workflows/completion.yml", import.meta.url),
+      "utf8",
+    ),
+  );
+  assert.deepEqual(workflow.permissions, {
+    contents: "read",
+    actions: "read",
+    "pull-requests": "read",
+  });
+  assert.deepEqual(Object.keys(workflow.on), ["workflow_call"]);
+  const { notify } = workflow.jobs;
+  assert.match(notify.if, /workflow_run/);
+  const steps = notify.steps;
+  const qualify = steps.findIndex((step) => step.id === "qualify");
+  const app = steps.findIndex((step) => step.id === "app");
+  assert(qualify >= 0 && qualify < app);
+  assert.equal(steps[qualify].run, "node scripts/qualify-completion.mjs");
+  assert.match(steps[app].if, /qualify.outputs.eligible == 'true'/);
+  assert.equal(steps[app].with.repositories, "dependency-automation");
+  assert.equal(steps[app].with["permission-contents"], "write");
+  assert(!("permission-pull-requests" in steps[app].with));
+  const checkout = steps.find((step) =>
+    step.uses?.startsWith("actions/checkout@"),
+  );
+  assert.equal(checkout.with.repository, "lapismd/dependency-automation");
+  assert.equal(checkout.with.ref, "${{ inputs.automation-ref }}");
+  assert.equal(checkout.with["persist-credentials"], false);
+  assert(
+    steps.findIndex((step) => step.env?.AUTOMATION_REF) <
+      steps.indexOf(checkout),
+  );
+  assert(
+    steps.some((step) =>
+      step.run?.includes("--prod --frozen-lockfile --ignore-scripts"),
+    ),
+  );
+  assert(
+    !steps.some(
+      (step) => step.uses?.includes("artifact") || step.uses?.includes("cache"),
+    ),
+  );
+  assert(
+    !steps.some(
+      (step) =>
+        step.with?.ref?.includes("head_sha") ||
+        step.with?.ref?.includes("head.ref"),
+    ),
+  );
+  assert.equal(steps.at(-1).run, "node scripts/notify.mjs");
+  const script = await readFile(
+    new URL("../scripts/notify.mjs", import.meta.url),
+    "utf8",
+  );
+  assert(
+    script.indexOf("await currentCompletion()") <
+      script.indexOf("const response = await fetch("),
+  );
+});
+
+test("prepared Notes callback runs from workflow_run only without self loops or inherited secrets", async () => {
+  const guide = await readFile(
+    new URL("../docs/completion-adoption.md", import.meta.url),
+    "utf8",
+  );
+  const example = YAML.parse(guide.match(/```yaml\n([\s\S]+?)```/)[1]);
+  assert.deepEqual(Object.keys(example.on), ["workflow_run"]);
+  assert.deepEqual(example.on.workflow_run.types, ["completed"]);
+  assert(!example.on.workflow_run.workflows.includes(example.name));
+  assert.equal(example.concurrency, undefined);
+  assert.deepEqual(example.permissions, {
+    contents: "read",
+    actions: "read",
+    "pull-requests": "read",
+  });
+  assert.equal(
+    example.jobs.notify.uses,
+    "lapismd/dependency-automation/.github/workflows/completion.yml@REVIEWED_COORDINATOR_COMMIT",
+  );
+  assert.equal(
+    example.jobs.notify.with["automation-ref"],
+    "REVIEWED_COORDINATOR_COMMIT",
+  );
+  assert.deepEqual(example.jobs.notify.secrets, {
+    "app-private-key": "${{ secrets.LAPIS_DEPENDENCY_APP_PRIVATE_KEY }}",
+  });
+  assert(!JSON.stringify(example).includes("artifacts"));
+});

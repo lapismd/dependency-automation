@@ -54,3 +54,14 @@ or non-public source coverage is held and represented by opaque IDs/counts;
 public repository artifacts and the state branch are not private storage.
 The atomic state commit also includes public-safe `report.json`, consumed by
 Maintenance through GitHub Contents at the branch's immutable revision.
+
+## DA-WAVE-005 — Completion timing and source isolation
+
+**Requirement.** Completion-triggered reconciliation MUST settle the exact notifying callback before observing qualification and MUST retain default-branch graph authority.
+
+### Acceptance details
+
+- The receiver MUST validate the public source and callback workflow/run/attempt identity, then wait read-only for successful run and exact check-suite completion with a bounded explicit failure rather than silently accepting pending or unknown evidence.
+- The callback's own current check MUST remain part of existing qualification; no product, audit, deployment or compatibility lane may be exempted to avoid a notification race.
+- PR-head hints MUST NOT replace the default-branch inventory, select unmerged dependency targets or assert qualification; duplicate and stale arrivals MUST remain ordinary authoritative scans.
+- Manual scans and gated scheduled recovery MUST remain available for missed events or failed callback settlement without changing rollout settings.

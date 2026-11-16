@@ -103,3 +103,6 @@ normal verification. Registry qualification remains separate from offline tests.
 
 The bounded PR-message renderer maps to reconciliation and profile requirements;
 operational previews and real source snapshots remain untracked.
+
+Completion policy, verifier and reusable workflow are mapped to notifications
+and waves, with source-inventory isolation and explicit workflow wiring.

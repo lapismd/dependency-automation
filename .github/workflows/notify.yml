@@ -7,7 +7,7 @@ on:
         required: true
         type: string
       source-event:
-        description: published or completed; completion only wakes authoritative reconciliation
+        description: Publication notifier; verified workflow_run callbacks use completion.yml
         required: false
         default: published
         type: string
@@ -26,10 +26,18 @@ jobs:
     env:
       HAS_APP_KEY: ${{ secrets.app-private-key != '' }}
     steps:
+      - name: Require the verified completion boundary
+        env:
+          SOURCE_EVENT: ${{ inputs.source-event }}
+        run: |
+          if [ "$SOURCE_EVENT" != 'published' ]; then
+            echo '::error::Completion calls require completion.yml'
+            exit 1
+          fi
       - name: Require notification setup
         run: |
           if [ "$HAS_APP_KEY" != 'true' ]; then
-            echo '::notice::Dependency notification is not activated; the hourly reconciliation remains the recovery path.'
+            echo '::notice::Dependency notification is not activated; manual or gated hourly reconciliation remains the recovery path.'
           fi
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:

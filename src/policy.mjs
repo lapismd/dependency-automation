@@ -188,7 +188,27 @@ export function validateCompletion(payload, repositories) {
     !/^[a-f0-9]{40}$/.test(payload.sourceSha ?? "")
   )
     throw Error("Invalid completion source or revision");
-  return { repository: payload.repository, sourceSha: payload.sourceSha };
+  const notification = payload.notification;
+  if (
+    notification &&
+    (!Number.isSafeInteger(notification.runId) ||
+      notification.runId <= 0 ||
+      !Number.isSafeInteger(notification.runAttempt) ||
+      notification.runAttempt <= 0)
+  )
+    throw Error("Invalid completion callback identity");
+  return {
+    repository: payload.repository,
+    sourceSha: payload.sourceSha,
+    ...(notification
+      ? {
+          notification: {
+            runId: notification.runId,
+            runAttempt: notification.runAttempt,
+          },
+        }
+      : {}),
+  };
 }
 
 export function workflowApplies(trigger, branch, changedPaths = null) {

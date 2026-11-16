@@ -1,6 +1,7 @@
 # Wave pilot and recovery
 
-S3 is implemented but not activated. Merge and complete hosted source checks
+S3 source is implemented behind default-off gates. Operator pilot activation is
+recorded in PLAN.md; completion caller adoption remains separate. Merge and complete hosted source checks
 before changing any gate. This runbook requires an operator decision; it is not
 permission for an agent to enable settings or publish a package.
 
@@ -67,12 +68,21 @@ qualification and do not become invented repository cycles.
    duplicate publication. Breaking-family drafts remain separate. Complete
    every applicable consumer surface before expanding rollout.
 
-Publishers keep the existing pinned reusable `notify.yml` call. A source-owned
-successful completion boundary may call the same reviewed exact coordinator
-revision with `source-event: completed`, its exact `source-sha`, and the existing
-notification credential boundary. This sends a wake-up hint only. Until each
-source adopts that optional callback, hourly/manual reconciliation provides
-completion recovery. No new secret distribution is required by S3.
+Publishers keep the existing pinned reusable `notify.yml` call. Completion
+adoption uses the dedicated pinned `completion.yml`, with trusted source-owned
+`workflow_run` callers and the existing notification credential boundary. The
+[completion adoption guide](completion-adoption.md) contains the Notes pilot
+caller and Mira/Core follow-ups. Shared source alone does not activate any
+caller. Until deployed, manual or explicitly gated hourly reconciliation
+provides completion recovery; schedule OFF means manual recovery only. No new
+secret distribution is required.
+
+The completion hint includes its callback run/attempt. Before inventory, the
+receiver waits up to 24 observations at five-second intervals for that exact
+callback and its exact bounded check suite to succeed. Failure, unknown identity, rerun or timeout fails before
+planning/writes and identifies manual reconciliation after inspection as the
+recovery path. This preserves the callback's check and all product checks;
+PR-head hint verification never replaces the current default-branch graph.
 
 ## Failures and recovery
 

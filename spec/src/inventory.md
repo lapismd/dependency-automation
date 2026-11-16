@@ -11,7 +11,7 @@ writes ignored local reports and a gated reconciliation matrix.
 
 ### Acceptance details
 
-- The default branch commit MUST be resolved before tree/file reads; explicit notification revisions MAY select a particular source commit.
+- The default branch commit MUST be resolved before tree/file reads; explicit notification revisions MAY select a particular source commit for hint verification only; the production graph MUST use current default branches.
 - Truncated trees, missing root manifests and duplicate public package owners MUST fail discovery.
 - Workspace includes/excludes and catalogs MUST determine active first-party dependency edges.
 - Private application manifests MAY be consumers but MUST NOT become public package owners.
@@ -84,3 +84,7 @@ not proof that a generic Node-only contract may replace an existing runtime.
 Tooling discovery additionally hashes the exact root manifest and lockfile bytes
 under DA-TOOL-004, so historical cohort CI context remains visibly distinct from
 changed current source/artifacts and unqualified version recipes.
+
+Completion callbacks settle before the full inventory starts under DA-WAVE-005.
+Their PR head revisions are verified independently and never passed as graph
+discovery overrides.

@@ -24,7 +24,7 @@ package publication.
 
 - The coordinator MUST validate the source, SHA and package payload before inventory.
 - The receiver MUST rediscover current registry eligibility instead of applying payload versions directly.
-- Missing notification setup MUST leave hourly catch-up as the recovery path.
+- Missing notification setup MUST leave manual reconciliation and explicitly gated hourly catch-up as recovery paths.
 - A failed dispatch MUST identify retrying the notification rather than replaying publication.
 
 ## Credentials and checkout wiring
@@ -34,12 +34,24 @@ the caller's read token for source discovery. Its pinned checkout runs the
 requested coordinator commit. The notification key remains encrypted in the
 existing workflow secret boundary; this repository stores no key values.
 
-The reusable notifier accepts `source-event: completed` for a source-owned
-successful CI/merge boundary. Its `lapis-dependency-completed-v1` hint contains
-only repository and exact source SHA; it never qualifies CI by itself. Both
-hint kinds are verified against public exact-source discovery on receipt;
+The dedicated reusable `completion.yml` accepts only trusted default-branch
+`workflow_run` callers. Its `lapis-dependency-completed-v1` hint contains public
+repository/source coordinates and the notifying callback run/attempt identity;
+it never qualifies CI by itself. Both hint kinds are verified against public
+exact-source discovery on receipt;
 publication coordinates are checked again against registry integrity. Full
 scans coalesce by immutable registry identities regardless of arrival order.
 
 Receivers retain only the documented source/version coordinates, discarding
 unknown payload fields before writing public artifacts.
+
+## DA-NOT-003 — Verified completion wake-up
+
+**Requirement.** Completion callbacks MUST verify successful current non-fork source workflow evidence before minting a coordinator-scoped dispatch token.
+
+### Acceptance details
+
+- Trusted pinned coordinator code MUST compare the actual run ID, attempt, SHA, event and exact allowed workflow ID/path with read-only GitHub evidence; unknown, failed, stale or inaccessible coverage MUST withhold dispatch.
+- The source MUST be explicitly public, and its head MUST match an open same-repository PR or the current default branch; revalidation immediately before dispatch MUST reject a moved head.
+- Default-branch `workflow_run` callers MUST execute no candidate code, artifacts or caches, retain the existing notification credential boundary, and exclude their own workflow from completion triggers.
+- Completion hints MUST leave all-current-head CI, repair ownership, registry discovery and merge/publication authority unchanged.

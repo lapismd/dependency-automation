@@ -26,6 +26,18 @@ if (repo?.visibility !== "public")
 const eventKind = process.env.SOURCE_EVENT_KIND ?? "published";
 if (!["published", "completed"].includes(eventKind))
   throw Error("Unsupported notification kind");
+let notification;
+if (eventKind === "completed") {
+  const { currentCompletion } = await import("./qualify-completion.mjs");
+  const completion = await currentCompletion();
+  if (
+    !completion.eligible ||
+    completion.repository !== repository ||
+    completion.sourceSha !== sourceSha
+  )
+    throw Error("Completion changed or is unverified; no dispatch was sent");
+  notification = completion.notification;
+}
 const packages = [];
 for (const { manifest } of eventKind === "published" ? repo.manifests : []) {
   if (
@@ -54,7 +66,7 @@ if (!packages.length && eventKind === "published") {
   const client_payload =
     eventKind === "published"
       ? validateNotification({ repository, sourceSha, packages }, entries)
-      : validateCompletion({ repository, sourceSha }, entries);
+      : validateCompletion({ repository, sourceSha, notification }, entries);
   const response = await fetch(
     "https://api.github.com/repos/lapismd/dependency-automation/dispatches",
     {
@@ -79,6 +91,8 @@ if (!packages.length && eventKind === "published") {
       `Dependency notification failed (${response.status}); retry this notification job only`,
     );
   console.log(
-    `Notified consumers of ${packages.length} published packages at ${sourceSha}`,
+    eventKind === "completed"
+      ? `Sent verified completion wake-up at ${sourceSha}`
+      : `Notified consumers of ${packages.length} published packages at ${sourceSha}`,
   );
 }

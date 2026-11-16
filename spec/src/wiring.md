@@ -10,20 +10,21 @@ values, live operational reports or copied repository inventories.
 ### Acceptance details
 
 - Inventory and audit jobs MUST remain readers; per-target reconciliation, profile publication and the separately gated coordinator state job MUST be the explicit writer boundaries.
-- Notifications MUST call the registry-verifying notifier after a source-owned verified publication boundary.
+- Publication notifications MUST call the registry-verifying notifier after a source-owned verified publication boundary; completion callbacks MUST use the separately verified read-only workflow-run boundary before App minting.
 - Documentation delivery MUST upload only the generated specification book.
 
 ## Hosted entrypoints
 
-| Workflow                | Trigger and jobs                                         | Inputs and entrypoints                                                                   | Outputs and authority                                                   |
-| ----------------------- | -------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
-| `check.yml`             | PR/main checks                                           | Frozen install, `pnpm verify`                                                            | Source/spec qualification; contents read                                |
-| `reconcile.yml`         | Publication/completion dispatch, hourly catch-up, manual | `inventory` → matrix `reconcile`; inventory/config scripts → Renovate → `prepare-pr.mjs` | Ignored report artifacts; dry-run or explicit one-repository App writes |
-| `notify.yml`            | Reusable publisher call                                  | Exact coordinator/source revisions → `scripts/notify.mjs`                                | Registry-verified dispatch to coordinator; no npm publisher             |
-| `maintenance-audit.yml` | Daily/manual                                             | Shared monitoring policy → `scripts/audit-maintenance.mjs`                               | Read-only partial/complete JSON report, 14-day artifact                 |
-| `app-readiness.yml`     | Manual main-only                                         | One of five constrained pilots and existing encrypted App credentials                    | Scope/repository/PR read proof; no target writes                        |
-| `profile-refresh.yml`   | Gated hourly/manual                                      | Source generator → same-run artifact → coordinator `publish-profile.mjs`                 | Guarded rolling profile PR using scoped App writes                      |
-| `pages.yml`             | Main push/manual main                                    | Frozen install and complete verification → generated `spec/book`                         | Book-only Pages artifact; isolated Pages deployment authority           |
+| Workflow                | Trigger and jobs                                         | Inputs and entrypoints                                                                   | Outputs and authority                                                     |
+| ----------------------- | -------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
+| `check.yml`             | PR/main checks                                           | Frozen install, `pnpm verify`                                                            | Source/spec qualification; contents read                                  |
+| `reconcile.yml`         | Publication/completion dispatch, hourly catch-up, manual | `inventory` → matrix `reconcile`; inventory/config scripts → Renovate → `prepare-pr.mjs` | Ignored report artifacts; dry-run or explicit one-repository App writes   |
+| `completion.yml`        | Reusable trusted source `workflow_run` call              | Exact allowed source run/attempt → read-only verification → existing scoped App          | Completion hint; receiver waits for callback completion; no source writes |
+| `notify.yml`            | Reusable publisher call                                  | Exact coordinator/source revisions → `scripts/notify.mjs`                                | Registry-verified dispatch to coordinator; no npm publisher               |
+| `maintenance-audit.yml` | Daily/manual                                             | Shared monitoring policy → `scripts/audit-maintenance.mjs`                               | Read-only partial/complete JSON report, 14-day artifact                   |
+| `app-readiness.yml`     | Manual main-only                                         | One of five constrained pilots and existing encrypted App credentials                    | Scope/repository/PR read proof; no target writes                          |
+| `profile-refresh.yml`   | Gated hourly/manual                                      | Source generator → same-run artifact → coordinator `publish-profile.mjs`                 | Guarded rolling profile PR using scoped App writes                        |
+| `pages.yml`             | Main push/manual main                                    | Frozen install and complete verification → generated `spec/book`                         | Book-only Pages artifact; isolated Pages deployment authority             |
 
 ## Source flow
 
@@ -71,3 +72,12 @@ mode. `validate-wave-target.mjs` refreshes target revision and branch ownership
 before Renovate. `src/waves.mjs`, `src/wave-evidence.mjs` and
 `src/wave-state.mjs` own planning, observation and state CAS respectively.
 The default-off wave gate leaves the original flat matrix available for rollback.
+
+Completion adoption uses `config/completions.json`, `src/completion.mjs` and
+`scripts/qualify-completion.mjs`. The generic publisher notifier rejects
+completion calls before App minting. `completion.yml` checks out only an exact
+trusted coordinator revision with credentials disabled, installs frozen
+production dependencies without lifecycle scripts, and reads source API metadata.
+It revalidates after minting and dispatches no candidate data beyond documented
+public coordinates. The callback run/attempt in the hint is settled before
+inventory; all existing qualification checks remain observed.
