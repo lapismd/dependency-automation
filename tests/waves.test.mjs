@@ -735,3 +735,99 @@ test("source removal supersedes stale intent without claiming publication or blo
   assert.equal(node(after, "app").status, "unchanged");
   assert.doesNotThrow(() => planWaves(graph, after.state, options));
 });
+
+test("compound runtime support updates only its admitted lock and requires that exact candidate before merge", async () => {
+  const { applyPackageRules } =
+    await import("renovate/dist/util/package-rules/index.js");
+  const { getNewValue } =
+    await import("renovate/dist/modules/versioning/npm/range.js");
+  const graph = fixture(),
+    repo = graph.repositories[1],
+    range = "^0.7.0 || ^1.0.0";
+  repo.manifests[0].manifest.dependencies["@lapismd/foundation"] = range;
+  graph.edges[0].range = range;
+  graph.waveAdmission = planWaves(graph, emptyState(), options).report;
+  const update = graph.waveAdmission.nodes.find(
+    (n) => n.repository === repo.repository,
+  ).admittedUpdates[0];
+  assert.equal(
+    update.targetRange,
+    range,
+    "Preserve all previously supported release lines",
+  );
+  assert.equal(
+    update.releaseIntent,
+    null,
+    "An unchanged public manifest does not invent a release",
+  );
+  const candidate = structuredClone(repo);
+  const pr = {
+    user: { login: options.botLogin },
+    head: { ref: "lapis-dependencies/lapis-first-party", sha },
+    qualification: { state: "qualified" },
+    basedOnCurrentSource: true,
+    candidate,
+    commits: [
+      {
+        author: { login: options.botLogin },
+        commit: { author: { name: "Bot", email: "bot@example.com" } },
+      },
+    ],
+  };
+  repo.evidence.prs = [pr];
+  const effective = async () =>
+    applyPackageRules({
+      ...repositoryConfig(repo, graph, process.cwd()),
+      datasource: "npm",
+      versioning: "npm",
+      depName: "@lapismd/foundation",
+      packageName: "@lapismd/foundation",
+      packageFile: "package.json",
+      depType: "dependencies",
+      currentValue: range,
+      currentVersion: "1.0.0",
+      newVersion: "1.0.1",
+      updateType: "patch",
+    });
+  let config = await effective();
+  assert.equal(config.rangeStrategy, "update-lockfile");
+  assert.equal(
+    getNewValue({
+      currentValue: range,
+      rangeStrategy: config.rangeStrategy,
+      currentVersion: "1.0.0",
+      newVersion: "1.0.1",
+    }),
+    range,
+  );
+  assert.equal(
+    config.automerge,
+    false,
+    "An unchanged old lock must remain blocked",
+  );
+  candidate.lock.importers["."].dependencies["@lapismd/foundation"].version =
+    "1.0.1";
+  assert.equal((await effective()).automerge, true);
+  pr.qualification.state = "waiting";
+  assert.equal(
+    (await effective()).automerge,
+    false,
+    "A new head must qualify itself",
+  );
+});
+
+test("compound runtime support outside its contract requires source compatibility review", () => {
+  const graph = fixture(),
+    repo = graph.repositories[1];
+  repo.manifests[0].manifest.dependencies["@lapismd/foundation"] =
+    "^0.7.0 || 1.0.0";
+  graph.edges[0].range = "^0.7.0 || 1.0.0";
+  const result = planWaves(graph, emptyState(), options),
+    publisher = node(result, "publisher");
+  assert.equal(publisher.admittedUpdates.length, 0);
+  assert(
+    publisher.holds.some((h) =>
+      h.includes("compound range requires source-owned compatibility review"),
+    ),
+  );
+});

@@ -78,9 +78,9 @@ Link PRs and evidence here; do not turn a local test into a rollout claim.
 
 | Slice                                     | Owner                             | Status                                            | Exit condition                                                           |
 | ----------------------------------------- | --------------------------------- | ------------------------------------------------- | ------------------------------------------------------------------------ |
-| S1 Policy and trusted PR authentication   | dependency-automation + consumers | Auth sources merged; final receipts pending       | Routine trusted PRs start CI; monitoring does not grant update authority |
-| S2 Remove dependency-image pin churn      | lapis-ci + Plugins, then Notes    | Plugins qualified; Notes cache acceptance pending | Normal lockfile bumps generate zero image-pin PRs                        |
-| S3 Coordinate dependency/release waves    | dependency-automation             | State pilot qualified; release wave pending       | Idempotent upstream-to-downstream progress with explicit blockers        |
+| S1 Policy and trusted PR authentication   | dependency-automation + consumers | Qualified; source/main receipts recorded          | Routine trusted PRs start CI; monitoring does not grant update authority |
+| S2 Remove dependency-image pin churn      | lapis-ci + Plugins, then Notes    | Qualified in Plugins and Notes                    | Normal lockfile bumps generate zero image-pin PRs                        |
+| S3 Coordinate dependency/release waves    | dependency-automation             | Writable pilot active; full release chain pending | Idempotent upstream-to-downstream progress with explicit blockers        |
 | S4 Maintenance integration                | lapis-maintenance                 | Deployed; live read/action ports qualified        | One UI explains waves, issues, actions and exceptions                    |
 | S5 Release/registry batching and recovery | publishers + plugin-registry      | Registry batch and recovery qualified             | Batches preserve signing and resume failed publication safely            |
 | S6 Deno-free tooling and drift prevention | dependency-automation + consumers | Guards landed; consumer adoption in progress      | Supported tooling cohort cannot silently drift                           |
@@ -123,8 +123,8 @@ the individual consumer migration if validation fails; do not weaken checks.
 - [x] Implement and locally verify monitoring-only policy and authentication audit.
 - [x] Confirm pilot repository installation/secret provisioning through hosted probes.
 - [x] Migrate and qualify .github profile-refresh pilot.
-- [ ] Migrate and qualify generated version PR consumers.
-- [ ] Adopt monitoring policy in Maintenance; audit final-check coverage.
+- [x] Migrate and qualify generated version PR consumers.
+- [x] Adopt monitoring policy in Maintenance; audit final-check coverage.
 
 Organization secret-selection API access returned HTTP 403 on 2026-11-15.
 Installation metadata is readable. This limits provisioning verification, not
@@ -162,7 +162,7 @@ migration is not complete and no reduction in approval clicks is claimed yet.
 - [x] Keep key use central; design the profile write worker around verified
       originating workflows, source revisions, allowed files and expected diffs.
 - [x] Qualify one App-authored profile PR starting CI without manual approval.
-- [ ] Extend the qualified pattern to generated version PRs.
+- [x] Extend the qualified pattern to generated version PRs.
 
 The probe uses the existing coordinator secret, requests a token scoped to one
 explicit repository with read-only contents/PR permissions, and performs GETs
@@ -300,10 +300,10 @@ until both consumers qualify; rollback must still install the candidate graph.
 - [x] Implement reusable dependency-only input identity/receipt helper in Lapis CI.
 - [x] Qualify the standalone helper and actual Plugins context locally.
 - [x] Merge/qualify shared helper: https://github.com/lapismd/lapis-ci/pull/2.
-- [ ] Qualify verified immutable-digest resolver: https://github.com/lapismd/lapis-ci/pull/3.
-- [ ] Add the source-owned attested producer and staging-to-identity promotion.
-- [ ] Migrate/qualify Plugins, then Notes, including cache-miss frozen installs.
-- [ ] Remove obsolete pin producers and superseded bot PRs after acceptance.
+- [x] Qualify verified immutable-digest resolver: https://github.com/lapismd/lapis-ci/pull/3.
+- [x] Add the source-owned attested producer and staging-to-identity promotion.
+- [x] Migrate/qualify Plugins, then Notes, including cache-miss frozen installs.
+- [x] Remove obsolete pin producers and superseded bot PRs after acceptance.
 
 The old Plugins tag includes only a truncated lockfile hash, while its actual
 build context also reads a Dockerfile, manifests, workspace configuration and
@@ -514,7 +514,7 @@ introduce package patches or disable audits to make migration pass.
 - [x] Add central source-observed cohorts for six repositories, explicit missing coverage, and production candidate rejection before release-intent writes.
 - [x] Preserve existing CLI majors and refuse to overwrite source-owned version recipes; remove redundant Deno only from the upstream version template.
 - [x] Qualify hosted S6a source checks and reviewed source merge through PR18; consumer deployment remains below.
-- [ ] Adopt and qualify the guard in active consumers, including AI Controller's currently Deno-required formatter/task boundary and Notes' separate portable/frozen setup boundary; no installer removal without whole-recipe proof.
+- [ ] Adopt and qualify the guard in eligible Node consumers. AI Controller and other excluded Deno-only boundaries remain outside this rollout; Notes' shared portable/frozen setup must not lose its installer without whole-recipe proof.
 - [x] Implement central required-check, runtime-exclusion, activation and deployed-template/pin drift source coverage in S6b; hosted deployment and remediation remain below.
 - [x] Implement exact coordinator advisory/path/version/dependency-source/lock/expiry policy with expired and mismatched rejection; individual decisions require explicit operator approval.
 - [ ] Qualify all remaining tool cohorts and source/consumer tuples; S6 is not complete.
@@ -607,9 +607,9 @@ and with a Node/Git-only PATH, with no skipped tests or new CI tool dependency.
 - [x] Add ten missing eligible public cohorts, retaining exact source/manifest/lock/resolved-tool context in the production policy and inventory assessment.
 - [x] Record the latest observed successful default-branch source pipelines separately from unqualified version recipes: nine match inspected source; Server remains prior-source.
 - [x] Preserve explicit holds and frozen-root exclusions, existing CLI majors, dependency/audit authority and activation controls.
-- [ ] Qualify this source PR on hosted CI and deploy through the parent operator.
+- [x] Qualify this source PR on hosted CI and deploy through the parent operator.
 - [ ] Refresh the six older cohort records and resolve any remaining current-source CI gaps without inventing portability claims.
-- [ ] Add an upstream reusable runtime guard in Lapis CI, then prove and adopt one actual portable consumer recipe with its custom command/config unchanged.
+- [x] Add an upstream reusable runtime guard in Lapis CI, then prove and adopt one actual portable consumer recipe with its custom command/config unchanged.
 
 The GET-only collector produced ten review candidates with zero unavailable
 entries. Tasks43776791410 and Docs43773572649 completed after the parent's
@@ -871,3 +871,26 @@ publication notifications. Completion dispatch performs only verified public
 GitHub metadata reads, with separate source-read/coordinator-write credentials.
 The exact target passes1/1 with one dispatch and no tree/blob/file/npm requests.
 Caller adoption remains separate from this source boundary repair.
+
+### Compound range pilot repair — November 16
+
+The exact Notes126 candidate49531dc1 passed all required CI after its one
+unchanged failed-job rerun. Manual replay43794621762 completed without a new
+candidate or duplicate PR, and correctly retained merge admission: File Explorer
+still resolved Core0.13.3 under its unchanged compound support range, while the
+planner incorrectly expected a narrowed `^0.13.4` manifest. Three other admitted
+manifests had updated. No merge or workflow gate was bypassed.
+
+Compound runtime support now remains unchanged when the admitted registry target
+already satisfies it, and the generated per-path native Renovate rule requests
+`update-lockfile`. The exact target lock and fresh candidate CI still qualify
+merge. An outside-support compound target remains held for source-owned review.
+Unchanged public manifests do not invent publication intent. Two exact source
+regressions initially failed; both pass after the repair, including Renovate's
+actual rule engine/range updater and old-lock/pending-head negative controls.
+Hosted regenerated-candidate acceptance remains pending.
+
+Shared completion25 merged e3c91cb3; Plugins guard149 and Notes diagnostics139
+are merged. Shared LapisCI8 is merged6511f29e; actual Core43795242917 and
+Mira43795245438 recipe proofs passed before consumer guard adoption. Source
+callbacks and Core/Mira adoption remain separately reviewed source PRs.

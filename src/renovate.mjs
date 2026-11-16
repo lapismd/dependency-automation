@@ -174,6 +174,16 @@ export function repositoryConfig(repo, graph, automationRoot) {
           ? {
               ...match,
               enabled: true,
+              ...(admission.admittedUpdates.some(
+                (u) =>
+                  u.name === edge.name &&
+                  u.path === edge.path &&
+                  u.type === edge.type &&
+                  u.type !== "peerDependencies" &&
+                  u.targetRange === u.range,
+              )
+                ? { rangeStrategy: "update-lockfile" }
+                : {}),
               allowedVersions: `/^(?:${targets.map((v) => v.replaceAll(".", "\\.")).join("|")})$/`,
             }
           : { ...match, enabled: false },

@@ -74,3 +74,5 @@ or regenerated head waits for its own CI rather than inheriting an earlier green
 head. Closed breaking-family branches hold that family; compatible work in a
 different family remains eligible. Workspace catalogs move only with all their
 references jointly admitted, including preservation of peer support.
+
+Compound runtime support follows [DA-WAVE-006](waves.md#da-wave-006--compound-support-ranges): per-path native lockfile rules preserve existing support while exact candidate lock and CI evidence continue to gate auto-merge.

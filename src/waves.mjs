@@ -143,6 +143,8 @@ function targetRange(edge, target) {
   if (edge.type === "peerDependencies" && !semver.satisfies(target, edge.range))
     return `${edge.range} || ^${target}`;
   if (edge.type === "peerDependencies") return edge.range;
+  if (edge.range.includes("||"))
+    return semver.satisfies(target, edge.range) ? edge.range : null;
   return /^[~^]/.test(edge.range) ? edge.range[0] + target : target;
 }
 
@@ -296,6 +298,12 @@ export function planWaves(graph, previous = emptyState(), options = {}) {
       }
       const type = updateType(resolved.version, target);
       const range = targetRange(edge, target);
+      if (range === null) {
+        holds.push(
+          `${edge.name}: compound range requires source-owned compatibility review`,
+        );
+        continue;
+      }
       const p = repo.manifests.find((p) => p.path === edge.path);
       const after = {
         ...p.manifest,

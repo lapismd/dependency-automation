@@ -65,3 +65,13 @@ Maintenance through GitHub Contents at the branch's immutable revision.
 - The callback's own current check MUST remain part of existing qualification; no product, audit, deployment or compatibility lane may be exempted to avoid a notification race.
 - PR-head hints MUST NOT replace the default-branch inventory, select unmerged dependency targets or assert qualification; duplicate and stale arrivals MUST remain ordinary authoritative scans.
 - Manual scans and gated scheduled recovery MUST remain available for missed events or failed callback settlement without changing rollout settings.
+
+## DA-WAVE-006 — Compound support ranges
+
+**Requirement.** Admitted compound runtime ranges MUST preserve their supported release lines while qualifying their exact lockfile update.
+
+### Acceptance details
+
+- Targets already inside a compound support range MUST retain that range and use native `update-lockfile` rules for the admitted path and dependency type.
+- Targets outside compound support MUST remain held for source-owned compatibility review rather than silently narrowing the public contract.
+- The exact existing candidate MUST resolve the admitted target under the preserved range and pass its own current CI before auto-merge.
