@@ -12,6 +12,8 @@ import {
 const entries = await loadAllowlist();
 const { loadCompletionPolicy } = await import("../src/completion.mjs");
 await loadCompletionPolicy(entries);
+const { loadPublicationPolicy } = await import("../src/publications.mjs");
+await loadPublicationPolicy(entries);
 await loadToolingPolicy();
 validateAdvisoryPolicy(
   JSON.parse(await readFile("config/advisories.json", "utf8")),

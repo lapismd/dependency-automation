@@ -76,3 +76,11 @@ Maintenance through GitHub Contents at the branch's immutable revision.
 - Targets outside compound support MUST remain held for source-owned compatibility review rather than silently narrowing the public contract.
 - The exact existing candidate MUST resolve the admitted target under the preserved range and pass its own current CI before auto-merge.
 - Earlier compound publication waits MAY be superseded only after qualified current main locks satisfy every target under an identical registry-verified published support range, without claiming a new publication.
+
+## Publication evidence boundary
+
+DA-PUB-001/002 separate authenticated publication facts from latest-only update
+eligibility. Waiting releases expose channel-not-admitted/provenance-unknown
+without relaxing newer-version, compound-support, current-main or CAS rules.
+Legacy publication records remain readable; fresh receipt/channel evidence
+owns any new release advancement.

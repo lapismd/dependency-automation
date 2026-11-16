@@ -6,6 +6,7 @@ import {
   branchOwnership,
   lockVersion,
 } from "../src/wave-evidence.mjs";
+import { observedPublication } from "./publication-fixtures.mjs";
 import { repositoryConfig } from "../src/renovate.mjs";
 const sha = "a".repeat(40),
   policyRevision = "b".repeat(40);
@@ -146,6 +147,7 @@ test("foundation update admits publisher and waits downstream until registry pub
     gitHead: publisher.sourceSha,
     dependencies: { "@lapismd/foundation": "^1.0.1" },
   };
+  observedPublication(publisher, graph.registry["@lapismd/publisher"]["1.0.1"]);
   publisher.evidence.runs[0].status = "in_progress";
   assert.equal(
     node(planWaves(graph, first.state, options), "app").status,
@@ -857,6 +859,7 @@ test("persisted compound release waits retire only after qualified main locks an
   });
   repo.lock.importers["."].dependencies["@lapismd/foundation"].version =
     "1.0.1";
+  observedPublication(repo, metadata);
   const result = planWaves(graph, state, options);
   assert.equal(
     result.state.releases["@lapismd/publisher"].status,
@@ -885,7 +888,7 @@ test("persisted compound release waits retire only after qualified main locks an
       delete g.registry["@lapismd/publisher"]["1.0.0"].integrity;
     },
     (g) => {
-      delete g.registry["@lapismd/publisher"]["1.0.0"].gitHead;
+      delete g.registry["@lapismd/publisher"]["1.0.0"].publication;
     },
     (g) => {
       g.registry["@lapismd/publisher"]["1.0.0"].dependencies[
@@ -908,4 +911,63 @@ test("persisted compound release waits retire only after qualified main locks an
     );
   }
   assert.doesNotThrow(() => planWaves(graph, result.state, options));
+});
+
+test("verified publication receipts survive transient observations without granting stale release authority", () => {
+  const graph = fixture(),
+    repo = graph.repositories[1];
+  const metadata = graph.registry["@lapismd/publisher"]["1.0.0"];
+  observedPublication(repo, metadata);
+  metadata.publication.channel = {
+    policy: "latest",
+    admitted: false,
+    latest: "0.1.0",
+    tags: ["next"],
+  };
+  graph.available["@lapismd/publisher"] = ["0.1.0"];
+  repo.lock.importers["."].dependencies["@lapismd/foundation"].version =
+    "1.0.1";
+  const state = emptyState();
+  state.releases["@lapismd/publisher"] = {
+    name: "@lapismd/publisher",
+    repository: repo.repository,
+    sourceSha: sha,
+    baseline: "0.9.0",
+    requires: [
+      { name: "@lapismd/foundation", type: "dependencies", target: "1.0.1" },
+    ],
+    status: "waiting",
+    policyRevision,
+  };
+  const first = planWaves(graph, state, options);
+  assert.equal(first.state.releases["@lapismd/publisher"].status, "waiting");
+  assert(
+    node(first, "publisher").waits.some((w) =>
+      w.reason.startsWith("channel-not-admitted:"),
+    ),
+  );
+  const old = Object.values(first.state.publications).find(
+    (p) => p.name === "@lapismd/publisher",
+  );
+  assert.equal(old.evidence.state, "verified");
+  assert.equal(old.verifiedEvidence.state, "verified");
+  metadata.publication = {
+    ...metadata.publication,
+    state: "unknown",
+    reason: "provenance-unknown",
+    matchesCurrentContract: false,
+  };
+  delete metadata.publication.proof;
+  const second = planWaves(graph, first.state, options);
+  const current = Object.values(second.state.publications).find(
+    (p) => p.name === "@lapismd/publisher",
+  );
+  assert.equal(current.evidence.state, "unknown");
+  assert.deepEqual(current.verifiedEvidence, old.verifiedEvidence);
+  assert.equal(second.state.releases["@lapismd/publisher"].status, "waiting");
+  assert(
+    node(second, "publisher").waits.some((w) =>
+      w.reason.startsWith("provenance-unknown:"),
+    ),
+  );
 });

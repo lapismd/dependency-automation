@@ -24,10 +24,10 @@
     "security": "dependabot"
   },
   "activation": {
-    "LAPIS_DEPENDENCY_WRITES": "false",
+    "LAPIS_DEPENDENCY_WRITES": "true",
     "LAPIS_DEPENDENCY_PHASE": "pilot",
     "LAPIS_DEPENDENCY_WAVES": "true",
-    "LAPIS_DEPENDENCY_SCHEDULE": "true",
+    "LAPIS_DEPENDENCY_SCHEDULE": "false",
     "LAPIS_DEPENDENCY_WAVE_STATE_WRITES": "true"
   }
 }

@@ -1,6 +1,10 @@
 import { createHash } from "node:crypto";
 import semver from "semver";
 import { runtimeCycles } from "./policy.mjs";
+import {
+  verifiedPublication,
+  validatePublicationEvidence,
+} from "./publications.mjs";
 import { releaseIntent } from "./changesets.mjs";
 import {
   lockVersion,
@@ -123,13 +127,28 @@ export function validateState(state) {
       throw Error("Unsupported stored operation evidence");
   for (const publication of Object.values(state.publications))
     if (
-      !keys(publication, ["name", "version", "integrity"]) ||
+      !keys(publication, [
+        "name",
+        "version",
+        "integrity",
+        "evidence",
+        "verifiedEvidence",
+      ]) ||
       !packageName(publication.name) ||
       !semver.valid(publication.version) ||
       typeof publication.integrity !== "string" ||
       !publication.integrity
     )
       throw Error("Unsupported stored publication evidence");
+  for (const publication of Object.values(state.publications)) {
+    if (publication.evidence) validatePublicationEvidence(publication.evidence);
+    if (
+      publication.verifiedEvidence &&
+      validatePublicationEvidence(publication.verifiedEvidence).state !==
+        "verified"
+    )
+      throw Error("Unsupported verified publication receipt");
+  }
   return state;
 }
 
@@ -162,7 +181,8 @@ function released(intent, graph, repo) {
   const metadata = graph.registry?.[intent.name]?.[own.version];
   if (
     !metadata?.integrity ||
-    !/^[a-f0-9]{40}$/.test(metadata.gitHead ?? "") ||
+    !verifiedPublication(metadata, repo, own) ||
+    metadata.publication.channel.admitted !== true ||
     !(graph.available[intent.name] ?? []).includes(own.version)
   )
     return false;
@@ -187,7 +207,8 @@ function obsoleteCompoundIntent(intent, graph, repo) {
     !entry ||
     !semver.valid(own.version) ||
     !metadata?.integrity ||
-    !/^[a-f0-9]{40}$/.test(metadata.gitHead ?? "") ||
+    !verifiedPublication(metadata, repo, own) ||
+    metadata.publication.channel.admitted !== true ||
     !(graph.available[intent.name] ?? []).includes(own.version)
   )
     return false;
@@ -450,6 +471,36 @@ export function planWaves(graph, previous = emptyState(), options = {}) {
       }
     }
   }
+  for (const node of nodes) {
+    const repo = graph.repositories.find(
+      (r) => r.repository === node.repository,
+    );
+    for (const release of Object.values(state.releases).filter(
+      (r) =>
+        r.repository === node.repository &&
+        r.status === "waiting" &&
+        r.requires.length &&
+        !node.updates.some((u) => u.releaseIntent === r.name),
+    )) {
+      const own = repo.manifests.find(
+        (p) => p.manifest.name === release.name,
+      )?.manifest;
+      const metadata = graph.registry?.[release.name]?.[own?.version];
+      const publication = metadata?.publication;
+      if (publication?.channel.admitted === false)
+        node.waits.push({
+          package: release.name,
+          repository: node.repository,
+          reason: `channel-not-admitted: ${own.version}; policy latest=${publication.channel.latest ?? "unknown"}; observed ${publication.channel.tags.join(",") || "untagged"}`,
+        });
+      if (!verifiedPublication(metadata, repo, own ?? {}))
+        node.waits.push({
+          package: release.name,
+          repository: node.repository,
+          reason: `provenance-unknown: ${publication?.reason ?? "unobserved"}`,
+        });
+    }
+  }
   // Propagate affected public chains even when a downstream manifest has no update yet.
   let changed;
   do {
@@ -561,7 +612,7 @@ export function planWaves(graph, previous = emptyState(), options = {}) {
           : "admitted"
         : node.holds.length
           ? "held"
-          : node.waits.length
+          : node.waits.some((wait) => wait.repository !== node.repository)
             ? "upstream-wait"
             : Object.values(state.releases).some(
                   (r) =>
@@ -694,15 +745,24 @@ export function planWaves(graph, previous = emptyState(), options = {}) {
   for (const [name, versions] of Object.entries(graph.registry ?? {}))
     for (const [version, metadata] of Object.entries(versions)) {
       if (
-        !excluded.has(name) &&
-        (graph.available[name] ?? []).includes(version) &&
-        metadata.integrity
+        excluded.has(name) ||
+        !metadata.integrity ||
+        (!(graph.available[name] ?? []).includes(version) &&
+          !metadata.publication)
       )
-        state.publications[identity([name, version, metadata.integrity])] = {
-          name,
-          version,
-          integrity: metadata.integrity,
-        };
+        continue;
+      const key = identity([name, version, metadata.integrity]);
+      const verifiedEvidence =
+        metadata.publication?.state === "verified"
+          ? metadata.publication
+          : state.publications[key]?.verifiedEvidence;
+      state.publications[key] = {
+        name,
+        version,
+        integrity: metadata.integrity,
+        ...(metadata.publication ? { evidence: metadata.publication } : {}),
+        ...(verifiedEvidence ? { verifiedEvidence } : {}),
+      };
     }
   state.generation++;
   state.policyRevision = policyRevision;

@@ -43,7 +43,16 @@ const waveMode = process.env.LAPIS_WAVES_ENABLED === "true";
 const advisoryPreflight = await auditPreflight();
 const writesRequested = process.env.LAPIS_WRITE_ENABLED === "true";
 const qualifiedWrites = writesRequested && advisoryPreflight.allowed;
+const publicationSnapshot = waveMode
+  ? await readWaveState({ token: process.env.GH_TOKEN })
+  : null;
+const publicationVersions = {};
+for (const release of Object.values(publicationSnapshot?.state.releases ?? {}))
+  if (release.status === "waiting" && release.baseline)
+    (publicationVersions[release.name] ??= []).push(release.baseline);
 const result = await inventory(entries, {
+  publicationVersions,
+  publicationToken: process.env.LAPIS_PUBLICATION_READ_TOKEN,
   publicOnly: true,
   waveEvidence: waveMode,
   toolingEvidence: true,

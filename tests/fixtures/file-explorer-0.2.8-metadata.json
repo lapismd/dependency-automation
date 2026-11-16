@@ -1,0 +1,41 @@
+{
+  "name": "@lapis-notes/file-explorer",
+  "version": "0.2.8",
+  "type": "module",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "svelte": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "dependencies": {
+    "@lapis-notes/api": "^0.6.0",
+    "@lapismd/design-core": "^0.7.0 || ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.12.0 || ^0.13.0"
+  },
+  "peerDependencies": {
+    "svelte": "^5.0.0"
+  },
+  "dist": {
+    "integrity": "sha512-2nnIW+8O6oQs9PR1rLlQTXJX/2RU7+xGkkmfUDz7ERxEK6nnSEuy+mpTO4hnA0XKV1w1yH6hzz0ai7VOR5G8tQ==",
+    "signatures": [
+      {
+        "sig": "MEQCIGEAye1grPLrhuM+wt4GBa15uUa52hEhzQ0cNDSRYDLXAiATK8bLlSq8qFp6SS5t6+cRZOHT+qlgrvbtKMkgRNyBbg==",
+        "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+      },
+      {
+        "sig": "MEUCIQD0g1Tc6suu/Y2eU2w9ESXr1lM6GV9MDLJyAHgxB+eWNAIgb8AH15cvVhqT6orHUNaVaYCXAklJRIJQrphQzHVEeDQ=",
+        "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+      }
+    ],
+    "tarball": "https://registry.npmjs.org/@lapis-notes/file-explorer/-/file-explorer-0.2.8.tgz",
+    "attestations": {
+      "url": "https://registry.npmjs.org/-/npm/v1/attestations/@lapis-notes%2ffile-explorer@0.2.8",
+      "provenance": {
+        "predicateType": "https://slsa.dev/provenance/v1"
+      }
+    }
+  }
+}

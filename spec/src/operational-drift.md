@@ -29,7 +29,7 @@
 ### Acceptance details
 
 - Inventory MUST run the complete scripts-disabled coordinator audit and emit a public-safe decision; denied writes MUST produce no writable target matrix or new writable admission.
-- Reconcile MUST repeat the actual preflight before App minting; a prior report alone MUST NOT authorize writes.
+- Reconcile and any inventory publication-reader App mint MUST repeat the actual preflight before App minting; a prior report alone MUST NOT authorize writes.
 - Read-only collection and state-only reporting MUST remain possible with unapproved findings, without modifying activation, repository protections or credentials.
 
 ## Recorded decisions
@@ -39,3 +39,9 @@ The operator approved the exact coordinator deepmerge decision proposed in
 `config/advisories.json` owns its dependency-source/lock/path/version binding
 and November 21 expiry. The [decision record](https://github.com/lapismd/dependency-automation/blob/main/docs/approved-coordinator-advisory.md)
 records that scope; all rejection and cleanup requirements above still apply.
+
+The reviewed activation checkpoint is writes=true, phase=pilot, waves=true,
+schedule=false and state-writes=true following the explicit manual pilot
+cutover. This comparison checkpoint does not change absent-variable/default-off
+workflow semantics or external settings. Genuine callback/receiver qualification
+is recorded separately from pending publication or replay outcomes.

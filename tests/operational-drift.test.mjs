@@ -293,3 +293,27 @@ test("one version owner retains security-only updates without blanket ignores", 
   );
   assert.equal(updateOwnership(null).state, "unconfigured");
 });
+
+test("activation checkpoint records the reviewed manual pilot without enabling default scheduling", async () => {
+  const policy = JSON.parse(
+    await readFile(
+      new URL("../config/operations.json", import.meta.url),
+      "utf8",
+    ),
+  );
+  assert.deepEqual(policy.activation, {
+    LAPIS_DEPENDENCY_WRITES: "true",
+    LAPIS_DEPENDENCY_PHASE: "pilot",
+    LAPIS_DEPENDENCY_WAVES: "true",
+    LAPIS_DEPENDENCY_SCHEDULE: "false",
+    LAPIS_DEPENDENCY_WAVE_STATE_WRITES: "true",
+  });
+  const workflow = await readFile(
+    new URL("../.github/workflows/reconcile.yml", import.meta.url),
+    "utf8",
+  );
+  assert.match(
+    workflow,
+    /github.event_name != 'schedule' \|\| vars.LAPIS_DEPENDENCY_SCHEDULE == 'true'/,
+  );
+});

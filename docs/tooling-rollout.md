@@ -103,9 +103,10 @@ a direct setup. Preserve both until an owning followup separates and proves
 the portable version recipe from frozen-host prerequisites. The Notes recipe
 includes release checks and plugin-host generation beyond the generic CLI
 fixture, so CLI qualification alone does not authorize composite removal.
-Notebook also has no direct version-job Deno setup. Its action uses the default changeset version command rather than
-its named release:version script; retain that distinction for owning-source
-contract review instead of replacing it through generic onboarding.
+Notebook also has no direct version-job Deno setup. Its pinned Changesets v2
+action explicitly selects `version-script: pnpm release:version`, guarded by
+its source release-pipeline regression. Review that named source recipe; the
+v1 input spelling does not determine this v2 action's command.
 
 Generic onboarding now refuses different source-owned version recipes or
 Changesets configuration, preserves a supported existing CLI major, and holds

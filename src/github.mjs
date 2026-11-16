@@ -1,6 +1,7 @@
 import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import YAML from "yaml";
+import semver from "semver";
 import { monitoringRepositories } from "./maintenance-policy.mjs";
 import {
   activeManifests,
@@ -300,28 +301,66 @@ export async function inventory(entries, options = {}) {
       `${edge.path}:${edge.type}:${edge.name}: unpublished registry dependency`,
     );
   }
+  let publicationEvidence;
+  if (options.waveEvidence) {
+    const { observePublications } = await import("./publications.mjs");
+    publicationEvidence = await observePublications(
+      packages,
+      registry,
+      repositories,
+      entries,
+      options,
+    );
+  }
   return {
     schemaVersion: 1,
     coverage,
     ...(options.waveEvidence
       ? {
+          publicationCoverage: {
+            schemaVersion: 1,
+            ...publicationEvidence.counts,
+          },
           registry: Object.fromEntries(
-            [...registry].map(([name, data]) => [
-              name,
-              Object.fromEntries(
-                stableVersions(data).map((version) => [
-                  version,
-                  {
-                    dependencies: data.versions[version].dependencies,
-                    peerDependencies: data.versions[version].peerDependencies,
-                    peerDependenciesMeta:
-                      data.versions[version].peerDependenciesMeta,
-                    gitHead: data.versions[version].gitHead,
-                    integrity: data.versions[version].dist?.integrity,
-                  },
-                ]),
-              ),
-            ]),
+            [
+              ...new Set([...registry.keys(), ...packages.map((p) => p.name)]),
+            ].map((name) => {
+              const data = registry.get(name) ?? {};
+              const observed = new Set(
+                [
+                  ...stableVersions(data),
+                  ...packages
+                    .filter((p) => p.name === name)
+                    .map((p) => p.manifest.version),
+                  data["dist-tags"]?.latest,
+                  data["dist-tags"]?.next,
+                  ...(options.publicationVersions?.[name] ?? []).slice(0, 16),
+                ].filter((version) => semver.valid(version)),
+              );
+              return [
+                name,
+                Object.fromEntries(
+                  [...observed].map((version) => {
+                    const metadata = data.versions?.[version] ?? {};
+                    const publication = publicationEvidence.observations.get(
+                      `${name}@${version}`,
+                    );
+                    return [
+                      version,
+                      {
+                        dependencies: metadata.dependencies,
+                        optionalDependencies: metadata.optionalDependencies,
+                        peerDependencies: metadata.peerDependencies,
+                        peerDependenciesMeta: metadata.peerDependenciesMeta,
+                        gitHead: metadata.gitHead,
+                        integrity: metadata.dist?.integrity,
+                        ...(publication ? { publication } : {}),
+                      },
+                    ];
+                  }),
+                ),
+              ];
+            }),
           ),
         }
       : {}),
