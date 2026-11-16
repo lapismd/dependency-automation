@@ -4,12 +4,36 @@ import { join } from "node:path";
 import YAML from "yaml";
 import { loadAllowlist } from "../src/github.mjs";
 import { loadToolingPolicy } from "../src/tooling.mjs";
+import { validateAdvisoryPolicy } from "../src/advisories.mjs";
+import {
+  validateOperationsPolicy,
+  exclusionCoverage,
+} from "../src/operational-drift.mjs";
 await loadAllowlist();
 await loadToolingPolicy();
+validateAdvisoryPolicy(
+  JSON.parse(await readFile("config/advisories.json", "utf8")),
+);
+const operations = validateOperationsPolicy(
+  JSON.parse(await readFile("config/operations.json", "utf8")),
+);
+if (
+  exclusionCoverage(
+    JSON.parse(await readFile("config/repositories.json", "utf8")),
+    operations,
+  ).state !== "source-retained"
+)
+  throw Error("Runtime exclusions drifted");
 const versionTemplate = YAML.parse(
   await readFile("templates/version-packages.yml", "utf8"),
 );
 const versionSteps = versionTemplate.jobs.version.steps;
+for (const step of versionSteps) {
+  if (!step.uses) continue;
+  const [name, pin] = step.uses.split("@");
+  if (operations.actionPins[name] && !operations.actionPins[name].includes(pin))
+    throw Error("Upstream version template pin drifted from reviewed contract");
+}
 if (
   versionSteps.some((step) => step.uses?.startsWith("denoland/")) ||
   !versionSteps.some(

@@ -513,10 +513,10 @@ introduce package patches or disable audits to make migration pass.
 - [x] Execute fresh generated Prettier-only consumers on Node 24 without Deno for both CLI majors; prove the Deno-config coexistence negative and block it before App minting rather than force another formatter.
 - [x] Add central source-observed cohorts for six repositories, explicit missing coverage, and production candidate rejection before release-intent writes.
 - [x] Preserve existing CLI majors and refuse to overwrite source-owned version recipes; remove redundant Deno only from the upstream version template.
-- [ ] Qualify hosted source checks and operator-reviewed deployment.
+- [x] Qualify hosted S6a source checks and reviewed source merge through PR18; consumer deployment remains below.
 - [ ] Adopt and qualify the guard in active consumers, including AI Controller's currently Deno-required formatter/task boundary and Notes' separate portable/frozen setup boundary; no installer removal without whole-recipe proof.
-- [ ] Implement central required-check, runtime-exclusion, activation and deployed-template/pin drift coverage.
-- [ ] Implement exact source-authoritative advisory/path/version/source/artifact/expiry policy with expired and mismatched rejection.
+- [x] Implement central required-check, runtime-exclusion, activation and deployed-template/pin drift source coverage in S6b; hosted deployment and remediation remain below.
+- [x] Implement exact source-authoritative advisory/path/version/source/artifact/expiry policy with expired and mismatched rejection in S6b; the approval list remains empty.
 - [ ] Qualify all remaining tool cohorts and source/consumer tuples; S6 is not complete.
 
 See [the exact-source tooling rollout inventory and runbook](docs/tooling-rollout.md).
@@ -546,7 +546,88 @@ schedule=true and wave-state writes absent/off. Hosted read-only pilot
 These current settings supersede old flat-mode settings as a live claim, while
 the earlier dated records remain historical. This slice changes no activation.
 
+### S6b operational/advisory source controls — 2026-11-15
+
+- [x] Implement bounded production drift reporting for exact-source template pins/Node runtimes, recursively resolved local composites, retained exclusions and allowlisted activation observations.
+- [x] Implement conservative protection/effective-rule versus PR-job candidate coverage, preserving unavailable/conditional/unknown outcomes and all current-head functional gates.
+- [x] Record single version-update owners and retain Dependabot security coverage, including repair of existing untyped first-party ignores in source preparation.
+- [x] Implement exact advisory/path/version/severity/dependency-source/lock/expiry decisions with an empty approval authority, known-fix rejection and stale-approval cleanup.
+- [x] Run actual coordinator audit before writable wave planning and repeat before reconcile App minting; preserve read-only/state-only pilot behavior.
+- [ ] Qualify hosted source checks and operator-reviewed deployment of these controls.
+- [ ] Resolve consumer ownership/pin/runtime/check gaps with each source owner; source observations are not full workflow-security analysis.
+- [ ] Complete active consumer guard/recipe adoption and remaining cohort qualification; S6 remains in progress.
+
+The S6a hosted source check subsequently passed and PR18 merged at
+468d1c91e41d88e705708346bb72e05f6c18b880. The current checkpoint is
+writes=false/phase=pilot/waves=true/schedule=true/state-writes=true;
+state-only hosted run43772797422 passed. The earlier off/queued records above
+remain dated history, superseded by this checkpoint without changing settings.
+
+Local S6b source verification passed 104 tests and three spec lanes after
+correcting two new spec-shape errors. Doctor11/11, semantic QMD and actionlint
+passed. The live GET-only maintenance audit inspected25 public repositories,
+resolved101 local-action invocations and reported3 unavailable required-check
+settings,8 static-candidate matches and14 source gaps. It retained46 unknown
+bodies and explicit drift rather than declaring them clean. Activation matched
+the current checkpoint. Registry inventory remained19repositories/43owners/
+220edges/0cycles/0coverage. Its local wave run omitted bot identity and is not
+write-readiness proof. The unchanged coordinator graph remains held by one
+unapproved LOW deepmerge path plus four known-fix MODERATE paths; PR19 separately
+remediates the moderates. The approved list remains empty; credential authority
+does not approve a waiver and no Visual Delta exception transfers here.
+
+See [operational drift and exact admission runbook](docs/operational-drift.md).
+
+S6b PR21 is https://github.com/lapismd/dependency-automation/pull/21, rebased on
+PR19 merge `f0e071c0b812366d59eda1a5d468fd148db167ff` while retaining GOV-005,
+its patched worker tests and the exact remediated package/lock graph. Fresh
+frozen installation plus actual advisory preflight now reports only the LOW
+deepmerge 4.3.1 path and holds writes. The exact dependency source and lock
+binding appear in the [disabled operator proposal](docs/proposals/deepmerge-low-2026-11-21.md),
+ending 2026-11-21T00:00:00Z or a known upstream fix, whichever comes first.
+It concerns the automation runtime with scoped bot writes, not an application
+shipping dependency. The approved list remains empty and all other findings
+remain blocking; explicit user acceptance has not been inferred.
+
+Rebase qualification: frozen install passed, `pnpm verify` passed 108 tests and
+all three spec lanes, and actionlint passed. The exact advisory command exited
+1 for the expected unapproved LOW; the disabled proposal matches its binding
+and is rejected by the approval schema because no actual approval time exists.
+
+Hosted run 43777315092 found the new test fixture's assumed `jj` installation:
+107 passed/1 failed before its assertions. The fixture now exercises the actual
+Git path without Jujutsu on hosted checkouts, retaining local isolated/colocated
+Jujutsu coverage and all assertions. The exact target passes 2/2 both normally
+and with a Node/Git-only PATH, with no skipped tests or new CI tool dependency.
+
 ## Measurement and completion
+
+### Combined message/advisory checkpoint — 2026-11-16
+
+PR20 merged at `3aa6c8b51b6ecbde3f9fb5b5453de39b2cb4669a`; main check
+43777762256 succeeded. PR21 is rebased on that source, preserving the message
+renderer, profile writer, tests and canonical DA-REC-005/DA-PR-005 rows alongside
+the disabled exact LOW proposal. Package/lock source binding remains unchanged.
+
+The parent operator updated the existing [Notes126 body](https://github.com/lapismd/lapis-notes/pull/126)
+at 2026-11-16T00:00:33.682Z while retaining head
+`d3466d38c5f2baa6c868e2c2031d17c6926f84b1`. Native body, checkbox and debug
+bytes outside the legacy note were preserved, together with the timestamped
+observation from 2026-11-15T23:31:29.916Z. The parent owns the local operational
+receipt in the message workspace; no live report is copied into canonical book
+inputs. This is body-only acceptance and does not prove dependency merge/release.
+
+The exact LOW decision has been requested from the user asynchronously, with
+no answer received at this checkpoint. The proposal stays disabled, the runtime
+approval list stays empty and consumer writes stay false. No approval or
+activation is inferred from this source rebase or the successful message update.
+
+Combined local qualification passed a fresh frozen install, 119 tests and all
+three spec lanes, actionlint, and validation of all 19 generated Renovate
+configs with the enriched message renderer. The actual advisory preflight
+continues to exit 1 for the single unapproved LOW with the proposal's unchanged
+dependency-source/lock binding. Hosted qualification of the rebased PR21 head
+remains separate; this checkpoint enables no exception or write activation.
 
 Capture a dated baseline and compare a representative release wave after rollout:
 

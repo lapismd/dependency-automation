@@ -39,9 +39,13 @@ workflow YAML. It is not a complete call-graph or workflow-security analysis.
 
 ## Coverage limits
 
-The audit does not inspect script internals or reusable workflow bodies. No
-complete required-check-coverage audit, persistent issue collector or unattended
-operator UI is implemented by this report. Maintenance's separate browser
+The audit does not inspect script internals or remote reusable workflow bodies.
+DA-OPS-001 adds recursive local composite resolution, reviewed pin/Node source
+comparisons, update ownership, exclusions and activation observations. Required
+check settings are compared conservatively with static PR job candidates;
+missing APIs, filters, matrices and dynamic names retain unknown coverage.
+Matching names do not prove functional coverage or green current-head checks.
+No persistent issue collector or unattended operator UI is implemented here. Maintenance's separate browser
 adapter consumes monitoring defaults while retaining its own credential and
 command boundaries.
 

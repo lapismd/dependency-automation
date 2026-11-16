@@ -50,6 +50,11 @@ writes ignored local reports and a gated reconciliation matrix.
 
 ## Operational reports
 
+Before planning writable waves, inventory audits the frozen coordinator graph
+under DA-OPS-002/003. Denied qualification retains read-only observations but
+plans with writes disabled and emits no writable target matrix. State-only
+pilot reporting remains separately gated and available.
+
 The report contains `schemaVersion`, exact repository source revisions,
 manifests, package owners, consumer edges, cycles, eligible versions and
 unpublished names. These operational reports remain under ignored `reports/`

@@ -11,6 +11,7 @@ import { readWaveState } from "../src/wave-state.mjs";
 import { execFileSync } from "node:child_process";
 import { validateNotification, validateCompletion } from "../src/policy.mjs";
 import { assessTooling, loadToolingPolicy } from "../src/tooling.mjs";
+import { auditPreflight } from "../src/audit-preflight.mjs";
 
 const entries = await loadAllowlist();
 let hint;
@@ -31,6 +32,10 @@ if (process.env.GITHUB_EVENT_NAME === "repository_dispatch") {
   else throw Error("Unsupported notification event");
 }
 const waveMode = process.env.LAPIS_WAVES_ENABLED === "true";
+// Run before planning: denied audit evidence must not consume writable operations.
+const advisoryPreflight = await auditPreflight();
+const writesRequested = process.env.LAPIS_WRITE_ENABLED === "true";
+const qualifiedWrites = writesRequested && advisoryPreflight.allowed;
 const result = await inventory(entries, {
   publicOnly: true,
   waveEvidence: waveMode,
@@ -49,6 +54,11 @@ if (hint) {
   });
 }
 await mkdir("reports", { recursive: true });
+result.advisoryPreflight = advisoryPreflight;
+await writeFile(
+  "reports/advisory-preflight.json",
+  JSON.stringify(advisoryPreflight, null, 2) + "\n",
+);
 await writeFile(
   "reports/inventory.json",
   JSON.stringify(result, null, 2) + "\n",
@@ -85,7 +95,7 @@ if (waveMode) {
   waves = planWaves(result, previous.state, {
     ...options,
     phase,
-    writes: process.env.LAPIS_WRITE_ENABLED === "true",
+    writes: qualifiedWrites,
     runId: process.env.GITHUB_RUN_ID,
     policyRevision:
       process.env.GITHUB_SHA ??
@@ -120,6 +130,7 @@ const targets = result.repositories
   .filter(
     (r) =>
       (!waveMode || waves.admitted.includes(r.repository)) &&
+      (!writesRequested || qualifiedWrites) &&
       !r.nonPortable.length &&
       !r.missingChangesets &&
       !r.holdReason &&
@@ -150,3 +161,8 @@ await writeFile("reports/inventory.md", summary);
 if (process.env.GITHUB_STEP_SUMMARY)
   await appendFile(process.env.GITHUB_STEP_SUMMARY, summary);
 console.log(summary);
+const admissionSummary = `\nCoordinator audit write admission: ${advisoryPreflight.allowed ? "qualified" : "held"}; ${advisoryPreflight.findings?.length ?? "unavailable"} exact finding paths. Requested writes: ${writesRequested}. Effective writable admission: ${qualifiedWrites}.\n`;
+await appendFile("reports/inventory.md", admissionSummary);
+if (process.env.GITHUB_STEP_SUMMARY)
+  await appendFile(process.env.GITHUB_STEP_SUMMARY, admissionSummary);
+console.log(admissionSummary);

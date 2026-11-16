@@ -56,3 +56,9 @@ The separate config/tooling.json contract follows DA-TOOL-001 through
 DA-TOOL-003. Its repository-specific cohorts describe tooling rather than
 dependency edges or permissions. It cannot add advisory exceptions,
 change rollout phases, enable writes or activate excluded hosts.
+
+`config/operations.json` records reviewed template references, single update
+class owners, retained exclusions and a dated activation checkpoint, without
+granting settings authority. `config/advisories.json` is the separately reviewed
+exact approval authority under DA-OPS-002; its initial list is empty. Source
+observations and raw audit findings cannot create approvals.

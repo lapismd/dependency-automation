@@ -1,5 +1,10 @@
 # Specification governance
 
+S6 operational drift and advisory admission are mapped to DA-OPS-001 through
+DA-OPS-003. Normal source checks validate both policy schemas, retained runtime
+exclusions and upstream version-template pins; live audit success is a separate
+write preflight, never inferred from syntax/spec qualification.
+
 The authority order is workspace/repository guidance, canonical requirements,
 source/public contracts and tests, then operational README and rollout records.
 QMD search is discovery; the returned canonical file remains authoritative.

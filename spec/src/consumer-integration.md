@@ -39,6 +39,11 @@ version PRs; it does not publish them.
 
 ## DA-INT-004 — Update ownership
 
+Preparation also repairs an existing untyped first-party ignore into explicit
+version-update types, retaining security updates rather than leaving a blanket
+suppression. Central operational drift reports missing/competing ownership and
+unknown security-setting coverage under DA-OPS-001.
+
 **Requirement.** Consumer preparation MUST retain security coverage and avoid competing first-party version-update owners.
 
 ### Acceptance details
