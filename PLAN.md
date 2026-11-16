@@ -602,6 +602,33 @@ and with a Node/Git-only PATH, with no skipped tests or new CI tool dependency.
 
 ## Measurement and completion
 
+### Combined message/advisory checkpoint — 2026-11-16
+
+PR20 merged at `3aa6c8b51b6ecbde3f9fb5b5453de39b2cb4669a`; main check
+43777762256 succeeded. PR21 is rebased on that source, preserving the message
+renderer, profile writer, tests and canonical DA-REC-005/DA-PR-005 rows alongside
+the disabled exact LOW proposal. Package/lock source binding remains unchanged.
+
+The parent operator updated the existing [Notes126 body](https://github.com/lapismd/lapis-notes/pull/126)
+at 2026-11-16T00:00:33.682Z while retaining head
+`d3466d38c5f2baa6c868e2c2031d17c6926f84b1`. Native body, checkbox and debug
+bytes outside the legacy note were preserved, together with the timestamped
+observation from 2026-11-15T23:31:29.916Z. The parent owns the local operational
+receipt in the message workspace; no live report is copied into canonical book
+inputs. This is body-only acceptance and does not prove dependency merge/release.
+
+The exact LOW decision has been requested from the user asynchronously, with
+no answer received at this checkpoint. The proposal stays disabled, the runtime
+approval list stays empty and consumer writes stay false. No approval or
+activation is inferred from this source rebase or the successful message update.
+
+Combined local qualification passed a fresh frozen install, 119 tests and all
+three spec lanes, actionlint, and validation of all 19 generated Renovate
+configs with the enriched message renderer. The actual advisory preflight
+continues to exit 1 for the single unapproved LOW with the proposal's unchanged
+dependency-source/lock binding. Hosted qualification of the rebased PR21 head
+remains separate; this checkpoint enables no exception or write activation.
+
 Capture a dated baseline and compare a representative release wave after rollout:
 
 - Image-pin PRs per ordinary dependency bump: target zero.
