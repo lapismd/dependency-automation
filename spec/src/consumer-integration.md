@@ -66,3 +66,7 @@ The optional canonical-intake policy is data owned by each consumer. Shared
 rendering remains in the coordinator; an opted-in consumer verifies its actual
 candidate facts in an ordinary functional lane outside the trusted-PR spec
 wrapper. Main spec-first and functional/audit/release gates remain unchanged.
+
+DA-REL-004 requires complete package identity comparisons in both shared
+preparation and the owning offline adapter; version-prefix matches cannot
+normalize a different package version into an admitted development patch.

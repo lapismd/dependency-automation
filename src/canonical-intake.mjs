@@ -134,9 +134,14 @@ function slotBounds(text, policy) {
 // peer-context labels. Other package versions, metadata, edges and settings stay
 // structurally distinct; a normalized-key collision fails closed.
 export function lockShape(lock, name, version) {
+  const literal = `${name}@${version}`.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const selectedIdentity = new RegExp(`(^|\\()${literal}(?=$|[()])`, "g");
   const replace = (s) =>
     s
-      .replaceAll(`${name}@${version}`, `${name}@<intake>`)
+      .replace(
+        selectedIdentity,
+        (_match, prefix) => `${prefix}${name}@<intake>`,
+      )
       .replace(/\([a-f0-9]{32}\)/g, "(<peer-context>)");
   function walk(v, parent = "", selected = false) {
     if (typeof v === "string")

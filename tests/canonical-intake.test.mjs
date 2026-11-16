@@ -186,13 +186,38 @@ test("filesystem preparation binds admitted source, regular paths and immutable 
   const { intakeHash, intakePolicyPath } =
     await import("../src/canonical-intake.mjs");
   const root = await mkdtemp(join(tmpdir(), "canonical-intake-"));
-  const jj = (args) =>
-    execFileSync("jj", ["--config", "signing.behavior=drop", ...args], {
-      cwd: root,
-      stdio: "pipe",
-    });
+  // Only this disposable fixture uses Git plumbing: production preparation runs
+  // in Renovate's Git clone, and hosted verification does not require jj.
+  const git = (args, input) =>
+    execFileSync(
+      "git",
+      [
+        "--git-dir",
+        join(root, ".git"),
+        "--work-tree",
+        root,
+        "-c",
+        "commit.gpgsign=false",
+        ...args,
+      ],
+      {
+        cwd: root,
+        input,
+        encoding: "utf8",
+        stdio: ["pipe", "pipe", "pipe"],
+        env: {
+          PATH: process.env.PATH,
+          GIT_CONFIG_NOSYSTEM: "1",
+          GIT_CONFIG_GLOBAL: "/dev/null",
+          GIT_AUTHOR_NAME: "Intake fixture",
+          GIT_AUTHOR_EMAIL: "fixture@example.invalid",
+          GIT_COMMITTER_NAME: "Intake fixture",
+          GIT_COMMITTER_EMAIL: "fixture@example.invalid",
+        },
+      },
+    ).trim();
   try {
-    jj(["git", "init", "--colocate", "."]);
+    git(["init", "--quiet"]);
     const data = input();
     const seed = {
       ...data.before,
@@ -203,11 +228,28 @@ test("filesystem preparation binds admitted source, regular paths and immutable 
       await mkdir(dirname(join(root, p)), { recursive: true });
       await writeFile(join(root, p), bytes);
     }
-    jj(["commit", "-m", "Reviewed source policy"]);
-    const sourceSha = execFileSync("git", ["rev-parse", "HEAD"], {
-      cwd: root,
-      encoding: "utf8",
-    }).trim();
+    const { readdir } = await import("node:fs/promises");
+    async function tree(directory = "") {
+      const entries = [];
+      for (const entry of (
+        await readdir(join(root, directory), { withFileTypes: true })
+      ).sort((a, b) => a.name.localeCompare(b.name))) {
+        if (entry.name === ".git") continue;
+        const relative = join(directory, entry.name);
+        entries.push(
+          entry.isDirectory()
+            ? `040000 tree ${await tree(relative)}\t${entry.name}`
+            : `100644 blob ${git(["hash-object", "-w", "--stdin"], await readFile(join(root, relative)))}\t${entry.name}`,
+        );
+      }
+      return git(["mktree"], entries.join("\n") + "\n");
+    }
+    const sourceSha = git(
+      ["commit-tree", await tree()],
+      "Reviewed source policy\n",
+    );
+    git(["update-ref", "HEAD", sourceSha]);
+    git(["read-tree", sourceSha]);
     for (const [p, bytes] of Object.entries(data.after))
       await writeFile(join(root, p), bytes);
     const args = {
@@ -346,5 +388,40 @@ test("ambiguous normalized peer contexts remain held instead of losing multiplic
         "0.13.3",
       ),
     /ambiguous lock peer closure/,
+  );
+});
+
+test("selected version boundaries preserve unrelated prefix-sharing identities", async () => {
+  const { lockShape } = await import("../src/canonical-intake.mjs");
+  const metadata = { resolution: { integrity: "unchanged-bytes" } };
+  assert.notDeepEqual(
+    lockShape(
+      { packages: { "@lapismd/design-core@0.13.30": metadata } },
+      policy.dependency,
+      "0.13.3",
+    ),
+    lockShape(
+      { packages: { "@lapismd/design-core@0.13.40": metadata } },
+      policy.dependency,
+      "0.13.4",
+    ),
+  );
+});
+test("full preparation rejects an unrelated prefix-sharing package rename", () => {
+  const d = input(),
+    before = YAML.parse(d.before["pnpm-lock.yaml"]),
+    after = YAML.parse(d.after["pnpm-lock.yaml"]);
+  const metadata = {
+    resolution: {
+      integrity: "sha512-" + Buffer.alloc(64, 2).toString("base64"),
+    },
+  };
+  before.packages["@lapismd/design-core@0.13.30"] = metadata;
+  after.packages["@lapismd/design-core@0.13.40"] = metadata;
+  d.before["pnpm-lock.yaml"] = YAML.stringify(before);
+  d.after["pnpm-lock.yaml"] = YAML.stringify(after);
+  assert.throws(
+    () => prepareCanonicalIntake(d),
+    /unsupported manifest, workspace or lock closure/,
   );
 });

@@ -57,3 +57,10 @@ A source owner can review a new policy or repair authored facts; never broaden
 filters, append meaningless prose, forge qualification, weaken main spec-first
 or rerun an uncertain remote write blindly. Other dependency families remain
 outside this first profile.
+
+The first hosted source check exposed a missing optional local jj test tool.
+Synthetic immutable Git fixtures now use only isolated Git plumbing with a
+credential-free environment, no hooks/signing and no additional CI bootstrap;
+real workspace version control remains Jujutsu. Exact version-boundary
+regressions reject both direct and full-preparation prefix-sharing package
+renames while retaining the genuine PR36 closure.
