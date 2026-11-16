@@ -52,13 +52,14 @@
 | DA-OPS-002  | Implemented | Advisory regressions cover exact bindings, expiry, extra findings, known fixes and stale cleanup; config/advisories.json records the explicit November 16 decision. |
 | DA-OPS-003  | In progress | Inventory pre-admission audit and repeated pre-App preflight; read-only/state-only behavior preserved; hosted acceptance pending.                                   |
 | DA-NOT-003  | Implemented | Completion/workflow regressions reject stale/fork/unknown evidence; actual CLI metadata-only test permits one dispatch and forbids candidate files and npm reads.   |
-| DA-WAVE-005 | Implemented | Callback settlement, pending-check timing and default-branch graph isolation regressions in `tests/completion.test.mjs`; hosted adoption pending.                   |
+| DA-WAVE-005 | Implemented | Callback settlement, pending-check timing and graph isolation tests; all four pilot callers and repeated Plugins dispatch are hosted-qualified (PLAN.md).           |
 | DA-WAVE-006 | Implemented | Native Renovate and persisted-state tests retain support and require exact lock/CI/published-contract evidence to retire obsolete waits.                            |
 | DA-TOOL-005 | In progress | Six original CI failures now pass; source/job/attempt and receipt controls pass; 179 tests/3 spec lanes; hosted refresh pending.                                    |
 | DA-TOOL-006 | In progress | 26 focused tests; GET-only refresh 16/16; inventory 19 repos/43 owners/220 edges; ranges and provenance preserved; hosted pending.                                  |
 | DA-PUB-001  | Implemented | Real crypto/mutation/source/recovery tests and hosted43809436156 API/FileExplorer/Profile proof; strict release/channel gates retained.                             |
 | DA-PUB-002  | Implemented | Pinned CLI, bounded public observations, retained receipts, Maintenance parser and hosted43809436156 proof; no App inventory credentials.                           |
-| DA-REL-004  | In progress | Actual Notebook Core PR36 fixture and canonical preparation/filter negatives; owning source and hosted acceptance pending.                                          |
+| DA-REL-004  | In progress | Actual Notebook Core fixture and preparation/filter negatives; preparer and owning source deployed, peer-edge review qualified; normal bot regeneration pending.    |
+| DA-WAVE-007 | In progress | 59 admission regressions; actual Notebook1→0; fresh GET-only19/43/220 plan retains six waits; hosted regeneration pending.                                          |
 
 Detailed bootstrap commands, failure counts and hosted handoff live in
 [the specification/Pages qualification record](https://github.com/lapismd/dependency-automation/blob/main/spec/records/2026-11-15-canonical-spec-and-pages.md).

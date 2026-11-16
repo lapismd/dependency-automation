@@ -148,6 +148,7 @@ export async function discoverRepository(entry, options = {}) {
     if (Buffer.byteLength(bytes) > 8192)
       throw Error("Oversized canonical intake policy");
     canonicalIntake = {
+      policyBytes: bytes,
       policy: validateIntakePolicy(JSON.parse(bytes), entry.repository),
       sha256: intakeHash(bytes),
     };

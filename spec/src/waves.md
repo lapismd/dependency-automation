@@ -84,3 +84,14 @@ eligibility. Waiting releases expose channel-not-admitted/provenance-unknown
 without relaxing newer-version, compound-support, current-main or CAS rules.
 Legacy publication records remain readable; fresh receipt/channel evidence
 owns any new release advancement.
+
+## DA-WAVE-007 — Independent canonical development intake
+
+**Requirement.** A source-opted-in compatible development patch MAY advance independently of unrelated publication waits only within its exact canonical preparation contract; every other hold and wait MUST remain binding.
+
+### Acceptance details
+
+- Admission MUST verify immutable source policy bytes/digest and exact existing development, override and lock facts for one policy-named forward patch with no release intent.
+- Missing or changed evidence, additional targets, catalogs, runtime coupling and peers needing changes MUST remain held under ordinary registry/channel eligibility.
+- A wait for the selected dependency MUST still block it while unrelated waits MUST remain visible and block their own updates.
+- Complete current source qualification, rollout scope, ownership, cycles, optimistic concurrency and frozen candidate/canonical-lock validation MUST remain required without widening public contracts or clearing publication evidence.

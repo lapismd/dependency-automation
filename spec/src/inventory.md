@@ -1,5 +1,11 @@
 # Inventory and registry availability
 
+Public source opt-ins retain their bounded original declarative policy bytes
+beside the parsed policy and digest at the exact discovered revision. Independent
+canonical development admission verifies their agreement; older inventory
+without those bytes remains held until fresh discovery. This adds no private
+coverage, executable source authority or Maintenance/durable report fields.
+
 `src/github.mjs` performs authenticated GitHub GETs and public registry reads.
 `src/policy.mjs` selects active manifests, resolves catalog ranges, discovers
 runtime cycles and computes eligible stable versions. `scripts/inventory.mjs`

@@ -120,3 +120,7 @@ Shared canonical-intake preparation and its immutable-source filesystem adapter
 map to release intent and consumer integration. Declarative source opt-ins add
 only exact reviewed canonical output paths; no executable consumer code or
 blanket main specification exemption is introduced.
+
+The independent canonical development admission module maps to dependency waves
+and release intent. Its source-policy byte binding remains an internal inventory
+contract; Maintenance report and durable state schemas remain unchanged.

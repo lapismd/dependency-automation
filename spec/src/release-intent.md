@@ -56,3 +56,12 @@ forcing a consumer migration. Advisory policy and publication remain source-owne
 - The initial profile MUST permit only one compatible development package, its matching existing override and mechanical registry lock closure while retaining public contracts and existing release intent, with exact selected-version boundaries preserving unrelated prefix-sharing identities.
 - Preparation MUST preserve authored content and emit deterministic current facts without executing candidate code or asserting unrun qualification.
 - Exact output paths MUST survive native Renovate filtering, and stale sources, unexpected changes and unsupported lock deltas MUST fail before writes.
+
+## Independent development admission
+
+DA-WAVE-007 reuses the same development fact validation for independent admission.
+Its single forward patch must retain public peers and exact source-owned override
+closure. Retaining source policy bytes in the internal public inventory binds
+its parsed policy to the original digest; older or changed evidence cannot
+activate the capability. Actual candidate preparation still verifies the exact
+source, unchanged policy/slots and complete mechanical lock closure before PR writes.
