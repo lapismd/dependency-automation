@@ -33,3 +33,10 @@ The bounded canonical-intake preparer and Notebook source opt-in are deployed.
 Normal bot regeneration and its downstream acceptance remain pending, within
 the selected rollout phase. Source verification preserves unrelated peer edges
 and holds ambiguous contexts; local preparation is not hosted intake acceptance.
+
+Successful same-source package recovery preserves retained signed artifacts and
+verifies existing registry bytes before resuming failed qualification. Automatic
+registry install-metadata readiness remains a concrete S5 maintenance follow-up;
+manual recovery is not completion of that automation. The bounded Notebook
+pilot source proposal under DA-WAVE-007 retains every unrelated publisher wait;
+normal bot regeneration and downstream acceptance remain pending source review.

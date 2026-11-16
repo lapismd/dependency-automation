@@ -6,6 +6,7 @@ import {
   validatePublicationEvidence,
 } from "./publications.mjs";
 import { releaseIntent } from "./changesets.mjs";
+import { canonicalDevelopmentUpdate } from "./canonical-admission.mjs";
 import {
   lockVersion,
   qualification,
@@ -553,9 +554,13 @@ export function planWaves(graph, previous = emptyState(), options = {}) {
       const text = `${u.path}:${u.name}: ${reason}`;
       if (!node.holds.includes(text)) node.holds.push(text);
     };
+    const repo = graph.repositories.find(
+      (r) => r.repository === node.repository,
+    );
+    const independent = canonicalDevelopmentUpdate(repo, node, graph);
     // Scope repair/orphan ownership to the exact rolling or compatibility family.
     for (const u of node.updates) {
-      if (node.waits.some((w) => w.path === u.path))
+      if (node.waits.some((w) => w.path === u.path) && !independent)
         blocked.set(
           `${u.path}:${u.type}:${u.name}`,
           "upstream publication wait",
@@ -569,9 +574,6 @@ export function planWaves(graph, previous = emptyState(), options = {}) {
         if (!branch.family || branch.family === updateFamily(graph, u))
           block(u, `${branch.reason}: ${branch.branch}`);
     }
-    const repo = graph.repositories.find(
-      (r) => r.repository === node.repository,
-    );
     const catalogEdges = graph.edges.filter(
       (e) =>
         e.repository === node.repository &&

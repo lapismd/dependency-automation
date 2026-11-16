@@ -75,9 +75,7 @@ function parse(bytes) {
     lock: YAML.parse(bytes["pnpm-lock.yaml"]),
   };
 }
-export function intakeFacts(policy, policyBytes, bytes) {
-  const { manifest, workspace, lock } = parse(bytes),
-    name = policy.dependency;
+export function developmentIntakeFacts(name, { manifest, workspace, lock }) {
   const version = manifest.devDependencies?.[name];
   const integrity =
     lock.packages?.[`${name}@${version}`]?.resolution?.integrity;
@@ -111,6 +109,11 @@ export function intakeFacts(policy, policyBytes, bytes) {
     peer,
     integrity,
     importers: canonical(importers),
+  };
+}
+export function intakeFacts(policy, policyBytes, bytes) {
+  return {
+    ...developmentIntakeFacts(policy.dependency, parse(bytes)),
     policySha256: intakeHash(policyBytes),
   };
 }

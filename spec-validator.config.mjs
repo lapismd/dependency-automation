@@ -39,6 +39,10 @@ export default defineConfig(headingRequirements(), {
       ],
       rules: [
         {
+          pattern: "^src/canonical-admission\\.mjs$",
+          chapters: ["spec/src/waves.md", "spec/src/release-intent.md"],
+        },
+        {
           pattern: "^src/canonical-intake(?:-files)?\\.mjs$",
           chapters: [
             "spec/src/release-intent.md",

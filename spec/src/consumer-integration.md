@@ -70,3 +70,8 @@ wrapper. Main spec-first and functional/audit/release gates remain unchanged.
 DA-REL-004 requires complete package identity comparisons in both shared
 preparation and the owning offline adapter; version-prefix matches cannot
 normalize a different package version into an admitted development patch.
+
+Independent development admission under DA-WAVE-007 grants no additional consumer
+commands or output paths. The existing offline source-owned guard and pinned
+shared preparer still qualify the full candidate; upstream publication waits,
+main specification-first and every functional lane retain their authority.

@@ -93,3 +93,10 @@ channel admission, source signing authority or publication permission.
 Source-owned canonical intake is an optional preparation capability, not an
 activation or repository-scope change. Invalid policies fail closed; existing
 phase, portability, package exclusions and manual-repair holds remain binding.
+
+Notebook is the sole additional pilot update entry for the bounded canonical
+Core development intake. This changes no global phase, schedule, service scope,
+package exclusions or held publisher. Source review and actual normal bot
+regeneration remain separate from source qualification of DA-WAVE-007; the
+[bounded pilot runbook](../../docs/notebook-canonical-pilot.md) retains acceptance
+and rollback.

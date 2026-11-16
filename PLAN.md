@@ -106,33 +106,38 @@ Writes remain enabled only for the reviewed pilot; full scheduling is disabled.
 - [x] Notes metadata-cache hardening PR141 merged `a90761f1`. Genuine bot intake
       PR126 merged `036204b0`; its missing canonical coverage was then repaired
       through PR143, merged `6613d7c9`. Actual main Pages/PWA spec-first gates pass.
-- [ ] Notes version PR142 merged `1e308273` after complete fresh CI; release only
-      UI0.2.2, API0.6.7 and Workspace0.4.7 on the existing `next` channel. The
-      reviewed canonical child retains the genuine App-generated version commit;
-      strict main range changes from five missing families to zero. Genuine publish
-      run `43830659103` is qualifying that exact main source. One observed
-      close/reopen during version refresh is retained for investigation; its cause and reproducibility remain unproven.
+- [x] Notes version PR142 merged `1e308273` after complete fresh CI; UI0.2.2,
+      API0.6.7 and Workspace0.4.7 published on `next`. Release `43830659103`
+      attempt2 completed all three installed/signature/provenance verification
+      gates and GitHub releases. Attempt1 hit `ERR_PNPM_NO_MATCHING_VERSION`
+      for UI0.2.2 after65 seconds of bounded fresh-metadata retries; independent
+      full/abbreviated registry metadata and tarball read-back matched the retained
+      artifacts. Failure-only same-SHA recovery succeeded without rebuild or
+      republish. Strict main canonical coverage changed five missing families to
+      zero. The observed version-refresh close/reopen remains an investigation
+      item with unproven cause and reproducibility.
 - [x] Tasks recurrence PR27, version PR25 and Rekor recovery PR28 are merged.
       Signing recovery's actual hosted recipe proof `43821246307` passed, binding
       its new helper without changing the version command or fabricating intent.
-- [ ] Finish Tasks0.2.1 publication. Main `43821839921` passed qualification, but
-      an empty maintenance note made publication skip indefinitely. PR29 merged
-      `d720160e`, adding installed-CLI release-intent selection before App minting. Local Docker
-      validation passes2943 units,66 interaction/axe cases and both cold packed
-      consumers. All current PR gates passed; main run `43831370792` must
-      qualify and publish the unchanged0.2.1, followed by registry read-back.
+- [x] Tasks0.2.1 publication completed on `latest` from `d720160e` through
+      `43831370792` attempt2, including installed/signature/provenance verification
+      and GitHub release. PR29 repaired the empty-maintenance-note selection after
+      qualification; local Docker gates passed2943 units,66 interaction/axe cases
+      and both cold packed consumers. Attempt1 published and then hit install
+      metadata `ETARGET`; exact registry tarball read-back matched the retained
+      artifact before approved failure-only same-SHA recovery. No rebuild,
+      republish or manufactured version was needed.
 - [x] Mira Editor0.0.5 and Mermaid plugin0.0.5 were published from `f0c18ff0`
       through `43811922461`; both registry tarballs match retained artifacts.
       Publisher visibility-wait hardening PR45 merged `064a65ea` without another
       product bump or repeated publication writes.
-- [ ] Finish Docs0.3.0. Source PR17 merged `d0bfb5d8`; its supported
-      cohort passes73 units,13 cold App/axe cases, static build and strict packed-consumer acceptance; production
-      audit is clean. Its distinct source/lock-bound development LOW decision is
-      expiring, not a clean full audit. New hosted recipe proof `43828625633`
-      passed on Lapis CI `7242eb3b`: strict/frozen setup, real minor intent and all
-      five version outputs. The exact guard is adopted (75 source units); main
-      qualification, separately bound version-source audit decision and publication
-      remain.
+- [ ] Finish Docs0.3.0. Source PR17 merged `d0bfb5d8`; PR18's full current CI
+      passed at `d7a51ca6` and merged `9286d2f0`. Main `43835723682` is still
+      qualifying; Pages `43835723065` succeeded. Its separately bound `3fc`
+      development decision retains one expiring LOW finding and production0,
+      after rejecting the old approval-binding mismatch. Hosted recipe proof
+      `43828625633` passed strict/frozen setup, real minor intent and all five
+      version outputs. Publication and installed/registry acceptance remain pending.
 - [x] Shared exact development-audit helper PR10 merged `2c756d80`; regressions
       reject mid-collection source changes, decision-time expiry and untracked
       dependency inputs. No finding or authority transfers between repositories.
@@ -141,9 +146,13 @@ Writes remain enabled only for the reviewed pilot; full scheduling is disabled.
       peer edges and rejects opaque ambiguity;565 units,69 interaction/axe cases
       and both cold packed consumers passed locally.
 - [ ] Admit and qualify normal bot regeneration of Notebook PR36 with accurate
-      managed canonical slots. Notebook remains outside the current pilot; do not
-      substitute a manual lock/chapter edit or enable full rollout to bypass that
-      boundary. Coordinator preparer PR31 is deployed as `633f308b`.
+      managed canonical slots. Deployed `633f308b` still holds Notebook outside
+      the pilot. This reviewed source slice proposes Notebook-only pilot scope
+      and independent canonical development admission: the actual regression1→0,
+      59 admission cases and fresh read-only19/43/220 evidence retain all six
+      unrelated publication waits. No manual lock/chapter substitute, global full
+      rollout or scheduling change is authorized by local proof; normal bot
+      regeneration and exact current-head acceptance remain pending.
 - [x] Adopt and exercise the AI guard on main. Hosted native whole-recipe
       proof `43814544020` passed on Node22/Rust with Deno absent. Source PR14 passes all current PR
       gates and merged through the queue as `1e6743d0`. Its fixture repairs
@@ -157,6 +166,10 @@ Writes remain enabled only for the reviewed pilot; full scheduling is disabled.
       19 public repositories,43 package owners,220 edges and zero coverage gaps.
       No target was admitted, so reconciliation correctly skipped. This is
       observation/state evidence, not completion of the release chain.
+- [ ] Automate source-owned registry install-metadata readiness for retained
+      qualified candidates. Notes and Tasks required genuine same-artifact
+      failure-only recovery after publication visibility lag; successful manual
+      recovery does not complete this central S5 maintenance follow-up.
 - [ ] Complete the genuine dependency/release chain and idempotent replay.
       Latest-only admission remains in force; observed `next` publication is not
       permission to promote a tag or admit that channel. Remaining publisher
