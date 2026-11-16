@@ -9,7 +9,9 @@ import {
   validateOperationsPolicy,
   exclusionCoverage,
 } from "../src/operational-drift.mjs";
-await loadAllowlist();
+const entries = await loadAllowlist();
+const { loadCompletionPolicy } = await import("../src/completion.mjs");
+await loadCompletionPolicy(entries);
 await loadToolingPolicy();
 validateAdvisoryPolicy(
   JSON.parse(await readFile("config/advisories.json", "utf8")),

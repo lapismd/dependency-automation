@@ -1,0 +1,66 @@
+name: Verify dependency completion notification
+on:
+  workflow_call:
+    inputs:
+      automation-ref:
+        description: Reviewed exact coordinator commit; never a candidate revision
+        required: true
+        type: string
+    secrets:
+      app-private-key:
+        required: false
+permissions:
+  contents: read
+  actions: read
+  pull-requests: read
+jobs:
+  notify:
+    if: github.event_name == 'workflow_run' && github.event.action == 'completed' && github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      HAS_APP_KEY: ${{ secrets.app-private-key != '' }}
+    steps:
+      - name: Require trusted pinned coordinator code
+        env:
+          AUTOMATION_REF: ${{ inputs.automation-ref }}
+        run: '[[ "$AUTOMATION_REF" =~ ^[a-f0-9]{40}$ ]]'
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          repository: lapismd/dependency-automation
+          ref: ${{ inputs.automation-ref }}
+          path: automation
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: "24.15.0"
+      - run: corepack enable && corepack prepare pnpm@10.34.5 --activate
+      - run: pnpm --dir automation install --prod --frozen-lockfile --ignore-scripts
+      - name: Verify actual source workflow and current head before App minting
+        id: qualify
+        working-directory: automation
+        run: node scripts/qualify-completion.mjs
+        env:
+          SOURCE_READ_TOKEN: ${{ github.token }}
+      - name: Report missing notification setup
+        if: steps.qualify.outputs.eligible == 'true' && env.HAS_APP_KEY != 'true'
+        run: echo '::notice::Completion verified; notification setup is absent. Manual or gated scheduled reconciliation remains available.'
+      - id: app
+        if: steps.qualify.outputs.eligible == 'true' && env.HAS_APP_KEY == 'true'
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3
+        with:
+          client-id: ${{ vars.LAPIS_DEPENDENCY_APP_CLIENT_ID }}
+          private-key: ${{ secrets.app-private-key }}
+          owner: lapismd
+          repositories: dependency-automation
+          permission-contents: write
+      - name: Revalidate current source and send wake-up hint
+        if: steps.qualify.outputs.eligible == 'true' && env.HAS_APP_KEY == 'true'
+        working-directory: automation
+        run: node scripts/notify.mjs
+        env:
+          GH_TOKEN: ${{ steps.app.outputs.token }}
+          SOURCE_READ_TOKEN: ${{ github.token }}
+          SOURCE_REPOSITORY: ${{ github.repository }}
+          SOURCE_EVENT_KIND: completed
+          SOURCE_SHA: ${{ steps.qualify.outputs.source-sha }}

@@ -31,6 +31,13 @@ if (process.env.GITHUB_EVENT_NAME === "repository_dispatch") {
     };
   else throw Error("Unsupported notification event");
 }
+if (hint?.action === "lapis-dependency-completed-v1") {
+  const { loadCompletionPolicy, settleCompletion } =
+    await import("../src/completion.mjs");
+  await settleCompletion(hint, await loadCompletionPolicy(entries), {
+    token: process.env.GH_TOKEN,
+  });
+}
 const waveMode = process.env.LAPIS_WAVES_ENABLED === "true";
 // Run before planning: denied audit evidence must not consume writable operations.
 const advisoryPreflight = await auditPreflight();

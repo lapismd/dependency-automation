@@ -1,0 +1,94 @@
+{
+  "schemaVersion": 1,
+  "callbackPath": ".github/workflows/dependency-completed.yml",
+  "repositories": {
+    "lapismd/lapis-notes": [
+      {
+        "id": 344605360,
+        "path": ".github/workflows/lapis-ci.yml",
+        "events": ["pull_request", "workflow_dispatch"]
+      },
+      {
+        "id": 344605362,
+        "path": ".github/workflows/publish-storybook-pages.yml",
+        "events": ["push", "workflow_dispatch"]
+      },
+      {
+        "id": 403706314,
+        "path": ".github/workflows/publish-web-cloudflare.yml",
+        "events": ["push", "workflow_dispatch"]
+      },
+      {
+        "id": 344605363,
+        "path": ".github/workflows/release.yml",
+        "events": ["push", "workflow_dispatch"]
+      },
+      {
+        "id": 382667391,
+        "path": ".github/workflows/dependency-image.yml",
+        "events": ["push", "workflow_dispatch"]
+      }
+    ],
+    "lapismd/mira-mde": [
+      {
+        "id": 343865044,
+        "path": ".github/workflows/mira-spec-first.yml",
+        "events": ["pull_request", "push", "workflow_dispatch"]
+      },
+      {
+        "id": 343865047,
+        "path": ".github/workflows/publish-storybook-pages.yml",
+        "events": ["push", "workflow_dispatch"]
+      },
+      {
+        "id": 343865048,
+        "path": ".github/workflows/release.yml",
+        "events": ["push", "workflow_dispatch"]
+      },
+      {
+        "id": 417885175,
+        "path": ".github/workflows/verify-published-release.yml",
+        "events": ["workflow_dispatch"]
+      }
+    ],
+    "lapismd/design-core": [
+      {
+        "id": 351208525,
+        "path": ".github/workflows/ci.yml",
+        "events": ["pull_request", "push"]
+      },
+      {
+        "id": 344013437,
+        "path": ".github/workflows/publish-storybook-pages.yml",
+        "events": ["push", "workflow_dispatch"]
+      },
+      {
+        "id": 344013438,
+        "path": ".github/workflows/release.yml",
+        "events": ["push", "workflow_dispatch"]
+      }
+    ],
+    "lapismd/lapis-plugins": [
+      {
+        "id": 344819973,
+        "path": ".github/workflows/ci.yml",
+        "events": ["pull_request", "push", "workflow_dispatch"]
+      },
+      {
+        "id": 346123320,
+        "path": ".github/workflows/dependency-image.yml",
+        "events": ["push", "workflow_dispatch"]
+      },
+      {
+        "id": 344819974,
+        "path": ".github/workflows/release.yml",
+        "events": ["workflow_dispatch"]
+      },
+      {
+        "id": 401667100,
+        "path": ".github/workflows/version-packages.yml",
+        "events": ["push"]
+      }
+    ]
+  }
+}

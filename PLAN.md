@@ -844,3 +844,30 @@ row and the explicit approved advisory; combined127tests and3spec lanes pass.
 The broader suite's old exact workflow-env expectation was updated to enumerate
 only the original token and five public vars, keeping its strict whitelist and
 read-only/no-App assertions; the exact regression passes1/1 after one failure.
+
+### S3 completion adoption source — November 16
+
+Read-only audit at coordinator `d53aa051` found that all four pilot sources
+still call publication-only notifier `ea9d35b`; none has a completion hook.
+The shared completion verifier now prepares exact public workflow/run/attempt
+and current-head checks before App minting, repeats them before dispatch, and
+settles the notifying callback before full inventory. It preserves every
+current-head qualification gate and never selects the PR head as graph source.
+The [source adoption guide](docs/completion-adoption.md) prepares Notes and
+Mira/Core/Plugins callers; actual source adoption and live completion acceptance
+remain pending. Notes source is independently owned for a functional CI repair;
+its failed candidate remains held.
+
+Manual writable pilot43786666847 succeeded after an explicit operator transition
+to writes=true, phase=pilot, waves=true, state-writes=true, schedule=false. The
+previous audit checkpoint records the earlier observed settings; this paragraph
+records the transition without changing external settings or claiming scheduled
+recovery is active. No callback was activated by this shared source change.
+
+Shared completion review found the final notifier still performed unconditional
+publication discovery before its completed-event branch. The actual CLI test
+reproduced one forbidden candidate-tree read; discovery is now isolated to
+publication notifications. Completion dispatch performs only verified public
+GitHub metadata reads, with separate source-read/coordinator-write credentials.
+The exact target passes1/1 with one dispatch and no tree/blob/file/npm requests.
+Caller adoption remains separate from this source boundary repair.

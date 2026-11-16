@@ -39,6 +39,15 @@ export default defineConfig(headingRequirements(), {
       ],
       rules: [
         {
+          pattern:
+            "^src/completion\\.mjs$|^scripts/qualify-completion\\.mjs$|^config/completions\\.json$",
+          chapters: ["spec/src/notifications.md", "spec/src/waves.md"],
+        },
+        {
+          pattern: "^\\.github/workflows/completion\\.yml$",
+          chapters: ["spec/src/notifications.md", "spec/src/wiring.md"],
+        },
+        {
           pattern: "^src/pr-messages\\.mjs$",
           chapters: ["spec/src/reconciliation.md", "spec/src/profile.md"],
         },
