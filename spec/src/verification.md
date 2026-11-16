@@ -61,7 +61,7 @@
 | DA-REL-004  | In progress | Actual Notebook fixture/preparation negatives; native extractor/rule regression admits only the paired exact override; hosted complete regeneration pending.             |
 | DA-WAVE-007 | In progress | 59 admission regressions; actual Notebook1→0; fresh GET-only19/43/220 plan retains six waits; hosted regeneration pending.                                               |
 | DA-PUB-003  | In progress | Exact cohort/scope/default/channel mutation regressions; native target rules, fresh registry revalidation and Maintenance parser acceptance; hosted deployment pending.  |
-| DA-PUB-004  | In progress | Static publisher real crypto/artifact/source/run/attempt/package and negative tests; actual retained public candidate; hosted adoption pending.                          |
+| DA-PUB-004  | In progress | Static batch/runtime-ID controls and actual ten-package proof in `spec/records/2026-11-16-static-batch-proof.md`; hosted acceptance pending.                             |
 
 Detailed bootstrap commands, failure counts and hosted handoff live in
 [the specification/Pages qualification record](https://github.com/lapismd/dependency-automation/blob/main/spec/records/2026-11-15-canonical-spec-and-pages.md).

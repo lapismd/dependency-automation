@@ -1,7 +1,10 @@
 import { createHash, createPublicKey, verify } from "node:crypto";
 import { isDeepStrictEqual } from "node:util";
 import { hash } from "./publication-tool.mjs";
-import { publicArtifact, limits } from "./publication-transport.mjs";
+import {
+  publicArtifact,
+  staticPublicationLimits,
+} from "./publication-transport.mjs";
 import {
   validRun,
   jobs,
@@ -17,7 +20,7 @@ const exact = (v, keys) =>
   typeof v === "object" &&
   !Array.isArray(v) &&
   isDeepStrictEqual(Object.keys(v).sort(), [...keys].sort());
-export const staticArtifactLimit = 24 * 1024 * 1024;
+export const staticArtifactLimit = staticPublicationLimits.artifact;
 export function validateStaticPublisher(repository, p, entries) {
   if (
     repository !== "lapismd/lapis-plugins" ||
@@ -109,7 +112,7 @@ export function staticBundle(bytes, entry, policy, context) {
   )
     fail();
   for (const file of signed.files) {
-    const raw = read(file.path, limits.tarball);
+    const raw = read(file.path, staticPublicationLimits.file);
     if (raw.length !== file.size || hash(raw) !== file.sha256) fail();
   }
   const manifest = JSON.parse(read("manifest.json"));
@@ -131,6 +134,7 @@ export function staticCandidate(bytes, metadata, owner, policy, context) {
       /^npm\/[A-Za-z0-9._-]+\.tgz(?:\.sha256)?$/.test(n) ||
       /^plugins\/[a-z0-9.-]+\/[a-z0-9.-]+\.lapis-plugin(?:\.sha256)?$/.test(n),
     staticArtifactLimit,
+    "plugins-static-v1",
   );
   const planBytes = read("release-plan.json"),
     plan = JSON.parse(planBytes),
@@ -162,27 +166,32 @@ export function staticCandidate(bytes, metadata, owner, policy, context) {
   if (selected.length !== 1 || packed.length !== 1) fail();
   const entry = selected[0],
     npm = packed[0],
-    dir = /^packages\/([a-z0-9-]+)\/package\.json$/.exec(owner.path ?? "")?.[1];
+    dir = /^packages\/([a-z0-9-]+)\/package\.json$/.exec(owner.path ?? "")?.[1],
+    pluginId = owner.pluginId;
   const tarball = `.release/npm/${metadata.name.replace("@", "").replace("/", "-")}-${metadata.version}.tgz`,
-    bundle = `.release/plugins/${dir}-${metadata.version}/${dir}-${metadata.version}.lapis-plugin`;
+    bundle = `.release/plugins/${pluginId}-${metadata.version}/${pluginId}-${metadata.version}.lapis-plugin`;
   if (
     !dir ||
+    !/^[a-z0-9][a-z0-9.-]{0,127}$/.test(pluginId ?? "") ||
     entry.repository !== "lapismd/lapis-plugins" ||
     entry.sourceCommit !== context.sourceSha ||
     entry.trust !== "static-ed25519" ||
     entry.signingKeyId !== policy.keyId ||
-    entry.pluginId !== dir ||
+    entry.pluginId !== pluginId ||
     entry.releaseTag !== `${dir}@${metadata.version}` ||
-    entry.assetName !== `${dir}-${metadata.version}.lapis-plugin` ||
+    entry.assetName !== `${pluginId}-${metadata.version}.lapis-plugin` ||
     entry.npm?.path !== tarball ||
     npm.tarball !== tarball ||
-    npm.pluginId !== dir ||
+    npm.pluginId !== pluginId ||
     entry.npm.sha256 !== npm.sha256 ||
     entry.bundle?.path !== bundle ||
     entry.bundle.checksumPath !== bundle + ".sha256"
   )
     fail();
-  const raw = read(tarball.slice(".release/".length), limits.tarball);
+  const raw = read(
+    tarball.slice(".release/".length),
+    staticPublicationLimits.tarball,
+  );
   if (
     raw.length !== entry.npm.size ||
     hash(raw) !== entry.npm.sha256 ||
@@ -190,7 +199,10 @@ export function staticCandidate(bytes, metadata, owner, policy, context) {
       metadata.dist.integrity
   )
     fail("publication-tarball-mismatch");
-  const plugin = read(bundle.slice(".release/".length), limits.tarball);
+  const plugin = read(
+    bundle.slice(".release/".length),
+    staticPublicationLimits.bundle,
+  );
   if (
     plugin.length !== entry.bundle.size ||
     hash(plugin) !== entry.bundle.sha256
@@ -284,10 +296,14 @@ export async function verifyStaticPublisherSource(
   const a = candidates[0],
     created = Date.parse(a.created_at);
   if (
+    !Number.isSafeInteger(a.size_in_bytes) ||
+    a.size_in_bytes <= 0 ||
+    a.size_in_bytes > staticArtifactLimit
+  )
+    fail("publication-artifact-size-limit");
+  if (
     !Number.isSafeInteger(a.id) ||
     a.id <= 0 ||
-    a.size_in_bytes <= 0 ||
-    a.size_in_bytes > staticArtifactLimit ||
     !/^sha256:[a-f0-9]{64}$/.test(a.digest ?? "") ||
     a.workflow_run?.id !== context.runId ||
     a.workflow_run.head_sha !== context.sourceSha ||
@@ -306,10 +322,37 @@ export async function verifyStaticPublisherSource(
   );
   if (bytes.length !== a.size_in_bytes || "sha256:" + hash(bytes) !== a.digest)
     fail("publication-artifact-mismatch");
-  const candidate = staticCandidate(bytes, metadata, owner, policy, context),
+  const manifestPath = owner.path.replace(/package\.json$/, "manifest.json"),
+    sourceManifest = await reader.json(
+      `${base}/contents/${manifestPath}?ref=${context.sourceSha}`,
+      256 * 1024,
+    );
+  if (
+    sourceManifest.type !== "file" ||
+    sourceManifest.path !== manifestPath ||
+    sourceManifest.encoding !== "base64" ||
+    typeof sourceManifest.content !== "string" ||
+    sourceManifest.content.length > 128 * 1024
+  )
+    fail("publication-plugin-source-unknown");
+  const runtime = JSON.parse(
+    Buffer.from(sourceManifest.content, "base64").toString("utf8"),
+  );
+  if (
+    !/^[a-z0-9][a-z0-9.-]{0,127}$/.test(runtime.id ?? "") ||
+    runtime.version !== metadata.version
+  )
+    fail("publication-plugin-source-mismatch");
+  const candidate = staticCandidate(
+      bytes,
+      metadata,
+      { ...owner, pluginId: runtime.id },
+      policy,
+      context,
+    ),
     published = await reader.bytes(
       publishedTarballUrl(metadata),
-      limits.tarball,
+      staticPublicationLimits.tarball,
     );
   if (!published.equals(candidate.tarball))
     fail("publication-tarball-mismatch");

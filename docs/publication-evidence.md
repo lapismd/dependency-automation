@@ -10,8 +10,9 @@ wait with a bounded reason. Newer-version, dependency floors, identical compound
 support, current-main qualification, repair ownership and operation CAS remain
 required.
 
-`config/publications.json` reviews Notes' public release workflow, exact job
-boundaries and artifact layout. Other publishers remain contract-unreviewed.
+`config/publications.json` reviews Notes' public release workflow and the separate
+Plugins static publisher, with exact job boundaries and artifact layouts. Other
+publishers remain contract-unreviewed.
 No repository/update allowlist, channel, signing owner or credential changes.
 The inspection command is read-only and writes only ignored local evidence:
 
@@ -146,3 +147,30 @@ canonical lanes, formatter, actionlint, doctor11/11 and QMD discovery. An initia
 local full run correctly rejected the mise shim's Node24.19; rerunning with the
 actual pinned Node24.15/pnpm/gh directories passes without changing the verifier.
 Hosted GET inventory above retains19 repositories,43 owners and220 edges.
+
+## Static Plugins batch qualification
+
+The reviewed `plugins-static-v1` reader accepts only the exact successful public
+main publisher, source/run/attempt-bound candidate and authenticated npm/source
+identity. Package folders own tags; source manifest runtime IDs own archive names.
+It verifies those distinct coordinates before accepting the Ed25519 bundle and
+identical published npm bytes. Source manifest path/type/ID/version mismatches
+remain explicit holds.
+
+The static aggregate ZIP/inflation limits are 64 MiB; selected npm archives are
+bounded to 16 MiB and plugin archives/signed files to 8 MiB, with nested plugin
+inflation still bounded to 32 MiB. Notes retains 8/4/32 MiB artifact/tarball/
+inflation limits. The existing total fetch budget remains 64 MiB and every
+request, archive path, entry count, signature, hash, source and workflow gate
+remains active. Oversized batches report `publication-artifact-size-limit`
+before download; unknown profiles fail closed.
+
+The first genuine ten-package static publication exposed the old single-fixture
+size and directory/ID assumptions. The repaired source verifies all ten retained
+versions within the existing total fetch budget; see
+[the exact batch and regression record](../spec/records/2026-11-16-static-batch-proof.md).
+After successful source merge/current-main checks, normal coordinator
+reconciliation collects the proof afresh before downstream writes. Recovery
+uses the existing publication; no rebuild, npm republish, tag or manual state
+rewrite is required. Real downstream completion and idempotent replay remain
+separate S3 acceptance gates.

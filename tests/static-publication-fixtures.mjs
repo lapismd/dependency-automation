@@ -8,6 +8,7 @@ export const metadata = JSON.parse(await file("-metadata.json"));
 export const attestations = JSON.parse(await file("-attestations.json"));
 export const tarball = await file(".tgz"),
   bundle = await file(".lapis-plugin");
+const sourceManifest = JSON.parse(await file("-source-manifest.json"));
 export const sourceSha = "75c7190341d34210d62b20552c324b9bd12ef6f9",
   currentSha = "a".repeat(40),
   repository = "lapismd/lapis-plugins";
@@ -15,6 +16,7 @@ export const owner = {
   name: metadata.name,
   repository,
   path: "packages/history/package.json",
+  pluginId: sourceManifest.id,
   manifest: Object.fromEntries(
     contractFields
       .filter((k) => metadata[k] !== undefined)
@@ -83,6 +85,12 @@ export function staticFixture() {
     statuses: [],
     requests: [],
     metadata: structuredClone(metadata),
+    runtime: structuredClone(sourceManifest),
+    runtimeSource: {
+      type: "file",
+      path: "packages/history/manifest.json",
+      encoding: "base64",
+    },
     artifact: null,
     archive: null,
   };
@@ -137,6 +145,11 @@ export function staticFixture() {
       data = {
         encoding: "base64",
         content: Buffer.from(JSON.stringify(owner.manifest)).toString("base64"),
+      };
+    else if (p.includes("/contents/packages/history/manifest.json"))
+      data = {
+        ...f.runtimeSource,
+        content: Buffer.from(JSON.stringify(f.runtime)).toString("base64"),
       };
     else if (p.includes("/compare/"))
       data = { merge_base_commit: { sha: sourceSha } };

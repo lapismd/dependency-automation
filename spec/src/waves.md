@@ -52,6 +52,13 @@ Hosted pilot qualification and activation remain separate operator decisions.
 Public storage contains only explicitly public repository coordinates. Unavailable
 or non-public source coverage is held and represented by opaque IDs/counts;
 public repository artifacts and the state branch are not private storage.
+
+DA-PUB-004 supplies a separate bounded static-plugin batch profile for genuine
+multi-package publication evidence. The selected package still requires its
+authenticated provenance, exact artifact digest, signed bundle and published-byte
+agreement before downstream admission. Archive-size holds remain explicit;
+the profile does not waive current-source checks, publication prerequisites,
+channel restrictions, ownership or operation CAS.
 The atomic state commit also includes public-safe `report.json`, consumed by
 Maintenance through GitHub Contents at the branch's immutable revision.
 

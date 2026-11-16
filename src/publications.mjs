@@ -6,7 +6,11 @@ import {
 } from "./publication-static.mjs";
 import { stableVersions } from "./policy.mjs";
 import { loadPublicationVerifier, hash } from "./publication-tool.mjs";
-import { publicationReader, limits } from "./publication-transport.mjs";
+import {
+  publicationReader,
+  limits,
+  staticPublicationLimits,
+} from "./publication-transport.mjs";
 import {
   contractDigest,
   dependencyContractDigest,
@@ -309,7 +313,9 @@ export async function observePublications(
         const body = await reader.json(url.href, 256 * 1024);
         const artifactBytes = await reader.bytes(
           publishedTarballUrl(record),
-          limits.tarball,
+          publisher.kind === "plugins-static-v1"
+            ? staticPublicationLimits.tarball
+            : limits.tarball,
         );
         const context = await verifyAttestations(
           body,

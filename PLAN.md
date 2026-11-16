@@ -1,5 +1,55 @@
 # Consolidated Lapis maintenance plan
 
+## Current publication and tooling checkpoint — November 17
+
+This checkpoint supersedes dated activity/pending statements below. S3 and S6
+remain open; pilot writes are enabled and scheduled/full rollout stays disabled.
+
+- [x] Plugins publisher `43962605517` succeeds at `993e5345`, including its
+      dependency notification; all ten selected npm versions are read back.
+      Registry submissions168–177 merge into publication178, deployed from
+      `f0b0bdee`; missing Search intake is recovered through179/publication180,
+      deployed from `0503bac9`. Live index/plugin signatures, reviewed bytes and
+      Search0.1.13 version page are verified. The complete reviewed registry
+      batch is live without republishing an existing package.
+- [x] Notes readiness PR145 is merged at `f450b46c`; exact-main CI43963799582
+      passes. Its next genuine downstream release must still exercise deployed
+      publication verification; local retained-artifact proof does not close it.
+- [x] Terminal's corrected shared native recipe passes43964207457, with its
+      digest-checked artifact and private-none plan preserved. Owner PR25 merges
+      `f93e854a`; exact-main CI43973344590 and version43973344633 pass, with no
+      release intent and no App/action execution. Its spec deployment succeeds.
+- [x] Core's bot PR87 auto-merges7db7fe09; factual main-range follow-up PR88
+      mergesc06db73f after all11 checks. Exact-main CI43976157191, Pages and
+      release workflow pass. The original two missing mappings are repaired;
+      local unsupported-WebKit launch failures are replaced by supported cold
+      proof196 passed/one existing skip, without changing tests or baselines.
+- [x] Notebook's bounded Core intake is already qualified: genuine bot PR36
+      mergesadc4b650 with successful main CI43852663104, versioning, Pages and
+      registry workflows. This does not claim generic canonical preparation.
+- [x] Coordinator PR37 retires the withdrawn deepmerge decision at9204bbdc;
+      clean audit/preflight and normal pilot43963512112 restore consumer writes.
+      No active advisory approval, scope expansion or state hand-edit is needed.
+- [ ] Deploy the static-publication proof repair in this source slice. Actual
+      generation80 holds Plugins/Notes on the legitimate40,983,874-byte batch;
+      source qualification now verifies all ten exact package/source contracts
+      with bounded static resources and source-bound runtime IDs. The complete
+      evidence and both original regressions are in
+      [the static batch record](spec/records/2026-11-16-static-batch-proof.md).
+      Hosted collection, real downstream progress and replay remain mandatory.
+- [ ] Merge/deploy Visual Delta PR78's qualified runtime guard: hosted complete
+      command43977922918 and artifact14281661065 pass; current owner source
+      requires fresh CI and then merged-main false/no-App acceptance.
+- [ ] Finish Notebook PR39 and its separate whole-recipe/guard adoption. All
+      five required local Docker lanes and565 units pass, and its six MODERATE/
+      one LOW development findings become zero through compatible Hono lock
+      updates; production remains clean and the obsolete withdrawn ignore is
+      removed. Guard adoption and hosted qualification are not inferred.
+- [ ] Retain Server's production KaTeX and jj-store's functional/accessibility
+      failures as source-owned holds; no inherited exception or baseline waiver.
+      Remaining eligible-writer/retained-Deno boundaries and generic canonical
+      handoffs still require their own reviewed evidence before S6 completion.
+
 ## Bot review context follow-up
 
 - Implemented: enrich native Renovate notes and the profile writer's managed
