@@ -31,44 +31,78 @@ credentials. Shared component defects remain with their source package.
 
 ## Controlled pilot follow-up
 
-Coordinator PR34 is merged6ab64b8a; exact main checks and Pages pass. Controlled
-run43931334684 succeeds and genuinely regenerates Plugins PR127 at4e96106e,
-but its native artifact-error report exposes a source-owned cohort mismatch:
-spec-validator0.2.1 is rejected before runtime Changeset preparation. This is
-not a completed release chain and that incomplete candidate must not merge.
-The narrow five-pilot policy repair and exact regression are recorded in
-[validator pilot qualification](spec/records/2026-11-16-validator-pilot-cohort.md).
-Manual empty-operation recovery43933516100 is separately pending for Mira;
-current-source, empty-branch/PR and state-CAS checks remain authoritative.
+Coordinator PR34 is merged6ab64b8a; exact main checks and Pages pass. The native
+artifact error in controlled run43931334684 correctly held its incomplete
+candidate. PR35 merged7044b09e admits only the reviewed validator patch in the
+five existing pilot cohorts. Actual reconciliation43935862766 succeeds and
+normal bot regeneration supplies the genuine ten-package Plugins Changeset.
+[Validator pilot qualification](spec/records/2026-11-16-validator-pilot-cohort.md)
+retains the initial failure and exact regression.
+
+Plugins PR127 mergedde684550 after the owner refreshed only stale Bases
+dependency provenance and supplied full-range canonical evidence. Exact main
+CI43943820389 passes. Generated version PR151 merged36d679c1 after all current
+checks, and exact main CI43945906260 passes. Manual publisher43947542658 selects
+only the ten reviewed patch packages, with asset replacement disabled; actual
+signed publication, registry intake, downstream progression and idempotent
+replay remain open gates. No completed release chain is inferred from merging.
+
+Mira's empty-operation recovery43933516100 succeeds through the existing source,
+empty-branch/PR and state-CAS controls. Its subsequent tooling PR46 is merged.
+Core's separate uncertain operation remains held until its own evidence and
+normal recovery qualify; no state is hand-edited.
 
 ## Current shared-readiness follow-up
 
-- Shared Lapis CI [PR16](https://github.com/lapismd/lapis-ci/pull/16) prepares
-  bounded read-only install-metadata readiness with explicit owner budgets and
-  npm/pnpm peer policies. Local source qualification passes170 tests and the
-  isolated actual npm12 profile passes21 cases. PR16 is merged a60d7bc2. Hosted Linux validation and image smoke passed;
-  main macOS qualification remains a separate gate. No native/image gate is waived.
-- Tasks [PR30](https://github.com/lapismd/lapis-plugin-tasks/pull/30) is draft.
-  All ten PR checks pass and the retained actual0.2.1 artifact passes the new
-  verifier. Its exact fresh main-hosted version-recipe case landed in
-  shared PR16; the actual recipe run has not yet executed.
-- Docs [PR19](https://github.com/lapismd/lapis-plugin-docs/pull/19) is draft.
-  Both exact regressions,27 release-boundary tests,84 full units and required
-  source lanes pass. The genuine retained0.3.0 artifact passes readiness,
-  frozen reinstall,636 signatures,178 attestations and publint. Its separately
-  reviewed audit binding preserves the existing development-only LOW expiry;
-  hosted head CI43929333858 passes; the exact new case landed in shared PR17 (7981eda8); its actual main-hosted
-  run remains pending.
+- Shared Lapis CI readiness PR16/17/18/19 is merged. Accepted main69a81e05
+  passes Linux/native macOS/image qualification; the isolated official npm12
+  tool passes24 real protocol controls. Strict Tasks/Docs peers and Mira's
+  default peer policy remain distinct. Actual owner version-recipe proof,
+  retained package acceptance and deployed verification are separate gates.
+- Tasks [PR30](https://github.com/lapismd/lapis-plugin-tasks/pull/30) is merged
+  at5a76dda1 after all ten current checks. Actual hosted recipe43938641222
+  passes the complete changed helper closure and both retained empty notes,
+  without manufacturing current release intent. Exact main43945172361 passes
+  all validation, published0.2.1 verification and dependency notification;
+  its environment approval was performed through gh. This owner adoption is
+  deployed and verified.
+- Docs [PR19](https://github.com/lapismd/lapis-plugin-docs/pull/19) is merged
+  atf0ba5ec9 after actual recipe43934766066 and retained0.3.0 acceptance.
+  Main43937153595 exposed empty-note routing: the native action reported
+  pending work although the CLI planned no release, suppressing verification.
+  Shared [CI PR20](https://github.com/lapismd/lapis-ci/pull/20) and
+  [Docs PR20](https://github.com/lapismd/lapis-plugin-docs/pull/20) are merged
+  after green hosted checks. The shared opt-in actual-plan guard acquires
+  writers only for genuine rewrites and admits publication only on explicit false
+  output. All206 shared controls and85 Docs units pass locally. Current main
+  43947708172 passes validation, actual version routing, publication verification
+  and dependency notification after its environment approval through gh.
+  This owner adoption is deployed and verified; public/runtime0.3.0 is unchanged.
+- Mira [PR47](https://github.com/lapismd/mira-mde/pull/47) carries shared npm12
+  readiness in both release and existing-publication recovery. Its exact
+  regression fails then passes;73 release controls,532 package units, full
+  Docker check/lint/build/spec,62 browser cases and182 interaction/axe cases
+  pass. The actual changed verifier accepts both original Editor/Mermaid0.0.5
+  archives from digest-checked artifact14201265764 with86 verified signature
+  entries and original source/run-bound provenance. No upload participates.
+  Hosted PR/main/recovery acceptance remains pending.
 - Notes' landed source-owned readiness remains qualified separately. Shared
-  adoption/deduplication and Mira adoption remain open; no manual recovery is
-  counted as completing the multi-publisher exit condition.
+  adoption/deduplication remains open; no local retained acceptance alone is
+  counted as completing the multi-publisher deployment exit condition.
 - Terminal PR24 is merged. Exact main CI, Cargo publication, version automation
   and specification deployment pass. Its separate whole-version native profile
   remains part of S6 and is not inferred from the registry retry repair.
 - The operator explicitly approved PR34's exact coordinator validator-update
   advisory rebinding. Its policy child retains November21 expiry and every
-  other audit failure. Hosted source acceptance, controlled real chain and
-  idempotent replay remain S3 gates; scheduling/rollout scope is unchanged.
+  other audit failure. Hosted coordinator source acceptance passes; controlled
+  real-chain completion and idempotent replay remain S3 gates. Scheduling,
+  rollout phase, repository/channel scopes and frozen-host holds are unchanged.
+
+This progress checkpoint passes338 coordinator tests, three specification lanes,
+workflow actionlint and19 freshly generated native Renovate configurations.
+Fresh GET-only inventory still reports19 repositories,43 owners and220 edges,
+with no coverage gaps or cycles. Those observations neither enable a schedule
+nor qualify the remaining publication, wave-replay or S6 consumer gates.
 
 ## Evidence at planning time
 
