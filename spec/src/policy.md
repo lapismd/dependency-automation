@@ -111,3 +111,8 @@ runtime LOW to source9d657a74 and locka3e1f05f…ca61b8b after the required
 validator update. This replaces the old exact tuple and preserves expiry,
 known-fix rejection and every other audit failure under DA-OPS-002. No write
 scope, activation setting, phase, package signing or deployment gate changes.
+
+The five existing pilot tooling cohorts allow exactly spec-validator0.2.0 or
+the reviewed Deno-free0.2.1 patch. This explicit DA-TOOL-003 policy repair
+unblocks the source-owned release-intent hook without skipping it or widening
+other tooling families. Historical source/lock evidence remains unchanged.

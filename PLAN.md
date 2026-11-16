@@ -29,25 +29,36 @@ helpers. Lapis Maintenance owns the operator UI, controllers and adapters.
 Packages retain their tests, compatibility decisions, signing and publication
 credentials. Shared component defects remain with their source package.
 
+## Controlled pilot follow-up
+
+Coordinator PR34 is merged6ab64b8a; exact main checks and Pages pass. Controlled
+run43931334684 succeeds and genuinely regenerates Plugins PR127 at4e96106e,
+but its native artifact-error report exposes a source-owned cohort mismatch:
+spec-validator0.2.1 is rejected before runtime Changeset preparation. This is
+not a completed release chain and that incomplete candidate must not merge.
+The narrow five-pilot policy repair and exact regression are recorded in
+[validator pilot qualification](spec/records/2026-11-16-validator-pilot-cohort.md).
+Manual empty-operation recovery43933516100 is separately pending for Mira;
+current-source, empty-branch/PR and state-CAS checks remain authoritative.
+
 ## Current shared-readiness follow-up
 
 - Shared Lapis CI [PR16](https://github.com/lapismd/lapis-ci/pull/16) prepares
   bounded read-only install-metadata readiness with explicit owner budgets and
   npm/pnpm peer policies. Local source qualification passes170 tests and the
-  isolated actual npm12 profile passes21 cases. Hosted Linux validation passed;
-  the existing macOS check was queued at the last observation. Landing remains
-  pending; no native/image gate is waived.
+  isolated actual npm12 profile passes21 cases. PR16 is merged a60d7bc2. Hosted Linux validation and image smoke passed;
+  main macOS qualification remains a separate gate. No native/image gate is waived.
 - Tasks [PR30](https://github.com/lapismd/lapis-plugin-tasks/pull/30) is draft.
   All ten PR checks pass and the retained actual0.2.1 artifact passes the new
-  verifier. Its exact fresh main-hosted version-recipe case is prepared in
+  verifier. Its exact fresh main-hosted version-recipe case landed in
   shared PR16; the actual recipe run has not yet executed.
 - Docs [PR19](https://github.com/lapismd/lapis-plugin-docs/pull/19) is draft.
   Both exact regressions,27 release-boundary tests,84 full units and required
   source lanes pass. The genuine retained0.3.0 artifact passes readiness,
   frozen reinstall,636 signatures,178 attestations and publint. Its separately
   reviewed audit binding preserves the existing development-only LOW expiry;
-  hosted head CI43929333858 passes; the exact new whole-recipe case/run
-  remains pending.
+  hosted head CI43929333858 passes; the exact new case landed in shared PR17 (7981eda8); its actual main-hosted
+  run remains pending.
 - Notes' landed source-owned readiness remains qualified separately. Shared
   adoption/deduplication and Mira adoption remain open; no manual recovery is
   counted as completing the multi-publisher exit condition.

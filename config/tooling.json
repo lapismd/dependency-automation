@@ -25,7 +25,7 @@
       "pnpm": "10.34.5",
       "tools": {
         "@changesets/cli": "^2.31.1",
-        "@lapismd/spec-validator": "0.2.0",
+        "@lapismd/spec-validator": "0.2.0 || 0.2.1",
         "@playwright/test": "1.61.1",
         "storybook": "~10.6.2",
         "@storybook/addon-vitest": "~10.6.2",
@@ -133,7 +133,7 @@
       "pnpm": "10.34.5",
       "tools": {
         "@changesets/cli": "^3.0.3",
-        "@lapismd/spec-validator": "0.2.0",
+        "@lapismd/spec-validator": "0.2.0 || 0.2.1",
         "@playwright/test": "1.61.1",
         "playwright": "1.61.1",
         "storybook": "~10.6.5",
@@ -219,7 +219,7 @@
       "pnpm": "10.32.1",
       "tools": {
         "@changesets/cli": "^3.0.3",
-        "@lapismd/spec-validator": "0.2.0",
+        "@lapismd/spec-validator": "0.2.0 || 0.2.1",
         "@playwright/test": "1.62.1",
         "playwright": "1.62.1",
         "storybook": "~10.6.2",
@@ -265,7 +265,7 @@
       "pnpm": "10.32.1",
       "tools": {
         "@changesets/cli": "^3.0.3",
-        "@lapismd/spec-validator": "0.2.0",
+        "@lapismd/spec-validator": "0.2.0 || 0.2.1",
         "@playwright/test": "1.64.1",
         "playwright": "^1.64.1",
         "storybook": "~10.6.5",
@@ -429,7 +429,7 @@
       "pnpm": "10.32.1",
       "tools": {
         "@changesets/cli": "^3.0.3",
-        "@lapismd/spec-validator": "0.2.0",
+        "@lapismd/spec-validator": "0.2.0 || 0.2.1",
         "playwright": "1.64.1",
         "storybook": "10.6.5",
         "@storybook/addon-vitest": "10.6.5",

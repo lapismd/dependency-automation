@@ -81,3 +81,19 @@ detects deno.json/deno.jsonc ahead of Prettier in the same directory. A Node
 executable does not prove arbitrary project recipes Deno-free. The generic
 contract conservatively holds Deno declarations in its formatter lookup
 ancestry and changed Changesets configuration for source-owned qualification.
+
+## Reviewed validator patch in the existing pilot
+
+DA-TOOL-003 admits the separately reviewed Deno-free spec-validator0.2.1 patch
+alongside0.2.0 in the existing Plugins, Mira, Core, Notes and Notebook pilot
+cohorts. This exact two-version set does not admit future patches or minors,
+force any consumer migration or change Node/pnpm/CLI/browser constraints.
+Historical evidence remains attached to its original source, lock and resolved
+versions. It is not rewritten to claim new candidate or recipe qualification.
+
+The post-upgrade hook still requires the frozen scripts-disabled candidate
+install and all original drift checks before release-intent preparation.
+Missing required intent or an artifact error MUST NOT establish a completed
+release chain, regardless of a successful coordinator workflow exit. Native
+Renovate artifact-error review and current-head consumer gates remain binding.
+No excluded hosts, phase, scope, advisory approval or permissions change.
