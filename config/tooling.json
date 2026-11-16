@@ -21,7 +21,7 @@
   },
   "repositories": {
     "lapismd/lapis-plugins": {
-      "sourceSha": "a9b949745829ec5ba727118ebbf5ced21d9e053b",
+      "sourceSha": "0abf495865443859760929d55c6d7a97fb20d3b9",
       "pnpm": "10.34.5",
       "tools": {
         "@changesets/cli": "^2.31.1",
@@ -32,10 +32,104 @@
         "vite": "^7.3.7",
         "vitest": "~4.1.12",
         "@vitest/browser-playwright": "~4.1.12"
+      },
+      "ci": {
+        ".github/workflows/ci.yml": [
+          "quality",
+          "unit",
+          "release-artifacts",
+          "storybook-static",
+          "storybook-interaction (1)",
+          "storybook-interaction (2)",
+          "storybook-interaction (3)",
+          "storybook-interaction (4)",
+          "validate"
+        ]
+      },
+      "evidence": {
+        "observedAt": "2026-11-16T03:36:26.265Z",
+        "manifestSha256": "d885c0ef8942b46349472674991b332fb07d66c9f07411eb196a09390745ce0c",
+        "lockSha256": "5a842187b8b4cc576d2f1124c27705dcabd88029f5ff86370794f2c7de44a1ff",
+        "resolved": {
+          "@changesets/cli": "2.31.1",
+          "@lapismd/spec-validator": "0.2.0",
+          "@playwright/test": "1.61.1",
+          "storybook": "10.6.3",
+          "@storybook/addon-vitest": "10.6.3",
+          "vite": "7.3.7",
+          "vitest": "4.1.12",
+          "@vitest/browser-playwright": "4.1.12"
+        },
+        "sourceCi": {
+          "state": "prior-source",
+          "runId": "43795232129",
+          "sourceSha": "46c08176c0b11168c95ca9ba46ab503a153c1e67",
+          "workflow": ".github/workflows/ci.yml",
+          "completedAt": "2026-11-16T03:06:42Z",
+          "runAttempt": 1,
+          "jobs": [
+            {
+              "id": "133062981986",
+              "name": "quality",
+              "conclusion": "success"
+            },
+            {
+              "id": "133062981955",
+              "name": "unit",
+              "conclusion": "success"
+            },
+            {
+              "id": "133062981926",
+              "name": "release-artifacts",
+              "conclusion": "success"
+            },
+            {
+              "id": "133062981903",
+              "name": "storybook-static",
+              "conclusion": "success"
+            },
+            {
+              "id": "133062982000",
+              "name": "storybook-interaction (1)",
+              "conclusion": "success"
+            },
+            {
+              "id": "133062982049",
+              "name": "storybook-interaction (2)",
+              "conclusion": "success"
+            },
+            {
+              "id": "133062981940",
+              "name": "storybook-interaction (3)",
+              "conclusion": "success"
+            },
+            {
+              "id": "133062982007",
+              "name": "storybook-interaction (4)",
+              "conclusion": "success"
+            },
+            {
+              "id": "133065292812",
+              "name": "validate",
+              "conclusion": "success"
+            }
+          ]
+        },
+        "recipe": {
+          "qualification": "unqualified",
+          "command": "node scripts/version-public-packages.mjs",
+          "runtimeInputs": []
+        },
+        "packageManager": {
+          "source": "manifest",
+          "version": "10.34.5",
+          "path": "package.json",
+          "sha256": "d885c0ef8942b46349472674991b332fb07d66c9f07411eb196a09390745ce0c"
+        }
       }
     },
     "lapismd/lapis-notes": {
-      "sourceSha": "3b4c2e0246bcc8b415ed8a1ff0467c5743e0ccb1",
+      "sourceSha": "1e49d75421899183cb4f0fb14ae613a172872eeb",
       "pnpm": "10.34.5",
       "tools": {
         "@changesets/cli": "^3.0.3",
@@ -47,10 +141,81 @@
         "vite": "^7.3.7",
         "vitest": "~4.1.12",
         "@vitest/browser-playwright": "~4.1.12"
+      },
+      "ci": {
+        ".github/workflows/publish-web-cloudflare.yml": [
+          "validation / quality",
+          "validation / unit",
+          "validation / web-cloudflare",
+          "validation / web-acceptance",
+          "validation / validate"
+        ]
+      },
+      "evidence": {
+        "observedAt": "2026-11-16T03:36:15.312Z",
+        "manifestSha256": "d8beb7963bdb4befaf170e118016eb768af8da95634b82b6b02cc1fa8df02566",
+        "lockSha256": "a316d60f8499f14cb8de7eb42c17ae5bb475ce25a31afef418be4907e277fc7f",
+        "resolved": {
+          "@changesets/cli": "3.0.3",
+          "@lapismd/spec-validator": "0.2.0",
+          "@playwright/test": "1.61.1",
+          "playwright": "1.61.1",
+          "storybook": "10.6.7",
+          "@storybook/addon-vitest": "10.6.7",
+          "vite": "7.3.8",
+          "vitest": "4.1.12",
+          "@vitest/browser-playwright": "4.1.12"
+        },
+        "sourceCi": {
+          "state": "prior-source",
+          "runId": "43795264453",
+          "sourceSha": "40e3e357eb88dc6da91f81651c298b2232563a49",
+          "workflow": ".github/workflows/publish-web-cloudflare.yml",
+          "completedAt": "2026-11-16T03:11:53Z",
+          "runAttempt": 1,
+          "jobs": [
+            {
+              "id": "133063585597",
+              "name": "validation / quality",
+              "conclusion": "success"
+            },
+            {
+              "id": "133063585661",
+              "name": "validation / unit",
+              "conclusion": "success"
+            },
+            {
+              "id": "133063585623",
+              "name": "validation / web-cloudflare",
+              "conclusion": "success"
+            },
+            {
+              "id": "133063722194",
+              "name": "validation / web-acceptance",
+              "conclusion": "success"
+            },
+            {
+              "id": "133066369675",
+              "name": "validation / validate",
+              "conclusion": "success"
+            }
+          ]
+        },
+        "recipe": {
+          "qualification": "unqualified",
+          "command": "pnpm release:check && changeset version && pnpm install --lockfile-only && node scripts/generate-plugin-host-modules.mjs && pnpm release:check",
+          "runtimeInputs": ["deno.json"]
+        },
+        "packageManager": {
+          "source": "manifest",
+          "version": "10.34.5",
+          "path": "package.json",
+          "sha256": "d8beb7963bdb4befaf170e118016eb768af8da95634b82b6b02cc1fa8df02566"
+        }
       }
     },
     "lapismd/mira-mde": {
-      "sourceSha": "11d376297c84247161ff80d80bc3fe7a489a21c8",
+      "sourceSha": "d681bdd6b9f500a554f18e8ac3c4c9cdfa24eed5",
       "pnpm": "10.32.1",
       "tools": {
         "@changesets/cli": "^3.0.3",
@@ -62,10 +227,41 @@
         "vite": "^7.3.7",
         "vitest": "~4.1.12",
         "@vitest/browser-playwright": "~4.1.12"
+      },
+      "ci": {},
+      "evidence": {
+        "observedAt": "2026-11-16T03:36:00.946Z",
+        "manifestSha256": "d6902cc0d4a76e6cf509a986d721a963afc65c2a4d5a44268f69ab2ff53134a2",
+        "lockSha256": "e1bf86c68424aded5c66f208f4b9c76e0a9a2247685d72982d1900d79e62feb4",
+        "resolved": {
+          "@changesets/cli": "3.0.3",
+          "@lapismd/spec-validator": "0.2.0",
+          "@playwright/test": "1.62.1",
+          "playwright": "1.62.1",
+          "storybook": "10.6.3",
+          "@storybook/addon-vitest": "10.6.3",
+          "vite": "7.3.7",
+          "vitest": "4.1.12",
+          "@vitest/browser-playwright": "4.1.12"
+        },
+        "sourceCi": {
+          "state": "unavailable"
+        },
+        "recipe": {
+          "qualification": "unqualified",
+          "command": "changeset version && pnpm install --lockfile-only && node ./scripts/sync-release-versions.mjs --write && prettier packages/*/package.json packages/*/CHANGELOG.md packages/mira-editor/src/version.ts --write",
+          "runtimeInputs": []
+        },
+        "packageManager": {
+          "source": "manifest",
+          "version": "10.32.1",
+          "path": "package.json",
+          "sha256": "d6902cc0d4a76e6cf509a986d721a963afc65c2a4d5a44268f69ab2ff53134a2"
+        }
       }
     },
     "lapismd/design-core": {
-      "sourceSha": "c1e19ba19fda5d608d7ab788694056b5425b4856",
+      "sourceSha": "9cf94b7ce62d679aca77d6d5c65fe84405f086b9",
       "pnpm": "10.32.1",
       "tools": {
         "@changesets/cli": "^3.0.3",
@@ -77,6 +273,77 @@
         "vite": "^8.3.5",
         "vitest": "~5.0.5",
         "@vitest/browser-playwright": "~5.0.5"
+      },
+      "ci": {
+        ".github/workflows/ci.yml": [
+          "Quality",
+          "Unit tests",
+          "Dependency audits",
+          "Storybook interactions",
+          "Validate"
+        ]
+      },
+      "evidence": {
+        "observedAt": "2026-11-16T03:36:06.336Z",
+        "manifestSha256": "c0e3b78d868269d5f1617bd48541d05b0d8521f14e6312264897fcb23ed4e133",
+        "lockSha256": "ca42f7edc61718dd7a7646c93199d2d78164953d208018c186406bb911d588ba",
+        "resolved": {
+          "@changesets/cli": "3.0.3",
+          "@lapismd/spec-validator": "0.2.0",
+          "@playwright/test": "1.64.1",
+          "playwright": "1.64.1",
+          "storybook": "10.6.5",
+          "@storybook/addon-vitest": "10.6.5",
+          "vite": "8.3.5",
+          "vitest": "5.0.5",
+          "@vitest/browser-playwright": "5.0.5"
+        },
+        "sourceCi": {
+          "state": "same-source",
+          "runId": "43773566523",
+          "sourceSha": "9cf94b7ce62d679aca77d6d5c65fe84405f086b9",
+          "workflow": ".github/workflows/ci.yml",
+          "completedAt": "2026-11-15T23:21:28Z",
+          "runAttempt": 1,
+          "jobs": [
+            {
+              "id": "132994630800",
+              "name": "Quality",
+              "conclusion": "success"
+            },
+            {
+              "id": "132994630608",
+              "name": "Unit tests",
+              "conclusion": "success"
+            },
+            {
+              "id": "132996652751",
+              "name": "Dependency audits",
+              "conclusion": "success"
+            },
+            {
+              "id": "132994630685",
+              "name": "Storybook interactions",
+              "conclusion": "success"
+            },
+            {
+              "id": "132996774307",
+              "name": "Validate",
+              "conclusion": "success"
+            }
+          ]
+        },
+        "recipe": {
+          "qualification": "unqualified",
+          "command": "changeset version && pnpm install --lockfile-only && prettier package.json CHANGELOG.md --write",
+          "runtimeInputs": []
+        },
+        "packageManager": {
+          "source": "manifest",
+          "version": "10.32.1",
+          "path": "package.json",
+          "sha256": "c0e3b78d868269d5f1617bd48541d05b0d8521f14e6312264897fcb23ed4e133"
+        }
       }
     },
     "lapismd/storybook-addon-visual-delta": {
@@ -90,6 +357,71 @@
         "storybook": "10.6.7",
         "vite": "^8.3.8",
         "vitest": "~5.1.0"
+      },
+      "ci": {
+        ".github/workflows/visual-delta-ci.yml": [
+          "Package typecheck and unit tests",
+          "Panel browser acceptance",
+          "Chromium, Firefox, and WebKit acceptance",
+          "Manager browser acceptance"
+        ]
+      },
+      "evidence": {
+        "observedAt": "2026-11-16T03:37:05.699Z",
+        "manifestSha256": "82528a00dd9cbc5e72d0c15e5fced27f57dc213b3b01c187ebe85ef392cd2351",
+        "lockSha256": "87944d75784e634a35084f8d9e45389dcb9cec8f10d7069836976c57eef044f6",
+        "resolved": {
+          "@changesets/cli": "3.0.3",
+          "@lapismd/spec-validator": "0.2.0",
+          "@playwright/test": "1.65.1",
+          "playwright": "1.65.1",
+          "storybook": "10.6.7",
+          "vite": "8.3.8",
+          "vitest": "5.1.0"
+        },
+        "sourceCi": {
+          "state": "same-source",
+          "runId": "43766653716",
+          "sourceSha": "abcb2e6d7698594d162a418419a737486a2fc019",
+          "workflow": ".github/workflows/visual-delta-ci.yml",
+          "completedAt": "2026-11-15T22:23:03Z",
+          "runAttempt": 1,
+          "jobs": [
+            {
+              "id": "132973192203",
+              "name": "Package typecheck and unit tests",
+              "conclusion": "success"
+            },
+            {
+              "id": "132973192118",
+              "name": "Panel browser acceptance",
+              "conclusion": "success"
+            },
+            {
+              "id": "132973191980",
+              "name": "Chromium, Firefox, and WebKit acceptance",
+              "conclusion": "success"
+            },
+            {
+              "id": "132973192266",
+              "name": "Manager browser acceptance",
+              "conclusion": "success"
+            }
+          ]
+        },
+        "recipe": {
+          "qualification": "unqualified",
+          "command": "changeset version && corepack pnpm@10.32.1 install --lockfile-only",
+          "runtimeInputs": []
+        },
+        "packageManager": {
+          "source": "workflow-pin",
+          "version": "10.32.1",
+          "path": ".github/workflows/release.yml",
+          "sha256": "72f9815b603ba1b059d9b50542163f790cc47a421bea7e914918116fcc34023f",
+          "job": "version",
+          "step": "Set up pnpm"
+        }
       }
     },
     "lapismd/lapis-plugin-notebook": {
@@ -104,6 +436,94 @@
         "vite": "6.4.5",
         "vitest": "4.1.12",
         "@vitest/browser-playwright": "4.1.12"
+      },
+      "ci": {
+        ".github/workflows/ci.yml": [
+          "quality",
+          "unit",
+          "package",
+          "storybook-static",
+          "storybook-interaction (1)",
+          "storybook-interaction (2)",
+          "storybook-interaction (3)",
+          "Validation lanes"
+        ]
+      },
+      "evidence": {
+        "observedAt": "2026-11-16T03:36:40.937Z",
+        "manifestSha256": "cb77c49eb5268226320284e1343d13b82ecdbfd00f56594056319b6016677179",
+        "lockSha256": "7b6409b080563caf6ffdcafa96283f465151dffb45b8fc2f8831055e5bf51b42",
+        "resolved": {
+          "@changesets/cli": "3.0.3",
+          "@lapismd/spec-validator": "0.2.0",
+          "playwright": "1.64.1",
+          "storybook": "10.6.5",
+          "@storybook/addon-vitest": "10.6.5",
+          "vite": "6.4.5",
+          "vitest": "4.1.12",
+          "@vitest/browser-playwright": "4.1.12"
+        },
+        "sourceCi": {
+          "state": "prior-source",
+          "runId": "43615472367",
+          "sourceSha": "1e2f0f8495e0768279e68192e88844dbfadb1455",
+          "workflow": ".github/workflows/ci.yml",
+          "completedAt": "2026-11-14T16:33:13Z",
+          "runAttempt": 1,
+          "jobs": [
+            {
+              "id": "132509984107",
+              "name": "quality",
+              "conclusion": "success"
+            },
+            {
+              "id": "132509984119",
+              "name": "unit",
+              "conclusion": "success"
+            },
+            {
+              "id": "132509984093",
+              "name": "package",
+              "conclusion": "success"
+            },
+            {
+              "id": "132509984122",
+              "name": "storybook-static",
+              "conclusion": "success"
+            },
+            {
+              "id": "132509984146",
+              "name": "storybook-interaction (1)",
+              "conclusion": "success"
+            },
+            {
+              "id": "132509984132",
+              "name": "storybook-interaction (2)",
+              "conclusion": "success"
+            },
+            {
+              "id": "132509984118",
+              "name": "storybook-interaction (3)",
+              "conclusion": "success"
+            },
+            {
+              "id": "132511685940",
+              "name": "Validation lanes",
+              "conclusion": "success"
+            }
+          ]
+        },
+        "recipe": {
+          "qualification": "unqualified",
+          "command": "node scripts/release.mjs version",
+          "runtimeInputs": []
+        },
+        "packageManager": {
+          "source": "manifest",
+          "version": "10.32.1",
+          "path": "package.json",
+          "sha256": "cb77c49eb5268226320284e1343d13b82ecdbfd00f56594056319b6016677179"
+        }
       }
     },
     "lapismd/lapis-plugin-tasks": {

@@ -1,7 +1,8 @@
 # Deno-free tooling and cohort drift
 
-This first S6 slice qualifies version preparation and records tool cohorts. It
-does not upgrade consumers, remove frozen-host prerequisites or activate writes.
+Central tooling controls qualify versioning contracts and record supported
+source-bound cohorts. Consumer recipe adoption remains separate; evidence
+refresh does not upgrade consumers, remove frozen-host prerequisites or activate writes.
 
 ## DA-TOOL-001 — Reviewed versioning runtime
 
@@ -46,6 +47,26 @@ does not upgrade consumers, remove frozen-host prerequisites or activate writes.
 - A successful source-CI run MUST NOT qualify a version recipe as Deno-free, and an absent manifest command MUST NOT imply an absent workflow recipe.
 - Inventory MUST report source/lock drift and missing evidence without turning historical source success into current qualification.
 - Collection MUST remain GET-only within eligible public allowlist entries, preserving holds, excluded hosts, frozen tasks and all existing consumer gates.
+
+## DA-TOOL-005 — Reviewed source workflow outcomes
+
+**Requirement.** Reviewed source-CI evidence MUST select only reviewed repository-specific workflow paths and successful required jobs bound to the same source, run and attempt. Missing, skipped, duplicate, incomplete or unavailable job evidence MUST NOT qualify a run. An explicitly empty workflow policy MUST remain unavailable without filename fallback.
+
+### Acceptance details
+
+- Successful release or deployment metadata alone MUST NOT replace required validation outcomes.
+- Historical records without job receipts MUST remain explicitly run-only observations.
+- Prior-source success and current-source failures MUST remain distinguishable; source CI MUST NOT establish whole-recipe portability.
+
+## DA-TOOL-006 — Exact package-manager provenance and refresh
+
+**Requirement.** Existing-cohort refresh MUST preserve supported tool ranges and package-manager versions. An undeclared root package manager MUST remain undeclared; a reviewed workflow pin MAY be recorded separately using exact source bytes and step coordinates. Collection MUST propose evidence only within existing eligible public scope and MUST NOT change policy, source, activation or advisory authority.
+
+### Acceptance details
+
+- Changed or ambiguous workflow commands, unsupported resolved versions and changed package-manager versions MUST fail closed.
+- Refresh MUST report declared-range differences separately without silently widening supported cohorts.
+- Excluded or held sources, frozen tasks and missing whole-recipe qualification MUST retain their boundaries.
 
 ## Registry evidence and rollout limits
 

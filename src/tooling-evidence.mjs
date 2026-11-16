@@ -1,4 +1,7 @@
 import semver from "semver";
+import { validatePackageManagerEvidence } from "./tooling-provenance.mjs";
+import { validateSourceCiReceipt } from "./tooling-ci.mjs";
+export { sourceCiEvidence } from "./tooling-ci.mjs";
 const keys = (value, allowed) =>
   value &&
   typeof value === "object" &&
@@ -9,35 +12,6 @@ const digest = (value) => /^[a-f0-9]{64}$/.test(value ?? "");
 const date = (value) =>
   typeof value === "string" && Number.isFinite(Date.parse(value));
 
-export function sourceCiEvidence(sourceSha, runs, branch) {
-  if (!Array.isArray(runs)) throw Error("Unavailable source CI evidence");
-  const run = runs
-    .filter(
-      (r) =>
-        r.event === "push" &&
-        r.head_branch === branch &&
-        r.status === "completed" &&
-        r.conclusion === "success" &&
-        sha(r.head_sha) &&
-        /^\d+$/.test(String(r.id)) &&
-        date(r.created_at) &&
-        date(r.updated_at) &&
-        /^\.github\/workflows\/(?:check|checks|ci|test|tests|validate|verify)(?:[-.][\w.-]+)?\.ya?ml$/.test(
-          r.path,
-        ),
-    )
-    .sort((a, b) => Date.parse(b.created_at) - Date.parse(a.created_at))[0];
-  return run
-    ? {
-        state: run.head_sha === sourceSha ? "same-source" : "prior-source",
-        runId: String(run.id),
-        sourceSha: run.head_sha,
-        workflow: run.path,
-        completedAt: run.updated_at,
-      }
-    : { state: "unavailable" };
-}
-
 export function validateCohortEvidence(evidence, cohort) {
   if (
     !keys(evidence, [
@@ -47,6 +21,7 @@ export function validateCohortEvidence(evidence, cohort) {
       "resolved",
       "sourceCi",
       "recipe",
+      "packageManager",
     ]) ||
     !date(evidence.observedAt) ||
     !digest(evidence.manifestSha256) ||
@@ -64,7 +39,15 @@ export function validateCohortEvidence(evidence, cohort) {
     if (!keys(ci, ["state"]))
       throw Error("Invalid unavailable cohort evidence");
   } else if (
-    !keys(ci, ["state", "runId", "sourceSha", "workflow", "completedAt"]) ||
+    !keys(ci, [
+      "state",
+      "runId",
+      "sourceSha",
+      "workflow",
+      "completedAt",
+      "runAttempt",
+      "jobs",
+    ]) ||
     !["same-source", "prior-source"].includes(ci.state) ||
     !/^\d+$/.test(ci.runId ?? "") ||
     !sha(ci.sourceSha) ||
@@ -73,6 +56,7 @@ export function validateCohortEvidence(evidence, cohort) {
     (ci.state === "same-source") !== (ci.sourceSha === cohort.sourceSha)
   )
     throw Error("Invalid source CI cohort evidence");
+  if (ci.state !== "unavailable") validateSourceCiReceipt(ci, cohort.ci);
   const recipe = evidence.recipe;
   if (
     !keys(recipe, ["qualification", "command", "runtimeInputs"]) ||
@@ -90,6 +74,8 @@ export function validateCohortEvidence(evidence, cohort) {
     new Set(recipe.runtimeInputs).size !== recipe.runtimeInputs.length
   )
     throw Error("Invalid recipe cohort evidence");
+  if (evidence.packageManager !== undefined)
+    validatePackageManagerEvidence(evidence.packageManager, evidence, cohort);
   return evidence;
 }
 
@@ -114,8 +100,15 @@ export function assessCohortEvidence(snapshot, cohort) {
         ? "matches-recorded-lock"
         : "lock-changed",
     observedAt: evidence.observedAt,
+    packageManager: evidence.packageManager ?? { source: "unrecorded" },
     sourceCi: {
       ...evidence.sourceCi,
+      assurance:
+        evidence.sourceCi.state === "unavailable"
+          ? "unavailable"
+          : evidence.sourceCi.jobs
+            ? "required-jobs-observed"
+            : "historical-run-only",
       currentSource:
         evidence.sourceCi.state === "unavailable"
           ? "unavailable"

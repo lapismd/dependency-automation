@@ -58,7 +58,7 @@ export default defineConfig(headingRequirements(), {
         },
         {
           pattern:
-            "^src/tooling(?:-evidence)?\\.mjs$|^config/tooling\\.json$|^scripts/(?:qualify-tooling|inspect-tooling-cohorts)\\.mjs$",
+            "^src/tooling(?:-(?:evidence|ci|provenance|collect))?\\.mjs$|^config/tooling\\.json$|^scripts/(?:qualify-tooling|inspect-tooling-cohorts)\\.mjs$",
           chapters: ["spec/src/tooling.md"],
         },
         {

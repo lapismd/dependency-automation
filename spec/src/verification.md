@@ -54,6 +54,8 @@
 | DA-NOT-003  | Implemented | Completion/workflow regressions reject stale/fork/unknown evidence; actual CLI metadata-only test permits one dispatch and forbids candidate files and npm reads.   |
 | DA-WAVE-005 | Implemented | Callback settlement, pending-check timing and default-branch graph isolation regressions in `tests/completion.test.mjs`; hosted adoption pending.                   |
 | DA-WAVE-006 | Implemented | Native Renovate and persisted-state tests retain support and require exact lock/CI/published-contract evidence to retire obsolete waits.                            |
+| DA-TOOL-005 | In progress | Six original CI failures now pass; source/job/attempt and receipt controls pass; 179 tests/3 spec lanes; hosted refresh pending.                                    |
+| DA-TOOL-006 | In progress | 26 focused tests; GET-only refresh 16/16; inventory 19 repos/43 owners/220 edges; ranges and provenance preserved; hosted pending.                                  |
 
 Detailed bootstrap commands, failure counts and hosted handoff live in
 [the specification/Pages qualification record](https://github.com/lapismd/dependency-automation/blob/main/spec/records/2026-11-15-canonical-spec-and-pages.md).

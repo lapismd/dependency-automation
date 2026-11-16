@@ -1,23 +1,20 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import { discoverRepository, loadPolicy, requestJson } from "../src/github.mjs";
-import { monitoringRepositories } from "../src/maintenance-policy.mjs";
-import { loadToolingPolicy, toolingVersions } from "../src/tooling.mjs";
+import { loadToolingPolicy } from "../src/tooling.mjs";
 import {
-  validateCohortEvidence,
-  sourceCiEvidence,
-} from "../src/tooling-evidence.mjs";
+  selectCohortEntries,
+  collectToolingCohort,
+} from "../src/tooling-collect.mjs";
 
 // Public GET-only review candidates. Never update policy, branches or activation.
 const policy = await loadPolicy(),
   tooling = await loadToolingPolicy();
-const monitored = new Set(monitoringRepositories(policy));
 const candidates = [],
   coverage = [];
-for (const entry of policy.repositories.filter(
-  (entry) =>
-    monitored.has(entry.repository) &&
-    !entry.holdReason &&
-    !tooling.repositories[entry.repository],
+for (const entry of selectCohortEntries(
+  policy,
+  tooling,
+  process.argv.slice(2),
 )) {
   try {
     const options = {
@@ -34,51 +31,13 @@ for (const entry of policy.repositories.filter(
       !snapshot.lock
     )
       throw Error("Unavailable eligible source");
-    const manifest = snapshot.manifests.find(
-      (p) => p.path === "package.json",
-    ).manifest;
-    const pnpm = /^pnpm@(\d+\.\d+\.\d+)(?:\+.*)?$/.exec(
-      manifest.packageManager ?? "",
-    )?.[1];
-    if (!pnpm) throw Error("Unpinned package manager");
-    const observed = toolingVersions(snapshot);
-    const runs = await requestJson(
-      `https://api.github.com/repos/${entry.repository}/actions/runs?event=push&status=success&branch=${encodeURIComponent(snapshot.defaultBranch)}&per_page=100`,
-      options,
+    const result = await collectToolingCohort(
+      snapshot,
+      tooling.repositories[entry.repository],
+      (url) => requestJson(url, options),
     );
-    if (!Array.isArray(runs.workflow_runs)) throw Error("Unavailable CI reads");
-    // A bounded latest-successful default-branch source-pipeline observation,
-    // not a complete workflow/security audit or a portable versioning proof.
-    const cohort = {
-      sourceSha: snapshot.sourceSha,
-      pnpm,
-      tools: Object.fromEntries(
-        Object.entries(observed).map(([name, value]) => [name, value.declared]),
-      ),
-      evidence: {
-        observedAt: new Date().toISOString(),
-        manifestSha256: snapshot.toolingManifestSha256,
-        lockSha256: snapshot.toolingLockSha256,
-        resolved: Object.fromEntries(
-          Object.entries(observed).map(([name, value]) => [
-            name,
-            value.version,
-          ]),
-        ),
-        sourceCi: sourceCiEvidence(
-          snapshot.sourceSha,
-          runs.workflow_runs,
-          snapshot.defaultBranch,
-        ),
-        recipe: {
-          qualification: "unqualified",
-          command: manifest.scripts?.["release:version"] ?? null,
-          runtimeInputs: snapshot.toolingInputs,
-        },
-      },
-    };
-    validateCohortEvidence(cohort.evidence, cohort);
-    candidates.push({ repository: entry.repository, cohort });
+    const { cohort } = result;
+    candidates.push({ repository: entry.repository, ...result });
     console.log(
       `${entry.repository}: recorded source observation; CI ${cohort.evidence.sourceCi.state}; recipe unqualified`,
     );
@@ -99,7 +58,7 @@ await writeFile(
     {
       schemaVersion: 1,
       scope:
-        "Latest observed successful default-branch push pipeline among first100runs, standard check/CI/test/validate/verify filenames only; no whole-recipe qualification",
+        "GET-only missing or explicit existing cohort refresh; reviewed paths require successful source/run/attempt-bound jobs; legacy run-only evidence and unqualified recipes remain explicit",
       candidates,
       coverage,
     },

@@ -60,6 +60,9 @@ change rollout phases, enable writes or activate excluded hosts.
 Expanded tooling records may retain exact source/artifact hashes, resolved
 versions and historical successful source-CI context under DA-TOOL-004; that
 metadata never qualifies a whole version recipe or grants dependency writes.
+Reviewed source workflow/job selectors and package-manager provenance follow
+DA-TOOL-005/006; evidence refresh preserves existing supported tool ranges and
+retains undeclared manifests without inventing declarations.
 
 `config/operations.json` records reviewed template references, single update
 class owners, retained exclusions and a dated activation checkpoint, without
