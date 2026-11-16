@@ -1,18 +1,5 @@
 {
   "schemaVersion": 1,
   "maxApprovalDays": 30,
-  "approvals": [
-    {
-      "advisory": "GHSA-gcqx-w48m-w2h4",
-      "package": "deepmerge",
-      "version": "4.3.1",
-      "path": ".>renovate>deepmerge",
-      "severity": "low",
-      "sourceSha": "9d657a7458e40ca84962a12c9b8e361534b3470f",
-      "lockSha256": "a3e1f05fe6a25925d61b6af7baf5316c24156a0b71319611f6e3298bbca61b8b",
-      "approvedAt": "2026-11-16T18:32:00.563Z",
-      "expiresAt": "2026-11-21T00:00:00.000Z",
-      "review": "https://github.com/lapismd/dependency-automation/pull/34"
-    }
-  ]
+  "approvals": []
 }

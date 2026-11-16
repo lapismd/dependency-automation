@@ -50,10 +50,11 @@ only when repository metadata exposes a recognized status, otherwise unavailable
 
 `config/advisories.json` defaults to an empty approved list. On November 16 the
 operator explicitly approved the exact coordinator deepmerge decision proposed
-in PR21; the [decision record](approved-coordinator-advisory.md) and policy bind
-it to the reviewed dependency source, lock bytes, version, path and expiry.
-A raw LOW remains a finding in the automation runtime, which can perform scoped
-bot writes. Credential provisioning, ordinary source checks and another
+in PR21 and its PR34 rebind. That decision is now retired after the upstream
+advisory was withdrawn and complete audit evidence reported zero findings.
+The [historical decision record](approved-coordinator-advisory.md) retains its
+exact source/lock/path/version/expiry. Active approvals are empty; the runtime
+can perform scoped bot writes only after the current audit qualifies. Credential provisioning, ordinary source checks and another
 repository's exception cannot create an approval.
 
 Each approval requires all of these fields:

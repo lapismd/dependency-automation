@@ -46,11 +46,20 @@ checks, and exact main CI43945906260 passes. Manual publisher43947542658 selects
 only the ten reviewed patch packages, with asset replacement disabled; actual
 signed publication, registry intake, downstream progression and idempotent
 replay remain open gates. No completed release chain is inferred from merging.
+Publisher43947542658 failed before signing/upload on one History dialog
+visibility assertion. Source repair PR152 retains that assertion with bounded
+visibility waiting, passes all466 interaction/accessibility cases, and merges
+993e5345 after every current PR check. Exact main CI43960250956 passes. A new-source scoped publication attempt is
+dispatched for those same ten versions with asset replacement disabled; the
+old run is not blindly rerun.
 
 Mira's empty-operation recovery43933516100 succeeds through the existing source,
 empty-branch/PR and state-CAS controls. Its subsequent tooling PR46 is merged.
-Core's separate uncertain operation remains held until its own evidence and
-normal recovery qualify; no state is hand-edited.
+Core's separate exact empty-operation recovery43960484629 now succeeds with
+unchanged source and empty branch/PR evidence, publishing state generation68.
+The old operation is retry-approved; consumer writes remain held by required
+stale-advisory cleanup until its reviewed removal is deployed. No state is
+hand-edited.
 
 ## Current shared-readiness follow-up
 
@@ -85,18 +94,32 @@ normal recovery qualify; no state is hand-edited.
   pass. The actual changed verifier accepts both original Editor/Mermaid0.0.5
   archives from digest-checked artifact14201265764 with86 verified signature
   entries and original source/run-bound provenance. No upload participates.
-  Hosted PR/main/recovery acceptance remains pending.
-- Notes' landed source-owned readiness remains qualified separately. Shared
-  adoption/deduplication remains open; no local retained acceptance alone is
-  counted as completing the multi-publisher deployment exit condition.
+  All current PR checks passed and PR47 merged03f6500c. Exact main43949564683,
+  Pages43949560705 and release planning43949568981 pass. Actual hosted original-
+  publication recovery43949559961 also passes with matching existing artifacts
+  and no upload. This owner adoption is deployed and verified.
+- Notes shared-readiness PR145 is merged after all current hosted checks. Its
+  owner adapter preserves exact pnpm10.34.5/default-peer/script policy and
+  removes the duplicate engine. All174 release controls,2194 units and full
+  check/test/build/spec pass locally; actual retained UI0.2.2/API0.6.7/
+  Workspace0.4.7 acceptance passes Vite/import/CSS checks. Hosted production
+  verification remains pending the next genuine downstream release; no fake
+  runtime bump or local retained proof substitutes for this gate.
 - Terminal PR24 is merged. Exact main CI, Cargo publication, version automation
   and specification deployment pass. Its separate whole-version native profile
   remains part of S6 and is not inferred from the registry retry repair.
-- The operator explicitly approved PR34's exact coordinator validator-update
-  advisory rebinding. Its policy child retains November21 expiry and every
-  other audit failure. Hosted coordinator source acceptance passes; controlled
-  real-chain completion and idempotent replay remain S3 gates. Scheduling,
-  rollout phase, repository/channel scopes and frozen-host holds are unchanged.
+  Shared CI PR21 now supplies an exact immutable native qualification case,
+  225 source controls and independent Cargo/npm/Tauri/canonical output checks.
+  All current Linux/macOS checks passed and shared CI PR21 is merged. Actual
+  whole-recipe43962593331 is running; Terminal consumer adoption remains pending.
+- The operator approved PR34's exact advisory rebinding. GitHub subsequently
+  withdrew that advisory at2026-11-16T18:55:38Z and complete audit reports zero
+  findings. Recovery43960484629 correctly holds writes on stale approval
+  cleanup. This source slice retires only that obsolete entry: real preflight
+  accepts the unchanged dependency tuple with no findings or active approvals.
+  Hosted deployment/reconciliation, controlled real-chain completion and
+  idempotent replay remain gates. Scheduling, rollout phase, repository/channel
+  scopes and frozen-host holds are unchanged.
 
 This progress checkpoint passes338 coordinator tests, three specification lanes,
 workflow actionlint and19 freshly generated native Renovate configurations.

@@ -75,7 +75,7 @@ granting settings authority. `config/advisories.json` is the separately reviewed
 exact approval authority under DA-OPS-002; its initial list is empty. Source
 observations and raw audit findings cannot create approvals.
 
-The November 16 operator decision adds one exact coordinator deepmerge entry
+The initial November 16 operator decision added one exact coordinator deepmerge entry
 with the reviewed dependency-source/lock binding and November 21 expiry.
 This changes only advisory admission under DA-OPS-002; repository scope,
 existing holds, rollout phase and the separate write gate remain unchanged.
@@ -116,3 +116,8 @@ The five existing pilot tooling cohorts allow exactly spec-validator0.2.0 or
 the reviewed Deno-free0.2.1 patch. This explicit DA-TOOL-003 policy repair
 unblocks the source-owned release-intent hook without skipping it or widening
 other tooling families. Historical source/lock evidence remains unchanged.
+
+The same exact advisory entry is now retired after official upstream withdrawal
+and complete zero-finding audit evidence. Active approvals are empty. This
+DA-OPS-002 cleanup neither installs a dependency fix nor grants any new
+exception; every future finding must pass the unchanged rejection policy.

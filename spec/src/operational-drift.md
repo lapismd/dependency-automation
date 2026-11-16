@@ -52,3 +52,11 @@ the stale prior tuple without extending the November21 expiry or adding any
 advisory, package path, scope or rollout authority. `config/advisories.json`
 remains the sole machine-readable approval authority; raw audit observations
 and version recipes cannot renew it.
+
+The exact approval is subsequently retired under DA-OPS-002 after upstream
+withdrawal at2026-11-16T18:55:38Z and complete zero-finding audit evidence.
+Hosted43960484629 correctly held writes on the stale cleanup item; reviewed
+removal restores the empty approval list without changing any rejection rule,
+source/lock bytes, scope, activation or pilot gate. The
+[retirement record](../records/2026-11-16-advisory-retirement.md) retains the
+before/after preflight and pending hosted reconciliation distinction.
