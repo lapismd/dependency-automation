@@ -632,6 +632,14 @@ source and Server remained prior-source. All ten recipes remained unqualified.
 This base revision's advisory authority remains untouched; the parent owns the
 separate user-approved exact LOW policy slice and any later rebase preserving it.
 
+PR22 is rebased on policy PR23 merge
+`f07ff67172f11dae2c46967f16d390ea1a57d30d`, preserving the approved exact
+entry, decision/proposal documents, DA-OPS-002 row and latest November16 parent
+checkpoint. Combined verification passes 123 tests and all three spec lanes.
+Actual preflight now exits0 with the single `exact-approved-finding` and no
+cleanup; the raw LOW remains visible, and every other finding still blocks.
+This cohort rebase makes no new approval or activation decision.
+
 ### Combined message/advisory checkpoint — 2026-11-16
 
 PR20 merged at `3aa6c8b51b6ecbde3f9fb5b5453de39b2cb4669a`; main check
