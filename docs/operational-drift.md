@@ -46,11 +46,13 @@ only when repository metadata exposes a recognized status, otherwise unavailable
 
 ## Exact advisory authority
 
-`config/advisories.json` has an **empty** approved list. A raw LOW finding is
-still a finding in the automation runtime, which can perform scoped bot writes.
-It is not approved because a different repository accepted a development
-exception, because credentials were provisioned, or because ordinary source
-checks pass.
+`config/advisories.json` defaults to an empty approved list. On November 16 the
+operator explicitly approved the exact coordinator deepmerge decision proposed
+in PR21; the [decision record](approved-coordinator-advisory.md) and policy bind
+it to the reviewed dependency source, lock bytes, version, path and expiry.
+A raw LOW remains a finding in the automation runtime, which can perform scoped
+bot writes. Credential provisioning, ordinary source checks and another
+repository's exception cannot create an approval.
 
 Each approval requires all of these fields:
 

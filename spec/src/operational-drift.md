@@ -31,3 +31,11 @@
 - Inventory MUST run the complete scripts-disabled coordinator audit and emit a public-safe decision; denied writes MUST produce no writable target matrix or new writable admission.
 - Reconcile MUST repeat the actual preflight before App minting; a prior report alone MUST NOT authorize writes.
 - Read-only collection and state-only reporting MUST remain possible with unapproved findings, without modifying activation, repository protections or credentials.
+
+## Recorded decisions
+
+The operator approved the exact coordinator deepmerge decision proposed in
+[PR21](https://github.com/lapismd/dependency-automation/pull/21) on November 16.
+`config/advisories.json` owns its dependency-source/lock/path/version binding
+and November 21 expiry. The [decision record](https://github.com/lapismd/dependency-automation/blob/main/docs/approved-coordinator-advisory.md)
+records that scope; all rejection and cleanup requirements above still apply.

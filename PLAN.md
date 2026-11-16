@@ -76,14 +76,14 @@ Statuses: planned, in progress, locally verified, PR open, landed, qualified.
 A slice is complete only when its deployment/consumer acceptance is recorded.
 Link PRs and evidence here; do not turn a local test into a rollout claim.
 
-| Slice                                     | Owner                             | Status      | Exit condition                                                           |
-| ----------------------------------------- | --------------------------------- | ----------- | ------------------------------------------------------------------------ |
-| S1 Policy and trusted PR authentication   | dependency-automation + consumers | In progress | Routine trusted PRs start CI; monitoring does not grant update authority |
-| S2 Remove dependency-image pin churn      | lapis-ci + Plugins, then Notes    | In progress | Normal lockfile bumps generate zero image-pin PRs                        |
-| S3 Coordinate dependency/release waves    | dependency-automation             | Planned     | Idempotent upstream-to-downstream progress with explicit blockers        |
-| S4 Maintenance integration                | lapis-maintenance                 | Planned     | One UI explains waves, issues, actions and exceptions                    |
-| S5 Release/registry batching and recovery | publishers + plugin-registry      | Planned     | Batches preserve signing and resume failed publication safely            |
-| S6 Deno-free tooling and drift prevention | dependency-automation + consumers | In progress | Supported tooling cohort cannot silently drift                           |
+| Slice                                     | Owner                             | Status                                       | Exit condition                                                           |
+| ----------------------------------------- | --------------------------------- | -------------------------------------------- | ------------------------------------------------------------------------ |
+| S1 Policy and trusted PR authentication   | dependency-automation + consumers | Consumers mostly qualified; Server pending   | Routine trusted PRs start CI; monitoring does not grant update authority |
+| S2 Remove dependency-image pin churn      | lapis-ci + Plugins, then Notes    | Plugins qualified; Notes in review           | Normal lockfile bumps generate zero image-pin PRs                        |
+| S3 Coordinate dependency/release waves    | dependency-automation             | State pilot qualified; release wave pending  | Idempotent upstream-to-downstream progress with explicit blockers        |
+| S4 Maintenance integration                | lapis-maintenance                 | Deployed; live read/action ports qualified   | One UI explains waves, issues, actions and exceptions                    |
+| S5 Release/registry batching and recovery | publishers + plugin-registry      | Registry batch and recovery qualified        | Batches preserve signing and resume failed publication safely            |
+| S6 Deno-free tooling and drift prevention | dependency-automation + consumers | Guards landed; consumer adoption in progress | Supported tooling cohort cannot silently drift                           |
 
 ## S1: shared policy and trusted PR authentication
 
@@ -122,7 +122,7 @@ the individual consumer migration if validation fails; do not weaken checks.
 - [x] Record the full rollout plan before implementation.
 - [x] Implement and locally verify monitoring-only policy and authentication audit.
 - [x] Confirm pilot repository installation/secret provisioning through hosted probes.
-- [ ] Migrate and qualify .github profile-refresh pilot.
+- [x] Migrate and qualify .github profile-refresh pilot.
 - [ ] Migrate and qualify generated version PR consumers.
 - [ ] Adopt monitoring policy in Maintenance; audit final-check coverage.
 
@@ -516,7 +516,7 @@ introduce package patches or disable audits to make migration pass.
 - [x] Qualify hosted S6a source checks and reviewed source merge through PR18; consumer deployment remains below.
 - [ ] Adopt and qualify the guard in active consumers, including AI Controller's currently Deno-required formatter/task boundary and Notes' separate portable/frozen setup boundary; no installer removal without whole-recipe proof.
 - [x] Implement central required-check, runtime-exclusion, activation and deployed-template/pin drift source coverage in S6b; hosted deployment and remediation remain below.
-- [x] Implement exact source-authoritative advisory/path/version/source/artifact/expiry policy with expired and mismatched rejection in S6b; the approval list remains empty.
+- [x] Implement exact coordinator advisory/path/version/dependency-source/lock/expiry policy with expired and mismatched rejection; individual decisions require explicit operator approval.
 - [ ] Qualify all remaining tool cohorts and source/consumer tuples; S6 is not complete.
 
 See [the exact-source tooling rollout inventory and runbook](docs/tooling-rollout.md).
@@ -553,7 +553,7 @@ the earlier dated records remain historical. This slice changes no activation.
 - [x] Record single version-update owners and retain Dependabot security coverage, including repair of existing untyped first-party ignores in source preparation.
 - [x] Implement exact advisory/path/version/severity/dependency-source/lock/expiry decisions with an empty approval authority, known-fix rejection and stale-approval cleanup.
 - [x] Run actual coordinator audit before writable wave planning and repeat before reconcile App minting; preserve read-only/state-only pilot behavior.
-- [ ] Qualify hosted source checks and operator-reviewed deployment of these controls.
+- [x] Qualify hosted source checks and operator-reviewed source deployment through PR21; individual policy activation remains separately reviewed.
 - [ ] Resolve consumer ownership/pin/runtime/check gaps with each source owner; source observations are not full workflow-security analysis.
 - [ ] Complete active consumer guard/recipe adoption and remaining cohort qualification; S6 remains in progress.
 
@@ -687,3 +687,90 @@ The Visual Delta raw full audit still reports the existing LOW development-only
 advisory; production audit is clean. Its consumed 0.1.5 release exception was
 not transferred to authentication source or another release. Future dependency
 and publication work retains its governing audit gates.
+
+## November 16 deployment and approval checkpoint
+
+This checkpoint supersedes earlier pending-state descriptions; their dated
+receipts remain historical. Remaining consumer and wave gates are still open.
+
+- **S1:** Auth migrations are merged for Plugins #140, Notes #132, Visual Delta #77,
+  Mira #41, Core #85, AI #13, Docs #16, Tasks #23, Terminal #22, Agent UI #37 and jj-store #89.
+  App minting and Changesets steps passed on main in Notes43778076879,
+  Visual Delta43766653714, Mira43770750188, Core43773566953, AI43772596193,
+  Docs43773572649, Tasks43776791410, Terminal43773578012,
+  Agent UI43776785767 and jj-store43773584374. Plugins #147 was a genuine
+  App-authored version PR, merged after ordinary CI. Empty/no-change jobs are
+  not manufactured candidate evidence. Server #92 remains at refreshed head
+  136f34c3 awaiting native/UI CI. Docs/Tasks publication environments were
+  approved through gh under standing deployment authority; both complete main
+  runs and their publication/verification jobs succeeded.
+- **S2:** Plugins #145 merged at b045e791. Corrected signed producer43771402027
+  succeeded; repeat43775859652 reused its immutable image. After the genuine
+  Plugins #147 release changed inputs, producer43776275040 succeeded on75c71903.
+  Full fresh warm CI43778011166 passed on that source, selecting signed digest
+  bc8095bf540fa25911d93cd5fd0ea5525b7cbf78bfbe6290fcc4e7d982a87c6e
+  for identity d2906e0bc190b705f432dfef3f49b7199e267486426c40c7b2b60996f1f42cea.
+  Earlier warm43775857516 was cancelled by a newer push and is not a pass.
+  Notes #135 was rebased onto unrelated Sync main ee6615b2 at bce9c51a;
+  exact7 adoption tests,120 release tests,6spec lanes/69 regressions,
+  audit/release policy/format/actionlint passed. Refreshed full CI43779143189
+  and subsequent Notes signed producer/warm/reuse acceptance remain pending.
+- **S3:** State-only43772797422 succeeded with inventory/state writes and zero
+  consumer writes. Maintenance's deployed report reader accepted the real
+  immutable public state/report and correctly reports stale policy revisions.
+  Consumer writes remain false and phase pilot while the reviewed policy
+  decision is deployed; the controlled genuine foundation wave is next.
+- **S4:** Production Maintenance controller/read/preflight/command/write ports
+  from deployed4b65439b were exercised through gh-authenticated HTTPS on the
+  disposable expected-rejection run43778309268. Batch preparation and duplicate
+  confirmation produced one accepted rerun, advancing attempt1 to queued2.
+  Fresh preflight rejected the old attempt with zero additional writes.
+  Credentials stayed in gh's existing store. Two local harness setup errors
+  occurred before API calls and were corrected; the final exact acceptance
+  command passed. This qualifies the live command boundary; browser visuals
+  and every possible action kind are not inferred from one disposable action.
+- **S5:** Registry #165 merged889c8ca7. Preparation43776779580 and writer43776944357
+  qualified artifact14186364002, SHA256034fffde2bcbfca706eb014c000570263f390e5a81335d195b23571376308424,
+  candidate38293e83 and three approved queue entries together. Repeat
+  preparation43778013307 and writer43778015392 returned unchanged with zero
+  verification/build time. Invalid preparation attempt999 in43778309268
+  rejected before writer-token creation; correct replay43778496424 returned
+  the same candidate unchanged without signing/rebuilding. Hosted tests
+  complement the unit partial-upload recovery regression; they do not claim
+  a real network upload outage. Publication #164 mergedd416054d;
+  production43779004975 succeeded. Eight public metadata/signature files match
+  exact source bytes, four Ed25519 signatures verify, and the live index names
+  bases0.4.1, canvas0.4.1 and markdown0.3.2.
+- **Rich messages:** Coordinator #20 merged3aa6c8b5 and its main/spec Pages runs
+  passed. Genuine scheduled profile refresh43778000008 created App-authored
+  .github #12 with package delta tables, source/candidate links and recovery
+  guidance. Ordinary CI43778051079 passed without workflow approval;
+  reviewed npm-cell-only changes merged0bd71150. Notes #126's native content and
+  checkbox remain intact outside its managed context.
+- **S6:** Coordinator #21 mergedc803882b after119tests/3spec and hosted43778093986
+  passed. The operator explicitly approved only the exact coordinator deepmerge
+  tuple below. Cohort expansion and source-owned guard adoption remain separate
+  slices. Intentional frozen Deno tasks stay outside portable adoption; CLI
+  metadata alone cannot authorize removing their prerequisites.
+
+### Explicit coordinator advisory decision
+
+The operator approved the exact PR21 proposal on November16. The single entry
+in config/advisories.json binds GHSA-gcqx-w48m-w2h4, deepmerge4.3.1,
+`.>renovate>deepmerge`, LOW, dependency source 7141c2ba and lock hash 889c017f
+through exclusive2026-11-21T00:00:00.000Z, ending sooner on a published fix.
+See [the full decision and exact hashes](docs/approved-coordinator-advisory.md).
+All other findings and stale/mismatched approvals remain blocking.
+
+The pre-approval preflight exited1 with one unapproved LOW; after the policy
+change it exits0 with that exact approved finding and zero cleanup. Raw audit
+still contains the LOW. Package and lock bytes are unchanged. Focused advisory
+and preflight tests pass7/7, full verification passes119tests and all3spec lanes,
+doctor11/11 and actionlint pass. Two initial canonical shape/mapping errors were
+corrected without changing product assertions. Fresh GET-only inventory retains
+19repositories/43owners/220edges/0cycles/0coverage; all19 flat configurations and
+the native Renovate validator pass. Optional RE2 uses its existing RegExp
+fallback. The local read-only wave omits bot identity and does not claim hosted
+writable admission. Policy CI/deployment and controlled admitted-wave acceptance
+are subsequent gates. The operator has also granted standing approval for
+logical completion decisions while retaining functional and scope boundaries.
