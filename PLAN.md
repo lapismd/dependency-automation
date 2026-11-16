@@ -894,3 +894,17 @@ Shared completion25 merged e3c91cb3; Plugins guard149 and Notes diagnostics139
 are merged. Shared LapisCI8 is merged6511f29e; actual Core43795242917 and
 Mira43795245438 recipe proofs passed before consumer guard adoption. Source
 callbacks and Core/Mira adoption remain separately reviewed source PRs.
+
+### Persisted compound publication waits
+
+The earlier planner had already stored File Explorer publication intent before
+the compound-range repair. A lock-only repair must not leave that obsolete wait
+blocking downstream work forever or claim a new release that never occurred.
+The regression reproduces one persisted waiting record. Reconciliation can now
+mark it superseded only after a changed, qualified main resolves every required
+target and its unchanged compound support exactly matches integrity-verified
+published metadata with git provenance. Old locks, pending CI, missing integrity
+or provenance, changed support and ordinary ranges keep their publication wait.
+This updates only derived state through normal reconciliation, with no live state
+edit or generated package release; actual accepted-main qualification is pending.
+The exact regression changed from1 failure to1 pass with six negative controls.
