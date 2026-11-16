@@ -10,6 +10,8 @@ import {
   exclusionCoverage,
 } from "../src/operational-drift.mjs";
 const entries = await loadAllowlist();
+const { loadChannelPolicy } = await import("../src/channels.mjs");
+loadChannelPolicy();
 const { loadCompletionPolicy } = await import("../src/completion.mjs");
 await loadCompletionPolicy(entries);
 const { loadPublicationPolicy } = await import("../src/publications.mjs");

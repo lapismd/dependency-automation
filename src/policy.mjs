@@ -128,6 +128,13 @@ export function availableVersions(registry) {
   const available = new Map(
     [...registry].map(([name, data]) => [name, stableVersions(data)]),
   );
+  return prerequisiteClosure(registry, available);
+}
+
+export function prerequisiteClosure(registry, candidates) {
+  const available = new Map(
+    [...candidates].map(([name, versions]) => [name, [...versions]]),
+  );
   // Remove candidates with missing first-party prerequisites until convergence.
   let changed;
   do {

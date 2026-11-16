@@ -109,3 +109,7 @@ it does not justify widening access automatically.
 Canonical-intake opt-ins are bounded declarative JSON read at the exact admitted
 default-branch source. Their immutable digest and exact chapter paths accompany
 configuration; no candidate policy or executable module can widen write paths.
+
+Wave inventories retain the unpruned stable candidate pool and a source-policy
+digest for reviewed channel projection. The normal available pool remains
+latest-only; path-specific prerequisite closure cannot widen another consumer.

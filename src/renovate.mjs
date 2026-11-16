@@ -1,5 +1,6 @@
 import { resolve } from "node:path";
 import semver from "semver";
+import { channelProjection } from "./channels.mjs";
 import { dependencies } from "./policy.mjs";
 import { lockVersion } from "./wave-evidence.mjs";
 import { validateIntakePolicy } from "./canonical-intake.mjs";
@@ -7,6 +8,7 @@ import { canonicalDevelopmentUpdate } from "./canonical-admission.mjs";
 import { dependencyNotes } from "./pr-messages.mjs";
 
 export function repositoryConfig(repo, graph, automationRoot) {
+  const channels = channelProjection(graph);
   const own = graph.packages
     .filter((p) => p.repository === repo.repository)
     .map((p) => p.name);
@@ -176,6 +178,9 @@ export function repositoryConfig(repo, graph, automationRoot) {
           ? {
               ...match,
               enabled: true,
+              ...(targets.some((target) => channels.approved(edge, target))
+                ? { respectLatest: false }
+                : {}),
               ...(admission.admittedUpdates.some(
                 (u) =>
                   u.name === edge.name &&

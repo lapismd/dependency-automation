@@ -1,4 +1,5 @@
 import { readFile, writeFile } from "node:fs/promises";
+import { revalidateChannels } from "../src/channels.mjs";
 import { discoverRepository } from "../src/github.mjs";
 import { observeRepository } from "../src/wave-evidence.mjs";
 import { planWaves } from "../src/waves.mjs";
@@ -28,6 +29,7 @@ if (process.env.LAPIS_WAVES_ENABLED === "true") {
     throw Error(
       "Source changed or coverage unavailable; re-inventory required",
     );
+  await revalidateChannels(graph, options);
   fresh.evidence = await observeRepository(fresh, options);
   graph.repositories[index] = fresh;
   const plan = planWaves(graph, previous.state, {

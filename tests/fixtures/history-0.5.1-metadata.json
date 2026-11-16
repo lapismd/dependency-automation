@@ -1,0 +1,142 @@
+{
+  "_id": "@lapis-notes/history@0.5.1",
+  "bugs": {
+    "url": "https://github.com/lapismd/lapis-plugins/issues"
+  },
+  "dist": {
+    "shasum": "db1fa0cfc5c63e1392fb00d748809088b50b44d0",
+    "tarball": "https://registry.npmjs.org/@lapis-notes/history/-/history-0.5.1.tgz",
+    "fileCount": 392,
+    "integrity": "sha512-b8OoUsHZdlTyXlrFwhc4aPvgkU/XY6bPs+dWo/8lYHHBuVZEppqqZofkiEPbyH8ab/zK8tSajHOPW+LUGNZ1rg==",
+    "signatures": [
+      {
+        "sig": "MEUCIQDhrP8PfIG69ZySJJG0ie2RmkDsupxBiQJ5HJt/Y3UBIgIgYVckHJyiwrlIKdzGJIRQv+qShW52Dxl5ICQD1HZOFIg=",
+        "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+      },
+      {
+        "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+        "sig": "MEQCIEj7kvBJBTrmKOCLgdxmv6G05E/KT0e7kvNt+lHD+tQCAiAmjermkMOhUsSrf2HFrpnfQRmaenjrNmdE9J0kAwDOBw=="
+      }
+    ],
+    "attestations": {
+      "url": "https://registry.npmjs.org/-/npm/v1/attestations/@lapis-notes%2fhistory@0.5.1",
+      "provenance": {
+        "predicateType": "https://slsa.dev/provenance/v1"
+      }
+    },
+    "unpackedSize": 780010
+  },
+  "name": "@lapis-notes/history",
+  "type": "module",
+  "_from": "file:/__w/lapis-plugins/lapis-plugins/.release/npm/lapis-notes-history-0.5.1.tgz",
+  "types": "./dist/index.d.ts",
+  "svelte": "./dist/index.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "svelte": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./repository": {
+      "types": "./dist/repository/index.d.ts",
+      "import": "./dist/repository/index.js",
+      "svelte": "./dist/repository/index.js",
+      "default": "./dist/repository/index.js"
+    },
+    "./styles.css": "./styles.css",
+    "./manifest.json": "./manifest.json",
+    "./registry.json": "./registry.json",
+    "./repository/components/*": {
+      "types": "./dist/repository/components/*.d.ts",
+      "import": "./dist/repository/components/*.js",
+      "default": "./dist/repository/components/*.js"
+    },
+    "./repository/styles/*.css": "./dist/repository/components/*.css",
+    "./repository/controllers/*": {
+      "types": "./dist/repository/controllers/*.d.ts",
+      "import": "./dist/repository/controllers/*.js",
+      "default": "./dist/repository/controllers/*.js"
+    },
+    "./repository/components/*.svelte": {
+      "types": "./dist/repository/components/*.svelte.d.ts",
+      "svelte": "./dist/repository/components/*.svelte",
+      "default": "./dist/repository/components/*.svelte"
+    }
+  },
+  "license": "Apache-2.0",
+  "scripts": {
+    "pack": "pnpm pack --pack-destination ../../.release/npm",
+    "test": "vitest run --passWithNoTests && pnpm test:repository",
+    "build": "pnpm run prepack",
+    "check": "pnpm check:svelte && pnpm check:types",
+    "publint": "publint",
+    "check:types": "tsc -p tsconfig.node.json --noEmit",
+    "check:svelte": "svelte-check --tsconfig ./tsconfig.app.json --fail-on-warnings --output human",
+    "test:repository": "node --import tsx --test test/repository/*.test.mjs"
+  },
+  "version": "0.5.1",
+  "_npmUser": {
+    "name": "GitHub Actions",
+    "email": "npm-oidc-no-reply@github.com",
+    "trustedPublisher": {
+      "id": "github",
+      "oidcConfigId": "d6152fdf-2236-4fe3-8dec-08648f8d0693"
+    }
+  },
+  "homepage": "https://github.com/lapismd/lapis-plugins/tree/main/packages/history#readme",
+  "_resolved": "/__w/lapis-plugins/lapis-plugins/.release/npm/lapis-notes-history-0.5.1.tgz",
+  "_integrity": "sha512-b8OoUsHZdlTyXlrFwhc4aPvgkU/XY6bPs+dWo/8lYHHBuVZEppqqZofkiEPbyH8ab/zK8tSajHOPW+LUGNZ1rg==",
+  "repository": {
+    "url": "git+https://github.com/lapismd/lapis-plugins.git",
+    "type": "git",
+    "directory": "packages/history"
+  },
+  "_npmVersion": "11.12.1",
+  "description": "Lapis Notes file history plugin",
+  "directories": {},
+  "maintainers": [
+    {
+      "name": "stevejuma",
+      "email": "steve@stevejuma.com"
+    }
+  ],
+  "sideEffects": ["**/*.css"],
+  "_nodeVersion": "24.15.0",
+  "dependencies": {
+    "@lucide/svelte": "^1.57.0",
+    "@lapismd/design-core": "^0.7.4 || ^0.9.0 || ^0.10.0 || ^0.12.0 || ^0.13.0",
+    "@tanstack/svelte-virtual": "^3.13.46"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "_hasShrinkwrap": false,
+  "devDependencies": {
+    "tsx": "^4.23.1",
+    "vite": "^6.4.4",
+    "svelte": "^5.38.2",
+    "vitest": "^4.1.12",
+    "publint": "^0.3.12",
+    "typescript": "~5.8.3",
+    "svelte-check": "^4.3.1",
+    "@tsconfig/svelte": "^5.0.5",
+    "@sveltejs/package": "^2.5.0",
+    "@lapismd/jj-history": "0.1.0",
+    "@sveltejs/vite-plugin-svelte": "^5.1.1"
+  },
+  "peerDependencies": {
+    "svelte": "^5.0.0",
+    "@lapis-notes/api": "^0.2.0 || ^0.4.0 || ^0.6.0",
+    "@lapismd/jj-history": "^0.1.0"
+  },
+  "peerDependenciesMeta": {
+    "@lapismd/jj-history": {
+      "optional": true
+    }
+  },
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages-npm-production",
+    "tmp": "tmp/history_0.5.1_1794788658280_0.5416392553467679"
+  }
+}

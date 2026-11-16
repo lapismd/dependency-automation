@@ -21,6 +21,19 @@
       "publishJob": "Publish packages",
       "verifyJob": "Verify published packages",
       "releaseJob": "Create GitHub releases"
+    },
+    "lapismd/lapis-plugins": {
+      "kind": "plugins-static-v1",
+      "workflowId": 344819974,
+      "workflow": ".github/workflows/release.yml",
+      "ref": "refs/heads/main",
+      "event": "workflow_dispatch",
+      "environment": "first-publication",
+      "artifactPrefix": "signed-static-candidate-",
+      "qualificationJob": "validate / validate",
+      "publishJob": "static-publish",
+      "keyId": "lapis-plugin-release-2026-06",
+      "publicKey": "bMPnlO7b+Xtthfk5wGUQAWWUV7NuIAhED4kX2EGzJqc="
     }
   }
 }

@@ -98,3 +98,7 @@ When its single-development profile independently qualifies, the exact matching
 `pnpm-workspace.overrides` edge MUST be admitted alongside the root development
 dependency at the same target. This does not enable peer/runtime edges, another
 workspace file, compound selectors, catalogs or other overrides.
+
+DA-PUB-003 channel targets use exact admitted path/type/version rules with
+`respectLatest: false` only on those individually approved rules. Default and
+flat configuration retain latest protection, breaking drafts and all CI gates.

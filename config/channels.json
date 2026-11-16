@@ -1,0 +1,352 @@
+{
+  "schemaVersion": 1,
+  "default": "latest",
+  "cohort": {
+    "id": "notes-reviewed-2026-11",
+    "channel": "next",
+    "packages": [
+      {
+        "name": "@lapis-notes/api",
+        "version": "0.6.7",
+        "integrity": "sha512-8UrGdKu8ONGGyMgJsZA+Z79FZaRDabdEyesYWZ9nXh6rWLxMMrMy+69cuSMZPCfp3TMqheXYz4waqOTxB7mcZA==",
+        "repository": "lapismd/lapis-notes",
+        "sourceSha": "1e30827341d09e2f7435cc5b46277142b78558d7"
+      },
+      {
+        "name": "@lapis-notes/ui",
+        "version": "0.2.2",
+        "integrity": "sha512-wBblEZsKVlm7Ky3d/9RkwYDhSrseaxQUEG8O+HFvLSPww1GSRbfjUrtAXPuxyihLZabr5tqzbuxgUQOC0HCSeQ==",
+        "repository": "lapismd/lapis-notes",
+        "sourceSha": "1e30827341d09e2f7435cc5b46277142b78558d7"
+      },
+      {
+        "name": "@lapis-notes/workspace",
+        "version": "0.4.7",
+        "integrity": "sha512-mfGC6d9x0v65Sb4hByfKTbAzwci6oOHTMtizrk4t0ovNvEkjjfpgUxBZsMmP9fZ+RbMU8u5AhzFkjrbPbAubgg==",
+        "repository": "lapismd/lapis-notes",
+        "sourceSha": "1e30827341d09e2f7435cc5b46277142b78558d7"
+      },
+      {
+        "name": "@lapis-notes/file-explorer",
+        "version": "0.2.8",
+        "integrity": "sha512-2nnIW+8O6oQs9PR1rLlQTXJX/2RU7+xGkkmfUDz7ERxEK6nnSEuy+mpTO4hnA0XKV1w1yH6hzz0ai7VOR5G8tQ==",
+        "repository": "lapismd/lapis-notes",
+        "sourceSha": "1080bdb420bc367526995613be9d0f1568fb0f3c"
+      }
+    ],
+    "scopes": [
+      {
+        "repository": "lapismd/lapis-notes",
+        "path": "packages/api/package.json",
+        "type": "peerDependencies",
+        "name": "@lapis-notes/ui"
+      },
+      {
+        "repository": "lapismd/lapis-notes",
+        "path": "packages/app-profile/package.json",
+        "type": "dependencies",
+        "name": "@lapis-notes/api"
+      },
+      {
+        "repository": "lapismd/lapis-notes",
+        "path": "packages/app-profile/package.json",
+        "type": "dependencies",
+        "name": "@lapis-notes/file-explorer"
+      },
+      {
+        "repository": "lapismd/lapis-notes",
+        "path": "packages/app-profile/package.json",
+        "type": "dependencies",
+        "name": "@lapis-notes/workspace"
+      },
+      {
+        "repository": "lapismd/lapis-notes",
+        "path": "packages/file-explorer/package.json",
+        "type": "dependencies",
+        "name": "@lapis-notes/api"
+      },
+      {
+        "repository": "lapismd/lapis-notes",
+        "path": "packages/language-service/package.json",
+        "type": "dependencies",
+        "name": "@lapis-notes/api"
+      },
+      {
+        "repository": "lapismd/lapis-notes",
+        "path": "packages/workspace/package.json",
+        "type": "dependencies",
+        "name": "@lapis-notes/api"
+      },
+      {
+        "repository": "lapismd/lapis-notes",
+        "path": "packages/workspace/package.json",
+        "type": "dependencies",
+        "name": "@lapis-notes/ui"
+      },
+      {
+        "repository": "lapismd/lapis-plugins",
+        "path": "package.json",
+        "type": "devDependencies",
+        "name": "@lapis-notes/api"
+      },
+      {
+        "repository": "lapismd/lapis-plugins",
+        "path": "package.json",
+        "type": "devDependencies",
+        "name": "@lapis-notes/file-explorer"
+      },
+      {
+        "repository": "lapismd/lapis-plugins",
+        "path": "package.json",
+        "type": "devDependencies",
+        "name": "@lapis-notes/ui"
+      },
+      {
+        "repository": "lapismd/lapis-plugins",
+        "path": "package.json",
+        "type": "devDependencies",
+        "name": "@lapis-notes/workspace"
+      },
+      {
+        "repository": "lapismd/lapis-plugins",
+        "path": "packages/ai/package.json",
+        "type": "peerDependencies",
+        "name": "@lapis-notes/api"
+      },
+      {
+        "repository": "lapismd/lapis-plugins",
+        "path": "packages/ai/package.json",
+        "type": "peerDependencies",
+        "name": "@lapis-notes/ui"
+      },
+      {
+        "repository": "lapismd/lapis-plugins",
+        "path": "packages/bases/package.json",
+        "type": "peerDependencies",
+        "name": "@lapis-notes/api"
+      },
+      {
+        "repository": "lapismd/lapis-plugins",
+        "path": "packages/bookmarks/package.json",
+        "type": "peerDependencies",
+        "name": "@lapis-notes/api"
+      },
+      {
+        "repository": "lapismd/lapis-plugins",
+        "path": "packages/canvas/package.json",
+        "type": "peerDependencies",
+        "name": "@lapis-notes/api"
+      },
+      {
+        "repository": "lapismd/lapis-plugins",
+        "path": "packages/csv/package.json",
+        "type": "peerDependencies",
+        "name": "@lapis-notes/api"
+      },
+      {
+        "repository": "lapismd/lapis-plugins",
+        "path": "packages/csv/package.json",
+        "type": "peerDependencies",
+        "name": "@lapis-notes/ui"
+      },
+      {
+        "repository": "lapismd/lapis-plugins",
+        "path": "packages/docx/package.json",
+        "type": "peerDependencies",
+        "name": "@lapis-notes/api"
+      },
+      {
+        "repository": "lapismd/lapis-plugins",
+        "path": "packages/graph/package.json",
+        "type": "peerDependencies",
+        "name": "@lapis-notes/api"
+      },
+      {
+        "repository": "lapismd/lapis-plugins",
+        "path": "packages/history/package.json",
+        "type": "peerDependencies",
+        "name": "@lapis-notes/api"
+      },
+      {
+        "repository": "lapismd/lapis-plugins",
+        "path": "packages/markdown-lint/package.json",
+        "type": "peerDependencies",
+        "name": "@lapis-notes/api"
+      },
+      {
+        "repository": "lapismd/lapis-plugins",
+        "path": "packages/markdown/package.json",
+        "type": "peerDependencies",
+        "name": "@lapis-notes/api"
+      },
+      {
+        "repository": "lapismd/lapis-plugins",
+        "path": "packages/markdown/package.json",
+        "type": "peerDependencies",
+        "name": "@lapis-notes/ui"
+      },
+      {
+        "repository": "lapismd/lapis-plugins",
+        "path": "packages/pdf/package.json",
+        "type": "peerDependencies",
+        "name": "@lapis-notes/api"
+      },
+      {
+        "repository": "lapismd/lapis-plugins",
+        "path": "packages/search/package.json",
+        "type": "peerDependencies",
+        "name": "@lapis-notes/api"
+      },
+      {
+        "repository": "lapismd/lapis-plugins",
+        "path": "packages/slides/package.json",
+        "type": "peerDependencies",
+        "name": "@lapis-notes/api"
+      },
+      {
+        "repository": "lapismd/lapis-plugins",
+        "path": "packages/source-editor/package.json",
+        "type": "peerDependencies",
+        "name": "@lapis-notes/api"
+      },
+      {
+        "repository": "lapismd/lapis-plugins",
+        "path": "packages/spellcheck/package.json",
+        "type": "peerDependencies",
+        "name": "@lapis-notes/api"
+      },
+      {
+        "repository": "lapismd/lapis-plugins",
+        "path": "packages/transcripts/package.json",
+        "type": "peerDependencies",
+        "name": "@lapis-notes/api"
+      },
+      {
+        "repository": "lapismd/lapis-plugins",
+        "path": "packages/wordcount/package.json",
+        "type": "peerDependencies",
+        "name": "@lapis-notes/api"
+      },
+      {
+        "repository": "lapismd/lapis-plugin-tasks",
+        "path": "package.json",
+        "type": "peerDependencies",
+        "name": "@lapis-notes/api"
+      },
+      {
+        "repository": "lapismd/lapis-plugin-tasks",
+        "path": "package.json",
+        "type": "devDependencies",
+        "name": "@lapis-notes/api"
+      },
+      {
+        "repository": "lapismd/lapis-plugin-tasks",
+        "path": "package.json",
+        "type": "devDependencies",
+        "name": "@lapis-notes/file-explorer"
+      },
+      {
+        "repository": "lapismd/lapis-plugin-tasks",
+        "path": "package.json",
+        "type": "devDependencies",
+        "name": "@lapis-notes/ui"
+      },
+      {
+        "repository": "lapismd/lapis-plugin-tasks",
+        "path": "package.json",
+        "type": "devDependencies",
+        "name": "@lapis-notes/workspace"
+      },
+      {
+        "repository": "lapismd/lapis-plugin-docs",
+        "path": "package.json",
+        "type": "peerDependencies",
+        "name": "@lapis-notes/api"
+      },
+      {
+        "repository": "lapismd/lapis-plugin-docs",
+        "path": "package.json",
+        "type": "devDependencies",
+        "name": "@lapis-notes/api"
+      },
+      {
+        "repository": "lapismd/lapis-plugin-docs",
+        "path": "package.json",
+        "type": "devDependencies",
+        "name": "@lapis-notes/file-explorer"
+      },
+      {
+        "repository": "lapismd/lapis-plugin-docs",
+        "path": "package.json",
+        "type": "devDependencies",
+        "name": "@lapis-notes/ui"
+      },
+      {
+        "repository": "lapismd/lapis-plugin-docs",
+        "path": "package.json",
+        "type": "devDependencies",
+        "name": "@lapis-notes/workspace"
+      },
+      {
+        "repository": "lapismd/lapis-plugin-notebook",
+        "path": "package.json",
+        "type": "peerDependencies",
+        "name": "@lapis-notes/api"
+      },
+      {
+        "repository": "lapismd/lapis-plugin-notebook",
+        "path": "package.json",
+        "type": "peerDependencies",
+        "name": "@lapis-notes/ui"
+      },
+      {
+        "repository": "lapismd/lapis-plugin-notebook",
+        "path": "package.json",
+        "type": "devDependencies",
+        "name": "@lapis-notes/api"
+      },
+      {
+        "repository": "lapismd/lapis-plugin-notebook",
+        "path": "package.json",
+        "type": "devDependencies",
+        "name": "@lapis-notes/file-explorer"
+      },
+      {
+        "repository": "lapismd/lapis-plugin-notebook",
+        "path": "package.json",
+        "type": "devDependencies",
+        "name": "@lapis-notes/ui"
+      },
+      {
+        "repository": "lapismd/lapis-plugin-notebook",
+        "path": "package.json",
+        "type": "devDependencies",
+        "name": "@lapis-notes/workspace"
+      },
+      {
+        "repository": "lapismd/lapis-server",
+        "path": "package.json",
+        "type": "dependencies",
+        "name": "@lapis-notes/api"
+      },
+      {
+        "repository": "lapismd/lapis-server",
+        "path": "package.json",
+        "type": "dependencies",
+        "name": "@lapis-notes/file-explorer"
+      },
+      {
+        "repository": "lapismd/lapis-server",
+        "path": "package.json",
+        "type": "dependencies",
+        "name": "@lapis-notes/ui"
+      },
+      {
+        "repository": "lapismd/lapis-server",
+        "path": "package.json",
+        "type": "dependencies",
+        "name": "@lapis-notes/workspace"
+      }
+    ]
+  }
+}

@@ -33,7 +33,10 @@ export const owner = {
   manifest: contract,
 };
 export const repo = { repository, sourceSha: currentSha, visibility: "public" };
-export const entries = [{ repository, phase: "pilot" }];
+export const entries = [
+  { repository, phase: "pilot" },
+  { repository: "lapismd/lapis-plugins", phase: "pilot" },
+];
 export function zip(files, mode = 0x81a4) {
   const locals = [],
     central = [];

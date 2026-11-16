@@ -319,7 +319,10 @@ export async function inventory(entries, options = {}) {
     );
   }
   let publicationEvidence;
+  let channelPolicySha256;
   if (options.waveEvidence) {
+    const { channelPolicyDigest } = await import("./channels.mjs");
+    channelPolicySha256 = channelPolicyDigest();
     const { observePublications } = await import("./publications.mjs");
     publicationEvidence = await observePublications(
       packages,
@@ -334,6 +337,10 @@ export async function inventory(entries, options = {}) {
     coverage,
     ...(options.waveEvidence
       ? {
+          channelPolicySha256,
+          stableCandidates: Object.fromEntries(
+            [...registry].map(([name, data]) => [name, stableVersions(data)]),
+          ),
           publicationCoverage: {
             schemaVersion: 1,
             ...publicationEvidence.counts,
@@ -370,6 +377,7 @@ export async function inventory(entries, options = {}) {
                         peerDependencies: metadata.peerDependencies,
                         peerDependenciesMeta: metadata.peerDependenciesMeta,
                         gitHead: metadata.gitHead,
+                        deprecated: metadata.deprecated,
                         integrity: metadata.dist?.integrity,
                         ...(publication ? { publication } : {}),
                       },

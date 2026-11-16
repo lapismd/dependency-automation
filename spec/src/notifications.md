@@ -1,5 +1,10 @@
 # Release notifications
 
+The scoped channel and static-publication readers preserve DA-NOT-001/002/003:
+notifications remain hints, not publication or channel authority. Independent
+fresh registry, signature, source and current-CI evidence owns admission; the
+existing completion payload, callbacks and credential boundary are unchanged.
+
 Publishers call the pinned `notify.yml` reusable workflow after their verified
 publication boundary. The caller supplies the exact coordinator revision and
 original source SHA. Notification failures can be retried independently of

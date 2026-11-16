@@ -104,8 +104,16 @@ export function publicationReader({ token, fetcher = fetch } = {}) {
 }
 
 // Metadata-only ZIP reader: no extraction, filesystem writes, or candidate code.
-export function publicArtifact(buffer, allowed = undefined) {
-  if (buffer.length > limits.artifact || buffer.length < 22)
+export function publicArtifact(
+  buffer,
+  allowed = undefined,
+  archiveLimit = limits.artifact,
+) {
+  if (
+    buffer.length > archiveLimit ||
+    archiveLimit > 24 * 1024 * 1024 ||
+    buffer.length < 22
+  )
     reject("publication-archive-rejected");
   let end = -1;
   for (let n = buffer.length - 22; n >= Math.max(0, buffer.length - 65557); n--)
@@ -195,7 +203,7 @@ export function publicArtifact(buffer, allowed = undefined) {
   ranges.sort((a, b) => a[0] - b[0]);
   if (cursor !== end || ranges.some((r, n) => n && r[0] < ranges[n - 1][1]))
     reject("publication-archive-rejected");
-  return (name, max = limits.json) => {
+  const read = (name, max = limits.json) => {
     const entry = entries.get(name);
     if (!entry || !entry.size || entry.size > max)
       reject("publication-artifact-entry-unavailable");
@@ -205,4 +213,6 @@ export function publicArtifact(buffer, allowed = undefined) {
     if (data.length !== entry.size) reject("publication-archive-rejected");
     return data;
   };
+  read.paths = [...entries.keys()];
+  return read;
 }

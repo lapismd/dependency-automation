@@ -80,10 +80,15 @@ Maintenance through GitHub Contents at the branch's immutable revision.
 ## Publication evidence boundary
 
 DA-PUB-001/002 separate authenticated publication facts from latest-only update
-eligibility. Waiting releases expose channel-not-admitted/provenance-unknown
+eligibility, with only the explicit DA-PUB-003 cohort exception. Waiting releases expose channel-not-admitted/provenance-unknown
 without relaxing newer-version, compound-support, current-main or CAS rules.
 Legacy publication records remain readable; fresh receipt/channel evidence
 owns any new release advancement.
+
+Reviewed channel projections retain default stable availability and apply only to
+exact active consumer scopes. Release retirement still requires the same
+newer-version/floor or identical compound-contract proof, current qualification,
+operation identities and CAS; an approved channel is never a release or CI waiver.
 
 ## DA-WAVE-007 — Independent canonical development intake
 
