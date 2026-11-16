@@ -89,48 +89,79 @@ Link PRs and evidence here; do not turn a local test into a rollout claim.
 
 This checkpoint supersedes dated implementation snapshots below; they remain
 historical evidence, not current activation defaults. S3 and S6 are still open.
+Writes remain enabled only for the reviewed pilot; full scheduling is disabled.
 
 - [x] All four pilot completion callers are merged and have genuine successful
       dispatches. Plugins' repeated completion advanced the receiver without a
       duplicate candidate. Shared source and callback receipts are recorded in
       [publication evidence](docs/publication-evidence.md).
-- [x] Coordinator publication proof PR29 merged `3f64220c`. Its 215 tests and
-      three specification lanes pass, followed by successful main source CI. The
-      hosted reconciliation `43809436156` is validating the deployed collector.
+- [x] Coordinator publication proof PR29 merged `3f64220c`. Hosted reconciliation
+      `43809436156` succeeded and verified Notes API, File Explorer and Profile
+      using the existing contents-read workflow token. PR30 merged `3efe03cd`,
+      removing the unused optional reader mint. App Actions-read permission was
+      subsequently saved by the operator but is not required by this collector.
 - [x] Notes API0.6.6 and AppProfile0.2.3 published from `1e49d754`. Independent
-      registry read-back matched retained artifact bytes. Rerunning only failed
-      jobs in release `43800122156` completed verification and both GitHub releases
-      on attempt2, without rebuild or republish. Both packages remain on `next`.
-- [x] Notes metadata-cache hardening PR141 merged `a90761f1` after hosted CI;
-      124 release tests and real registry-consumer acceptance passed locally.
-- [x] Tasks recurrence readiness PR27 merged `faafd55f` after all ten hosted
-      gates passed. Its full local lanes include2930 units,29 native/provider
-      cases and66 interaction/accessibility cases. Version PR25 must incorporate
-      this source repair and obtain fresh qualification before release.
-- [x] Notebook canonical repair PR37 merged `1d66bb8b`; main CI, version,
-      Storybook Pages and registry publication workflows all succeeded.
-- [x] Hosted public artifact access works with the existing contents-read
-      workflow token. The earlier App Actions-read setup request is withdrawn;
-      no permission, secret or installation change is required. Remove the unused
-      optional reader mint while preserving every artifact/provenance gate.
-- [ ] Complete the genuine pilot chain,
-      including the compound-range lock update and replay. Latest-only admission
-      remains in force; observed `next` publication is not permission to promote
-      a tag or admit a channel. Restore scheduled/full rollout only after acceptance.
-- [x] Shared exact development-audit helper PR10 merged `2c756d80` after hosted
-      CI passed. Source
-      review regressions reject changes during collection, decision-time expiry
-      and untracked dependency inputs; its full suite passes72 cases.
-- [ ] Release the source-owned Mira Mermaid repair and its genuine Editor
-      dependency-floor patch, then validate Docs against released packages.
-      Docs' packed production peer closure must be clean before its distinct
-      expiring development-only decision and shared guard can deploy.
-- [ ] Qualify remaining eligible version recipes, including AI's actual Node22
-      and native prerequisites, before adopting guards. A portable CLI alone is
-      insufficient proof. Excluded Deno-only packages/hosts remain excluded.
-- [ ] Repair trusted dependency intake's mapped canonical handoff so future
-      merges do not repeat Notebook's main spec-first failure. Preserve the main
-      gate and narrow PR exemption while preparing accurate source-owned evidence.
+      registry read-back matched retained artifact bytes; release `43800122156`
+      completed verification without rebuild or republish. Both remain on `next`.
+- [x] Notes metadata-cache hardening PR141 merged `a90761f1`. Genuine bot intake
+      PR126 merged `036204b0`; its missing canonical coverage was then repaired
+      through PR143, merged `6613d7c9`. Actual main Pages/PWA spec-first gates pass.
+- [ ] Notes version PR142 merged `1e308273` after complete fresh CI; release only
+      UI0.2.2, API0.6.7 and Workspace0.4.7 on the existing `next` channel. The
+      reviewed canonical child retains the genuine App-generated version commit;
+      strict main range changes from five missing families to zero. Genuine publish
+      run `43830659103` is qualifying that exact main source. One observed
+      close/reopen during version refresh is retained for investigation; its cause and reproducibility remain unproven.
+- [x] Tasks recurrence PR27, version PR25 and Rekor recovery PR28 are merged.
+      Signing recovery's actual hosted recipe proof `43821246307` passed, binding
+      its new helper without changing the version command or fabricating intent.
+- [ ] Finish Tasks0.2.1 publication. Main `43821839921` passed qualification, but
+      an empty maintenance note made publication skip indefinitely. PR29 merged
+      `d720160e`, adding installed-CLI release-intent selection before App minting. Local Docker
+      validation passes2943 units,66 interaction/axe cases and both cold packed
+      consumers. All current PR gates passed; main run `43831370792` must
+      qualify and publish the unchanged0.2.1, followed by registry read-back.
+- [x] Mira Editor0.0.5 and Mermaid plugin0.0.5 were published from `f0c18ff0`
+      through `43811922461`; both registry tarballs match retained artifacts.
+      Publisher visibility-wait hardening PR45 merged `064a65ea` without another
+      product bump or repeated publication writes.
+- [ ] Finish Docs0.3.0. Source PR17 merged `d0bfb5d8`; its supported
+      cohort passes73 units,13 cold App/axe cases, static build and strict packed-consumer acceptance; production
+      audit is clean. Its distinct source/lock-bound development LOW decision is
+      expiring, not a clean full audit. New hosted recipe proof `43828625633`
+      passed on Lapis CI `7242eb3b`: strict/frozen setup, real minor intent and all
+      five version outputs. The exact guard is adopted (75 source units); main
+      qualification, separately bound version-source audit decision and publication
+      remain.
+- [x] Shared exact development-audit helper PR10 merged `2c756d80`; regressions
+      reject mid-collection source changes, decision-time expiry and untracked
+      dependency inputs. No finding or authority transfers between repositories.
+- [x] Notebook source opt-in PR38 merged `8d989ab5`; all main CI, version, Pages
+      and registry workflows succeeded. Independent review preserves readable
+      peer edges and rejects opaque ambiguity;565 units,69 interaction/axe cases
+      and both cold packed consumers passed locally.
+- [ ] Admit and qualify normal bot regeneration of Notebook PR36 with accurate
+      managed canonical slots. Notebook remains outside the current pilot; do not
+      substitute a manual lock/chapter edit or enable full rollout to bypass that
+      boundary. Coordinator preparer PR31 is deployed as `633f308b`.
+- [x] Adopt and exercise the AI guard on main. Hosted native whole-recipe
+      proof `43814544020` passed on Node22/Rust with Deno absent. Source PR14 passes all current PR
+      gates and merged through the queue as `1e6743d0`. Its fixture repairs
+      pass1078 Rust tests,43 renderer tests and packaging checks. Main guard job `43829636541`
+      succeeded; current-source main CI and remaining consumer qualification remain.
+- [ ] Qualify/adopt remaining Server, Agent UI, Terminal and jj-store version
+      recipes and supported cohorts. Compatible Server security repairs are in
+      progress; remaining production KaTeX and development deepmerge findings
+      are explicit. A portable CLI alone is insufficient whole-recipe evidence.
+- [x] Fresh callback `43829862885` completed inventory and durable-state writes:
+      19 public repositories,43 package owners,220 edges and zero coverage gaps.
+      No target was admitted, so reconciliation correctly skipped. This is
+      observation/state evidence, not completion of the release chain.
+- [ ] Complete the genuine dependency/release chain and idempotent replay.
+      Latest-only admission remains in force; observed `next` publication is not
+      permission to promote a tag or admit that channel. Remaining publisher
+      contracts, consumer holds and exclusions remain binding. Restore full
+      scheduled rollout only after acceptance.
 
 ## S1: shared policy and trusted PR authentication
 
