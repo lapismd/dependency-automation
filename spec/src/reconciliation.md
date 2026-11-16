@@ -84,3 +84,7 @@ publication-evidence gate and never broadens the latest-only candidate policy.
 Public publication collection reuses inventory's existing contents-read workflow
 token. It has no App credentials or new permissions and cannot replace separate
 state/write admission. Unavailable artifact access leaves evidence unknown.
+
+Opted-in canonical preparation extends post-upgrade file filters with only its
+reviewed exact chapter paths. The runner still executes only the shared
+preparation command, with lifecycle scripts disabled and manual branches held.

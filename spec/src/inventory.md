@@ -99,3 +99,7 @@ Publication artifact reads reuse the existing contents-read workflow token for
 explicitly public repositories. Inventory requests no App credentials or extra
 permissions. Missing artifact-read access remains an explicit publication hold;
 it does not justify widening access automatically.
+
+Canonical-intake opt-ins are bounded declarative JSON read at the exact admitted
+default-branch source. Their immutable digest and exact chapter paths accompany
+configuration; no candidate policy or executable module can widen write paths.

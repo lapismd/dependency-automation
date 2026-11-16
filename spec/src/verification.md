@@ -58,6 +58,7 @@
 | DA-TOOL-006 | In progress | 26 focused tests; GET-only refresh 16/16; inventory 19 repos/43 owners/220 edges; ranges and provenance preserved; hosted pending.                                  |
 | DA-PUB-001  | Implemented | Real crypto/mutation/source/recovery tests and hosted43809436156 API/FileExplorer/Profile proof; strict release/channel gates retained.                             |
 | DA-PUB-002  | Implemented | Pinned CLI, bounded public observations, retained receipts, Maintenance parser and hosted43809436156 proof; no App inventory credentials.                           |
+| DA-REL-004  | In progress | Actual Notebook Core PR36 fixture and canonical preparation/filter negatives; owning source and hosted acceptance pending.                                          |
 
 Detailed bootstrap commands, failure counts and hosted handoff live in
 [the specification/Pages qualification record](https://github.com/lapismd/dependency-automation/blob/main/spec/records/2026-11-15-canonical-spec-and-pages.md).

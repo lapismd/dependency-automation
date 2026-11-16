@@ -61,3 +61,8 @@ that consumer requires explicit source integration.
 The version-only template validates the installed CLI before App minting and
 does not install Deno. Notes' separate frozen-host prerequisites remain owned by
 Notes; no consumer migration is implied by this upstream template correction.
+
+The optional canonical-intake policy is data owned by each consumer. Shared
+rendering remains in the coordinator; an opted-in consumer verifies its actual
+candidate facts in an ordinary functional lane outside the trusted-PR spec
+wrapper. Main spec-first and functional/audit/release gates remain unchanged.

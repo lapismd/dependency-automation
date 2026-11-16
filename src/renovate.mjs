@@ -2,6 +2,7 @@ import { resolve } from "node:path";
 import semver from "semver";
 import { dependencies } from "./policy.mjs";
 import { lockVersion } from "./wave-evidence.mjs";
+import { validateIntakePolicy } from "./canonical-intake.mjs";
 import { dependencyNotes } from "./pr-messages.mjs";
 
 export function repositoryConfig(repo, graph, automationRoot) {
@@ -246,8 +247,22 @@ export function repositoryConfig(repo, graph, automationRoot) {
     postUpgradeTasks: {
       commands: [command],
       executionMode: "branch",
-      dataFileTemplate: '{"branchName":"{{{branchName}}}"}',
-      fileFilters: [".changeset/lapis-dependencies-*.md"],
+      dataFileTemplate: JSON.stringify({
+        branchName: "{{{branchName}}}",
+        ...(repo.canonicalIntake
+          ? {
+              sourceSha: repo.sourceSha,
+              canonicalPolicySha256: repo.canonicalIntake.sha256,
+            }
+          : {}),
+      }),
+      fileFilters: [
+        ".changeset/lapis-dependencies-*.md",
+        ...(repo.canonicalIntake
+          ? validateIntakePolicy(repo.canonicalIntake.policy, repo.repository)
+              .chapters
+          : []),
+      ],
     },
     prBodyNotes: [dependencyNotes(repo, graph)],
   };
