@@ -38,7 +38,7 @@
 | DA-GOV-005  | In progress | Installed floors and API compatibility: `tests/renovate-runtime.test.mjs`; hosted checks pending.                                                                   |
 | DA-DOC-001  | Implemented | Released Node validator, pinned mdBook, 42 tests and all three spec lanes; Pages book job 43759765158 passed.                                                       |
 | DA-DOC-002  | Implemented | Main-only isolated deployment 7809666306 succeeded; all indexed chapters, navigation, CSS and JavaScript read back over HTTPS.                                      |
-| DA-WAVE-001 | Implemented | 80-test source qualification, wave/evidence/CAS regressions and production admission wiring; hosted pilot pending.                                                  |
+| DA-WAVE-001 | Implemented | Wave regressions cover derived admission, catalog atomicity and compound support; native Renovate rules preserve ranges and require the admitted lock target.       |
 | DA-WAVE-002 | Implemented | 80-test source qualification, wave/evidence/CAS regressions and production admission wiring; hosted pilot pending.                                                  |
 | DA-WAVE-003 | Implemented | 80-test source qualification, wave/evidence/CAS regressions and production admission wiring; hosted pilot pending.                                                  |
 | DA-WAVE-004 | Implemented | 80-test source qualification, wave/evidence/CAS regressions and production admission wiring; hosted pilot pending.                                                  |
@@ -53,6 +53,7 @@
 | DA-OPS-003  | In progress | Inventory pre-admission audit and repeated pre-App preflight; read-only/state-only behavior preserved; hosted acceptance pending.                                   |
 | DA-NOT-003  | Implemented | Completion/workflow regressions reject stale/fork/unknown evidence; actual CLI metadata-only test permits one dispatch and forbids candidate files and npm reads.   |
 | DA-WAVE-005 | Implemented | Callback settlement, pending-check timing and default-branch graph isolation regressions in `tests/completion.test.mjs`; hosted adoption pending.                   |
+| DA-WAVE-006 | Implemented | Compound-range regressions use the native Renovate rule engine and range updater, requiring the target lock and current candidate CI while retaining support.       |
 
 Detailed bootstrap commands, failure counts and hosted handoff live in
 [the specification/Pages qualification record](https://github.com/lapismd/dependency-automation/blob/main/spec/records/2026-11-15-canonical-spec-and-pages.md).
