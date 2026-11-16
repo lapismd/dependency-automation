@@ -44,7 +44,7 @@
 | DA-WAVE-004 | Implemented | 80-test source qualification, wave/evidence/CAS regressions and production admission wiring; hosted pilot pending.                                                      |
 | DA-TOOL-001 | In progress | tests/tooling.test.mjs; Node-only generated fixture; hosted/consumer qualification pending.                                                                             |
 | DA-TOOL-002 | In progress | Source/lock cohort observations and pairing regressions; production inventory integration.                                                                              |
-| DA-TOOL-003 | In progress | guardToolingChange in prepare-pr; runtime, integrity, major and cohort rejection tests.                                                                                 |
+| DA-TOOL-003 | In progress | guardToolingChange in prepare-pr; validator-pilot-cohort regressions admit only reviewed0.2.1 and retain runtime, integrity, major and cohort rejection.                |
 | DA-REC-005  | Implemented | Native-body preservation, escaped/bounded renderer and wave/CI qualification regressions in `tests/pr-messages.test.mjs`.                                               |
 | DA-PR-005   | Implemented | Managed profile context, maintainer-text preservation, ambiguous-marker and GET-only duplicate regressions in profile/message tests.                                    |
 | DA-TOOL-004 | In progress | Revision/lock/CI bindings and recipe separation in tests/tooling-evidence.test.mjs; production inventory.                                                               |
