@@ -3,6 +3,7 @@ import semver from "semver";
 import { dependencies } from "./policy.mjs";
 import { lockVersion } from "./wave-evidence.mjs";
 import { validateIntakePolicy } from "./canonical-intake.mjs";
+import { canonicalDevelopmentUpdate } from "./canonical-admission.mjs";
 import { dependencyNotes } from "./pr-messages.mjs";
 
 export function repositoryConfig(repo, graph, automationRoot) {
@@ -190,6 +191,20 @@ export function repositoryConfig(repo, graph, automationRoot) {
           : { ...match, enabled: false },
       );
     }
+    // The canonical profile proves that this existing global override has no
+    // other active runtime/importer coupling. Renovate extracts it separately
+    // from the root dev dependency, so both exact native edges must be admitted.
+    if (canonicalDevelopmentUpdate(repo, admission, graph)) {
+      const update = admission.admittedUpdates[0];
+      packageRules.push({
+        matchPackageNames: [update.name],
+        matchDepNames: [update.name],
+        matchFileNames: ["pnpm-workspace.yaml"],
+        matchDepTypes: ["pnpm-workspace.overrides"],
+        enabled: true,
+        allowedVersions: `/^${update.target.replaceAll(".", "\\.")}$/`,
+      });
+    }
     const catalogNames = new Set(
       admission.admittedUpdates
         .filter((u) =>
@@ -230,6 +245,10 @@ export function repositoryConfig(repo, graph, automationRoot) {
     automergeType: "pr",
     platformAutomerge: false,
     ignoreTests: false,
+    // This installation intentionally has only status-read permission. Keep
+    // native artifact-error comments and CI gates without a failing status POST
+    // aborting PR creation/body updates after an incomplete artifact generation.
+    statusCheckNames: { artifactError: null },
     rebaseWhen: "behind-base-branch",
     ignoreUnstable: true,
     respectLatest: true,

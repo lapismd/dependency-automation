@@ -131,13 +131,17 @@ Writes remain enabled only for the reviewed pilot; full scheduling is disabled.
       through `43811922461`; both registry tarballs match retained artifacts.
       Publisher visibility-wait hardening PR45 merged `064a65ea` without another
       product bump or repeated publication writes.
-- [ ] Finish Docs0.3.0. Source PR17 merged `d0bfb5d8`; PR18's full current CI
-      passed at `d7a51ca6` and merged `9286d2f0`. Main `43835723682` is still
-      qualifying; Pages `43835723065` succeeded. Its separately bound `3fc`
+- [x] Finish Docs0.3.0. Source PR17 merged `d0bfb5d8`; PR18's full current CI
+      passed at `d7a51ca6` and merged `9286d2f0`. Main `43835723682` attempt2
+      succeeded; Pages `43835723065` succeeded. Its separately bound `3fc`
       development decision retains one expiring LOW finding and production0,
       after rejecting the old approval-binding mismatch. Hosted recipe proof
       `43828625633` passed strict/frozen setup, real minor intent and all five
-      version outputs. Publication and installed/registry acceptance remain pending.
+      version outputs. Published0.3.0 matches retained artifact SHA256
+      `edce8320c4c8c86ff1c7c175af6c27a59c6f0dab2400eb7c9ad8150c756916a1`;
+      installed/signature/provenance verification and exact-source GitHub release
+      succeeded after failure-only same-SHA metadata-readiness recovery, without
+      rebuilding, republishing or another package version.
 - [x] Shared exact development-audit helper PR10 merged `2c756d80`; regressions
       reject mid-collection source changes, decision-time expiry and untracked
       dependency inputs. No finding or authority transfers between repositories.
@@ -146,18 +150,21 @@ Writes remain enabled only for the reviewed pilot; full scheduling is disabled.
       peer edges and rejects opaque ambiguity;565 units,69 interaction/axe cases
       and both cold packed consumers passed locally.
 - [ ] Admit and qualify normal bot regeneration of Notebook PR36 with accurate
-      managed canonical slots. Deployed `633f308b` still holds Notebook outside
-      the pilot. This reviewed source slice proposes Notebook-only pilot scope
-      and independent canonical development admission: the actual regression1→0,
-      59 admission cases and fresh read-only19/43/220 evidence retain all six
-      unrelated publication waits. No manual lock/chapter substitute, global full
-      rollout or scheduling change is authorized by local proof; normal bot
-      regeneration and exact current-head acceptance remain pending.
+      managed canonical slots. Pilot PR32 merged `e72ce609`; normal reconcile
+      `43838472240` regenerated bot head `030da1e`, but changed only the dev
+      manifest. Actual CI `43839212355` correctly rejected the incomplete
+      override/lock/canonical facts. Native extraction/rule testing reproduces
+      the missing companion override admission. Native artifact-error status
+      reporting also conflicts with the deliberately status-read-only token and
+      can abort before PR explanation; its supported no-status configuration
+      must retain errors and CI. Both repairs are locally in progress, not
+      hosted acceptance. All six unrelated publication waits, Notebook-only
+      pilot scope and disabled global scheduling remain.
 - [x] Adopt and exercise the AI guard on main. Hosted native whole-recipe
       proof `43814544020` passed on Node22/Rust with Deno absent. Source PR14 passes all current PR
       gates and merged through the queue as `1e6743d0`. Its fixture repairs
       pass1078 Rust tests,43 renderer tests and packaging checks. Main guard job `43829636541`
-      succeeded; current-source main CI and remaining consumer qualification remain.
+      and main CI `43829636444` succeeded; remaining consumer qualification remains.
 - [ ] Qualify/adopt remaining Server, Agent UI, Terminal and jj-store version
       recipes and supported cohorts. Compatible Server security repairs are in
       progress; remaining production KaTeX and development deepmerge findings
