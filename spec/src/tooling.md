@@ -68,6 +68,17 @@ refresh does not upgrade consumers, remove frozen-host prerequisites or activate
 - Refresh MUST report declared-range differences separately without silently widening supported cohorts.
 - Excluded or held sources, frozen tasks and missing whole-recipe qualification MUST retain their boundaries.
 
+## DA-TOOL-007 — Reviewed development input coordinates
+
+**Requirement.** A source-reviewed version recipe MAY bind one pinned first-party development override as compatible patch data. Every other workspace byte, installed versioning executable, configuration, command and runtime constraint MUST remain bound before writer admission. Existing consumers without this opt-in MUST retain exact file binding.
+
+### Acceptance details
+
+- The opt-in MUST name one development-only package, a stable major/minor series, a minimum patch and the workspace fingerprint with only that exact override value normalized.
+- The manifest development pin, installed package identity and unique direct workspace override MUST agree.
+- Runtime dependencies, patches below the reviewed minimum, prereleases, ambiguous/missing selectors and other workspace changes MUST fail closed; forward-only update admission remains independently required.
+- Source-owned whole-recipe proof, frozen installation, candidate functional/audit gates and no-intent handling MUST remain separate requirements.
+
 ## Registry evidence and rollout limits
 
 The planning assumption that Changesets 3 requires Deno is corrected by the
