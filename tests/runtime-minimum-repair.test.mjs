@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import semver from "semver";
 import { channelFixture, options, revision } from "./channel-fixtures.mjs";
 import { observedPublication } from "./publication-fixtures.mjs";
 import { emptyState, planWaves } from "../src/waves.mjs";
@@ -26,7 +27,7 @@ function fixture() {
     name: profile,
     repository: repo.repository,
     sourceSha: "c".repeat(40),
-    baseline: "0.2.4",
+    baseline: entry.manifest.version,
     requires: [{ name: core, type: "dependencies", target: "0.13.4" }],
     status: "waiting",
     policyRevision: revision,
@@ -207,19 +208,22 @@ test("publication retirement still requires the repaired manifest in a newer ver
   f.entry.manifest.dependencies[core] = f.edge.range = "^0.13.4";
   assert.equal(f.node(f.plan()).updates.length, 0);
   assert.equal(f.plan().state.releases[profile].status, "waiting");
-  f.entry.manifest.version = "0.2.5";
-  f.graph.registry[profile]["0.2.5"] = observedPublication(
+  assert.equal(f.entry.manifest.version, f.state.releases[profile].baseline);
+  const nextVersion = semver.inc(f.entry.manifest.version, "patch");
+  assert.ok(nextVersion);
+  f.entry.manifest.version = nextVersion;
+  f.graph.registry[profile][nextVersion] = observedPublication(
     f.repo,
     { dependencies: f.entry.manifest.dependencies },
     f.entry.manifest,
   );
   f.graph.available[profile] = f.graph.stableCandidates[profile] = [
     "0.1.0",
-    "0.2.5",
+    nextVersion,
   ];
   const after = f.plan();
   assert.equal(after.state.releases[profile].status, "published");
-  assert.equal(after.state.releases[profile].version, "0.2.5");
+  assert.equal(after.state.releases[profile].version, nextVersion);
   const replay = planWaves(f.graph, after.state, {
     ...runOptions,
     writes: false,

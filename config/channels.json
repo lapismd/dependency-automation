@@ -35,10 +35,10 @@
       },
       {
         "name": "@lapis-notes/app-profile",
-        "version": "0.2.4",
-        "integrity": "sha512-sbHQq2j0gXU7E29v0yzrW67eCTNv7fYbGpM9H2mKhpV88rXBh95Umc4gj3b5ZQ+YbUBE0/9n4R7erqfeYRZJOQ==",
+        "version": "0.2.5",
+        "integrity": "sha512-MJpiiNcWzEtwauNE/Q3KMohGhnU3AwOgyEhpSwiEQWq0hRHMohBxWch49OvP+tcBitK+HOenrHTdci1I0tKdbw==",
         "repository": "lapismd/lapis-notes",
-        "sourceSha": "92f1cdbf276a1275370677bb35ccb5e08318099f"
+        "sourceSha": "5774c6abb250d4aa9ea77a08992639dc46ae2f2b"
       }
     ],
     "scopes": [
