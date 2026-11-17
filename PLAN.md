@@ -1,5 +1,38 @@
 # Consolidated Lapis maintenance plan
 
+## Active objective — finish one pilot, then independent adoption
+
+The November17 operator direction supersedes the earlier requirement to finish
+all consumer rollout serially. Finish and enable one shared workflow end to end,
+then create a central tracker with independently assignable repository tasks.
+Notebook is selected because it has no root Deno input, an existing bounded
+canonical intake and a genuine released Core0.13.4→0.13.5 update to exercise.
+
+- [ ] Merge and deploy Notebook-only pilot selection. Keep the global phase
+      `pilot`; move other entries to `full` so enabling the schedule cannot
+      enable their writers. Existing verified completion observations remain
+      independent of write activation.
+- [ ] Reconcile Notebook's exact retained/uncertain state without overwriting
+      manual work or hand-editing coordinator state. Its closed bot-only Visual
+      Delta0.1.0 branch is older than the0.1.5 already selected on main; establish
+      exact supersession before removing it.
+- [ ] Run the genuine Core0.13.5 intake through shared preparation, bot PR,
+      complete current CI, merge, main acceptance and Pages. Verify the
+      development-only update creates no false publication intent. Distinguish
+      actual publication evidence from a correctly skipped publication branch.
+- [ ] Exercise completion/catch-up and idempotent repeated runs, enable normal
+      scheduling for this sole pilot and retain exact run/source receipts.
+- [ ] Create a tracker in dependency-automation with separate adoption tasks,
+      prerequisites, source-specific blockers, acceptance and rollback for all
+      remaining eligible repositories. Community, Nostr and Deno-only packages
+      remain excluded. Other product repairs do not block the pilot.
+
+Notes155 remains a prepared adoption PR. Its Cloudflare job fails with
+`VerifiedPluginInstaller.fetchBundle: Failed to fetch` on both155 and unchanged
+main29011545 (runs44110558786 and44099157524). This is a Notes adoption blocker,
+not a reason to restart serial product repair across consumers. Generic source
+preparation47 and formatter repair48 are merged; main checks and Pages pass.
+
 ## Current publication and tooling checkpoint — November 17
 
 This checkpoint supersedes dated activity/pending statements below. S3 and S6

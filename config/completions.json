@@ -89,6 +89,23 @@
         "path": ".github/workflows/version-packages.yml",
         "events": ["push"]
       }
+    ],
+    "lapismd/lapis-plugin-notebook": [
+      {
+        "id": 401183623,
+        "path": ".github/workflows/ci.yml",
+        "events": ["pull_request", "push", "workflow_dispatch"]
+      },
+      {
+        "id": 401183626,
+        "path": ".github/workflows/publish-storybook-pages.yml",
+        "events": ["push", "workflow_dispatch"]
+      },
+      {
+        "id": 403592523,
+        "path": ".github/workflows/version-packages.yml",
+        "events": ["push", "workflow_dispatch"]
+      }
     ]
   }
 }

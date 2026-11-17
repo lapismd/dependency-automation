@@ -10,6 +10,12 @@ through DA-POL-003 retain their existing authority and excluded hosts.
 entries, monitoring additions/exclusions and excluded package names. It is not
 a live installation or secret store.
 
+The single-repository rollout selects Notebook as the only `pilot` entry.
+With the coordinator phase retained at `pilot`, every `full` entry remains
+observation-only until its own adoption task explicitly promotes that entry.
+Existing completion callers remain read/dispatch observers independently of
+write activation; excluded and held roots remain ineligible for those callers.
+
 ## DA-POL-001 — Explicit dependency scope
 
 **Requirement.** Dependency discovery and update targets MUST originate from validated repository entries with supported schema, unique identities and explicit rollout phases.

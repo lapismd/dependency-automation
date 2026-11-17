@@ -1,5 +1,12 @@
 # Workflow and module wiring
 
+The active single-repository rollout uses Notebook alone in the existing
+`pilot` phase. `config/completions.json` also binds its actual CI, Pages and
+version workflow IDs; verified observer callbacks from other known non-held
+consumers remain accepted without enabling those consumers' writers. The
+coordinator's normal schedule is enabled only after the Notebook acceptance
+and replay receipt is retained.
+
 This map describes executable entrypoints. It deliberately contains no secret
 values, live operational reports or copied repository inventories.
 

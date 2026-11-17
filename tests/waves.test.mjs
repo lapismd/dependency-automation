@@ -118,6 +118,31 @@ function fixture() {
 const node = (plan, name) =>
   plan.report.nodes.find((n) => n.repository === `lapismd/${name}`);
 
+test("pilot writes select one ready consumer and another activates only after its own entry changes", () => {
+  const graph = fixture(),
+    app = graph.repositories[2];
+  app.manifests[0].manifest.dependencies = { "@lapismd/foundation": "^1.0.0" };
+  app.lock.importers["."].dependencies = {
+    "@lapismd/foundation": { version: "1.0.0" },
+  };
+  graph.edges.find((edge) => edge.repository === app.repository).name =
+    "@lapismd/foundation";
+  graph.repositories[0].phase = "full";
+  app.phase = "full";
+  assert.deepEqual(
+    planWaves(graph, emptyState(), { ...options, phase: "full" }).admitted,
+    ["lapismd/publisher", "lapismd/app"],
+  );
+  const pilot = planWaves(graph, emptyState(), { ...options, phase: "pilot" });
+  assert.deepEqual(pilot.admitted, ["lapismd/publisher"]);
+  assert.ok(node(pilot, "app").holds.includes("outside pilot phase"));
+  app.phase = "pilot";
+  assert.deepEqual(
+    planWaves(graph, emptyState(), { ...options, phase: "pilot" }).admitted,
+    ["lapismd/publisher", "lapismd/app"],
+  );
+});
+
 test("foundation update admits publisher and waits downstream until registry publication and complete qualification", () => {
   const graph = fixture();
   const first = planWaves(graph, emptyState(), options);

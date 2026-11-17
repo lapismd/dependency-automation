@@ -400,6 +400,7 @@ test("policy rejects widening scope, duplicate IDs, unknown paths/events and sel
       { repository: "lapismd/mira-mde", phase: "pilot" },
       { repository: "lapismd/design-core", phase: "pilot" },
       { repository: "lapismd/lapis-plugins", phase: "pilot" },
+      { repository: "lapismd/lapis-plugin-notebook", phase: "pilot" },
     ]),
   );
   for (const mutate of [
@@ -429,6 +430,20 @@ test("policy rejects widening scope, duplicate IDs, unknown paths/events and sel
       /invalid-completion-policy/,
     );
   }
+});
+
+test("completion observation survives a consumer leaving the writable pilot", () => {
+  assert.equal(
+    validateCompletionPolicy(policy, [{ repository, phase: "full" }]),
+    policy,
+  );
+  assert.throws(
+    () =>
+      validateCompletionPolicy(policy, [
+        { repository, phase: "full", holdReason: "Excluded retained host" },
+      ]),
+    /invalid-completion-policy/,
+  );
 });
 
 const hint = {
