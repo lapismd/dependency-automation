@@ -5,7 +5,7 @@
 The shared dependency workflow is qualified and enabled for Notebook after its
 genuine Core0.13.5 development intake, complete candidate/main CI, native
 auto-merge, Pages and repeated normal reconciliation. Other repositories remain
-independent adoption work. Notebook is the only source `pilot` entry; global
+independent adoption work. Notebook and the source-qualified no-input Spec Validator are source `pilot` entries; global
 phase stays `pilot` with hourly scheduling enabled. Promoting one reviewed entry
 from `full` to `pilot` enables that repository independently, without a global
 full rollout.
@@ -86,3 +86,14 @@ only the Deno-free specification tool in development and retains its existing
 audit and compare-only browser gates. The operator requests a final merge pass
 and gives standing approval for per-repository activation after passing source
 acceptance; advisory exceptions and global full rollout are not implied.
+
+The operator-approved next activation adds only Spec Validator after its source7
+mergedf3bab11837648045540bf7ef948503131dcab041 and main Check44174151693
+passed. Read-only existing-App probe44173967888 passed. Its normal functional
+no-Lapis-input contract preserves the current zero-update graph; no Changesets
+writer, dependency bump, version/tag or publication is invented. Notebook
+remains the sole exercised dependency-writing consumer; all other entries and
+existing holds/exclusions remain unchanged, and global phase stays `pilot`.
+Actual completion, ordinary no-update settlement and repeat receipts are
+recorded in the source activation record; source registration alone is not
+claimed as a new publisher or multi-consumer update proof.

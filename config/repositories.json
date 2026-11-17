@@ -27,32 +27,65 @@
       "phase": "full",
       "emptyChangeset": true
     },
-    { "repository": "lapismd/design-core", "phase": "full" },
+    {
+      "repository": "lapismd/design-core",
+      "phase": "full"
+    },
     {
       "repository": "lapismd/lapis-notes",
       "phase": "full",
       "emptyChangeset": true
     },
-    { "repository": "lapismd/lapis-plugins", "phase": "full" },
-    { "repository": "lapismd/lapis-plugin-tasks", "phase": "full" },
-    { "repository": "lapismd/lapis-plugin-docs", "phase": "full" },
-    { "repository": "lapismd/lapis-plugin-notebook", "phase": "pilot" },
+    {
+      "repository": "lapismd/lapis-plugins",
+      "phase": "full"
+    },
+    {
+      "repository": "lapismd/lapis-plugin-tasks",
+      "phase": "full"
+    },
+    {
+      "repository": "lapismd/lapis-plugin-docs",
+      "phase": "full"
+    },
+    {
+      "repository": "lapismd/lapis-plugin-notebook",
+      "phase": "pilot"
+    },
     {
       "repository": "lapismd/lapis-desktop",
       "phase": "full",
       "holdReason": "Private Profile/API 0.2.3 remains pinned; qualify the unpublished archive projection before enabling dependency writes."
     },
-    { "repository": "lapismd/lapis-server", "phase": "full" },
-    { "repository": "lapismd/agent-ui", "phase": "full" },
-    { "repository": "lapismd/lapis-ai", "phase": "full" },
-    { "repository": "lapismd/lapis-terminal", "phase": "full" },
-    { "repository": "lapismd/spec-validator", "phase": "full" },
+    {
+      "repository": "lapismd/lapis-server",
+      "phase": "full"
+    },
+    {
+      "repository": "lapismd/agent-ui",
+      "phase": "full"
+    },
+    {
+      "repository": "lapismd/lapis-ai",
+      "phase": "full"
+    },
+    {
+      "repository": "lapismd/lapis-terminal",
+      "phase": "full"
+    },
+    {
+      "repository": "lapismd/spec-validator",
+      "phase": "pilot"
+    },
     {
       "repository": "lapismd/storybook-addon-visual-delta",
       "phase": "full",
       "emptyChangeset": true
     },
-    { "repository": "lapismd/agent-redaction", "phase": "full" },
+    {
+      "repository": "lapismd/agent-redaction",
+      "phase": "full"
+    },
     {
       "repository": "lapismd/ai-controller",
       "phase": "full",
@@ -63,7 +96,13 @@
       "phase": "full",
       "holdReason": "Excluded retained Deno host: public graph observation only; dependency writes are not authorized for this root."
     },
-    { "repository": "lapismd/plugin-registry", "phase": "full" },
-    { "repository": "stevejuma/jj-store", "phase": "full" }
+    {
+      "repository": "lapismd/plugin-registry",
+      "phase": "full"
+    },
+    {
+      "repository": "stevejuma/jj-store",
+      "phase": "full"
+    }
   ]
 }

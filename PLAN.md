@@ -1486,3 +1486,12 @@ records actual tests, corrected preparation failures and remaining gates.
 - [ ] Finish source checks and PRs for tasks62/63.
 - [ ] Final merge pass for qualified sources; keep real security/product holds visible.
 - [ ] Use standing operator approval to activate each qualified merged entry individually and verify ordinary settlement/replay.
+
+### Spec Validator post-merge activation
+
+- [x] Merge shared registration74 and owning CI guard fix29 after green checks.
+- [x] Pass existing-App read probes for Spec Validator44173967888 and Visual Delta44173971797.
+- [x] Merge Spec Validator7 and pass exact-main Check44174151693 atf3bab118.
+- [x] Prepare only Spec Validator's `full`→`pilot` source phase change under standing operator approval; preserve all other entries/global settings.
+- [ ] Verify actual successful completion, deploy the reviewed phase change, then prove ordinary no-update settlement and repeat with no fabricated release.
+- [ ] Keep Docs21/Tasks31/Visual Delta79 in the final queue with exact security/acceptance holds.
