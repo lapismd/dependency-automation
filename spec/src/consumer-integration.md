@@ -62,6 +62,12 @@ The version-only template validates the installed CLI before App minting and
 does not install Deno. Notes' separate frozen-host prerequisites remain owned by
 Notes; no consumer migration is implied by this upstream template correction.
 
+The shared filesystem preparer preserves the immutable workspace file's exact
+final newline sequence after validating the entire candidate. Native pnpm
+trimming cannot invalidate an otherwise unchanged source-owned version-input
+binding. No other candidate bytes are reformatted, consumer guard is weakened
+or new output path introduced beyond the already governed workspace input.
+
 The optional canonical-intake policy is data owned by each consumer. Shared
 rendering remains in the coordinator; an opted-in consumer verifies its actual
 candidate facts in an ordinary functional lane outside the trusted-PR spec
