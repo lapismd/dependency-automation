@@ -60,6 +60,12 @@ Notebook's source policy admits only its exact active CI, Pages and version
 workflow IDs/paths. Registry release and callback self-triggers are not admitted;
 the source-owned npm publication notification remains a separate boundary.
 
+Docs and Tasks register only their existing CI/npm and Storybook Pages workflow
+IDs/paths/events for the next adoption wave. Versioning is a job inside their CI
+workflow, so no separate version workflow is invented. Registry distribution
+and callback self-triggers remain excluded. Both entries stay `full`; these
+read-only completion identities grant no consumer write or audit authority.
+
 **Requirement.** Completion callbacks MUST verify successful current non-fork source workflow evidence before minting a coordinator-scoped dispatch token.
 
 ### Acceptance details

@@ -27,7 +27,7 @@
 | DA-NOT-002  | Implemented | Receiver validation, reusable notifier and scheduled recovery; policy tests and workflow wiring.                                                                         |
 | DA-MON-001  | Implemented | GET-only audit and partial-report retention tests; operational-drift tests cover sanitized observed Actions vars with exact workflow provenance.                         |
 | DA-MON-002  | Implemented | Detector precedence and arbitrary-token negative cases in `tests/maintenance-policy.test.mjs`.                                                                           |
-| DA-MON-003  | Implemented | Read-only main probe: original three hosted pilots qualified; AI/Server pending; `tests/workflows.test.mjs`.                                                             |
+| DA-MON-003  | Implemented | Read-only one-repository probes retain three GETs/no source checkout; Docs/Tasks target admission is source-qualified, hosted probes pending.                            |
 | DA-PR-001   | Implemented | Separate source-generation/publication jobs; `tests/workflows.test.mjs`; App-created hosted PR qualification.                                                            |
 | DA-PR-002   | Implemented | `validateProfile` grammar/diff boundary and stale-source checks; `tests/profile-writer.test.mjs`.                                                                        |
 | DA-PR-003   | Implemented | History-preserving update, duplicate, manual repair and retained-branch tests in `tests/profile-writer.test.mjs`.                                                        |

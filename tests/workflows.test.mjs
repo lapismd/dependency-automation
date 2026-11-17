@@ -57,6 +57,8 @@ test("App readiness uses existing credentials for read-only explicit pilot targe
     "lapis-notes",
     "lapis-ai",
     "lapis-server",
+    "lapis-plugin-docs",
+    "lapis-plugin-tasks",
   ]);
   assert.equal(workflow.on.schedule, undefined);
   assert.match(workflow.jobs.readiness.if, /refs\/heads\/main/);

@@ -9,7 +9,7 @@ import {
 } from "../src/completion.mjs";
 import { validateCompletion } from "../src/policy.mjs";
 import { qualification } from "../src/wave-evidence.mjs";
-import { inventory } from "../src/github.mjs";
+import { inventory, loadAllowlist } from "../src/github.mjs";
 
 const repository = "lapismd/lapis-notes",
   main = "a".repeat(40),
@@ -394,15 +394,7 @@ test("unavailable or malformed API evidence never qualifies", async () => {
 
 test("policy rejects widening scope, duplicate IDs, unknown paths/events and self loops", async () => {
   assert.equal(validateCompletionPolicy(policy, entries), policy);
-  assert(
-    await loadCompletionPolicy([
-      ...entries,
-      { repository: "lapismd/mira-mde", phase: "pilot" },
-      { repository: "lapismd/design-core", phase: "pilot" },
-      { repository: "lapismd/lapis-plugins", phase: "pilot" },
-      { repository: "lapismd/lapis-plugin-notebook", phase: "pilot" },
-    ]),
-  );
+  assert(await loadCompletionPolicy(await loadAllowlist()));
   for (const mutate of [
     (p) => {
       p.repositories["outsider/notes"] = p.repositories[repository];

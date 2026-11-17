@@ -6,6 +6,29 @@ eligible repository has a separate assignable issue. Source preparation can
 proceed independently. Activation waits for shared pilot acceptance and that
 repository's own evidence, rather than completion of every other task.
 
+## Next wave: small plugins first
+
+Docs and Tasks are the closest structural matches to Notebook: one public root
+package, an existing Node24/Changesets3 recipe, green historical main and no
+open PRs at the November17 review. Their current source is preserved and their
+actual CI/Pages identities are registered before installing callbacks.
+
+A fresh full audit now reports the unfixed HIGH GHSA-fc5q-39xc-vjpf through
+`.>@changesets/cli>@changesets/config>picomatch` in both. This is a required
+consumer gate, not covered by the coordinator's separate Renovate exception.
+Docs' existing exact consumer mechanism accepts LOW only; Tasks runs raw full
+and production audits. Neither gate is relaxed or bypassed for adoption.
+Prepare source integration, retain the holds in tasks55/56, and require a
+published remediation or a separate concrete reviewed security decision before
+writable activation. Do not call the historical green runs current audit proof.
+
+Spec Validator and Visual Delta are the next small-repository candidates to
+inspect for release-convention readiness. Terminal requires native/macOS
+qualification. Larger Core/Mira/Plugins/application and jj-store adoptions stay
+later. Agent Redaction requires Deno validation and is outside this Node-only
+pass. Monitoring-only repositories do not become npm writers just to inflate
+adoption counts.
+
 ## Shared contract
 
 The coordinator owns discovery, publication evidence, wave admission, native

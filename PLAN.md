@@ -1,5 +1,23 @@
 # Consolidated Lapis maintenance plan
 
+## Next operator objective — quickest remaining adoptions
+
+- [x] Compare fresh main heads, open PRs, actual release recipes and audit gates.
+- [x] Prepare exact Docs/Tasks completion registrations/read-only probes without
+      enabling writers; hosted deployment remains separate.
+- [ ] Install source-owned callback, independent canonical guard and qualified
+      version-input setup; reuse existing App secret metadata, not copied keys.
+- [ ] Pass current required source/main checks before individual activation.
+- [ ] Promote one qualified entry at a time, verify normal reconciliation and
+      update tasks55/56. Preserve Notebook and the single shared schedule.
+
+Docs/Tasks are structurally closest, but their fresh required full audits now
+report the unfixed HIGH Changesets/picomatch advisory. The coordinator approval
+covers only its two Renovate paths. Consumer full-audit gates stay blocking;
+source readiness and writable activation are separate. Deno packages stay
+excluded, and larger repositories are deferred until these smaller adoptions
+are qualified or have precise source-owned blockers.
+
 ## Active objective — finish one pilot, then independent adoption
 
 The November17 operator direction selects Notebook for the completed shared
