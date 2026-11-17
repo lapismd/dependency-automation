@@ -115,14 +115,50 @@ the qualified Changesets configuration and rejects mixed contexts before App
 minting. Existing consumers need explicit integration and whole-recipe
 acceptance; a reviewed Node CLI is not a Deno-free capability receipt.
 
+## Current version-writer boundaries — November 17
+
+The earlier table is a historical foundation snapshot. Nine eligible Node
+owners now have deployed source-bound guards and separately qualified whole
+recipes: Plugins, Core, Mira, Tasks, Docs, Agent UI, AI, Terminal and Visual
+Delta. Visual Delta main1d01be1b passes CI43985171431 and version43985171061;
+the actual version job skips App minting and the Changesets action without
+release intent. Terminal's corresponding main proof is43973344633. These
+receipts do not complete the remaining owners or the tooling cohort refresh.
+
+Notebook's existing source command passes actual hosted qualification43987271519
+from shared sourceae1be182 against owner64d5f7b7, with Deno absent and no writer
+token or publication. Immutable artifact14286425548 has verified ZIP digest
+`sha256:4c2f49bcdb08fa65e1c436b4db233e02423569ff7b07a8816475888912764a27`.
+Its counterfactual root/runtime versions become0.2.5; all six private manifests,
+the lock graph and other canonical files stay unchanged. Owner PR39 still
+needs pinned guard adoption, final-head CI and merged-main no-intent acceptance.
+
+Three source owners have different release boundaries. The read-only census
+checks all tracked workflow/local-action and script files plus the root manifest
+at the exact revisions below, then follows the actual publication commands and
+PR-creation paths. File hashes remain in the ignored local evidence cache;
+an identifier search alone is not a proof of absent writer authority.
+
+| Repository      | Exact inspected source                     | Source-owned behavior and guard decision                                                                                                                                                                                                                                                                               |
+| --------------- | ------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Spec Validator  | `70c92752dd45ea1aea8cce75f5db7eb68ee00570` | Tag-driven npm publication reads an already-versioned manifest, validates and packs it, then publishes/verifies provenance and creates release notes; its workflows and package scripts contain no automatic Changesets/version-PR preparation. No version-runtime guard is required for this existing boundary.       |
+| Agent Redaction | `3cf32015d265aa35c889813709913f8f997a06e6` | Manual npm/native workflows prepare and verify the already-versioned package/crate; source release helpers do not bump package versions or create version PRs. Its explicit Deno adapter acceptance remains an owner validation prerequisite. No version-runtime migration is introduced.                              |
+| Plugin Registry | `0503bac93a3a3b6c1c64f5ec0d49cecf55ba5d6e` | Submission, signed-metadata and qualified-publication writers create registry-data PRs, not package-version PRs; the repository is private npm metadata with no Changesets version script. Keep its source-owned S5 preparation/artifact/signature/writer gates instead of adding the unrelated version-runtime guard. |
+
+Server and jj-store remain eligible version-writer owners with unresolved
+source-owned qualification work. Notes' retained Deno/frozen setup is a separate
+explicit boundary. Read-only classification changes no manifest, workflow,
+permission, installation, publication gate or source-runtime requirement.
+
 ## Current remaining S6 work
 
 - [x] Record all sixteen eligible public cohorts with exact source/manifest/lock/resolved-tool evidence; preserve supported constraints and report drift.
 - [x] Deliver the shared source-owned version-runtime guard and actual Plugins/Core/Mira recipe proofs separately from source CI.
 - [x] Refresh the older six source observations with reviewed CI paths/required-job receipts and honest package-manager provenance.
-- [ ] Qualify and deploy this refresh PR and confirm the resulting inventory/report read-back.
-- [ ] Finish eligible Node consumer guard adoption under each exact source-owned recipe; retain existing CLI majors and all functional gates. Core/Mira adoption and source-owned failure repairs remain independently reviewed work.
-- [ ] Address Notebook's source-owned missing canonical mappings before claiming current-source CI success; retain Mira's unavailable source-pipeline context until actual eligible validation exists.
+- [x] Deploy the source observation refresh and inspect normal generation81 inventory; source/manifest/lock drift remains visible and is not equivalent to recipe qualification.
+- [x] Repair Notebook's bounded intake mapping and qualify its actual current main CI43852663104; Core's factual follow-up main CI43976157191 also passes without a main specification exemption.
+- [ ] Finish Notebook guard adoption, Server and jj-store source-owned qualification, and current supported-cohort refresh while preserving all functional gates and existing CLI majors.
+- [ ] Complete the generic canonical intake/main handoff beyond Notebook's bounded source-owned policy; a trusted bot PR exemption alone does not qualify main.
 
 Frozen AI Controller, AI Host and Terminal Host are excluded. Notes' root Deno
 and frozen setup remain an explicit separate boundary, not a required migration

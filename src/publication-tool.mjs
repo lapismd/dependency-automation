@@ -16,6 +16,7 @@ import {
 } from "node:fs/promises";
 import { dirname, join, resolve, delimiter } from "node:path";
 import { tmpdir } from "node:os";
+import { limits, staticPublicationLimits } from "./publication-transport.mjs";
 const run = promisify(execFile);
 export const hash = (bytes) => createHash("sha256").update(bytes).digest("hex");
 const fail = () => {
@@ -146,7 +147,15 @@ export async function loadPublicationVerifier(contract) {
   ).keys;
   return {
     async verify(bundle, request, artifact) {
-      if (!Buffer.isBuffer(artifact) || artifact.length > 4 * 1024 * 1024)
+      const staticProfile =
+        request.profile === "plugins-static-v1" &&
+        request.repository === "lapismd/lapis-plugins";
+      if (
+        (request.profile !== undefined && !staticProfile) ||
+        !Buffer.isBuffer(artifact) ||
+        artifact.length >
+          (staticProfile ? staticPublicationLimits.tarball : limits.tarball)
+      )
         throw Error("publication-subject-mismatch");
       const directory = await mkdtemp(
         join(tmpdir(), "lapis-publication-verify-"),

@@ -15,6 +15,7 @@ import {
   contractDigest,
   dependencyContractDigest,
   verifyAttestations,
+  inspectAttestationClaims,
 } from "./publication-evidence.mjs";
 import {
   verifyPublisherSource,
@@ -245,6 +246,8 @@ export async function observePublications(
   const verifier = () => (tool ??= loadPublicationVerifier(policy.tool));
   const observations = new Map();
   let versions = 0;
+  const current = [],
+    remaining = [];
   for (const owner of packages) {
     if (options.excludedPackages?.includes(owner.name)) continue;
     const repo = repositories.find((r) => r.repository === owner.repository);
@@ -259,102 +262,111 @@ export async function observePublications(
       ].filter((v) => semver.valid(v)),
     );
     for (const version of seen) {
-      const evidence = {
-        schemaVersion: 1,
-        state: "unknown",
-        reason: "provenance-unknown",
-        channel: publicationChannel(version, metadata),
-        currentSourceSha: repo.sourceSha,
-        currentContractSha256: contractDigest(owner.manifest),
-        matchesCurrentContract: false,
-      };
-      const record = metadata.versions?.[version];
-      try {
-        if (++versions > 128) throw Error("publication-version-limit");
-        if (!record) {
-          evidence.state = "unpublished";
-          throw Error("registry-version-unpublished");
-        }
-        const publisher = policy.publishers[owner.repository];
-        if (!publisher) throw Error("publisher-contract-unreviewed");
-        if (
-          record.name !== owner.name ||
-          record.version !== version ||
-          !record.dist?.attestations?.url ||
-          record.dist.attestations.provenance?.predicateType !==
-            "https://slsa.dev/provenance/v1"
-        )
-          throw Error("provenance-unknown");
-        const url = new URL(record.dist.attestations.url);
-        if (
-          url.origin !== "https://registry.npmjs.org" ||
-          decodeURIComponent(url.pathname) !==
-            `/-/npm/v1/attestations/${owner.name}@${version}` ||
-          url.search ||
-          url.hash ||
-          url.username ||
-          url.password
-        )
-          throw Error("publication-url-rejected");
-        const info = await reader.json(
-          `https://api.github.com/repos/${owner.repository}`,
-        );
-        if (
-          info.full_name !== owner.repository ||
-          !positive(info.id) ||
-          !positive(info.owner?.id) ||
-          info.private !== false ||
-          info.visibility !== "public" ||
-          info.archived !== false ||
-          info.fork !== false ||
-          info.default_branch !== "main"
-        )
-          throw Error("publication-source-not-public");
-        const body = await reader.json(url.href, 256 * 1024);
-        const artifactBytes = await reader.bytes(
-          publishedTarballUrl(record),
-          publisher.kind === "plugins-static-v1"
-            ? staticPublicationLimits.tarball
-            : limits.tarball,
-        );
-        const context = await verifyAttestations(
-          body,
-          record,
-          publisher,
-          info,
-          await verifier(),
-          artifactBytes,
-        );
-        const source = await (
-          publisher.kind === "plugins-static-v1"
-            ? verifyStaticPublisherSource
-            : verifyPublisherSource
-        )(reader, context, publisher, info, record, {
-          ...owner,
-          sourceSha: repo.sourceSha,
-        });
-        evidence.state = "verified";
-        evidence.reason = "verified-publication";
-        evidence.matchesCurrentContract =
-          evidence.currentContractSha256 === source.sourceContractSha256;
-        evidence.proof = {
-          repository: owner.repository,
-          ...context,
-          workflow: publisher.workflow,
-          ref: publisher.ref,
-          toolSha256: hash(JSON.stringify(policy.tool)),
-          ...source,
-        };
-      } catch (error) {
-        evidence.reason = /^[a-z-]+$/.test(error.message ?? "")
-          ? error.message
-          : "provenance-unknown";
-      }
-      observations.set(
-        `${owner.name}@${version}`,
-        validatePublicationEvidence(evidence),
-      );
+      (version === owner.manifest.version ? current : remaining).push({
+        owner,
+        repo,
+        metadata,
+        version,
+      });
     }
+  }
+  for (const { owner, repo, metadata, version } of [...current, ...remaining]) {
+    const evidence = {
+      schemaVersion: 1,
+      state: "unknown",
+      reason: "provenance-unknown",
+      channel: publicationChannel(version, metadata),
+      currentSourceSha: repo.sourceSha,
+      currentContractSha256: contractDigest(owner.manifest),
+      matchesCurrentContract: false,
+    };
+    const record = metadata.versions?.[version];
+    try {
+      if (++versions > 128) throw Error("publication-version-limit");
+      if (!record) {
+        evidence.state = "unpublished";
+        throw Error("registry-version-unpublished");
+      }
+      const publisher = policy.publishers[owner.repository];
+      if (!publisher) throw Error("publisher-contract-unreviewed");
+      if (
+        record.name !== owner.name ||
+        record.version !== version ||
+        !record.dist?.attestations?.url ||
+        record.dist.attestations.provenance?.predicateType !==
+          "https://slsa.dev/provenance/v1"
+      )
+        throw Error("provenance-unknown");
+      const url = new URL(record.dist.attestations.url);
+      if (
+        url.origin !== "https://registry.npmjs.org" ||
+        decodeURIComponent(url.pathname) !==
+          `/-/npm/v1/attestations/${owner.name}@${version}` ||
+        url.search ||
+        url.hash ||
+        url.username ||
+        url.password
+      )
+        throw Error("publication-url-rejected");
+      const info = await reader.json(
+        `https://api.github.com/repos/${owner.repository}`,
+      );
+      if (
+        info.full_name !== owner.repository ||
+        !positive(info.id) ||
+        !positive(info.owner?.id) ||
+        info.private !== false ||
+        info.visibility !== "public" ||
+        info.archived !== false ||
+        info.fork !== false ||
+        info.default_branch !== "main"
+      )
+        throw Error("publication-source-not-public");
+      const body = await reader.json(url.href, 256 * 1024);
+      inspectAttestationClaims(body, record, publisher, info);
+      const artifactBytes = await reader.bytes(
+        publishedTarballUrl(record),
+        publisher.kind === "plugins-static-v1"
+          ? staticPublicationLimits.tarball
+          : limits.tarball,
+      );
+      const context = await verifyAttestations(
+        body,
+        record,
+        publisher,
+        info,
+        await verifier(),
+        artifactBytes,
+      );
+      const source = await (
+        publisher.kind === "plugins-static-v1"
+          ? verifyStaticPublisherSource
+          : verifyPublisherSource
+      )(reader, context, publisher, info, record, {
+        ...owner,
+        sourceSha: repo.sourceSha,
+      });
+      evidence.state = "verified";
+      evidence.reason = "verified-publication";
+      evidence.matchesCurrentContract =
+        evidence.currentContractSha256 === source.sourceContractSha256;
+      evidence.proof = {
+        repository: owner.repository,
+        ...context,
+        workflow: publisher.workflow,
+        ref: publisher.ref,
+        toolSha256: hash(JSON.stringify(policy.tool)),
+        ...source,
+      };
+    } catch (error) {
+      evidence.reason = /^[a-z-]+$/.test(error.message ?? "")
+        ? error.message
+        : "provenance-unknown";
+    }
+    observations.set(
+      `${owner.name}@${version}`,
+      validatePublicationEvidence(evidence),
+    );
   }
   return { observations, counts: reader.counts() };
 }

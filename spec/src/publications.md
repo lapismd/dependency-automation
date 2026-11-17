@@ -10,7 +10,7 @@ version alone does not admit it or change registry tags.
 
 ### Acceptance details
 
-- Registry signatures and Sigstore provenance MUST verify with the reviewed runtime trust material, exact signer identity, issuer, certificate source/invocation and subject digest; gitHead alone MUST NOT qualify publication and the npm publish statement MUST supply consistency only.
+- Registry signatures and Sigstore provenance MUST verify with the reviewed runtime trust material, exact signer identity, issuer, certificate source/invocation and subject digest; gitHead alone MUST NOT qualify publication and the npm publish statement MUST supply consistency only, with structurally inconsistent claims rejected before tarball downloads and preflight never granting verified assurance.
 - Exact public source/package contracts and publisher release-manifest/tarball hashes MUST agree; recovery MAY supply successful post-publication verification only for the same source and immutable bytes.
 - Complete current source workflow/check/status coverage, exact run attempts and the publisher's qualification/publication/verification gates MUST remain required; unknown or mismatched evidence MUST remain held.
 - Newer-release baselines, required dependency floors, compound-contract rules, current-main acceptance and operation CAS MUST remain unchanged.
@@ -21,9 +21,9 @@ version alone does not admit it or change registry tags.
 
 ### Acceptance details
 
-- Current public owned versions MUST remain observable outside latest eligibility; channel-not-admitted and provenance-unknown MUST be explicit independent reasons.
+- Current public owned versions MUST receive a collection pass before other tag and retained-baseline probes, independently of latest eligibility; channel-not-admitted and provenance-unknown MUST remain explicit independent reasons.
 - Exact Node runtime, owned setup action, standard GitHub CLI binary and static public trust-seed bytes MUST match the reviewed contract before verification; missing, changed or unsupported tools MUST fail closed without installing replacements or changing the approved package graph; bundled npm Sigstore JavaScript MUST NOT execute.
-- Fetches, counts, bytes, timeouts, redirects and archive inflation MUST be bounded; source visibility MUST be verified before source/artifact reads, and artifact reads MUST reuse existing read-only workflow authority for explicitly public sources without App minting or added permissions; no candidate scripts, signing credentials or private API bodies may enter execution or public state.
+- Fetches MUST retain a shared 128 MiB total-byte and 256-request budget plus bounded per-response size, timeouts, redirects and archive inflation; source visibility MUST precede source/artifact reads, existing read-only public-source authority MUST be reused without App minting or added permissions, and no candidate scripts, signing credentials or private API bodies may enter execution or public state.
 - Versioned receipts MAY persist only normalized public coordinates/digests and assurance, never raw bundles/artifacts; legacy state remains readable and persisted facts never replace fresh channel/current-head checks and prior verified receipts MUST remain available after unknown fresh observations.
 
 ## DA-PUB-003 — Reviewed channel cohort
@@ -46,4 +46,4 @@ version alone does not admit it or change registry tags.
 - Exact successful public nonfork main workflow/run/attempt and all current source qualification MUST agree with the authenticated certificate, registry signature, subject digest and source package contract.
 - The runtime plugin ID/version MUST come from the public source manifest returned as a file at the attested commit, with package directory/release tag and runtime ID/archive coordinates remaining distinct and source/signature-bound.
 - The immutable candidate MUST bind package/version, plan, manifest, tarball digest/size and registry bytes within the static profile's 64 MiB ZIP/aggregate inflation, 16 MiB npm archive, 8 MiB plugin archive/signed file and 32 MiB nested inflation caps, retaining release/path bounds and rejecting ambiguous, expired, mismatched or different-byte skip evidence.
-- The reader MUST inspect only permitted public paths without candidate execution, signer access or publisher writes, reject unreviewed profiles and retain Notes' existing 8 MiB artifact/4 MiB tarball/32 MiB inflation bounds plus total fetch-byte, request, source and recovery gates.
+- The reader and cryptographic verifier MUST share the static profile's 16 MiB npm archive bound only for the reviewed Plugins publisher, reject unreviewed profiles and retain Notes' existing 8 MiB artifact/4 MiB tarball/32 MiB inflation bounds plus the shared total fetch-byte, request, source and recovery gates without candidate execution, signer access or publisher writes.

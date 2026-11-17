@@ -56,8 +56,8 @@
 | DA-WAVE-006 | Implemented | Native Renovate and persisted-state tests retain support and require exact lock/CI/published-contract evidence to retire obsolete waits.                                 |
 | DA-TOOL-005 | In progress | Six original CI failures now pass; source/job/attempt and receipt controls pass; 179 tests/3 spec lanes; hosted refresh pending.                                         |
 | DA-TOOL-006 | In progress | 26 focused tests; GET-only refresh 16/16; inventory 19 repos/43 owners/220 edges; ranges and provenance preserved; hosted pending.                                       |
-| DA-PUB-001  | Implemented | Real crypto/mutation/source/recovery tests and hosted43809436156 API/FileExplorer/Profile proof; strict release/channel gates retained.                                  |
-| DA-PUB-002  | Implemented | Pinned CLI, bounded public observations, retained receipts, Maintenance parser and hosted43809436156 proof; no App inventory credentials.                                |
+| DA-PUB-001  | Implemented | Real crypto/mutation/source/recovery tests plus reject-only claim preflight; full-inventory proof is recorded in `spec/records/2026-11-17-publication-budget.md`.        |
+| DA-PUB-002  | Implemented | Current-first collection, bounded shared 128 MiB/256-request budget and exhaustion/cache negatives; no App inventory credentials or source/channel relaxation.           |
 | DA-REL-004  | In progress | Actual Notebook fixture/preparation negatives; native extractor/rule regression admits only the paired exact override; hosted complete regeneration pending.             |
 | DA-WAVE-007 | In progress | 59 admission regressions; actual Notebook1→0; fresh GET-only19/43/220 plan retains six waits; hosted regeneration pending.                                               |
 | DA-PUB-003  | In progress | Exact cohort/scope/default/channel mutation regressions; native target rules, fresh registry revalidation and Maintenance parser acceptance; hosted deployment pending.  |

@@ -7,7 +7,7 @@ test("a multi-package public static batch has a separate bounded aggregate budge
   assert.equal(limits.artifact, 8 * 1024 * 1024);
   assert.equal(limits.tarball, 4 * 1024 * 1024);
   assert.equal(limits.inflated, 32 * 1024 * 1024);
-  assert.equal(limits.totalBytes, 64 * 1024 * 1024);
+  assert.equal(limits.totalBytes, 128 * 1024 * 1024);
   const archive = zip({
     "npm/first.tgz": Buffer.alloc(16 * 1024 * 1024, 1),
     "npm/second.tgz": Buffer.alloc(10 * 1024 * 1024, 2),
