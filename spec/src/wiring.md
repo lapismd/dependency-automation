@@ -4,8 +4,12 @@ The active single-repository rollout uses Notebook alone in the existing
 `pilot` phase. `config/completions.json` also binds its actual CI, Pages and
 version workflow IDs; verified observer callbacks from other known non-held
 consumers remain accepted without enabling those consumers' writers. The
-coordinator's normal schedule is enabled only after the Notebook acceptance
-and replay receipt is retained.
+coordinator's hourly schedule is enabled after the Notebook acceptance and
+normal replay receipts. Live settings retain global phase `pilot` and only the
+Notebook entry; the [single-pilot record](https://github.com/lapismd/dependency-automation/blob/main/spec/records/2026-11-17-notebook-single-pilot.md)
+separates actual candidate/main/callback evidence, timer configuration and the
+first unobserved cron event. Sixteen adoption tasks reuse this same flow; no
+consumer copies the engine or independently enables another schedule.
 
 `reconcile.yml` passes optional manual `recover-source-revision` only to the
 inventory recovery boundary. `qualifyRecoverySource` reads both exact public

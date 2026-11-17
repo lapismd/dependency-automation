@@ -40,12 +40,12 @@ The operator approved the exact coordinator deepmerge decision proposed in
 and November 21 expiry. The [decision record](https://github.com/lapismd/dependency-automation/blob/main/docs/approved-coordinator-advisory.md)
 records that scope; all rejection and cleanup requirements above still apply.
 
-The source activation checkpoint targets writes=true, phase=pilot, waves=true,
-schedule=true and state-writes=true for the qualified single-repository pilot.
-Live scheduling requires the genuine candidate, main and replay receipts before
-the operator enables it. This comparison checkpoint does not change absent-variable/
-default-off workflow semantics or external settings. Actual activation and
-callback/receiver qualification remain separate recorded observations.
+The reviewed activation checkpoint records writes=true, phase=pilot, waves=true,
+schedule=true and state-writes=true after the genuine Notebook candidate,
+main and normal replay qualify. Live variable read-back records activation at
+2026-11-17T19:03:07.167Z. This comparison checkpoint does not change absent-variable/
+default-off workflow semantics or external settings. The timer configuration,
+actual callbacks and ordinary-run receipts remain separate observations.
 
 The operator separately approved the validator-update rebinding in PR34 to
 dependency source9d657a74 and exact lock SHA256a3e1f05f…ca61b8b. This replaces
@@ -59,7 +59,7 @@ withdrawal at2026-11-16T18:55:38Z and complete zero-finding audit evidence.
 Hosted43960484629 correctly held writes on the stale cleanup item; reviewed
 removal restores the empty approval list without changing any rejection rule,
 source/lock bytes, scope, activation or pilot gate. The
-[retirement record](../records/2026-11-16-advisory-retirement.md) retains the
+[retirement record](https://github.com/lapismd/dependency-automation/blob/main/spec/records/2026-11-16-advisory-retirement.md) retains the
 before/after preflight and pending hosted reconciliation distinction.
 
 ## Picomatch observation and exact approval — November 17
@@ -79,5 +79,5 @@ or sooner on a known published fix. Active policy retains unchanged dependency
 source9d657a74/locka3e1f05f and reviewed proposal PR69. Fresh preflight must
 accept only those two paths; raw audit still reports HIGH, all other gates
 remain blocking, and hosted deployment/regeneration acceptance is separate.
-The [activation evidence](../records/2026-11-17-picomatch-approval.md) records
+The [activation evidence](https://github.com/lapismd/dependency-automation/blob/main/spec/records/2026-11-17-picomatch-approval.md) records
 before/after qualification without treating the graph as clean.

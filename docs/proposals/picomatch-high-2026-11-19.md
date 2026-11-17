@@ -1,11 +1,12 @@
 # Approved exact coordinator picomatch exception
 
-**Status: explicitly approved by the operator; policy deployment pending.**
+**Status: explicitly approved by the operator and deployed through PR70.**
 Approval recorded at `2026-11-17T18:15:39.194Z` for exactly the two bindings below, reviewed in
 [PR69](https://github.com/lapismd/dependency-automation/pull/69).
 `config/advisories.json` is the sole active approval authority. This decision
-does not inherit the retired LOW deepmerge decision. Consumer writes and
-scheduling remain off until deployment and fresh audit qualification.
+does not inherit the retired LOW deepmerge decision. Deployed audit admission
+qualifies exactly these two paths before the already-reviewed Notebook pilot
+writer is restored. Scheduling and broader rollout remain separate gates.
 
 Fresh audit at2026-11-17T17:34:18.479Z reports HIGH
 [GHSA-fc5q-39xc-vjpf](https://github.com/advisories/GHSA-fc5q-39xc-vjpf) on the two
@@ -14,7 +15,7 @@ metadata resolves picomatch `latest` to `4.0.7`, which is affected. The advisory
 describes regular-expression denial of service from repeated extglobs. No
 reachability exemption or absence of risk is claimed.
 
-| Binding                  | Proposed value                                                     |
+| Binding                  | Approved value                                                     |
 | ------------------------ | ------------------------------------------------------------------ |
 | Advisory                 | GHSA-fc5q-39xc-vjpf                                                |
 | Severity                 | HIGH                                                               |
@@ -33,9 +34,9 @@ a development-only exposure. A malicious glob can stall the Node event loop
 and automation. Current scope and job timeouts do not prove the vulnerable
 calls unreachable, and are not substitutes for a fixed release.
 
-The proposed decision would admit only these two exact advisory/package/version/
-path/severity/source/lock identities until the stated boundary. Raw audit would
-still report the HIGH; it would not become a clean dependency graph. Any extra
+The approved decision admits only these two exact advisory/package/version/
+path/severity/source/lock identities until the stated boundary. Raw audit
+still reports the HIGH; this is not a clean dependency graph. Any extra
 finding/path, source or lock change, expired/future approval, unavailable or
 muted audit, unknown fix evidence or known published fix remains blocking.
 Existing source ownership, current-head checks, compatibility, branch rules,
@@ -51,3 +52,7 @@ the approval time and reviewed proposal PR69 on both entries. Actual audit
 qualification must pass before consumer writes are restored. Keep raw HIGH
 findings visible, retire approvals when fixed or stale, and never extend the
 expiry or transfer this decision to new source or lock bytes.
+
+[Issue71](https://github.com/lapismd/dependency-automation/issues/71) tracks
+remediation and retirement before the fixed expiry or earlier known fix. Pilot
+success cannot renew, extend or rebind this authority.
