@@ -32,6 +32,13 @@
         "integrity": "sha512-2nnIW+8O6oQs9PR1rLlQTXJX/2RU7+xGkkmfUDz7ERxEK6nnSEuy+mpTO4hnA0XKV1w1yH6hzz0ai7VOR5G8tQ==",
         "repository": "lapismd/lapis-notes",
         "sourceSha": "1080bdb420bc367526995613be9d0f1568fb0f3c"
+      },
+      {
+        "name": "@lapis-notes/app-profile",
+        "version": "0.2.4",
+        "integrity": "sha512-sbHQq2j0gXU7E29v0yzrW67eCTNv7fYbGpM9H2mKhpV88rXBh95Umc4gj3b5ZQ+YbUBE0/9n4R7erqfeYRZJOQ==",
+        "repository": "lapismd/lapis-notes",
+        "sourceSha": "92f1cdbf276a1275370677bb35ccb5e08318099f"
       }
     ],
     "scopes": [

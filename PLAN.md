@@ -47,6 +47,11 @@ remain open; pilot writes are enabled and scheduled/full rollout stays disabled.
       verified ZIP SHA256a7723b29…3cf40661; durable read-back retains retirement.
       [Source and hosted evidence](spec/records/2026-11-17-scoped-publisher-retirement.md)
       remain separate from downstream acceptance.
+- [x] PR43 deploys bounded public source reads at834c058b; exact-main check
+      44027266295 and Pages44027266274 pass. Normal44027276770/44028620105
+      accept durable generations99/100 with identical release objects and
+      operation IDs and no consumer writer execution. The original403 cause
+      remains unproven.
 - [ ] Finish genuine Notes publication and replay. Dependency PR146 merges
       `3bd015b5`; canonical version preparation PR148 merges `ddd83d39` after
       199 release tests,69 specification cases and288 cold interaction/axe cases.
@@ -60,7 +65,12 @@ remain open; pilot writes are enabled and scheduled/full rollout stays disabled.
       and retained tarball bytes then match (SHA256159377ba…ce6af9), and
       failure-only attempt2 passes install/signatures/provenance, GitHub release
       and notification without rebuilding or republishing. Reconciliation/replay
-      remains open: recent hosted runs403 on state reads need qualified recovery.
+      remains open: PR43 restores normal hosted reads; generations99/100 preserve
+      identical releases/operation IDs. The exact Profile0.2.4 publication-only
+      channel binding is under qualification; no consumer eligibility is added.
+      Live proof also preserves a genuine separate hold: Profile declares Core
+      ^0.13.3 while retained intent requires minimum0.13.4; trace original intent
+      before changing source or release policy, without relaxing floor checks.
 - [x] Stop Notebook's unsupported bot candidates: PR42 merges4e8a66b5, with
       exact-main check44005505946/Pages44005505992 passing. Normal run44005707754
       persists generation89 and skips the consumer writer matrix. Notebook's

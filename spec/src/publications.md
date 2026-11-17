@@ -4,6 +4,8 @@ Publication observations are independent of update eligibility. The latest-only
 policy remains the default for candidate selection; observing a next-tagged
 version alone does not admit it or change registry tags.
 
+The exact Profile0.2.4 source/integrity binding MAY retire its verified own publication wait only; Profile MUST remain forbidden in consumer scope entries, leaving direct update eligibility and npm tags unchanged.
+
 ## DA-PUB-001 — Verified publication identity
 
 **Requirement.** Published-source acceptance MUST bind package/version/integrity to authenticated provenance, the reviewed public publisher workflow and exact successful source qualification.

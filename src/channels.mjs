@@ -11,6 +11,8 @@ const names = [
   "@lapis-notes/workspace",
   "@lapis-notes/file-explorer",
 ];
+// Profile is verified only for publisher retirement; consumer scopes stay unchanged.
+const publicationNames = [...names, "@lapis-notes/app-profile"];
 const repositories = [
   "lapismd/lapis-notes",
   "lapismd/lapis-plugins",
@@ -35,7 +37,7 @@ export function validateChannelPolicy(p) {
     !fields(p.cohort, ["id", "channel", "packages", "scopes"]) ||
     p.cohort.id !== "notes-reviewed-2026-11" ||
     p.cohort.channel !== "next" ||
-    p.cohort.packages?.length !== 4 ||
+    p.cohort.packages?.length !== publicationNames.length ||
     !Array.isArray(p.cohort.scopes) ||
     !p.cohort.scopes.length ||
     p.cohort.scopes.length > 128
@@ -51,7 +53,7 @@ export function validateChannelPolicy(p) {
         "repository",
         "sourceSha",
       ]) ||
-      !names.includes(pin.name) ||
+      !publicationNames.includes(pin.name) ||
       seen.has(pin.name) ||
       !semver.valid(pin.version) ||
       semver.prerelease(pin.version) ||
