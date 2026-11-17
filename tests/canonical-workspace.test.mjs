@@ -4,6 +4,7 @@ import { readFileSync } from "node:fs";
 import { gunzipSync } from "node:zlib";
 import { validateIntakePolicy } from "../src/canonical-intake.mjs";
 import YAML from "yaml";
+import { format } from "prettier";
 import {
   workspaceIntakeFacts,
   workspaceIntakeSlot,
@@ -92,6 +93,26 @@ function refreshSlots(data, selectedPolicy = policy) {
   );
   data.currentChapters = structuredClone(data.baseChapters);
 }
+
+test("workspace slots survive normal consumer Markdown formatting and repeat preparation", async () => {
+  const data = input();
+  for (const path of chapters) {
+    data.baseChapters[path] = await format(data.baseChapters[path], {
+      parser: "markdown",
+    });
+    data.currentChapters[path] = data.baseChapters[path];
+  }
+  const first = prepareWorkspaceIntake(data);
+  for (const path of chapters)
+    assert.equal(
+      await format(first.outputs[path], { parser: "markdown" }),
+      first.outputs[path],
+    );
+  assert.deepEqual(
+    prepareWorkspaceIntake({ ...data, currentChapters: first.outputs }).outputs,
+    first.outputs,
+  );
+});
 
 test("workspace policy retains a second unchanged first-party dependency", () => {
   const data = input(),

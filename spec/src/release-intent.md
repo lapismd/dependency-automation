@@ -65,6 +65,8 @@ table is current dependency evidence, not a release or functional acceptance
 claim. Source-owned paths and policy bytes remain immutable throughout native
 generation; the existing schema1 development/override profile retains its
 stricter mechanical lock comparison and independent-admission boundary.
+Managed workspace slots retain ordinary Markdown formatter output byte for byte,
+so formatting never makes a valid source opt-in stale on the next update.
 
 **Requirement.** Source-owned workspace preparation MUST emit current dependency facts only for explicitly admitted compatible registry updates across its declared importer and chapter scope.
 

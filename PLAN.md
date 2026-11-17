@@ -61,6 +61,12 @@ remain open; pilot writes are enabled and scheduled/full rollout stays disabled.
       This is source qualification; consumer adoption is still pending.
 - [ ] Deploy and adopt the workspace profile in the remaining eligible consumers,
       verify their offline guards and complete hosted candidate/main acceptance.
+      Notes now has source-owned seven-area policy and independent offline guard
+      preparation locally:25 focused and72 affected checks,224 release-tool cases
+      and canonical checks pass. Hosted adoption remains pending. Consumer
+      formatting exposed a shared slot-stability defect; the exact regression
+      fails once before the renderer repair and passes after it, including repeat
+      preparation. These facts do not activate scheduling or qualify a new release.
 - [ ] Automate safe recovery of the observed version-PR refresh closure. Preserve
       manual closure and repair ownership; require exact bot, source, branch and
       genuine candidate validation before reopening. Core90 now supplies a second
