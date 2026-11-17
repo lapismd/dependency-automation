@@ -81,3 +81,8 @@ accept only those two paths; raw audit still reports HIGH, all other gates
 remain blocking, and hosted deployment/regeneration acceptance is separate.
 The [activation evidence](https://github.com/lapismd/dependency-automation/blob/main/spec/records/2026-11-17-picomatch-approval.md) records
 before/after qualification without treating the graph as clean.
+
+The retained exclusion checkpoint also names `lapismd/agent-redaction` and
+`@lapismd/agent-redaction`, matching the operator’s Deno-package exclusion.
+Removing either remains observable drift; this is not an advisory decision or
+activation change.

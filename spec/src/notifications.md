@@ -88,3 +88,14 @@ acceptance; advisory exceptions and global full rollout are not implied.
 - The source MUST be explicitly public, and its head MUST match an open same-repository PR or the current default branch; revalidation immediately before dispatch MUST reject a moved head.
 - Default-branch `workflow_run` callers MUST read or execute no candidate files, code, artifacts or caches, retain the existing notification credential boundary, and exclude their own workflow from completion triggers.
 - Completion hints MUST leave all-current-head CI, repair ownership, registry discovery and merge/publication authority unchanged.
+
+## Parallel source registration
+
+Exact existing source workflows for Server, Agent UI, AI, Terminal, jj-store
+and Plugin Registry are registered for their supported PR/push/manual events.
+Unsupported workflow_call/merge_group events, callback self-triggers and nested
+image/cache/native/tag/publisher entrypoints are not added. Registry’s top-level
+signed deployment is its actual completion boundary, not an invented npm release.
+Registration is read/dispatch authority only; each source caller must pin this
+reviewed implementation and policy together and pass independent source/main
+acceptance before a separate per-entry activation and durable replay.

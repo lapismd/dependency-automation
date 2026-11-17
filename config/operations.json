@@ -15,9 +15,13 @@
     "lapismd/nostr-relay",
     "lapismd/terminal-host",
     "lapismd/ai-host",
-    "lapismd/ai-controller"
+    "lapismd/ai-controller",
+    "lapismd/agent-redaction"
   ],
-  "requiredExcludedPackages": ["@lapismd/terminal-host"],
+  "requiredExcludedPackages": [
+    "@lapismd/terminal-host",
+    "@lapismd/agent-redaction"
+  ],
   "updateOwners": {
     "firstPartyVersions": "coordinator",
     "thirdPartyVersions": "dependabot",

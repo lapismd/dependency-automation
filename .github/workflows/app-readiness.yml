@@ -8,17 +8,23 @@ on:
         default: .github
         type: choice
         options:
-          [
-            .github,
-            lapis-plugins,
-            lapis-notes,
-            lapis-ai,
-            lapis-server,
-            lapis-plugin-docs,
-            lapis-plugin-tasks,
-            spec-validator,
-            storybook-addon-visual-delta,
-          ]
+          - .github
+          - lapis-plugins
+          - lapis-notes
+          - lapis-ai
+          - lapis-server
+          - lapis-plugin-docs
+          - lapis-plugin-tasks
+          - spec-validator
+          - storybook-addon-visual-delta
+          - lapis-plugin-notebook
+          - mira-mde
+          - design-core
+          - lapis-desktop
+          - agent-ui
+          - lapis-terminal
+          - plugin-registry
+          - jj-store
 permissions:
   contents: read
 jobs:
@@ -32,34 +38,38 @@ jobs:
       HAS_APP_ID: ${{ vars.LAPIS_DEPENDENCY_APP_CLIENT_ID != '' }}
     steps:
       - name: Validate pilot and existing credential availability
+        id: scope
         shell: bash
         run: |
           set -euo pipefail
           case "$TARGET_NAME" in
-            .github|lapis-plugins|lapis-notes|lapis-ai|lapis-server|lapis-plugin-docs|lapis-plugin-tasks|spec-validator|storybook-addon-visual-delta) ;;
+            .github|lapis-plugins|lapis-notes|lapis-ai|lapis-server|lapis-plugin-docs|lapis-plugin-tasks|spec-validator|storybook-addon-visual-delta|lapis-plugin-notebook|mira-mde|design-core|lapis-desktop|agent-ui|lapis-terminal|plugin-registry) target_owner=lapismd ;;
+            jj-store) target_owner=stevejuma ;;
             *) echo '::error::Target is outside the reviewed pilot scope.'; exit 1 ;;
           esac
           if [[ "$HAS_APP_KEY" != true || "$HAS_APP_ID" != true ]]; then
             echo '::error::Existing App credentials are unavailable to the coordinator. Check the configured variable and secret access; no secret value needs to be retrieved.'
             exit 1
           fi
+          printf 'owner=%s\n' "$target_owner" >> "$GITHUB_OUTPUT"
       - name: Mint read-only token for one pilot repository
         id: app
         uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3
         with:
           client-id: ${{ vars.LAPIS_DEPENDENCY_APP_CLIENT_ID }}
           private-key: ${{ secrets.LAPIS_DEPENDENCY_APP_PRIVATE_KEY }}
-          owner: lapismd
+          owner: ${{ steps.scope.outputs.owner }}
           repositories: ${{ inputs.repository }}
           permission-contents: read
           permission-pull-requests: read
       - name: Verify repository scope and read access
         env:
           GH_TOKEN: ${{ steps.app.outputs.token }}
+          TARGET_OWNER: ${{ steps.scope.outputs.owner }}
         shell: bash
         run: |
           set -euo pipefail
-          expected="lapismd/$TARGET_NAME"
+          expected="$TARGET_OWNER/$TARGET_NAME"
           gh api --method GET installation/repositories |
             jq -e --arg expected "$expected" '.total_count == 1 and .repositories[0].full_name == $expected' >/dev/null
           gh api --method GET "repos/$expected" --jq '{repository:.full_name,defaultBranch:.default_branch}'

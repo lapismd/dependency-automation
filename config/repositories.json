@@ -17,10 +17,11 @@
       "lapismd/nostr-relay",
       "lapismd/terminal-host",
       "lapismd/ai-host",
-      "lapismd/ai-controller"
+      "lapismd/ai-controller",
+      "lapismd/agent-redaction"
     ]
   },
-  "excludedPackages": ["@lapismd/terminal-host"],
+  "excludedPackages": ["@lapismd/terminal-host", "@lapismd/agent-redaction"],
   "repositories": [
     {
       "repository": "lapismd/mira-mde",
@@ -84,7 +85,8 @@
     },
     {
       "repository": "lapismd/agent-redaction",
-      "phase": "full"
+      "phase": "full",
+      "holdReason": "Excluded Deno package: ./deno is public and Deno validation is required; public graph observation only, no dependency writes."
     },
     {
       "repository": "lapismd/ai-controller",

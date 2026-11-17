@@ -198,3 +198,18 @@ VD-GOV-008 continues to gate audit remediation and package publication. The
 earlier blanket maintenance hold was too broad; the existing unapproved HIGH
 remains a publication blocker. This adoption does not change audit collectors,
 waive a finding, rebind an exception or authorize tags, uploads or baselines.
+
+## Parallel rollout and explicit Deno-package exclusion
+
+The next adoption batches cover existing Node foundations/plugins, native/server
+packages and applications/registry independently. Only the parent coordinator
+changes registrations, per-repository activation or durable shared state; source
+preparation does not enable writes. Notebook, Spec Validator and Visual Delta
+remain the only enabled entries until each additional source passes acceptance.
+
+Agent Redaction publicly exports `./deno` and requires `pnpm test:deno` under its
+tracked guide. The operator excludes any Deno package. Its monitoring exclusion,
+package ignore and explicit dependency-write hold therefore preserve graph
+observation without adopting, porting or activating that source. This excludes
+adoption64 rather than claiming successful Node-only acceptance. Community,
+Nostr and every prior frozen host exclusion remain unchanged.

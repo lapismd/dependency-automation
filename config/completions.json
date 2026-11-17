@@ -159,6 +159,108 @@
         "path": ".github/workflows/release.yml",
         "events": ["push", "workflow_dispatch"]
       }
+    ],
+    "lapismd/lapis-server": [
+      {
+        "id": 400671987,
+        "path": ".github/workflows/ci.yml",
+        "events": ["pull_request", "push"]
+      },
+      {
+        "id": 401059433,
+        "path": ".github/workflows/publish-spec-pages.yml",
+        "events": ["push", "workflow_dispatch"]
+      },
+      {
+        "id": 401231382,
+        "path": ".github/workflows/release.yml",
+        "events": ["push"]
+      }
+    ],
+    "lapismd/agent-ui": [
+      {
+        "id": 400169793,
+        "path": ".github/workflows/check.yml",
+        "events": ["pull_request", "workflow_dispatch", "push"]
+      },
+      {
+        "id": 400526739,
+        "path": ".github/workflows/publish-storybook-pages.yml",
+        "events": ["push", "workflow_dispatch"]
+      },
+      {
+        "id": 402863628,
+        "path": ".github/workflows/changesets.yml",
+        "events": ["push", "workflow_dispatch"]
+      }
+    ],
+    "lapismd/lapis-ai": [
+      {
+        "id": 386615564,
+        "path": ".github/workflows/ci.yml",
+        "events": ["push", "pull_request", "workflow_dispatch"]
+      },
+      {
+        "id": 386615568,
+        "path": ".github/workflows/publish-spec-pages.yml",
+        "events": ["push", "pull_request", "workflow_dispatch"]
+      },
+      {
+        "id": 386615560,
+        "path": ".github/workflows/changesets.yml",
+        "events": ["push", "workflow_dispatch"]
+      }
+    ],
+    "lapismd/lapis-terminal": [
+      {
+        "id": 386695104,
+        "path": ".github/workflows/ci.yml",
+        "events": ["push", "pull_request", "workflow_dispatch"]
+      },
+      {
+        "id": 386695105,
+        "path": ".github/workflows/publish-spec-pages.yml",
+        "events": ["push", "pull_request", "workflow_dispatch"]
+      },
+      {
+        "id": 386695103,
+        "path": ".github/workflows/changesets.yml",
+        "events": ["push", "workflow_dispatch"]
+      }
+    ],
+    "stevejuma/jj-store": [
+      {
+        "id": 384701963,
+        "path": ".github/workflows/ci.yml",
+        "events": ["push", "pull_request", "workflow_dispatch"]
+      },
+      {
+        "id": 385789281,
+        "path": ".github/workflows/ci-ui.yml",
+        "events": ["workflow_dispatch"]
+      },
+      {
+        "id": 384701965,
+        "path": ".github/workflows/publish-spec-pages.yml",
+        "events": ["push", "pull_request", "workflow_dispatch"]
+      },
+      {
+        "id": 384701967,
+        "path": ".github/workflows/release.yml",
+        "events": ["push", "workflow_dispatch"]
+      }
+    ],
+    "lapismd/plugin-registry": [
+      {
+        "id": 344820581,
+        "path": ".github/workflows/checks.yml",
+        "events": ["pull_request", "push", "workflow_dispatch"]
+      },
+      {
+        "id": 344820582,
+        "path": ".github/workflows/publish.yml",
+        "events": ["push", "workflow_dispatch"]
+      }
     ]
   }
 }
