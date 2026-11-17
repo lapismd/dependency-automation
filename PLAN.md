@@ -56,15 +56,15 @@ remain open; pilot writes are enabled and scheduled/full rollout stays disabled.
       Its explicit main-range comparison finds four missing canonical mappings;
       retain the draft until source-owned version preparation carries those
       facts. Actual publication verification and replay remain open.
-- [ ] Resolve Notebook's unsupported candidates before widening its bounded
-      Core intake. New PR40 fails Svelte once because Explorer's API0.6 type
-      conflicts with root API0.2; breaking drafts41/42 are separate. All three
-      report source canonical-preparation artifact errors. Green coordinator
-      exit does not waive these source-owned compatibility/preparation gates.
-      Six focused normal-admission failures now pass locally; exact hosted
-      replay holds all nine unsupported targets without changing Notes' seven.
-      Deploy this source-capability check and inspect normal reconciliation
-      before closing these erroneous bot candidates; generic intake remains open.
+- [x] Stop Notebook's unsupported bot candidates: PR42 merges4e8a66b5, with
+      exact-main check44005505946/Pages44005505992 passing. Normal run44005707754
+      persists generation89 and skips the consumer writer matrix. Notebook's
+      eight current unsupported targets remain held with zero admitted updates;
+      Notes correctly waits for publication with no remaining dependency updates.
+      Durable generation90 retains the same hold. PRs40–42 and their bot-only
+      branches are closed/deleted after fresh head/author checks. Their original
+      hook and API0.6/API0.2 Svelte failure remain evidence; no product/API
+      migration is claimed. Generic canonical intake remains open.
 - [x] Visual Delta PR78 merges1d01be1b: exact-main CI43985171431 and Pages pass;
       version43985171061 accepts the guard and skips App/token/action with no
       release intent. Actual whole-recipe43977922918 remains separately qualified.
@@ -81,8 +81,9 @@ remain open; pilot writes are enabled and scheduled/full rollout stays disabled.
       All sixteen observations are same-source; whole-recipe evidence remains
       separate. Permanent AI Controller/AI Host holds prevent excluded roots
       entering a future full-phase write matrix. Local371 tests/three spec
-      lanes pass; normal post-merge inventory read-back remains required under
-      rollout acceptance, without claiming generic recipe qualification.
+      lanes pass. Normal generation89 retains19/43/220, zero graph gaps/cycles
+      and both excluded-root holds. Recipe qualification and the remaining
+      generic/version handoff stay separate from this hosted read-back.
 - [ ] Retain Server's production KaTeX and jj-store's functional/accessibility
       failures as source-owned holds; no inherited exception or baseline waiver.
       Remaining eligible-writer/retained-Deno boundaries and generic canonical

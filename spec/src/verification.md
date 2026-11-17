@@ -62,7 +62,7 @@
 | DA-WAVE-007 | In progress | 59 admission regressions; actual Notebook1→0; fresh GET-only19/43/220 plan retains six waits; hosted regeneration pending.                                               |
 | DA-PUB-003  | In progress | Scoped/transitive-peer negatives; hosted generation83 retires ten published waits/one obsolete wait; Notes146 publication/replay pending.                                |
 | DA-PUB-004  | Implemented | Hosted generation82 (43989934897) verifies all ten selected packages plus History against current source-bound static contracts; size/ID/signature negatives pass.       |
-| DA-WAVE-008 | In progress | Six failing normal-admission regressions become eight passes; real generation83 replay holds all nine unsupported targets; hosted acceptance pending.                    |
+| DA-WAVE-008 | Implemented | Eight focused/379 total tests; hosted generation89/90 holds unsupported targets before writers; source-preparation-admission record retains candidate closure evidence.  |
 
 Detailed bootstrap commands, failure counts and hosted handoff live in
 [the specification/Pages qualification record](https://github.com/lapismd/dependency-automation/blob/main/spec/records/2026-11-15-canonical-spec-and-pages.md).

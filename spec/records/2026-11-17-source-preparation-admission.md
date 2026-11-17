@@ -74,3 +74,31 @@ Plugins publication contracts still verify against current source, within178
 publication requests/84,177,028 bytes. Graph observations do not replace
 current-head consumer qualification. Raw snapshots, probes and reports remain
 outside the source commit and public specification book.
+
+## Hosted deployment and erroneous candidate retirement
+
+PR42 merges `4e8a66b533b0282006ffbe7d32a8d53eced7f26f`. Exact-main
+check44005505946 and Pages44005505992 pass. Normal reconciliation44005707754
+succeeds, publishes generation89 and skips the consumer writer matrix entirely.
+Artifact14294447534 has verified ZIP SHA256
+`72ec6f1333d53c388074e0736212a2e212763c68dc50f2740653f3b0a70b0c1d`.
+Its state candidate exactly matches accepted durable commit
+`a5cc6690c061fbcf6e383e9c9609c50c963cd0b7`. Later generation90 at
+`29e1a590e6000be6b017a3d3a0effbb38fb0a252` retains the same source-preparation
+hold with zero Notebook writer admission. The original replay's nine targets
+and the current inventory's eight remain separately dated observations.
+
+Hosted inventory retains19 repositories,43 owners and220 edges, zero graph
+coverage gaps/cycles, and explicit permanent AI Controller/AI Host holds.
+Publication collection uses182 requests/84,158,553 bytes. Notes is correctly
+publication-waiting at3bd015b5 with no remaining dependency update candidate.
+This normal read-back also verifies deployment of PR41's reviewed policy;
+it does not qualify unfinished version preparation or generic product intake.
+
+After this durable proof, fresh API reads confirm each unsupported Notebook
+candidate has its exact original head and one bot-authored commit, with no
+manual repair: PR40 at95edf9b0,41 at0142aaa2 and42 at247c761f. All three are
+closed without merging and their bot-only branches deleted. Their heads remain
+recoverable receipts in GitHub PR history. Existing manual/retained compatibility
+branches are preserved; a later product/API migration still needs source-owned
+qualification rather than reopening an unsupported automatic candidate.
