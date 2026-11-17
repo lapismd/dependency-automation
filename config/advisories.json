@@ -1,5 +1,30 @@
 {
   "schemaVersion": 1,
   "maxApprovalDays": 30,
-  "approvals": []
+  "approvals": [
+    {
+      "advisory": "GHSA-fc5q-39xc-vjpf",
+      "package": "picomatch",
+      "severity": "high",
+      "sourceSha": "9d657a7458e40ca84962a12c9b8e361534b3470f",
+      "lockSha256": "a3e1f05fe6a25925d61b6af7baf5316c24156a0b71319611f6e3298bbca61b8b",
+      "approvedAt": "2026-11-17T18:15:39.194Z",
+      "expiresAt": "2026-11-19T00:00:00.000Z",
+      "review": "https://github.com/lapismd/dependency-automation/pull/69",
+      "version": "2.3.2",
+      "path": ".>renovate>@yarnpkg/core>micromatch>picomatch"
+    },
+    {
+      "advisory": "GHSA-fc5q-39xc-vjpf",
+      "package": "picomatch",
+      "severity": "high",
+      "sourceSha": "9d657a7458e40ca84962a12c9b8e361534b3470f",
+      "lockSha256": "a3e1f05fe6a25925d61b6af7baf5316c24156a0b71319611f6e3298bbca61b8b",
+      "approvedAt": "2026-11-17T18:15:39.194Z",
+      "expiresAt": "2026-11-19T00:00:00.000Z",
+      "review": "https://github.com/lapismd/dependency-automation/pull/69",
+      "version": "4.0.7",
+      "path": ".>renovate>re2>node-gyp>tinyglobby>picomatch"
+    }
+  ]
 }

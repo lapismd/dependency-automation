@@ -97,6 +97,14 @@ with the reviewed dependency-source/lock binding and November 21 expiry.
 This changes only advisory admission under DA-OPS-002; repository scope,
 existing holds, rollout phase and the separate write gate remain unchanged.
 
+After retirement of that LOW decision, the November17 operator explicitly
+approves two exact HIGH picomatch runtime paths bound to dependency source
+9d657a74 and lock SHA256a3e1f05f. Their exclusive November19,00:00UTC expiry
+and earlier known-fix termination are independent of the historical LOW scope.
+Only `config/advisories.json` grants those two tuples; all other findings,
+source/lock drift, stale approval cleanup and existing rollout gates still deny
+writes. The decision does not activate another repository or consumer exception.
+
 Hosted activation observations may use the five values supplied by the trusted
 main audit workflow when its read token cannot query the Variables API. This
 read-only evidence follows DA-OPS-001; it cannot create defaults, change settings
