@@ -40,13 +40,22 @@ remain open; pilot writes are enabled and scheduled/full rollout stays disabled.
       in202 requests/84,774,506 bytes. Notes' per-response bounds and every
       crypto/source gate remain binding; [the budget record](spec/records/2026-11-17-publication-budget.md)
       retains the original failure separately from downstream/replay acceptance.
-- [ ] Deploy scoped publisher retirement: generation82 still retains eleven
-      release waits because default latest closure excludes approved provider
-      prerequisites. The exact local replay now publishes ten/supersedes only
-      History's obsolete compound wait and admits seven genuine Notes updates;
-      five real-snapshot negatives retain all eleven waits. The source proof is
-      [recorded separately](spec/records/2026-11-17-scoped-publisher-retirement.md);
-      normal hosted collection, Notes acceptance/publication and replay remain.
+- [x] Scoped publisher retirement PR40 deploys at28b76b26; exact-main check
+      43994911731 and Pages43994911699 pass. Normal reconciliation43995269512
+      persists generation83, retiring ten published Plugins waits and only
+      superseding History's obsolete compound wait. Artifact14289356523 has
+      verified ZIP SHA256a7723b29…3cf40661; durable read-back retains retirement.
+      [Source and hosted evidence](spec/records/2026-11-17-scoped-publisher-retirement.md)
+      remain separate from downstream acceptance.
+- [ ] Qualify genuine Notes PR146 before publication: seven updates and the
+      Profile Changeset are generated, but five main-range canonical mappings
+      are missing and Storybook interactions are skipped. The PR remains draft;
+      consumer acceptance, actual publication verification and replay remain.
+- [ ] Resolve Notebook's unsupported candidates before widening its bounded
+      Core intake. New PR40 fails Svelte once because Explorer's API0.6 type
+      conflicts with root API0.2; breaking drafts41/42 are separate. All three
+      report source canonical-preparation artifact errors. Green coordinator
+      exit does not waive these source-owned compatibility/preparation gates.
 - [x] Visual Delta PR78 merges1d01be1b: exact-main CI43985171431 and Pages pass;
       version43985171061 accepts the guard and skips App/token/action with no
       release intent. Actual whole-recipe43977922918 remains separately qualified.
@@ -56,10 +65,13 @@ remain open; pilot writes are enabled and scheduled/full rollout stays disabled.
       Shared whole-recipe43987271519/artifact14286425548 qualify the unchanged
       private packages and lock graph. Exact-main CI43992225891, Pages43992225107
       and version43992225038 pass, with actual no-intent App/action skipping.
-- [ ] Refresh remaining recorded tool-cohort constraints against reviewed owner
-      acceptance: Docs, Agent UI and Terminal now carry qualified Storybook/
-      Vitest patches/minors, and Visual Delta's validator is0.2.1; the historical
-      policy still reports those differences rather than silently accepting them.
+- [ ] Deploy the reviewed tool-cohort policy refresh: twelve exact constraints
+      across Docs, Agent UI, Terminal and Visual Delta match qualified owner
+      source/lock/CI. Mira gains its explicitly reviewed three-job workflow.
+      All sixteen observations are same-source; whole-recipe evidence remains
+      separate. Permanent AI Controller/AI Host holds prevent excluded roots
+      entering a future full-phase write matrix. Local371 tests/three spec
+      lanes pass; hosted source/inventory acceptance remains required.
 - [ ] Retain Server's production KaTeX and jj-store's functional/accessibility
       failures as source-owned holds; no inherited exception or baseline waiver.
       Remaining eligible-writer/retained-Deno boundaries and generic canonical

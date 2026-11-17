@@ -97,3 +97,27 @@ Missing required intent or an artifact error MUST NOT establish a completed
 release chain, regardless of a successful coordinator workflow exit. Native
 Renovate artifact-error review and current-head consumer gates remain binding.
 No excluded hosts, phase, scope, advisory approval or permissions change.
+
+## Reviewed owner-cohort policy repair — November 17
+
+GET-only refresh continues preserving supported constraints and reporting
+declaration differences for review. The reviewed policy now records the
+source-qualified Docs, Agent UI and Terminal Storybook10.6.7 cohorts, paired
+Vitest4.1.12 where changed, Docs Vite6.4.6 and Visual Delta Spec Validator0.2.1.
+These twelve exact constraint changes retain Node, pnpm, Changesets majors,
+runtime bytes, source recipes and all other owner constraints. Docs, Agent UI
+and Terminal also gain exact required-job receipts from their existing complete
+source workflows; no filename fallback replaces reviewed selectors.
+
+Mira's previously empty selector is explicitly replaced with its reviewed
+`mira-spec-first.yml` workflow and all three governance, package and browser
+jobs. This policy decision accepts actual required-job receipts; an empty
+selector elsewhere continues to mean unavailable, without fallback.
+
+All sixteen observations bind their inspected public source, manifest, lock
+and resolved tools. All sixteen have same-source successful CI observations;
+reviewed job receipts and historical run-only observations stay distinct.
+Recipe qualification
+continues to be reported separately from source/cohort evidence and the ten
+deployed whole-recipe guards. Existing Deno-root exclusions remain explicit
+dependency-write holds under DA-POL-003, including during full-phase simulation.

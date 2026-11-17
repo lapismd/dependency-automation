@@ -5,7 +5,7 @@
 | DA-OWN-001  | Implemented | Source boundaries in `src/`, generated PR rules and `tests/automerge.test.mjs`; no npm publisher entrypoint.                                                             |
 | DA-POL-001  | Implemented | `loadAllowlist`/`loadPolicy` in `src/github.mjs`; `tests/github.test.mjs` and `tests/policy.test.mjs`.                                                                   |
 | DA-POL-002  | Implemented | `monitoringRepositories`; `tests/maintenance-policy.test.mjs`; qualified Maintenance policy adapter recorded in PLAN.md.                                                 |
-| DA-POL-003  | Implemented | Workspace filtering, excluded-package rules and hold matrix in `src/policy.mjs`, `src/renovate.mjs`, inventory; policy/consumer tests.                                   |
+| DA-POL-003  | Implemented | Policy/consumer tests; real-snapshot full-phase exclusions and exact holds in2026-11-17-reviewed-cohorts-and-exclusions.md.                                              |
 | DA-INV-001  | Implemented | Revision-bound `discoverRepository` and duplicate-owner guard; `tests/github.test.mjs`.                                                                                  |
 | DA-INV-002  | Implemented | Registry-only availability closure and error semantics; `tests/policy.test.mjs` and `tests/github.test.mjs`.                                                             |
 | DA-INV-003  | Implemented | Portability/onboarding/hold matrix in `scripts/inventory.mjs`; unpublished-private-consumer regression.                                                                  |
@@ -54,13 +54,13 @@
 | DA-NOT-003  | Implemented | Completion/workflow regressions reject stale/fork/unknown evidence; actual CLI metadata-only test permits one dispatch and forbids candidate files and npm reads.        |
 | DA-WAVE-005 | Implemented | Callback settlement, pending-check timing and graph isolation tests; all four pilot callers and repeated Plugins dispatch are hosted-qualified (PLAN.md).                |
 | DA-WAVE-006 | Implemented | Compound/mixed release-floor and lock regressions plus the bound generation82 replay in `spec/records/2026-11-17-scoped-publisher-retirement.md`.                        |
-| DA-TOOL-005 | In progress | Six original CI failures now pass; source/job/attempt and receipt controls pass; 179 tests/3 spec lanes; hosted refresh pending.                                         |
-| DA-TOOL-006 | In progress | 26 focused tests; GET-only refresh 16/16; inventory 19 repos/43 owners/220 edges; ranges and provenance preserved; hosted pending.                                       |
+| DA-TOOL-005 | In progress | Source/job/attempt controls; reviewed cohort record binds Docs/Agent UI/Terminal/Mira jobs and16 same-source observations; hosted refresh pending.                       |
+| DA-TOOL-006 | In progress | GET-only refresh16/16 preserves ranges/provenance; reviewed twelve-constraint repair and full-phase exclusion proof; hosted refresh pending.                             |
 | DA-PUB-001  | Implemented | Real crypto/mutation/source/recovery tests plus reject-only claim preflight; full-inventory proof is recorded in `spec/records/2026-11-17-publication-budget.md`.        |
 | DA-PUB-002  | Implemented | Current-first collection, bounded shared 128 MiB/256-request budget and exhaustion/cache negatives; no App inventory credentials or source/channel relaxation.           |
 | DA-REL-004  | In progress | Actual Notebook fixture/preparation negatives; native extractor/rule regression admits only the paired exact override; hosted complete regeneration pending.             |
 | DA-WAVE-007 | In progress | 59 admission regressions; actual Notebook1→0; fresh GET-only19/43/220 plan retains six waits; hosted regeneration pending.                                               |
-| DA-PUB-003  | In progress | Scoped publisher/consumer and transitive-peer controls; exact generation82 replay and five real negative snapshots pass; hosted advancement remains required.            |
+| DA-PUB-003  | In progress | Scoped/transitive-peer negatives; hosted generation83 retires ten published waits/one obsolete wait; Notes146 publication/replay pending.                                |
 | DA-PUB-004  | Implemented | Hosted generation82 (43989934897) verifies all ten selected packages plus History against current source-bound static contracts; size/ID/signature negatives pass.       |
 
 Detailed bootstrap commands, failure counts and hosted handoff live in
