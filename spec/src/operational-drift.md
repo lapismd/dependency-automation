@@ -60,3 +60,14 @@ removal restores the empty approval list without changing any rejection rule,
 source/lock bytes, scope, activation or pilot gate. The
 [retirement record](../records/2026-11-16-advisory-retirement.md) retains the
 before/after preflight and pending hosted reconciliation distinction.
+
+## Unapproved picomatch observation — November 17
+
+Fresh coordinator audit reports HIGH GHSA-fc5q-39xc-vjpf on picomatch2.3.2 and
+4.0.7 at two exact Renovate runtime paths. The dependency-source/lock bytes are
+unchanged; the earlier clean observations and retired LOW decision cannot
+authorize these findings. Normal audit admission denies writes before App
+minting, and the operator also places the consumer writer switch off while
+scheduling remains off. The disabled proposal in
+`docs/proposals/picomatch-high-2026-11-19.md` grants no authority; DA-OPS-002
+still requires a fixed dependency graph or explicit exact operator decision.

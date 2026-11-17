@@ -5,6 +5,13 @@ configuration. `scripts/configure-renovate.mjs` selects a target only from the
 validated inventory. `renovate.config.cjs` binds that generated configuration,
 the single allowed post-upgrade command and explicit write activation.
 
+Canonical opt-ins retain the exact governed `pnpm-workspace.yaml` path alongside
+their exact chapter paths in native post-upgrade artifact filters. This allows
+the validated filesystem repair to replace native package-file bytes in the
+final commit. Ordinary sources retain only the deterministic Changeset filter;
+no manifest, source-code or broad specification wildcard is added. The workspace
+remains subject to the complete source-owned semantic/scope validation.
+
 Manual recovery binds the exact stored operation, completed originating run,
 current state revision and empty dependency branch/PR evidence. If source has
 advanced, a separate exact current-source input and immutable-tree projection

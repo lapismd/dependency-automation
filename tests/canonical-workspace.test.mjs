@@ -528,6 +528,7 @@ test("native workspace context carries exact target integrity and only owned out
   assert.deepEqual(context.canonicalUpdates, f.data.admittedUpdates);
   assert.deepEqual(config.postUpgradeTasks.fileFilters, [
     ".changeset/lapis-dependencies-*.md",
+    "pnpm-workspace.yaml",
     ...chapters,
   ]);
   assert.equal(config.postUpgradeTasks.commands.length, 1);

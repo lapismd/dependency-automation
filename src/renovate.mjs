@@ -295,8 +295,13 @@ export function repositoryConfig(repo, graph, automationRoot) {
       fileFilters: [
         ".changeset/lapis-dependencies-*.md",
         ...(repo.canonicalIntake
-          ? validateIntakePolicy(repo.canonicalIntake.policy, repo.repository)
-              .chapters
+          ? [
+              "pnpm-workspace.yaml",
+              ...validateIntakePolicy(
+                repo.canonicalIntake.policy,
+                repo.repository,
+              ).chapters,
+            ]
           : []),
       ],
     },

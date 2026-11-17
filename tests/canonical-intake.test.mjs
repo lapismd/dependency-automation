@@ -156,6 +156,20 @@ test("native Renovate post-upgrade filters retain exactly the opted-in two chapt
   };
   const config = repositoryConfig(repo, graph, process.cwd());
   const filters = config.postUpgradeTasks.fileFilters;
+  assert(
+    filters.some((pattern) =>
+      minimatch(pattern, { dot: true }).match("pnpm-workspace.yaml"),
+    ),
+    "Native collection must retain the governed workspace repair",
+  );
+  const ordinary = repositoryConfig(
+    { ...repo, canonicalIntake: undefined },
+    graph,
+    process.cwd(),
+  );
+  assert.deepEqual(ordinary.postUpgradeTasks.fileFilters, [
+    ".changeset/lapis-dependencies-*.md",
+  ]);
   const retained = Object.keys(result.outputs).filter((p) =>
     filters.some((pattern) => minimatch(pattern, { dot: true }).match(p)),
   );
@@ -339,6 +353,84 @@ test("filesystem preparation binds admitted source, regular paths and immutable 
         (await readFile(logFile, "utf8")).trim(),
         "install --frozen-lockfile --ignore-scripts --ignore-pnpmfile",
       );
+      const { repositoryConfig } = await import("../src/renovate.mjs");
+      const repo = {
+        repository: fixture.repository,
+        sourceSha,
+        canonicalIntake: { policy, sha256: args.policySha256 },
+        manifests: [
+          {
+            path: "package.json",
+            manifest: JSON.parse(data.before["package.json"]),
+          },
+        ],
+        workspace: {},
+      };
+      const nativeConfig = repositoryConfig(
+        repo,
+        {
+          packages: [],
+          available: {},
+          unpublished: [],
+          cycles: [],
+          edges: [],
+          repositories: [repo],
+        },
+        process.cwd(),
+      );
+      const inputFile = join(toolsRoot, "native-input.json"),
+        outputFile = join(toolsRoot, "native-output.json");
+      await writeFile(
+        inputFile,
+        JSON.stringify({
+          root,
+          cacheDir: join(toolsRoot, "cache"),
+          tasks: nativeConfig.postUpgradeTasks,
+          modified: [
+            ...Object.keys(data.after),
+            ...chapters,
+            "src/unrelated.mjs",
+          ],
+          config: {
+            branchName: "lapis-dependencies/lapis-first-party",
+            baseBranch: "main",
+            updatedPackageFiles: ["package.json", workspacePath].map(
+              (path) => ({
+                type: "addition",
+                path,
+                contents: data.after[path],
+              }),
+            ),
+            updatedArtifacts: [
+              {
+                type: "addition",
+                path: "pnpm-lock.yaml",
+                contents: data.after["pnpm-lock.yaml"],
+              },
+            ],
+            artifactErrors: [],
+          },
+        }),
+      );
+      execFileSync(
+        process.execPath,
+        [
+          "--experimental-test-module-mocks",
+          fileURLToPath(
+            new URL("./helpers/native-post-upgrade.mjs", import.meta.url),
+          ),
+          inputFile,
+          outputFile,
+        ],
+        { cwd: root, env, stdio: "pipe" },
+      );
+      const nativeResult = JSON.parse(await readFile(outputFile, "utf8"));
+      assert.equal(
+        nativeResult.finalFiles[workspacePath],
+        expectedWorkspace,
+        "Native commit must retain restored source-owned newline bytes",
+      );
+      assert(!Object.hasOwn(nativeResult.finalFiles, "src/unrelated.mjs"));
     } finally {
       await rm(toolsRoot, { recursive: true, force: true });
     }

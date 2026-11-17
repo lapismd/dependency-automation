@@ -601,6 +601,7 @@ test("an admitted development regeneration retains native paths and cannot auto-
   const config = repositoryConfig(f.repo, f.graph, "/automation");
   assert.deepEqual(config.postUpgradeTasks.fileFilters, [
     ".changeset/lapis-dependencies-*.md",
+    "pnpm-workspace.yaml",
     ...f.repo.canonicalIntake.policy.chapters,
   ]);
   assert.equal(
