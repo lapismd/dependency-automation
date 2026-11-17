@@ -1,6 +1,23 @@
 # Tooling cohort evidence and refresh
 
-## Current evidence contract
+## Reviewed policy refresh — November 17
+
+The current candidate records all sixteen eligible public cohorts at exact
+source/manifest/lock revisions with same-source successful CI observations.
+Docs, Agent UI and Terminal gain reviewed required-job selectors; Mira's
+previously empty selector is explicitly replaced with its actual three-job
+`mira-spec-first.yml` validation workflow. Historical run-only observations
+remain distinct from required-job receipts; neither qualifies a version recipe.
+
+The separate reviewed policy repair changes twelve exact tool constraints to
+already qualified owner declarations/resolutions. It does not let GET-only
+refresh widen constraints automatically. Node, pnpm, CLI bytes/majors and other
+supported ranges remain unchanged. Permanent AI Controller/AI Host holds also
+preserve their excluded roots during future full-phase planning.
+[Exact sources, jobs and validation](../spec/records/2026-11-17-reviewed-cohorts-and-exclusions.md)
+remain separate from hosted deployment/inventory acceptance.
+
+## Earlier evidence contract and immutable observations
 
 All sixteen recorded cohorts now bind exact source, root manifest/lock SHA256
 and resolved tool versions. Supported ranges and pnpm policy versions remain

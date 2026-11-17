@@ -70,3 +70,25 @@ Node24.15.0. Formatting, actionlint and native validation of all 21 generated
 configurations pass. The fresh full dependency audit has zero findings. The
 latest released Deno-free Spec Validator remains0.2.1; its existing pinned
 development range/lock are unchanged.
+
+## Hosted deployment and downstream handoff
+
+PR40 merges at `28b76b26fcd33d26e5fa7bd0fa9a029c08839e1e`.
+Exact-main check43994911731 and Pages43994911699 pass. Normal reconciliation
+43995269512 succeeds and publishes generation83. Artifact14289356523 is
+downloaded and its ZIP SHA256 verified as
+`a7723b29110ce149dd1e5626029a9f079f1e11a1bbfd7781fd4c7d3a3cf40661`.
+The accepted durable commit `0407f073d49a1563c011de6880265409f4dcfdff`
+matches its state candidate exactly. All ten Plugins waits become published;
+only History becomes superseded. A later normal callback43997513897 succeeds;
+generation84 at `748c190f0cb4993956a6d180336fca895b6e547c` retains that result.
+
+The first run generates genuine Notes PR146 with seven dependency updates and
+Profile release intent. It also exposes Notebook's unsupported non-Core
+candidates40–42: their canonical hook rejects the unsupported intake, and40's
+Svelte check reports one API0.6/API0.2 constructor incompatibility. Successful
+coordinator completion does not qualify those consumer candidates. Notes146
+is kept draft because its main-range spec-first reproduction reports five
+missing mappings and its interaction job is skipped. These source-owned
+handoffs, actual Notes publication and complete duplicate-hint/replay
+acceptance remain open; generation84 alone does not close the pilot.

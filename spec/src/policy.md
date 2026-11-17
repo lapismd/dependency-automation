@@ -39,7 +39,7 @@ a live installation or secret store.
 - Community and Nostr repositories MUST remain outside this rollout unless explicitly reauthorized.
 - Discovery MUST exclude parked Deno host paths, generated trees and fixtures.
 - Excluded package names MUST be ignored by generated Renovate rules.
-- An existing portable-leaf update entry MUST NOT be interpreted as permission to activate its excluded service or host.
+- An existing portable-leaf entry MUST NOT authorize its excluded service or host; retained excluded Deno roots MUST remain held in every rollout phase while their public metadata MAY remain read-only graph evidence.
 
 ## Scope interpretation
 
@@ -47,6 +47,11 @@ Monitoring exclusions and update entries deliberately serve different purposes.
 For example, a repository may retain a portable package consumer entry while
 its service-oriented root remains excluded from broad monitoring. An explicit
 hold keeps a repository discoverable for explanation without making it writable.
+
+AI Controller and AI Host retain explicit dependency-write holds in addition to
+their monitoring exclusions. Their existing entries continue supplying public
+prerequisite metadata; neither a future full phase nor later successful CI may
+turn those excluded roots into dependency-update targets.
 
 ## Public operational coverage
 

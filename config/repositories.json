@@ -53,8 +53,16 @@
       "emptyChangeset": true
     },
     { "repository": "lapismd/agent-redaction", "phase": "full" },
-    { "repository": "lapismd/ai-controller", "phase": "full" },
-    { "repository": "lapismd/ai-host", "phase": "full" },
+    {
+      "repository": "lapismd/ai-controller",
+      "phase": "full",
+      "holdReason": "Excluded retained Deno host: public graph observation only; dependency writes are not authorized for this root."
+    },
+    {
+      "repository": "lapismd/ai-host",
+      "phase": "full",
+      "holdReason": "Excluded retained Deno host: public graph observation only; dependency writes are not authorized for this root."
+    },
     { "repository": "lapismd/plugin-registry", "phase": "full" },
     { "repository": "stevejuma/jj-store", "phase": "full" }
   ]
