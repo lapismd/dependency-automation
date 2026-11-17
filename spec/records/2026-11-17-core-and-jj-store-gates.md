@@ -44,3 +44,13 @@ disabled observes19 repositories,43 owners and220 edges with zero coverage gaps
 or runtime cycles; all19 generated native Renovate configurations validate
 strictly. Coordinator audit preflight reports zero exact finding paths. These
 checks do not activate scheduling or qualify the remaining Core/jj-store gates.
+
+The reviewed repairs are now open as Core91 (17501789) and shared CI27
+(b7599492), with the latter binding Core source8952b8e3, retained as a source
+ancestor. Local Core acceptance includes1133 units,1066 interaction cases, all
+type/static/Workspace/Shell/AI lanes and196 supported Shadcn cases with one
+existing skip; the native seven unsupported WebKit launches remain failed
+commands. The exact local recipe prepares0.13.5 and strict canonical coverage
+passes with lock/other manifest fields unchanged. Source records preserve all
+initial failures and the supported-input metadata correction. Hosted recipe
+proof, source merge and genuine release regeneration remain pending.

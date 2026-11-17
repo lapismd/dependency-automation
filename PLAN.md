@@ -33,7 +33,12 @@ remain open; pilot writes are enabled and scheduled/full rollout stays disabled.
       main-range spec-first finds missing Architecture/Packages coverage despite
       bot PR Governance passing. Repair source-owned native version preparation,
       qualify its exact helper/runtime closure, regenerate the genuine candidate
-      and prove strict canonical coverage before merge/publication.
+      and prove strict canonical coverage before merge/publication. Source repair
+      [Core91](https://github.com/lapismd/design-core/pull/91) is open at17501789;
+      [shared CI27](https://github.com/lapismd/lapis-ci/pull/27) binds immutable
+      source8952b8e3 and both version outputs. Complete local source and supported
+      browser gates pass; actual local mutation prepares0.13.5 and strict
+      canonical coverage passes. Hosted source/recipe acceptance remains pending.
 - [x] Notebook's bounded Core intake is already qualified: genuine bot PR36
       mergesadc4b650 with successful main CI43852663104, versioning, Pages and
       registry workflows. This does not claim generic canonical preparation.
