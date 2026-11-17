@@ -72,7 +72,7 @@
     },
     {
       "repository": "lapismd/lapis-terminal",
-      "phase": "full"
+      "phase": "pilot"
     },
     {
       "repository": "lapismd/spec-validator",
@@ -100,7 +100,7 @@
     },
     {
       "repository": "lapismd/plugin-registry",
-      "phase": "full"
+      "phase": "pilot"
     },
     {
       "repository": "stevejuma/jj-store",

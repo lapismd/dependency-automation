@@ -1520,3 +1520,12 @@ records actual tests, corrected preparation failures and remaining gates.
 - [x] Preserve only non-growing oversized source chapters without changing either ordinary cap, schema1, authored text, output authority or any runtime/publication gate.
 - [x] Pass10 exact regressions, real Mira byte-identical replay and477 full tests/three spec lanes after isolated TMPDIR recovery.
 - [ ] Merge reviewed owning coordinator fix after hosted checks; requalify affected source profiles against the deployed preparer.
+
+### Terminal and Registry activation batch
+
+- [x] Merge source Terminal27 and Registry184 under normal green-check policy.
+- [x] Pass exact-main native/spec/version/publication and actual trusted callbacks; preserve false/no-version release dispositions.
+- [x] Prove Terminal’s genuine no-note Core candidate needs no emptyChangeset flag; retain Registry’s upstream API wait.
+- [ ] Deploy only their two source-phase promotions after full policy validation.
+- [ ] Verify ordinary Terminal candidate/current-main settlement and repeat, plus Registry’s accurately held/no-update result and no duplicate writer.
+- [ ] Update own tasks61/65 and parent50 with exact receipts; no unrelated product/security/host hold is waived.

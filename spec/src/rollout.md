@@ -5,7 +5,7 @@
 The shared dependency workflow is qualified and enabled for Notebook after its
 genuine Core0.13.5 development intake, complete candidate/main CI, native
 auto-merge, Pages and repeated normal reconciliation. Other repositories remain
-independent adoption work. Notebook, Spec Validator and the source-qualified Visual Delta are source `pilot` entries; global
+independent adoption work. Notebook, Spec Validator, Visual Delta, Terminal and Registry are source `pilot` entries; global
 phase stays `pilot` with hourly scheduling enabled. Promoting one reviewed entry
 from `full` to `pilot` enables that repository independently, without a global
 full rollout.
@@ -118,7 +118,7 @@ acceptance. Ordinary runs44182784733 and44182833366 qualify e755e2a0 with no
 updates, holds or waits, retain the same unchanged operation and form the
 verified durable state chain178→179. Exact source, Pages, artifact and state
 receipts are in the [activation record](https://github.com/lapismd/dependency-automation/blob/main/spec/records/2026-11-17-visual-delta-activation.md).
-Notebook, Spec Validator and Visual Delta are the only pilot entries; other
+Notebook, Spec Validator, Visual Delta, Terminal and Registry are the pilot entries; other
 entries, exclusions, global phase and holds remain unchanged. Visual Delta's
 independent guard admits only compatible Node-only validator0.2 development
 patches. No new dependency update or publisher execution is claimed.
@@ -142,3 +142,20 @@ metadata still record no patched version. The existing coordinator exception
 is unchanged and expires November19,00:00UTC; it cannot authorize consumer gates.
 Only reviewed individual source acceptance permits the subsequent per-entry
 activation, ordinary settlement and replay.
+
+## Terminal and Registry activation
+
+The operator’s standing post-merge approval promotes only Terminal and Registry
+from full to pilot after their current source/main/callback acceptance. All
+other phases, global pilot settings, exclusions, source holds and advisory
+bindings are unchanged. Exact evidence belongs in the [activation record](https://github.com/lapismd/dependency-automation/blob/main/spec/records/2026-11-17-terminal-registry-activation.md).
+
+Terminal source27 merged50d1bb9f with qualified macOS CI, spec Pages and
+actual false version intent. Its independent Core0.13 development-patch guard
+qualifies the real released0.13.4→0.13.5 candidate, including the no-note full
+version recipe; the coordinator’s empty-Changeset flag remains unchanged.
+Registry source184 merged69d8c063, passes current Checks/signed publication
+and actual callbacks, and retains its private API0.1/no-version contract.
+Its upstream API publication wait remains binding; activation does not waive
+that prerequisite or claim an invented npm release. Ordinary live settlement
+and replay are required after policy deployment.
