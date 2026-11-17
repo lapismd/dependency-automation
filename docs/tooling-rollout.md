@@ -117,8 +117,8 @@ acceptance; a reviewed Node CLI is not a Deno-free capability receipt.
 
 ## Current version-writer boundaries — November 17
 
-The earlier table is a historical foundation snapshot. Nine eligible Node
-owners now have deployed source-bound guards and separately qualified whole
+The earlier table is a historical foundation snapshot. Nine earlier Node
+owners have deployed source-bound guards and separately qualified whole
 recipes: Plugins, Core, Mira, Tasks, Docs, Agent UI, AI, Terminal and Visual
 Delta. Visual Delta main1d01be1b passes CI43985171431 and version43985171061;
 the actual version job skips App minting and the Changesets action without
@@ -130,8 +130,10 @@ from shared sourceae1be182 against owner64d5f7b7, with Deno absent and no writer
 token or publication. Immutable artifact14286425548 has verified ZIP digest
 `sha256:4c2f49bcdb08fa65e1c436b4db233e02423569ff7b07a8816475888912764a27`.
 Its counterfactual root/runtime versions become0.2.5; all six private manifests,
-the lock graph and other canonical files stay unchanged. Owner PR39 still
-needs pinned guard adoption, final-head CI and merged-main no-intent acceptance.
+the lock graph and other canonical files stay unchanged. Owner PR39 merges3712b63c
+after all ten checks; main CI43992225891 and Pages43992225107 pass, and actual
+version43992225038 skips App minting and the Changesets action with no release
+intent. This completes the tenth eligible Node guard/whole-recipe adoption.
 
 Three source owners have different release boundaries. The read-only census
 checks all tracked workflow/local-action and script files plus the root manifest
@@ -157,7 +159,8 @@ permission, installation, publication gate or source-runtime requirement.
 - [x] Refresh the older six source observations with reviewed CI paths/required-job receipts and honest package-manager provenance.
 - [x] Deploy the source observation refresh and inspect normal generation81 inventory; source/manifest/lock drift remains visible and is not equivalent to recipe qualification.
 - [x] Repair Notebook's bounded intake mapping and qualify its actual current main CI43852663104; Core's factual follow-up main CI43976157191 also passes without a main specification exemption.
-- [ ] Finish Notebook guard adoption, Server and jj-store source-owned qualification, and current supported-cohort refresh while preserving all functional gates and existing CLI majors.
+- [x] Complete Notebook guard adoption with final-head checks and merged-main no-intent/no-App acceptance.
+- [ ] Finish Server and jj-store source-owned qualification and current supported-cohort refresh while preserving all functional gates and existing CLI majors.
 - [ ] Complete the generic canonical intake/main handoff beyond Notebook's bounded source-owned policy; a trusted bot PR exemption alone does not qualify main.
 
 Frozen AI Controller, AI Host and Terminal Host are excluded. Notes' root Deno

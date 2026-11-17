@@ -53,15 +53,15 @@
 | DA-OPS-003  | In progress | Inventory pre-admission audit and repeated pre-App preflight; read-only/state-only behavior preserved; hosted acceptance pending.                                        |
 | DA-NOT-003  | Implemented | Completion/workflow regressions reject stale/fork/unknown evidence; actual CLI metadata-only test permits one dispatch and forbids candidate files and npm reads.        |
 | DA-WAVE-005 | Implemented | Callback settlement, pending-check timing and graph isolation tests; all four pilot callers and repeated Plugins dispatch are hosted-qualified (PLAN.md).                |
-| DA-WAVE-006 | Implemented | Native Renovate and persisted-state tests retain support and require exact lock/CI/published-contract evidence to retire obsolete waits.                                 |
+| DA-WAVE-006 | Implemented | Compound/mixed release-floor and lock regressions plus the bound generation82 replay in `spec/records/2026-11-17-scoped-publisher-retirement.md`.                        |
 | DA-TOOL-005 | In progress | Six original CI failures now pass; source/job/attempt and receipt controls pass; 179 tests/3 spec lanes; hosted refresh pending.                                         |
 | DA-TOOL-006 | In progress | 26 focused tests; GET-only refresh 16/16; inventory 19 repos/43 owners/220 edges; ranges and provenance preserved; hosted pending.                                       |
 | DA-PUB-001  | Implemented | Real crypto/mutation/source/recovery tests plus reject-only claim preflight; full-inventory proof is recorded in `spec/records/2026-11-17-publication-budget.md`.        |
 | DA-PUB-002  | Implemented | Current-first collection, bounded shared 128 MiB/256-request budget and exhaustion/cache negatives; no App inventory credentials or source/channel relaxation.           |
 | DA-REL-004  | In progress | Actual Notebook fixture/preparation negatives; native extractor/rule regression admits only the paired exact override; hosted complete regeneration pending.             |
 | DA-WAVE-007 | In progress | 59 admission regressions; actual Notebook1→0; fresh GET-only19/43/220 plan retains six waits; hosted regeneration pending.                                               |
-| DA-PUB-003  | In progress | Exact cohort/scope/default/channel mutation regressions; native target rules, fresh registry revalidation and Maintenance parser acceptance; hosted deployment pending.  |
-| DA-PUB-004  | In progress | Static batch/runtime-ID controls and actual ten-package proof in `spec/records/2026-11-16-static-batch-proof.md`; hosted acceptance pending.                             |
+| DA-PUB-003  | In progress | Scoped publisher/consumer and transitive-peer controls; exact generation82 replay and five real negative snapshots pass; hosted advancement remains required.            |
+| DA-PUB-004  | Implemented | Hosted generation82 (43989934897) verifies all ten selected packages plus History against current source-bound static contracts; size/ID/signature negatives pass.       |
 
 Detailed bootstrap commands, failure counts and hosted handoff live in
 [the specification/Pages qualification record](https://github.com/lapismd/dependency-automation/blob/main/spec/records/2026-11-15-canonical-spec-and-pages.md).

@@ -34,23 +34,32 @@ remain open; pilot writes are enabled and scheduled/full rollout stays disabled.
       checks/Pages and normal inventory43986461238 pass, persisting generation81.
       Its full workload still reaches the shared byte ceiling and holds five
       Plugins publications; no downstream consumer write is inferred.
-- [ ] Deploy the full-inventory resource repair and repeat normal collection.
-      The exact two new regressions pass; the complete source reproduction uses
-      196 reads/84,776,455 bytes and verifies all ten new Plugins versions plus
-      still-current History without byte-budget holds under the explicit
-      128 MiB total cap. Notes' per-response bounds and all crypto/source gates
-      remain binding; [the budget record](spec/records/2026-11-17-publication-budget.md)
-      retains the original failure and the required hosted/downstream/replay gates.
+- [x] PR39 deploys the full-inventory resource repair atf1d97596; main checks and
+      Pages pass. Normal reconciliation43989934897 persists generation82,
+      observing every current selected Plugins contract without byte-limit holds
+      in202 requests/84,774,506 bytes. Notes' per-response bounds and every
+      crypto/source gate remain binding; [the budget record](spec/records/2026-11-17-publication-budget.md)
+      retains the original failure separately from downstream/replay acceptance.
+- [ ] Deploy scoped publisher retirement: generation82 still retains eleven
+      release waits because default latest closure excludes approved provider
+      prerequisites. The exact local replay now publishes ten/supersedes only
+      History's obsolete compound wait and admits seven genuine Notes updates;
+      five real-snapshot negatives retain all eleven waits. The source proof is
+      [recorded separately](spec/records/2026-11-17-scoped-publisher-retirement.md);
+      normal hosted collection, Notes acceptance/publication and replay remain.
 - [x] Visual Delta PR78 merges1d01be1b: exact-main CI43985171431 and Pages pass;
       version43985171061 accepts the guard and skips App/token/action with no
       release intent. Actual whole-recipe43977922918 remains separately qualified.
-- [ ] Finish Notebook PR39 and its separate whole-recipe/guard adoption. All
-      five required local Docker lanes and565 units pass, and its six MODERATE/
-      one LOW development findings become zero through compatible Hono lock
-      updates; production remains clean and the obsolete withdrawn ignore is
-      removed. Shared CI PR25 mergesae1be182; main CI and actual hosted complete
-      recipe43987271519 pass, with digest-checked artifact14286425548 and all
-      six private manifests unchanged. Owner guard adoption remains pending.
+- [x] Notebook PR39 merges3712b63c after all ten checks. Its five required Docker
+      lanes and566 units pass; compatible Hono updates clear all seven dev audit
+      findings, production stays clean and the obsolete ignore is removed.
+      Shared whole-recipe43987271519/artifact14286425548 qualify the unchanged
+      private packages and lock graph. Exact-main CI43992225891, Pages43992225107
+      and version43992225038 pass, with actual no-intent App/action skipping.
+- [ ] Refresh remaining recorded tool-cohort constraints against reviewed owner
+      acceptance: Docs, Agent UI and Terminal now carry qualified Storybook/
+      Vitest patches/minors, and Visual Delta's validator is0.2.1; the historical
+      policy still reports those differences rather than silently accepting them.
 - [ ] Retain Server's production KaTeX and jj-store's functional/accessibility
       failures as source-owned holds; no inherited exception or baseline waiver.
       Remaining eligible-writer/retained-Deno boundaries and generic canonical
