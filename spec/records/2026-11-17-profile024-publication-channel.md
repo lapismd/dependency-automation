@@ -74,3 +74,14 @@ configurations. QMD semantic discovery succeeds; doctor passes11/11; registry
 still reports0.2.1 as the latest Deno-free validator. The optional native RE2
 module remains unavailable and Renovate uses its existing fallback; validation
 succeeds without changing tool dependencies or audit policy.
+
+## Hosted publication-only acceptance
+
+PR44 mergesf241d61fb94336f899cc4424251106cbf29678d0. Exact-main check44030751965
+and Pages44030751948 succeed. Normal reconciliation44030763839 succeeds,
+persisting generation101. Inventory artifact14304738207 has verified ZIP SHA256
+`a3d7a42541fc1f275742e8f235637577ebc64c0a7bf1775bb35a2ec210539a2f`.
+Profile0.2.4 remains verified; raw latest0.1.0/next0.2.4 facts and direct
+consumer eligibility remain unchanged. Its channel hold disappears. The
+separate Core required minimum still holds the release open; the consumer writer
+matrix is skipped. This completes only publication-only channel acceptance.
