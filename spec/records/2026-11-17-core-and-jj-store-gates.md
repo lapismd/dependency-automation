@@ -54,3 +54,38 @@ commands. The exact local recipe prepares0.13.5 and strict canonical coverage
 passes with lock/other manifest fields unchanged. Source records preserve all
 initial failures and the supported-input metadata correction. Hosted recipe
 proof, source merge and genuine release regeneration remain pending.
+
+## Hosted Core native preparation and genuine candidate
+
+Shared CI27 merged30fd2352. Actual hosted proof44078471329 passes for source
+8952b8e3, with CLI3.0.3/Node24.15.0, Deno absent, no App minting/publication,
+genuine0.13.4→0.13.5 mutation and both mapped canonical facts. Artifact14325727742
+independently downloads with ZIP SHA256
+`a54a3dbcab22cf0cac168b14a0b5ea3fcedee5c1464d82a3eff495f7473c263e`,
+matching GitHub metadata; both canonical after-hashes match the local mutation.
+The exact currently deployed6511 guard independently accepts the same input
+binding. Core91 passes all11 final-head checks and mergesee8b5d43.
+
+Automatic native versioning44080735998 succeeds and creates genuinec2528f11
+with only the two original consumed notes, package version, changelog and both
+canonical version facts changed. The version-branch refresh closes old PR90:
+its timeline records the bot force-reset to baseee8b5d43 at12:11:28, while the
+actual branch ref points to preparedc2528f11. The closed PR snapshot misleadingly
+shows no diff. Independent branch inspection, strict base/head spec-first, all
+three specification lanes and48 release controls pass before reopening that
+existing PR. Fresh current-head CI then passes all11 checks and PR90 merges
+ec0d539a787b570a6238476ee0045af885163c92. No package is published by reopening
+and no release intent is manufactured. Publication44084229046 is running; actual
+registry/artifact/consumer verification remains pending. Safe automatic recovery
+of this observed refresh-closure condition is a maintenance follow-up, with
+manual closure/repair ownership and exact candidate validation retained.
+
+jj-store's fresh full audit improves51 findings to zero using released upstream
+dependencies and explicit source-owned published security resolutions; declared
+production audit also remains zero. QMD doctor/lexical/semantic discovery pass and
+all nine diagrams render in both themes without network access. Cold Help
+replacement exposed an owned observer race; direct bounded subscriptions now
+pass the exact cold Vite case and all29 affected schema/provenance/docs tests.
+Complete application documentation review/build, minimal Docker native-addon
+prerequisites, Core registry intake and full UI/native recipe acceptance remain
+separate pending gates. No source tooling commit or deployment is claimed yet.

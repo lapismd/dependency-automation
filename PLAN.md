@@ -29,16 +29,27 @@ remain open; pilot writes are enabled and scheduled/full rollout stays disabled.
       supported browser and dependency-audit gates. The reaction textual-name,
       destructive-alert contrast, literal-loopback and cold-consumer pnpm fixes
       are merged; this is source acceptance, not publication or jj-store adoption.
-- [ ] Complete genuine Core0.13.5 release PR90. Independent non-exempt
-      main-range spec-first finds missing Architecture/Packages coverage despite
-      bot PR Governance passing. Repair source-owned native version preparation,
-      qualify its exact helper/runtime closure, regenerate the genuine candidate
-      and prove strict canonical coverage before merge/publication. Source repair
-      [Core91](https://github.com/lapismd/design-core/pull/91) is open at17501789;
-      [shared CI27](https://github.com/lapismd/lapis-ci/pull/27) binds immutable
-      source8952b8e3 and both version outputs. Complete local source and supported
-      browser gates pass; actual local mutation prepares0.13.5 and strict
-      canonical coverage passes. Hosted source/recipe acceptance remains pending.
+- [x] Qualify native Core canonical preparation. Shared CI27 merges30fd2352;
+      actual read-only proof44078471329/artifact14325727742 passes for immutable
+      source8952b8e3, including both actual0.13.5 canonical outputs. Independent
+      downloaded ZIP SHA256a54a3dbc…73c263e matches GitHub metadata and the local
+      after-hashes. The deployed6511 runtime guard also accepts the exact new
+      binding. Core91 passes all11 checks and mergesee8b5d43.
+- [x] Regenerate and qualify genuine Core0.13.5. Actual native main versioning
+      44080735998 preparesc2528f11 with both mapped chapters. Refresh resets the
+      existing branch through main and closes PR90 while leaving the genuine
+      six-file candidate on the branch. Independent canonical/spec and48 release
+      controls pass; reopening the existing PR restores all11 fresh successful
+      checks without rerunning publication or fabricating intent. PR90 merges
+      ec0d539a. Workspaces are clean and both foundation parents are included;
+      fresh Dependabot query is empty.
+- [ ] Finish Core0.13.5 publication44084229046, registry/source/artifact verification
+      and original jj-store consumer acceptance. Source merge and version output
+      are not a completed publication claim.
+- [ ] Automate safe recovery of the observed version-PR refresh closure. Preserve
+      manual closure and repair ownership; require exact bot, source, branch and
+      genuine candidate validation before reopening. Core90 now supplies a second
+      concrete hosted occurrence alongside the earlier Notes observation.
 - [x] Notebook's bounded Core intake is already qualified: genuine bot PR36
       mergesadc4b650 with successful main CI43852663104, versioning, Pages and
       registry workflows. This does not claim generic canonical preparation.
