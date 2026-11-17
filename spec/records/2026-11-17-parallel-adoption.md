@@ -56,3 +56,23 @@ The operator explicitly says to ignore jj-store's existing failed main. Its
 pre-existing image/release failures are not repaired in this adoption pass.
 Source-change validation remains required; a shared admission hold cannot be
 reported as successful activation or waived for future unrelated failures.
+
+## Deployed registration and read readiness
+
+Registration79 merged73282218ecec0dd257cdb47d2e63fc0cbbc253f3. Exact-main
+Check44191925521 and Pages44191925507 pass. All thirteen hosted read probes
+pass: Mira44191959798, Core44191966248, Plugins44191972751, Notes44191978518,
+Tasks44191982753, Docs44191986069, Desktop44191989965, Server44191995973,
+AgentUI44192001333, AI44192006785, Terminal44192011775, Registry44192016274
+and personal-owner jj-store44192021816. Excluded task64 is closed not planned.
+
+Registry lacked its caller credential. Under the operator’s explicit prior
+authorization to add the existing bot to other repositories, its encrypted
+repository secret was provisioned directly from the supplied existing key.
+No private bytes were displayed, GitHub secret value retrieved, key rotated
+or registry signing credential changed; client-ID metadata is consistent.
+Source184 subsequently merged69d8c06375f8fed507bc7443d265405ea255f021.
+Main Checks44194081036 and Publish registry44194080999 pass. Actual trusted
+completion callbacks44194389379/44194500900 pass, the latter reports
+verified-current-completion. Source acceptance precedes separate activation;
+its existing upstream API publication wait is not cleared by this record.

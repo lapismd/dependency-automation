@@ -68,6 +68,13 @@ stricter mechanical lock comparison and independent-admission boundary.
 Managed workspace slots retain ordinary Markdown formatter output byte for byte,
 so formatting never makes a valid source opt-in stale on the next update.
 
+Existing source-owned authored chapters may already exceed the renderer’s
+ordinary400-line or32KiB bounds. Schema2 may preserve those exact immutable
+chapters only when neither line nor byte count increases; ordinary chapters
+retain both fixed bounds. This adds no configurable higher budget and changes
+no schema1 behavior, source mapping, authored text or managed-slot authority.
+A later larger fact rendering remains held for owning-source review.
+
 **Requirement.** Source-owned workspace preparation MUST emit current dependency facts only for explicitly admitted compatible registry updates across its declared importer and chapter scope.
 
 ### Acceptance details

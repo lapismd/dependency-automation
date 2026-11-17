@@ -62,7 +62,7 @@
 | DA-PUB-001  | Implemented | Real crypto/mutation/source/recovery tests plus reject-only claim preflight; full-inventory proof is recorded in `spec/records/2026-11-17-publication-budget.md`.        |
 | DA-PUB-002  | Implemented | Current-first collection, bounded shared 128 MiB/256-request budget and exhaustion/cache negatives; no App inventory credentials or source/channel relaxation.           |
 | DA-REL-004  | Implemented | Native collector/commit2→0,54 affected/466 full cases and exact five-file2153f41 proof; Notebook44 auto-merges and current main passes.                                  |
-| DA-REL-005  | In progress | Notes152 seven-owner fixture, target/integrity/lock and filesystem negatives, formatter/repeat preparation pass; consumer adoption pending.                              |
+| DA-REL-005  | Implemented | Workspace source/lock/formatter/filesystem tests plus ten non-growing legacy chapter/cap/repair regressions and real Mira no-op evidence.                                |
 | DA-WAVE-007 | Implemented | Source-bound admission regressions and hosted Notebook Core0.13.5 intake/auto-merge/main/replay; unrelated publisher/runtime waits remain held.                          |
 | DA-PUB-003  | In progress | Scoped/transitive-peer negatives; hosted generation83 retires ten published waits/one obsolete wait; Notes146 publication/replay pending.                                |
 | DA-PUB-004  | Implemented | Hosted generation82 (43989934897) verifies all ten selected packages plus History against current source-bound static contracts; size/ID/signature negatives pass.       |

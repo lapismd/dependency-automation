@@ -1508,8 +1508,15 @@ records actual tests, corrected preparation failures and remaining gates.
 ### Parallel remaining-repository completion
 
 - [x] Confirm current source scopes; keep the three accepted pilot entries unchanged.
-- [x] Inspect Agent Redaction public Deno export/required validation; prepare explicit root/package exclusion and close adoption64 as outside authorized scope after deployment.
+- [x] Inspect Agent Redaction public Deno export/required validation; deploy explicit root/package exclusion in79 and close64 as not planned.
 - [x] Assign disjoint source ownership: Core/Mira/Plugins; Server/Agent UI/AI/Terminal/jj-store; Notes/Desktop/Registry. Parent owns central changes and Docs/Tasks audit follow-up.
-- [ ] Deploy exact six-source completion registration and owner-bound read-only probes; verify hosted read readiness without retrieving or copying keys.
+- [x] Deploy registration79 (73282218), pass main/Pages and all thirteen hosted owner-bound read probes; no GitHub secret value is retrieved.
 - [ ] Merge each independently qualified source, activate only accepted entries, verify ordinary settlement/replay and close its tracker.
 - [ ] Preserve and resolve concrete main failures, unsupported projections and source audit holds; retire coordinator advisory71 before its exact expiry without inherited approvals.
+
+### Source-owned long chapter preparation
+
+- [x] Reproduce real immutable Mira no-op rejection at the shared schema2 renderer.
+- [x] Preserve only non-growing oversized source chapters without changing either ordinary cap, schema1, authored text, output authority or any runtime/publication gate.
+- [x] Pass10 exact regressions, real Mira byte-identical replay and477 full tests/three spec lanes after isolated TMPDIR recovery.
+- [ ] Merge reviewed owning coordinator fix after hosted checks; requalify affected source profiles against the deployed preparer.

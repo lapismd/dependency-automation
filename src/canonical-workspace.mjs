@@ -393,9 +393,14 @@ export function prepareWorkspaceIntake(data) {
       base.slice(0, a) + workspaceIntakeSlot(policy, facts) + base.slice(b);
     if (current !== base && current !== prepared)
       fail("manual canonical edits must be preserved");
+    const sourceLines = base.split("\n").length,
+      sourceBytes = Buffer.byteLength(base),
+      legacy = sourceLines > 400 || sourceBytes > 32768;
+    // Preserve source-owned oversized prose only without growth in either
+    // dimension; authored bytes outside the verified slot remain immutable.
     if (
-      prepared.split("\n").length > 400 ||
-      Buffer.byteLength(prepared) > 32768
+      prepared.split("\n").length > (legacy ? sourceLines : 400) ||
+      Buffer.byteLength(prepared) > (legacy ? sourceBytes : 32768)
     )
       fail("canonical chapter exceeds size bound");
     outputs[path] = prepared;
