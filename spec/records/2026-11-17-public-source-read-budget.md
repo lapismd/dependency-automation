@@ -60,3 +60,23 @@ The original HTTP403 cause, durable publication retirement and repeated no-op
 acceptance remain unproven until the hosted receipts establish them. Existing
 Community/Nostr/Deno exclusions, Notebook capability holds and disabled
 scheduled/full rollout remain binding.
+
+## Hosted recovery acceptance
+
+PR43 merges as834c058b91db93379e89b1945cfc64bd7e4ca80f. Exact-main check
+44027266295 and Pages44027266274 succeed. Normal reconciliation44027276770
+succeeds and persists generation99 atcd3f4e70f258222c02f97ecc6d60b0647edf6a6e.
+Inventory artifact14303792289 is digest-verified:
+`4cfd665ca101f57af2f74d60e593fe25c409f95372abc598eef2380c170e2217`.
+Repeat normal reconciliation44028620105 succeeds and persists generation100
+at1dc0b5a73592abd25c41ef0eb3d3cbed24c3d82f. Its inventory artifact14303584675
+has verified ZIP SHA256
+`0ea043ed708194fd0994387d30c27cc50b14800af40f957727aa627fcc74bc49`.
+
+The retained release objects and operation IDs are identical across these two
+accepted generations. Both consumer writer matrices are skipped; unsupported
+Notebook targets remain held. This establishes recovery and duplicate-free
+replay while the existing publication/channel holds remain in place. It does
+not yet prove Profile retirement or a downstream consumer release. The old403
+receipts still cannot establish their original cause; no claim of confirmed
+quota exhaustion is made.

@@ -2,7 +2,8 @@
 
 The reviewed Notes channel cohort follows DA-PUB-003 with exact package,
 version, integrity and consumer-manifest scopes. It adds no repository entries,
-removes no holds and changes no phase, schedule or write activation. DA-POL-001
+recognizes Profile0.2.4 publication only, and changes no phase, schedule or write
+activation. Profile consumer scope entries stay forbidden. DA-POL-001
 through DA-POL-003 retain their existing authority and excluded hosts.
 
 `config/repositories.json` is the versioned authority for dependency-update

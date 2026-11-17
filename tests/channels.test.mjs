@@ -5,7 +5,7 @@ test("exact reviewed Notes cohort has scoped channel eligibility without mutatin
   assert.equal(typeof module.channelProjection, "function");
   const policy = module.loadChannelPolicy();
   assert.equal(policy.default, "latest");
-  assert.equal(policy.cohort.packages.length, 4);
+  assert.equal(policy.cohort.packages.length, 5);
   assert.equal(
     policy.cohort.scopes.some((s) => s.repository === "lapismd/lapis-desktop"),
     false,
@@ -248,7 +248,7 @@ test("writer registry refresh rejects moved tags, wrong identity and deprecated 
       );
     },
   });
-  assert.equal(seen.length, 8);
+  assert.equal(seen.length, 10);
   const stale = structuredClone(g);
   stale.channelPolicySha256 = "0".repeat(64);
   await assert.rejects(revalidateChannels(stale), /policy changed/);
