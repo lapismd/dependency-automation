@@ -3,19 +3,18 @@ import semver from "semver";
 import {
   developmentIntakeFacts,
   intakeHash,
+  intakePolicyPath,
   validateIntakePolicy,
 } from "./canonical-intake.mjs";
 
-/** Only the existing single-development source profile can separate a wait. */
-export function canonicalDevelopmentUpdate(repo, node, graph) {
+/** The complete bounded source capability applies before any writer admission. */
+function canonicalPreparationSupported(repo, node, graph) {
   try {
     const evidence = repo.canonicalIntake;
     if (
       !/^[a-f0-9]{40}$/.test(repo.sourceSha ?? "") ||
       node.sourceSha !== repo.sourceSha ||
       node.repository !== repo.repository ||
-      node.acceptance.state !== "qualified" ||
-      node.holds.length ||
       node.updates.length !== 1 ||
       typeof evidence?.policyBytes !== "string" ||
       Buffer.byteLength(evidence.policyBytes) > 8192 ||
@@ -40,8 +39,7 @@ export function canonicalDevelopmentUpdate(repo, node, graph) {
       !(graph.available[name] ?? []).includes(update.target) ||
       !/^sha512-[A-Za-z0-9+/]{86}==$/.test(
         graph.registry?.[name]?.[update.target]?.integrity ?? "",
-      ) ||
-      node.waits.some((wait) => wait.package === name)
+      )
     )
       return false;
     const manifest = repo.manifests.find(
@@ -86,6 +84,32 @@ export function canonicalDevelopmentUpdate(repo, node, graph) {
     return true;
   } catch {
     // Unknown, stale or malformed source data grants no independent admission.
+    return false;
+  }
+}
+
+export function canonicalPreparationHold(repo, node, graph) {
+  if (
+    !node.updates.length ||
+    (!Object.hasOwn(repo, "canonicalIntake") &&
+      !repo.paths?.includes(intakePolicyPath))
+  )
+    return null;
+  return canonicalPreparationSupported(repo, node, graph)
+    ? null
+    : "source-owned canonical preparation does not support this update set";
+}
+
+/** Only the existing single-development source profile can separate a wait. */
+export function canonicalDevelopmentUpdate(repo, node, graph) {
+  try {
+    return (
+      node.acceptance.state === "qualified" &&
+      node.holds.length === 0 &&
+      !node.waits.some((wait) => wait.package === node.updates[0]?.name) &&
+      canonicalPreparationSupported(repo, node, graph)
+    );
+  } catch {
     return false;
   }
 }

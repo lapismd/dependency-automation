@@ -7,7 +7,10 @@ import {
   validatePublicationEvidence,
 } from "./publications.mjs";
 import { releaseIntent } from "./changesets.mjs";
-import { canonicalDevelopmentUpdate } from "./canonical-admission.mjs";
+import {
+  canonicalDevelopmentUpdate,
+  canonicalPreparationHold,
+} from "./canonical-admission.mjs";
 import {
   lockVersion,
   qualification,
@@ -582,8 +585,10 @@ export function planWaves(graph, previous = emptyState(), options = {}) {
       (r) => r.repository === node.repository,
     );
     const independent = canonicalDevelopmentUpdate(repo, node, graph);
+    const preparationHold = canonicalPreparationHold(repo, node, graph);
     // Scope repair/orphan ownership to the exact rolling or compatibility family.
     for (const u of node.updates) {
+      if (preparationHold) block(u, preparationHold);
       if (node.waits.some((w) => w.path === u.path) && !independent)
         blocked.set(
           `${u.path}:${u.type}:${u.name}`,

@@ -48,14 +48,23 @@ remain open; pilot writes are enabled and scheduled/full rollout stays disabled.
       [Source and hosted evidence](spec/records/2026-11-17-scoped-publisher-retirement.md)
       remain separate from downstream acceptance.
 - [ ] Qualify genuine Notes PR146 before publication: seven updates and the
-      Profile Changeset are generated, but five main-range canonical mappings
-      are missing and Storybook interactions are skipped. The PR remains draft;
-      consumer acceptance, actual publication verification and replay remain.
+      Profile Changeset are generated. Source-owned canonical repair reduces
+      five missing mappings to zero; all specification lanes/69 governance
+      cases and288 cold Docker interaction/accessibility cases pass. Head
+      f4d4d554 passes final-head CI and merges3bd015b5; exact-main release
+      versioning44003910320 succeeds and generates genuine Profile0.2.4 PR147.
+      Its explicit main-range comparison finds four missing canonical mappings;
+      retain the draft until source-owned version preparation carries those
+      facts. Actual publication verification and replay remain open.
 - [ ] Resolve Notebook's unsupported candidates before widening its bounded
       Core intake. New PR40 fails Svelte once because Explorer's API0.6 type
       conflicts with root API0.2; breaking drafts41/42 are separate. All three
       report source canonical-preparation artifact errors. Green coordinator
       exit does not waive these source-owned compatibility/preparation gates.
+      Six focused normal-admission failures now pass locally; exact hosted
+      replay holds all nine unsupported targets without changing Notes' seven.
+      Deploy this source-capability check and inspect normal reconciliation
+      before closing these erroneous bot candidates; generic intake remains open.
 - [x] Visual Delta PR78 merges1d01be1b: exact-main CI43985171431 and Pages pass;
       version43985171061 accepts the guard and skips App/token/action with no
       release intent. Actual whole-recipe43977922918 remains separately qualified.
@@ -65,13 +74,15 @@ remain open; pilot writes are enabled and scheduled/full rollout stays disabled.
       Shared whole-recipe43987271519/artifact14286425548 qualify the unchanged
       private packages and lock graph. Exact-main CI43992225891, Pages43992225107
       and version43992225038 pass, with actual no-intent App/action skipping.
-- [ ] Deploy the reviewed tool-cohort policy refresh: twelve exact constraints
+- [x] Deploy the reviewed tool-cohort policy refresh: PR41 merges4fe2b98d;
+      exact-main check44001418835 and Pages44001418914 pass. Twelve constraints
       across Docs, Agent UI, Terminal and Visual Delta match qualified owner
       source/lock/CI. Mira gains its explicitly reviewed three-job workflow.
       All sixteen observations are same-source; whole-recipe evidence remains
       separate. Permanent AI Controller/AI Host holds prevent excluded roots
       entering a future full-phase write matrix. Local371 tests/three spec
-      lanes pass; hosted source/inventory acceptance remains required.
+      lanes pass; normal post-merge inventory read-back remains required under
+      rollout acceptance, without claiming generic recipe qualification.
 - [ ] Retain Server's production KaTeX and jj-store's functional/accessibility
       failures as source-owned holds; no inherited exception or baseline waiver.
       Remaining eligible-writer/retained-Deno boundaries and generic canonical

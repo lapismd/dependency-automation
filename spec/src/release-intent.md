@@ -68,3 +68,10 @@ closure. Retaining source policy bytes in the internal public inventory binds
 its parsed policy to the original digest; older or changed evidence cannot
 activate the capability. Actual candidate preparation still verifies the exact
 source, unchanged policy/slots and complete mechanical lock closure before PR writes.
+
+DA-WAVE-008 applies that source capability to normal admission too. A completed
+upstream publication chain cannot admit an update set outside the consumer's
+declared preparation profile. Unsupported sets remain explicit holds before a
+writer token or Renovate execution, instead of creating recurring artifact-error
+PRs. Repositories without an opt-in keep their existing behavior; expanding a
+source policy or qualifying a product/API migration remains source-owned work.
