@@ -200,6 +200,11 @@ earlier blanket maintenance hold was too broad; the existing unapproved HIGH
 remains a publication blocker. This adoption does not change audit collectors,
 waive a finding, rebind an exception or authorize tags, uploads or baselines.
 
+Parallel source registration covers six additional existing workflow sets but
+changes no rollout phase or writer admission. Agent Redaction remains explicitly
+held and ignored as a Deno package in every phase; all other acceptance, source
+guard, publication, ownership and state-concurrency requirements remain binding.
+
 **Requirement.** Opted-in source preparation MUST constrain normal wave admission even after publication waits clear. Unsupported update sets or missing source-policy evidence MUST remain held before consumer writer admission.
 
 ### Acceptance details

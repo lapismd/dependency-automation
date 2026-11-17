@@ -1504,3 +1504,12 @@ records actual tests, corrected preparation failures and remaining gates.
 - [x] Prepare only Visual Delta's full→pilot promotion under standing approval; retain all other entries, global settings and advisory boundaries.
 - [x] Deploy activation77 (238cc865), pass main/Pages and ordinary runs44182784733/44182833366; generations178→179 preserve the same unchanged operation and exact candidate/durable-state agreement. No dependency update or publication is invented.
 - [x] Keep Docs21/Tasks31 held on their actual required audit failures; retain Visual Delta's future publication audit hold separately in owning issue80.
+
+### Parallel remaining-repository completion
+
+- [x] Confirm current source scopes; keep the three accepted pilot entries unchanged.
+- [x] Inspect Agent Redaction public Deno export/required validation; prepare explicit root/package exclusion and close adoption64 as outside authorized scope after deployment.
+- [x] Assign disjoint source ownership: Core/Mira/Plugins; Server/Agent UI/AI/Terminal/jj-store; Notes/Desktop/Registry. Parent owns central changes and Docs/Tasks audit follow-up.
+- [ ] Deploy exact six-source completion registration and owner-bound read-only probes; verify hosted read readiness without retrieving or copying keys.
+- [ ] Merge each independently qualified source, activate only accepted entries, verify ordinary settlement/replay and close its tracker.
+- [ ] Preserve and resolve concrete main failures, unsupported projections and source audit holds; retire coordinator advisory71 before its exact expiry without inherited approvals.

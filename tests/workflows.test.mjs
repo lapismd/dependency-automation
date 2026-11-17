@@ -1,7 +1,10 @@
 import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
+import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 import test from "node:test";
 import YAML from "yaml";
+import { spawnSync } from "node:child_process";
 
 test("profile generation is isolated from the central App writer", async () => {
   const workflow = YAML.parse(
@@ -61,12 +64,21 @@ test("App readiness uses existing credentials for read-only explicit pilot targe
     "lapis-plugin-tasks",
     "spec-validator",
     "storybook-addon-visual-delta",
+    "lapis-plugin-notebook",
+    "mira-mde",
+    "design-core",
+    "lapis-desktop",
+    "agent-ui",
+    "lapis-terminal",
+    "plugin-registry",
+    "jj-store",
   ]);
   assert.equal(workflow.on.schedule, undefined);
   assert.match(workflow.jobs.readiness.if, /refs\/heads\/main/);
   const steps = workflow.jobs.readiness.steps;
   const app = steps.find((step) => step.id === "app");
   assert.equal(app.with.repositories, "${{ inputs.repository }}");
+  assert.equal(app.with.owner, "${{ steps.scope.outputs.owner }}");
   assert.equal(app.with["permission-contents"], "read");
   assert.equal(app.with["permission-pull-requests"], "read");
   assert.equal(
@@ -379,4 +391,54 @@ test("publication inventory reuses existing read authority without App credentia
     "utf8",
   );
   assert.doesNotMatch(entrypoint, /LAPIS_PUBLICATION_READ_TOKEN/);
+});
+
+test("App readiness binds owner and repository before minting", async (t) => {
+  const directory = await mkdtemp(join(tmpdir(), "lapis-app-scope-"));
+  t.after(() => rm(directory, { recursive: true, force: true }));
+  const output = join(directory, "output");
+  const workflow = YAML.parse(
+    await readFile(
+      new URL("../.github/workflows/app-readiness.yml", import.meta.url),
+      "utf8",
+    ),
+  );
+  const scope = workflow.jobs.readiness.steps[0];
+  for (const name of workflow.on.workflow_dispatch.inputs.repository.options) {
+    const owner = name === "jj-store" ? "stevejuma" : "lapismd";
+    await writeFile(output, "");
+    const result = spawnSync("bash", ["-euo", "pipefail", "-c", scope.run], {
+      encoding: "utf8",
+      env: {
+        ...process.env,
+        TARGET_NAME: name,
+        HAS_APP_KEY: "true",
+        HAS_APP_ID: "true",
+        GITHUB_OUTPUT: output,
+      },
+    });
+    assert.equal(result.status, 0, result.stderr);
+    assert.equal((await readFile(output, "utf8")).trim(), `owner=${owner}`);
+  }
+  for (const name of [
+    "nostr-auth",
+    "agent-redaction",
+    "unknown",
+    "stevejuma/jj-store",
+    "lapis-server\nowner=unknown",
+  ]) {
+    await writeFile(output, "");
+    const result = spawnSync("bash", ["-euo", "pipefail", "-c", scope.run], {
+      encoding: "utf8",
+      env: {
+        ...process.env,
+        TARGET_NAME: name,
+        HAS_APP_KEY: "true",
+        HAS_APP_ID: "true",
+        GITHUB_OUTPUT: output,
+      },
+    });
+    assert.notEqual(result.status, 0);
+    assert(!(await readFile(output, "utf8")).includes("owner="));
+  }
 });

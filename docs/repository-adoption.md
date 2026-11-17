@@ -22,8 +22,8 @@ Prepare source integration, retain the holds in tasks55/56, and require a
 published remediation or a separate concrete reviewed security decision before
 writable activation. Do not call the historical green runs current audit proof.
 
-Spec Validator and Visual Delta are the next small-repository candidates to
-inspect for release-convention readiness. Terminal requires native/macOS
+Spec Validator and Visual Delta are merged, enabled and have passing ordinary
+no-update settlement/replay. Terminal requires native/macOS
 qualification. Larger Core/Mira/Plugins/application and jj-store adoptions stay
 later. Agent Redaction requires Deno validation and is outside this Node-only
 pass. Monitoring-only repositories do not become npm writers just to inflate
@@ -167,3 +167,12 @@ Spec Validator currently has no Lapis dependency edges and a verified tag/OIDC
 publisher, with no Changesets writer. Its adoption retains that shape. Visual
 Delta's only Lapis edge is the Node-only development specification validator;
 its native/manual tag, audit, panel/manager/browser and baseline rules remain.
+
+## Parallel assignments
+
+The remaining Node-eligible sources are split into independent foundations/plugin,
+native/server and application/registry batches. Reuse existing green source
+integration before changing code. Central registration and activation remain in
+one owning coordinator checkout; each source retains its own guards and full
+acceptance. Agent Redaction64 is excluded because of its public Deno adapter and
+required Deno validation, leaving thirteen eligible adoption tasks.

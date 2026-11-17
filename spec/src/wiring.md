@@ -162,3 +162,8 @@ VD-GOV-008 continues to gate audit remediation and package publication. The
 earlier blanket maintenance hold was too broad; the existing unapproved HIGH
 remains a publication blocker. This adoption does not change audit collectors,
 waive a finding, rebind an exception or authorize tags, uploads or baselines.
+
+Parallel source preparation shares one coordinator. Exact observer registration
+for Server/Agent UI/AI/Terminal/jj-store/Registry and owner-mapped read probes
+add no writer. Source tasks may progress independently; central activation and
+durable reconciliation stay serialized, with unchanged global pilot settings.

@@ -32,7 +32,7 @@ workflow YAML. It is not a complete call-graph or workflow-security analysis.
 
 ### Acceptance details
 
-- The pilot choice MUST remain constrained to `.github`, `lapis-plugins`, `lapis-notes`, `lapis-ai` and `lapis-server`.
+- Pilot choices MUST resolve through the exact reviewed repository-to-owner mapping before App minting.
 - The token's installation scope MUST contain exactly that repository.
 - Repository and PR reads MUST succeed without changing branches, PRs, reviews, settings or secrets.
 - Successful reads MUST NOT be reported as proof of write readiness.
@@ -79,3 +79,10 @@ only the Deno-free specification tool in development and retains its existing
 audit and compare-only browser gates. The operator requests a final merge pass
 and gives standing approval for per-repository activation after passing source
 acceptance; advisory exceptions and global full rollout are not implied.
+
+The parallel adoption probe adds the remaining eligible exact targets, including
+Mira, Core, Notebook, Desktop, Agent UI, Terminal, Plugin Registry and jj-store.
+Only the fixed jj-store mapping selects the personal owner. It retains no
+checkout, writer, secret retrieval or installation-setting mutation. A missing
+App installation remains a concrete read-readiness failure, not permission to
+copy credentials or activate that repository.
