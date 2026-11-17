@@ -112,13 +112,16 @@ export function workspaceIntakeSlot(policy, facts) {
         );
   return [
     `<!-- dependency-intake:${policy.slot}:start -->`,
+    "",
     "Current registry dependency coordinates; qualification remains separate.",
     "",
+    "<!-- prettier-ignore -->",
     "| Manifest | Dependency | Range | Locked version |",
     "| --- | --- | --- | --- |",
     ...rows,
     "",
     `Manifest, peer and integrity facts SHA256: \`${intakeHash(JSON.stringify(facts))}\`.`,
+    "",
     `<!-- dependency-intake:${policy.slot}:end -->`,
   ].join("\n");
 }

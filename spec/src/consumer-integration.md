@@ -73,6 +73,9 @@ branch-scoped target context, without executing a consumer hook. Every chapter
 must contain exactly one accurate source slot; stale facts, authored repairs,
 unexpected files and oversized output stop all canonical writes. Consumer
 adoption and the first genuine hosted candidate remain separate acceptance.
+Workspace slots preserve normal Markdown formatter output, including marker
+spacing and a bounded table-format directive, so a formatted adoption remains
+eligible for deterministic subsequent preparation without rewriting authorship.
 
 DA-REL-004 requires complete package identity comparisons in both shared
 preparation and the owning offline adapter; version-prefix matches cannot
