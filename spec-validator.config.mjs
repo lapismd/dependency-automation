@@ -87,7 +87,7 @@ export default defineConfig(headingRequirements(), {
           chapters: ["spec/src/inventory.md", "spec/src/notifications.md"],
         },
         {
-          pattern: "^src/github\\.mjs$",
+          pattern: "^src/github(?:-(?:public-files|response))?\\.mjs$",
           chapters: ["spec/src/inventory.md", "spec/src/policy.md"],
         },
         {

@@ -54,6 +54,27 @@ writes ignored local reports and a gated reconciliation matrix.
 - Components with multiple members or a self-edge MUST be reported deterministically.
 - Cycle-aware rules MUST use lockfile updates for applicable compatible runtime ranges.
 
+## DA-INV-005 — Bounded public source transport
+
+**Requirement.** Production inventory MUST bind credential-free public source-file reads to the exact Git tree while avoiding file-by-file GitHub API quota.
+
+### Acceptance details
+
+- Public visibility, an immutable source revision and the requested tree blob identity MUST be verified before reading source bytes.
+- Exact raw bytes MUST reproduce the Git blob SHA; unsafe coordinates, redirects, HTTP failures, oversized responses and mismatches MUST hold discovery without an API fallback.
+- Each response MUST retain a 4 MiB bound and 30-second timeout; each repository reader MUST cap requests at256 files and total bytes at16 MiB, without authorization credentials.
+- Repeated reads MAY reuse only an invocation-local result for the same revision/path; registry and publication-proof budgets MUST remain unchanged.
+
+## DA-INV-006 — Sanitized HTTP failure context
+
+**Requirement.** HTTP failures MUST retain bounded diagnostic status and quota context without exposing credentials or response bodies.
+
+### Acceptance details
+
+- Confirmed quota exhaustion MUST remain distinct from an unclassified permission or HTTP failure.
+- Diagnostics MAY retain origin/path, numeric quota/reset/retry values and a bounded request identity; URL credentials, query strings, authorization and response bodies MUST NOT be retained.
+- Diagnostics MUST NOT add retries, grant permissions, suppress failed evidence or admit writes.
+
 ## Operational reports
 
 Before planning writable waves, inventory audits the frozen coordinator graph

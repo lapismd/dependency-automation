@@ -55,9 +55,12 @@ remain open; pilot writes are enabled and scheduled/full rollout stays disabled.
       transition; failure-only rerun44015852518 attempt2 succeeds and opens149.
       Genuine Profile0.2.4 PR149 passes final-head CI and explicit main-range
       specification coverage, then merges `92f1cdbf`. Automatic release
-      validation44017843773 succeeds. Approved publication44017925251 has started;
-      installed/signature/provenance verification, notification and replay remain
-      open. No successful publication is inferred from preparation.
+      validation44017843773 succeeds. Publication44017925251 publishes0.2.4;
+      attempt1 holds after six metadata-readiness attempts. Full/install metadata
+      and retained tarball bytes then match (SHA256159377ba…ce6af9), and
+      failure-only attempt2 passes install/signatures/provenance, GitHub release
+      and notification without rebuilding or republishing. Reconciliation/replay
+      remains open: recent hosted runs403 on state reads need qualified recovery.
 - [x] Stop Notebook's unsupported bot candidates: PR42 merges4e8a66b5, with
       exact-main check44005505946/Pages44005505992 passing. Normal run44005707754
       persists generation89 and skips the consumer writer matrix. Notebook's
@@ -91,17 +94,19 @@ remain open; pilot writes are enabled and scheduled/full rollout stays disabled.
       and genuine2.3.0→2.4.0 intent. Downloaded ZIP digest7ab2487a…33906a73 is
       verified; dependency/audit policy, npm lock graph and Cargo inputs stay
       unchanged, with no Deno, writer App or publication.
-- [ ] Land Server guard PR98 at832a6d32 and prove its main workflow. Actual
-      source intent and a disposable empty-note control pass; all212 units,
-      eight CLI/workflow cases, source/spec checks and Actionlint pass locally.
-      Its existing source-approved KaTeX policy is preserved, without extending
-      an exception or claiming a clean production audit.
+- [x] Server guard PR98 passes all eight checks and merges549ebfc1. Main
+      versioning44020957109 accepts the guard, then mints the scoped App and
+      updates genuine version PR97; the empty-plan publication branch is skipped.
+      Local212 units/eight CLI-workflow cases and actual/empty-plan probes pass.
+      Existing source-approved KaTeX policy remains unchanged; actual version
+      delivery and complete main qualification stay separate.
 - [ ] Complete jj-store source qualification. The exact original story now
       passes in a cold worker and all nine native-ID stories pass; a wider
       seven-family run initially has27 passes/11 failures; source-owned name
-      repairs now pass all38 cases. The full suite and required wider/cold
-      lanes remain in progress. Existing
-      audit findings and generic canonical handoffs remain independent gates;
+      repairs now pass all38 cases. Full cold acceptance improves from
+      351pass/696fail/two skips to621pass/426fail/two skips; remaining failures
+      and required wider/cold lanes stay open. Existing audit findings and
+      generic canonical handoffs remain independent gates;
       no accessibility rule, baseline or retained-Deno prerequisite is waived.
 
 ## Bot review context follow-up
@@ -362,11 +367,11 @@ Writes remain enabled only for the reviewed pilot; full scheduling is disabled.
       and main CI `43829636444` succeeded; remaining consumer qualification remains.
 - [x] Agent UI whole-recipe proof43846835719 passed; source guard PR40 merged
       `1643b8da`, with successful main CI, version automation and Pages.
-- [ ] Finish Server owner guard adoption and jj-store source/recipe
-      qualification. Terminal is already adopted and its main guard succeeds.
-      Server's genuine whole-recipe proof now passes; its existing separately
-      approved KaTeX policy remains unchanged. jj-store's wider UI qualification
-      is still open. A portable CLI alone is insufficient whole-recipe evidence.
+- [ ] Finish jj-store source/recipe qualification and the remaining generic
+      handoffs. Terminal and Server guards now succeed on main; Server's
+      genuine whole-recipe proof and separately approved KaTeX policy retain
+      their exact scope. jj-store's wider UI qualification remains open.
+      A portable CLI alone is insufficient whole-recipe evidence.
 - [x] Fresh callback `43829862885` completed inventory and durable-state writes:
       19 public repositories,43 package owners,220 edges and zero coverage gaps.
       No target was admitted, so reconciliation correctly skipped. This is

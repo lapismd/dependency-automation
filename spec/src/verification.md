@@ -10,6 +10,8 @@
 | DA-INV-002  | Implemented | Registry-only availability closure and error semantics; `tests/policy.test.mjs` and `tests/github.test.mjs`.                                                             |
 | DA-INV-003  | Implemented | Portability/onboarding/hold matrix in `scripts/inventory.mjs`; unpublished-private-consumer regression.                                                                  |
 | DA-INV-004  | Implemented | `runtimeCycles` and cycle-aware generated rules; SCC and update-policy cases in `tests/policy.test.mjs`.                                                                 |
+| DA-INV-005  | In progress | `tests/github-public-files.test.mjs`; exact-tree public transport and hosted acceptance remain under qualification.                                                      |
+| DA-INV-006  | In progress | `tests/github-public-files.test.mjs`; sanitized quota/error context and hosted diagnostics remain under qualification.                                                   |
 | DA-REC-001  | Implemented | Restricted `repositoryConfig` plus central `renovate.config.cjs`; generated configuration validation.                                                                    |
 | DA-REC-002  | Implemented | Compatible/breaking Renovate rules; `tests/automerge.test.mjs` and `tests/policy.test.mjs`; repository merge rules remain external gates.                                |
 | DA-REC-003  | Implemented | Explicit environment/variable gates in `reconcile.yml`, `scripts/inventory.mjs` and `renovate.config.cjs`.                                                               |

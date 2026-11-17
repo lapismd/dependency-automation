@@ -53,6 +53,7 @@ for (const release of Object.values(publicationSnapshot?.state.releases ?? {}))
 const result = await inventory(entries, {
   publicationVersions,
   publicOnly: true,
+  publicSourceFiles: true,
   waveEvidence: waveMode,
   toolingEvidence: true,
   excludedPackages: (await loadPolicy()).excludedPackages,

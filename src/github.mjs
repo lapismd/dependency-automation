@@ -8,6 +8,8 @@ import {
   validateIntakePolicy,
 } from "./canonical-intake.mjs";
 import { monitoringRepositories } from "./maintenance-policy.mjs";
+import { httpResponseError } from "./github-response.mjs";
+import { publicSourceFileReader } from "./github-public-files.mjs";
 import {
   activeManifests,
   dependencies,
@@ -31,14 +33,18 @@ export async function requestJson(
     signal: AbortSignal.timeout(30000),
   });
   if (response.status === 404 && allow404) return null;
-  if (!response.ok)
-    throw new Error(
-      `Request failed (${response.status}): ${new URL(url).origin}${new URL(url).pathname}`,
-    );
+  if (!response.ok) throw httpResponseError(url, response);
   return response.json();
 }
 
 export async function discoverRepository(entry, options = {}) {
+  if (
+    options.publicSourceFiles !== undefined &&
+    typeof options.publicSourceFiles !== "boolean"
+  )
+    throw Error("Public source transport requires explicit Boolean selection");
+  if (options.publicSourceFiles && options.publicOnly !== true)
+    throw Error("Public source transport requires public-only discovery");
   const prefix = `https://api.github.com/repos/${entry.repository}`;
   const info = await requestJson(prefix, options);
   if (info.archived) return null;
@@ -65,7 +71,21 @@ export async function discoverRepository(entry, options = {}) {
   const paths = tree.tree
     .filter((p) => p.type === "blob" && !excluded(p.path))
     .map((p) => p.path);
+  let publicFile;
+  if (options.publicSourceFiles) {
+    if (info.private !== false || info.visibility !== "public")
+      throw Error(
+        "Public source transport requires verified public visibility",
+      );
+    publicFile = publicSourceFileReader(
+      entry.repository,
+      sha,
+      tree.tree,
+      options,
+    );
+  }
   async function file(path) {
+    if (publicFile) return publicFile(path);
     const blob = tree.tree.find((p) => p.path === path)?.sha;
     const value = await requestJson(
       blob
