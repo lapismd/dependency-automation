@@ -128,8 +128,8 @@ workflow and Visual Delta's existing CI, PR-specification, Pages and version
 workflows by exact IDs, paths and supported events. The read-only App probe
 adds only those two exact targets. Tag publishers, native capture, image
 publishers and callback self-triggers are not completion sources; verified npm
-notifications remain separate. Both repositories retain phase `full` until
-their merged source acceptance and a separate per-entry activation/replay.
+notifications remain separate. Registration74 initially retained phase `full` for both repositories pending
+merged source acceptance and separate activation/replay, now recorded below.
 Spec Validator currently consumes no Lapis npm dependency; no synthetic Core
 pin or version recipe is introduced to create an update. Visual Delta consumes
 only the Deno-free specification tool in development and retains its existing
@@ -148,19 +148,17 @@ Actual completion, ordinary no-update settlement and repeat receipts are
 recorded in the source activation record; source registration alone is not
 claimed as a new publisher or multi-consumer update proof.
 
-Visual Delta's maintenance adoption79 mergede755e2a054967b874f25c5d620ddf490da6ecc59
-after all eight checks passed. Its current-main CI44179706967, native44179706899,
-Pages44179706925 and version44179706883 pass. The actual version guard reports
-intent=false; App minting, the version action and explicit tag creation skip.
-Three trusted source completion callbacks pass. The operator's standing approval
-therefore permits only this entry's full→pilot promotion after source acceptance.
-Notebook and Spec Validator stay enabled; every other entry/exclusion/hold and
-global pilot setting is unchanged. The only supported update is a forward0.2
-patch of the Node-only development validator under its independent source guard.
-No current update is invented; ordinary settlement/replay remains required.
+Visual Delta adoption79 and activation77 are deployed after current source
+acceptance. Ordinary runs44182784733 and44182833366 qualify e755e2a0 with no
+updates, holds or waits, retain the same unchanged operation and form the
+verified durable state chain178→179. Exact source, Pages, artifact and state
+receipts are in the [activation record](https://github.com/lapismd/dependency-automation/blob/main/spec/records/2026-11-17-visual-delta-activation.md).
+Notebook, Spec Validator and Visual Delta are the only pilot entries; other
+entries, exclusions, global phase and holds remain unchanged. Visual Delta's
+independent guard admits only compatible Node-only validator0.2 development
+patches. No new dependency update or publisher execution is claimed.
 
-The publication audit hold is retained: VD-GOV-008 governs audit remediation
-and package publication, not this workflow-maintenance merge with no release
-intent. The earlier blanket draft hold was broader than that contract. The
-existing unapproved HIGH remains a publication blocker; no exception, source/
-lock rebinding, tag, package upload or baseline mutation is authorized here.
+VD-GOV-008 continues to gate audit remediation and package publication. The
+earlier blanket maintenance hold was too broad; the existing unapproved HIGH
+remains a publication blocker. This adoption does not change audit collectors,
+waive a finding, rebind an exception or authorize tags, uploads or baselines.
