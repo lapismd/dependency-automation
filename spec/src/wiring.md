@@ -6,7 +6,7 @@ version workflow IDs; verified observer callbacks from other known non-held
 consumers remain accepted without enabling those consumers' writers. The
 coordinator's hourly schedule is enabled after the Notebook acceptance and
 normal replay receipts. The source policy retains global phase `pilot`, Notebook and only the
-separately accepted Spec Validator and Visual Delta entries; the [single-pilot record](https://github.com/lapismd/dependency-automation/blob/main/spec/records/2026-11-17-notebook-single-pilot.md)
+separately accepted Spec Validator, Visual Delta, Terminal and Registry entries; the [single-pilot record](https://github.com/lapismd/dependency-automation/blob/main/spec/records/2026-11-17-notebook-single-pilot.md)
 separates actual candidate/main/callback evidence, timer configuration and the
 first unobserved cron event. Sixteen adoption tasks reuse this same flow; no
 consumer copies the engine or independently enables another schedule.
@@ -153,7 +153,7 @@ acceptance. Ordinary runs44182784733 and44182833366 qualify e755e2a0 with no
 updates, holds or waits, retain the same unchanged operation and form the
 verified durable state chain178→179. Exact source, Pages, artifact and state
 receipts are in the [activation record](https://github.com/lapismd/dependency-automation/blob/main/spec/records/2026-11-17-visual-delta-activation.md).
-Notebook, Spec Validator and Visual Delta are the only pilot entries; other
+Notebook, Spec Validator, Visual Delta, Terminal and Registry are the pilot entries; other
 entries, exclusions, global phase and holds remain unchanged. Visual Delta's
 independent guard admits only compatible Node-only validator0.2 development
 patches. No new dependency update or publisher execution is claimed.
@@ -167,3 +167,20 @@ Parallel source preparation shares one coordinator. Exact observer registration
 for Server/Agent UI/AI/Terminal/jj-store/Registry and owner-mapped read probes
 add no writer. Source tasks may progress independently; central activation and
 durable reconciliation stay serialized, with unchanged global pilot settings.
+
+## Terminal and Registry activation
+
+The operator’s standing post-merge approval promotes only Terminal and Registry
+from full to pilot after their current source/main/callback acceptance. All
+other phases, global pilot settings, exclusions, source holds and advisory
+bindings are unchanged. Exact evidence belongs in the [activation record](https://github.com/lapismd/dependency-automation/blob/main/spec/records/2026-11-17-terminal-registry-activation.md).
+
+Terminal source27 merged50d1bb9f with qualified macOS CI, spec Pages and
+actual false version intent. Its independent Core0.13 development-patch guard
+qualifies the real released0.13.4→0.13.5 candidate, including the no-note full
+version recipe; the coordinator’s empty-Changeset flag remains unchanged.
+Registry source184 merged69d8c063, passes current Checks/signed publication
+and actual callbacks, and retains its private API0.1/no-version contract.
+Its upstream API publication wait remains binding; activation does not waive
+that prerequisite or claim an invented npm release. Ordinary live settlement
+and replay are required after policy deployment.
