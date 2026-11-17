@@ -44,5 +44,6 @@ version alone does not admit it or change registry tags.
 ### Acceptance details
 
 - Exact successful public nonfork main workflow/run/attempt and all current source qualification MUST agree with the authenticated certificate, registry signature, subject digest and source package contract.
-- The bounded immutable candidate artifact MUST bind the selected package/version, source release plan, npm manifest, tarball digest/size and published registry bytes; ambiguous, expired, mismatched and different-byte skip outcomes MUST remain unknown.
-- The reader MUST inspect only permitted public archive paths without candidate execution, signer access or publisher writes; Notes proof, artifact bounds and recovery rules MUST remain unchanged.
+- The runtime plugin ID/version MUST come from the public source manifest returned as a file at the attested commit, with package directory/release tag and runtime ID/archive coordinates remaining distinct and source/signature-bound.
+- The immutable candidate MUST bind package/version, plan, manifest, tarball digest/size and registry bytes within the static profile's 64 MiB ZIP/aggregate inflation, 16 MiB npm archive, 8 MiB plugin archive/signed file and 32 MiB nested inflation caps, retaining release/path bounds and rejecting ambiguous, expired, mismatched or different-byte skip evidence.
+- The reader MUST inspect only permitted public paths without candidate execution, signer access or publisher writes, reject unreviewed profiles and retain Notes' existing 8 MiB artifact/4 MiB tarball/32 MiB inflation bounds plus total fetch-byte, request, source and recovery gates.

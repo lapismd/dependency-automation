@@ -9,6 +9,13 @@ export const limits = Object.freeze({
   entries: 1024,
   inflated: 32 * 1024 * 1024,
 });
+export const staticPublicationLimits = Object.freeze({
+  artifact: 64 * 1024 * 1024,
+  inflated: 64 * 1024 * 1024,
+  tarball: 16 * 1024 * 1024,
+  bundle: 8 * 1024 * 1024,
+  file: 8 * 1024 * 1024,
+});
 const reject = (reason) => {
   throw Error(reason);
 };
@@ -108,10 +115,14 @@ export function publicArtifact(
   buffer,
   allowed = undefined,
   archiveLimit = limits.artifact,
+  profile = undefined,
 ) {
+  const staticProfile = profile === "plugins-static-v1";
   if (
+    (profile !== undefined && !staticProfile) ||
     buffer.length > archiveLimit ||
-    archiveLimit > 24 * 1024 * 1024 ||
+    archiveLimit >
+      (staticProfile ? staticPublicationLimits.artifact : 24 * 1024 * 1024) ||
     buffer.length < 22
   )
     reject("publication-archive-rejected");
@@ -158,7 +169,8 @@ export function publicArtifact(
       flags & ~0x0808 ||
       ![0, 8].includes(method) ||
       (mode & 0xf000) === 0xa000 ||
-      (inflated += size) > limits.inflated
+      (inflated += size) >
+        (staticProfile ? staticPublicationLimits.inflated : limits.inflated)
     )
       reject("publication-archive-rejected");
     const name = buffer

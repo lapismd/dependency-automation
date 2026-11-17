@@ -85,7 +85,54 @@ test("real History npm and static Ed25519 signatures bind the exact public sourc
   assert.equal(evidence.proof.verification.runId, 43776424438);
   assert(f.requests.every((r) => r.options.method === "GET"));
 });
+test("package directory/tag and source-bound runtime plugin ID remain distinct", () => {
+  const f = staticFixture();
+  f.plan.releases[0].releaseTag = `source-history@${metadata.version}`;
+  f.rebuild();
+  const candidate = staticCandidate(
+    f.archive,
+    metadata,
+    {
+      ...owner,
+      path: "packages/source-history/package.json",
+      pluginId: "history",
+    },
+    publisher,
+    { sourceSha },
+  );
+  assert.deepEqual(candidate.tarball, tarball);
+});
 for (const [name, mutate] of [
+  [
+    "different source runtime ID",
+    (f) => {
+      f.runtime.id = "other";
+    },
+  ],
+  [
+    "different source runtime version",
+    (f) => {
+      f.runtime.version = "0.0.0";
+    },
+  ],
+  [
+    "unsafe source runtime ID",
+    (f) => {
+      f.runtime.id = "../history";
+    },
+  ],
+  [
+    "non-file source runtime manifest",
+    (f) => {
+      f.runtimeSource.type = "symlink";
+    },
+  ],
+  [
+    "different source runtime path",
+    (f) => {
+      f.runtimeSource.path = "other/manifest.json";
+    },
+  ],
   [
     "fork",
     (f) => {
@@ -213,9 +260,13 @@ for (const [name, mutate] of [
     const p = await observe(f);
     assert.equal(p.state, "unknown", name);
     assert.equal(p.proof, undefined);
+    if (name === "unbounded artifact") {
+      assert.equal(p.reason, "publication-artifact-size-limit");
+      assert(!f.requests.some((r) => r.url.endsWith("/14188020939/zip")));
+    }
   });
-test("Notes artifact cap stays8MiB while static cap is bounded24MiB", async () => {
+test("Notes artifact cap stays8MiB while static batches have a bounded64MiB profile", async () => {
   const { limits } = await import("../src/publication-transport.mjs");
   assert.equal(limits.artifact, 8 * 1024 * 1024);
-  assert.equal(staticArtifactLimit, 24 * 1024 * 1024);
+  assert.equal(staticArtifactLimit, 64 * 1024 * 1024);
 });

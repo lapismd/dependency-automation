@@ -1,0 +1,36 @@
+{
+  "id": "history",
+  "name": "History",
+  "version": "0.5.1",
+  "minAppVersion": "0.1.0",
+  "description": "Browse, compare, and restore saved file revisions",
+  "author": "Lapis Notes",
+  "authorAvatarUrl": "https://gravatar.com/avatar/f7226d5f9cf07af2a6a60d3ab11413abb9d2e2eb60f2d5cce17356845a166155?size=256&d=initials",
+  "isDesktopOnly": false,
+  "lapis": {
+    "manifestVersion": 1,
+    "source": "official",
+    "locked": false,
+    "enabledByDefault": true,
+    "runtime": {
+      "entries": {
+        "workspace": {
+          "path": "main.mjs",
+          "format": "esm",
+          "sharedDependencies": [
+            "@lapis-notes/api",
+            "@lapis-notes/api/workspace-host",
+            "svelte/renderer/5.56.10",
+            "svelte/renderer/5.56.10/attachments",
+            "svelte/renderer/5.56.10/events",
+            "svelte/renderer/5.56.10/internal/client",
+            "svelte/renderer/5.56.10/internal/disclose-version",
+            "svelte/renderer/5.56.10/reactivity",
+            "svelte/renderer/5.56.10/store"
+          ],
+          "requiresReloadOnUpdate": false
+        }
+      }
+    }
+  }
+}
