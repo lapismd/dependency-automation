@@ -57,6 +57,19 @@ canonical intake and a genuine released Core0.13.4→0.13.5 update to exercise.
       fixture acceptance. Its frozen install, independent intake, explicit
       three-input/two-chapter main range and unchanged full guard pass with
       no release intent. Deploy/regenerate before requiring fresh candidate CI.
+      Source68 deploys8d9c6aca with main check44133921647/Pages44133921557 green.
+      Normal44134079685 consumes the rebase checkbox and regenerates44 to422e3cab,
+      but actual quality44135375420 rejects the workspace fingerprint: the native
+      artifact filter omitted that repaired input. The follow-up adds only the
+      exact governed workspace path for canonical opt-ins. Two native collector/
+      commit regressions change2→0 and54 affected cases pass; the actual422e3cab
+      final artifact matches all five qualified files and unchanged guard.
+      Fresh audit now denies two HIGH picomatch paths underGHSA-fc5q-39xc-vjpf
+      on unchanged dependency-source9d657a74/locka3e1f05f. No patched release is
+      recorded; consumer writes are placed off, scheduling stays off and the
+      active approval list remains empty. The disabled exact proposal is
+      `docs/proposals/picomatch-high-2026-11-19.md`; prior LOW approvals do not
+      cover it. Complete source repair delivery while this decision is pending.
 - [ ] Exercise completion/catch-up and idempotent repeated runs, enable normal
       scheduling for this sole pilot and retain exact run/source receipts.
 - [x] Create a tracker in dependency-automation with separate adoption tasks,

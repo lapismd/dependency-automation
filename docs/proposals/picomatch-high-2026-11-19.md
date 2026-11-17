@@ -1,0 +1,52 @@
+# Disabled proposal: exact coordinator picomatch exception
+
+**Status: not approved and not active.** `config/advisories.json` still has an
+empty approval list. Consumer writes and scheduling are off. This document is
+review material, not admission authority, and does not inherit the retired LOW
+deepmerge decision or create an automatic approval.
+
+Fresh audit at2026-11-17T17:34:18.479Z reports HIGH
+[GHSA-fc5q-39xc-vjpf](https://github.com/advisories/GHSA-fc5q-39xc-vjpf) on the two
+exact paths below. GitHub records no patched version; current official npm
+metadata resolves picomatch `latest` to `4.0.7`, which is affected. The advisory
+describes regular-expression denial of service from repeated extglobs. No
+reachability exemption or absence of risk is claimed.
+
+| Binding                  | Proposed value                                                        |
+| ------------------------ | --------------------------------------------------------------------- |
+| Advisory                 | GHSA-fc5q-39xc-vjpf                                                   |
+| Severity                 | HIGH                                                                  |
+| Package/version/path1    | picomatch 2.3.2 at `.>renovate>@yarnpkg/core>micromatch>picomatch`    |
+| Package/version/path2    | picomatch 4.0.7 at `.>renovate>re2>node-gyp>tinyglobby>picomatch`     |
+| Dependency-source commit | `9d657a7458e40ca84962a12c9b8e361534b3470f`                            |
+| Exact lockfile SHA256    | `a3e1f05fe6a25925d61b6af7baf5316c24156a0b71319611f6e3298bbca61b8b`    |
+| Exclusive expiry         | 2026-11-19T00:00:00.000Z                                              |
+| Earlier termination      | A known published fix, whichever occurs first                         |
+| Approval time/review     | Recorded only after explicit operator approval of this exact proposal |
+
+This is the deployed Renovate 44.199.0 automation runtime, which acquires
+repository-scoped GitHub App write credentials to create or merge dependency
+PRs. Manifest classification as a development dependency does not make this
+a development-only exposure. A malicious glob can stall the Node event loop
+and automation. Current scope and job timeouts do not prove the vulnerable
+calls unreachable, and are not substitutes for a fixed release.
+
+The proposed decision would admit only these two exact advisory/package/version/
+path/severity/source/lock identities until the stated boundary. Raw audit would
+still report the HIGH; it would not become a clean dependency graph. Any extra
+finding/path, source or lock change, expired/future approval, unavailable or
+muted audit, unknown fix evidence or known published fix remains blocking.
+Existing source ownership, current-head checks, compatibility, branch rules,
+package/signature/provenance and per-repository activation gates remain intact.
+
+No Notebook or other consumer exception is included. A separate audit of the
+actual Notebook candidate finds the same advisory in its development tree;
+its production audit is clean. This proposal changes no consumer audit policy
+or required check. Community, Nostr and Deno-only exclusions remain unchanged.
+
+The default action is to keep writes blocked until a patched release is
+available. If the operator explicitly approves this precise temporary scope,
+record the approval time and reviewed PR URL in the two active policy entries,
+run the actual audit preflight, retain the still-vulnerable raw audit and verify
+that only the approved paths pass. Otherwise leave the active list empty.
+Never silently extend the expiry or transfer this decision to new bytes.

@@ -61,7 +61,7 @@
 | DA-TOOL-007 | In progress | CI28: exact1→0,29 focused/301 full cases and frozen Core0.13.5 recipe proof; Notebook43 main CI/version guard pass at4484fe44.                                           |
 | DA-PUB-001  | Implemented | Real crypto/mutation/source/recovery tests plus reject-only claim preflight; full-inventory proof is recorded in `spec/records/2026-11-17-publication-budget.md`.        |
 | DA-PUB-002  | Implemented | Current-first collection, bounded shared 128 MiB/256-request budget and exhaustion/cache negatives; no App inventory credentials or source/channel relaxation.           |
-| DA-REL-004  | In progress | Actual Notebook and Notes152 fixtures; workspace scope/target/lock/manual-edit negatives and native preparation filters; new workspace adoption remains pending.         |
+| DA-REL-004  | In progress | Native filter/collector/commit2→0;54 affected/466 full cases and actual422e3cab final-payload guard proof; hosted regeneration remains separate.                         |
 | DA-REL-005  | In progress | Notes152 seven-owner fixture, target/integrity/lock and filesystem negatives, formatter/repeat preparation pass; consumer adoption pending.                              |
 | DA-WAVE-007 | In progress | 59 admission regressions; actual Notebook1→0; fresh GET-only19/43/220 plan retains six waits; hosted regeneration pending.                                               |
 | DA-PUB-003  | In progress | Scoped/transitive-peer negatives; hosted generation83 retires ten published waits/one obsolete wait; Notes146 publication/replay pending.                                |
