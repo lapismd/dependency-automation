@@ -47,15 +47,17 @@ remain open; pilot writes are enabled and scheduled/full rollout stays disabled.
       verified ZIP SHA256a7723b29…3cf40661; durable read-back retains retirement.
       [Source and hosted evidence](spec/records/2026-11-17-scoped-publisher-retirement.md)
       remain separate from downstream acceptance.
-- [ ] Qualify genuine Notes PR146 before publication: seven updates and the
-      Profile Changeset are generated. Source-owned canonical repair reduces
-      five missing mappings to zero; all specification lanes/69 governance
-      cases and288 cold Docker interaction/accessibility cases pass. Head
-      f4d4d554 passes final-head CI and merges3bd015b5; exact-main release
-      versioning44003910320 succeeds and generates genuine Profile0.2.4 PR147.
-      Its explicit main-range comparison finds four missing canonical mappings;
-      retain the draft until source-owned version preparation carries those
-      facts. Actual publication verification and replay remain open.
+- [ ] Finish genuine Notes publication and replay. Dependency PR146 merges
+      `3bd015b5`; canonical version preparation PR148 merges `ddd83d39` after
+      199 release tests,69 specification cases and288 cold interaction/axe cases.
+      The actual bot command generates all five required canonical pages.
+      Its first update of old draft147 fails GitHub's branch-recreation state
+      transition; failure-only rerun44015852518 attempt2 succeeds and opens149.
+      Genuine Profile0.2.4 PR149 passes final-head CI and explicit main-range
+      specification coverage, then merges `92f1cdbf`. Automatic release
+      validation44017843773 succeeds. Approved publication44017925251 has started;
+      installed/signature/provenance verification, notification and replay remain
+      open. No successful publication is inferred from preparation.
 - [x] Stop Notebook's unsupported bot candidates: PR42 merges4e8a66b5, with
       exact-main check44005505946/Pages44005505992 passing. Normal run44005707754
       persists generation89 and skips the consumer writer matrix. Notebook's
@@ -84,10 +86,23 @@ remain open; pilot writes are enabled and scheduled/full rollout stays disabled.
       lanes pass. Normal generation89 retains19/43/220, zero graph gaps/cycles
       and both excluded-root holds. Recipe qualification and the remaining
       generic/version handoff stay separate from this hosted read-back.
-- [ ] Retain Server's production KaTeX and jj-store's functional/accessibility
-      failures as source-owned holds; no inherited exception or baseline waiver.
-      Remaining eligible-writer/retained-Deno boundaries and generic canonical
-      handoffs still require their own reviewed evidence before S6 completion.
+- [x] Qualify Server's unchanged private Node recipe: shared CI PR26 merges
+      `121359a2`; read-only44016373469/artifact14299356248 pass for source78a3fe6f
+      and genuine2.3.0→2.4.0 intent. Downloaded ZIP digest7ab2487a…33906a73 is
+      verified; dependency/audit policy, npm lock graph and Cargo inputs stay
+      unchanged, with no Deno, writer App or publication.
+- [ ] Land Server guard PR98 at832a6d32 and prove its main workflow. Actual
+      source intent and a disposable empty-note control pass; all212 units,
+      eight CLI/workflow cases, source/spec checks and Actionlint pass locally.
+      Its existing source-approved KaTeX policy is preserved, without extending
+      an exception or claiming a clean production audit.
+- [ ] Complete jj-store source qualification. The exact original story now
+      passes in a cold worker and all nine native-ID stories pass; a wider
+      seven-family run initially has27 passes/11 failures; source-owned name
+      repairs now pass all38 cases. The full suite and required wider/cold
+      lanes remain in progress. Existing
+      audit findings and generic canonical handoffs remain independent gates;
+      no accessibility rule, baseline or retained-Deno prerequisite is waived.
 
 ## Bot review context follow-up
 
@@ -347,10 +362,11 @@ Writes remain enabled only for the reviewed pilot; full scheduling is disabled.
       and main CI `43829636444` succeeded; remaining consumer qualification remains.
 - [x] Agent UI whole-recipe proof43846835719 passed; source guard PR40 merged
       `1643b8da`, with successful main CI, version automation and Pages.
-- [ ] Qualify/adopt remaining Server, Terminal and jj-store version
-      recipes and supported cohorts. Compatible Server security repairs are in
-      progress; remaining production KaTeX and development deepmerge findings
-      are explicit. A portable CLI alone is insufficient whole-recipe evidence.
+- [ ] Finish Server owner guard adoption and jj-store source/recipe
+      qualification. Terminal is already adopted and its main guard succeeds.
+      Server's genuine whole-recipe proof now passes; its existing separately
+      approved KaTeX policy remains unchanged. jj-store's wider UI qualification
+      is still open. A portable CLI alone is insufficient whole-recipe evidence.
 - [x] Fresh callback `43829862885` completed inventory and durable-state writes:
       19 public repositories,43 package owners,220 edges and zero coverage gaps.
       No target was admitted, so reconciliation correctly skipped. This is
