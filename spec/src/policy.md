@@ -86,6 +86,12 @@ Reviewed source workflow/job selectors and package-manager provenance follow
 DA-TOOL-005/006; evidence refresh preserves existing supported tool ranges and
 retains undeclared manifests without inventing declarations.
 
+The scheduled single-pilot checkpoint keeps global phase `pilot`, so only
+individually activated entries can enter the writer matrix. Its expected
+schedule value does not enable hosted scheduling: actual activation follows
+the selected pilot's candidate/main/replay acceptance. Missing variables retain
+the workflow's default-off gate, independently of checkpoint metadata.
+
 `config/operations.json` records reviewed template references, single update
 class owners, retained exclusions and a dated activation checkpoint, without
 granting settings authority. `config/advisories.json` is the separately reviewed

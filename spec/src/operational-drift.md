@@ -40,11 +40,12 @@ The operator approved the exact coordinator deepmerge decision proposed in
 and November 21 expiry. The [decision record](https://github.com/lapismd/dependency-automation/blob/main/docs/approved-coordinator-advisory.md)
 records that scope; all rejection and cleanup requirements above still apply.
 
-The reviewed activation checkpoint is writes=true, phase=pilot, waves=true,
-schedule=false and state-writes=true following the explicit manual pilot
-cutover. This comparison checkpoint does not change absent-variable/default-off
-workflow semantics or external settings. Genuine callback/receiver qualification
-is recorded separately from pending publication or replay outcomes.
+The source activation checkpoint targets writes=true, phase=pilot, waves=true,
+schedule=true and state-writes=true for the qualified single-repository pilot.
+Live scheduling requires the genuine candidate, main and replay receipts before
+the operator enables it. This comparison checkpoint does not change absent-variable/
+default-off workflow semantics or external settings. Actual activation and
+callback/receiver qualification remain separate recorded observations.
 
 The operator separately approved the validator-update rebinding in PR34 to
 dependency source9d657a74 and exact lock SHA256a3e1f05f…ca61b8b. This replaces
