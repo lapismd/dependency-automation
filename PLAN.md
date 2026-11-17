@@ -25,6 +25,15 @@ remain open; pilot writes are enabled and scheduled/full rollout stays disabled.
       release workflow pass. The original two missing mappings are repaired;
       local unsupported-WebKit launch failures are replaced by supported cold
       proof196 passed/one existing skip, without changing tests or baselines.
+- [x] Core source PR89 merges `df9b0cf1` after all11 hosted checks, including
+      supported browser and dependency-audit gates. The reaction textual-name,
+      destructive-alert contrast, literal-loopback and cold-consumer pnpm fixes
+      are merged; this is source acceptance, not publication or jj-store adoption.
+- [ ] Complete genuine Core0.13.5 release PR90. Independent non-exempt
+      main-range spec-first finds missing Architecture/Packages coverage despite
+      bot PR Governance passing. Repair source-owned native version preparation,
+      qualify its exact helper/runtime closure, regenerate the genuine candidate
+      and prove strict canonical coverage before merge/publication.
 - [x] Notebook's bounded Core intake is already qualified: genuine bot PR36
       mergesadc4b650 with successful main CI43852663104, versioning, Pages and
       registry workflows. This does not claim generic canonical preparation.
@@ -143,20 +152,21 @@ remain open; pilot writes are enabled and scheduled/full rollout stays disabled.
       container44024715361/44024658502 and Storybook Pages44024658151 succeed.
       Existing source-approved KaTeX policy remains unchanged; no new exception
       or production-clean claim is inferred.
-- [ ] Complete jj-store source qualification. The exact original story now
-      passes in a cold worker and all nine native-ID stories pass; a wider
-      seven-family run initially has27 passes/11 failures; source-owned name
-      repairs now pass all38 cases. Full cold acceptance improves from
-      351pass/696fail/two skips through621pass/426fail/two skips to the latest
-      complete956pass/91fail/two skips. The exact mobile search skeleton race
-      and five profile/capture/repository regressions pass, and catalog/web types
-      and ownership pass. A subsequent seven-case target passes6/7; the retained
-      custom-image adapter is repaired and asserted. The remaining textual
-      fallback/count defect is reproduced in Core; source repair swolpwus passes
-      its3 owning stories while full qualification/release/adoption remain open.
-      Remaining full-suite failures and wider/cold lanes stay open. Existing audit findings and
-      generic canonical handoffs remain independent gates;
-      no accessibility rule, baseline or retained-Deno prerequisite is waived.
+- [ ] Complete jj-store source qualification. Complete cold UI counts improve
+      from351pass/696fail/two skips through621/426 and956/91 to the current
+      **1036pass/11fail/two existing skips**, with all1049 cases executed. Six
+      subsequent stale review/step/branch selectors pass their exact targets and
+      all24 directly affected-family cases; catalog/web types and ownership pass.
+      Four original failures await the merged Core reaction/contrast repairs'
+      genuine registry release. The editor passes isolated; family diagnostics
+      show an earlier reaction accessibility error leaves Storybook's animation
+      pause cleanup unexecuted, retaining the later closed menu's pointer lock.
+      Keep the unchanged editor/family and full cold gates blocking until actual
+      registry adoption proves acceptance. Current units/static/browser, native
+      recipe, audit disposition and generic canonical handoffs remain separate;
+      no accessibility rule, baseline or frozen-Deno prerequisite is waived.
+      [Current source and acceptance gates](spec/records/2026-11-17-core-and-jj-store-gates.md)
+      distinguish complete-suite evidence from subsequent focused results.
 
 ## Bot review context follow-up
 
