@@ -41,7 +41,7 @@
 | DA-DOC-001  | Implemented | Released Node validator, pinned mdBook, 42 tests and all three spec lanes; Pages book job 43759765158 passed.                                                            |
 | DA-DOC-002  | Implemented | Main-only isolated deployment 7809666306 succeeded; all indexed chapters, navigation, CSS and JavaScript read back over HTTPS.                                           |
 | DA-WAVE-001 | Implemented | `tests/runtime-minimum-repair.test.mjs`: retained minimum, native candidate and operation/replay gates; wave, catalog and compound regressions remain passing.           |
-| DA-WAVE-002 | Implemented | 80-test source qualification, wave/evidence/CAS regressions and production admission wiring; hosted pilot pending.                                                       |
+| DA-WAVE-002 | Implemented | Exact empty-attempt/CAS recovery; source-advance tree proof rejects changed inputs and preserves current qualification; hosted acceptance remains separate.              |
 | DA-WAVE-003 | Implemented | 80-test source qualification, wave/evidence/CAS regressions and production admission wiring; hosted pilot pending.                                                       |
 | DA-WAVE-004 | Implemented | 80-test source qualification, wave/evidence/CAS regressions and production admission wiring; hosted pilot pending.                                                       |
 | DA-TOOL-001 | In progress | tests/tooling.test.mjs; Node-only generated fixture; hosted/consumer qualification pending.                                                                              |

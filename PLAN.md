@@ -20,6 +20,11 @@ canonical intake and a genuine released Core0.13.4→0.13.5 update to exercise.
       Controlled recovery44119443025 then marks the old empty attempt
       retry-approved and publishes statef32db5f0, with consumer writes disabled.
       No state is hand-edited or unsupported API migration re-admitted.
+      Genuine replay44125843709 exposes a second older empty admission0f1650a6
+      from44004351048. Source has advanced only through the reviewed setup43;
+      the new exact-current-source recovery compares complete immutable trees
+      and proves unchanged code/dependency inputs. GET-only dry qualification
+      admits only Core0.13.5 and no other writer. Hosted recovery remains pending.
 - [x] Implement and qualify the shared guard's reviewed development data
       before dispatching the genuine intake. An isolated copy of the actual
       Notebook source passes unchanged, then fails with only the Core override

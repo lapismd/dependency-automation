@@ -5,7 +5,10 @@ import {
   loadPolicy,
   requestJson,
 } from "../src/github.mjs";
-import { observeRepository } from "../src/wave-evidence.mjs";
+import {
+  observeRepository,
+  qualifyRecoverySource,
+} from "../src/wave-evidence.mjs";
 import { planWaves, recoverEmptyOperation } from "../src/waves.mjs";
 import { readWaveState } from "../src/wave-state.mjs";
 import { execFileSync } from "node:child_process";
@@ -101,11 +104,24 @@ if (waveMode) {
       `https://api.github.com/repos/lapismd/dependency-automation/actions/runs/${operation.runId}`,
       options,
     );
+    const repo = result.repositories.find(
+      (r) => r.repository === operation.repository,
+    );
+    const expectedSourceSha = process.env.LAPIS_WAVE_RECOVER_SOURCE;
+    const sourceProof =
+      repo?.sourceSha !== operation.sourceSha
+        ? await qualifyRecoverySource(operation, repo, {
+            ...options,
+            expectedSourceSha,
+          })
+        : undefined;
     previous.state = recoverEmptyOperation(previous.state, result, {
       operationId: process.env.LAPIS_WAVE_RECOVER_OPERATION,
       expectedRevision: process.env.LAPIS_WAVE_EXPECTED_STATE,
       revision: previous.revision,
       completedRun,
+      expectedSourceSha,
+      sourceProof,
     });
   }
   waves = planWaves(result, previous.state, {

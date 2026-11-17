@@ -7,6 +7,12 @@ consumers remain accepted without enabling those consumers' writers. The
 coordinator's normal schedule is enabled only after the Notebook acceptance
 and replay receipt is retained.
 
+`reconcile.yml` passes optional manual `recover-source-revision` only to the
+inventory recovery boundary. `qualifyRecoverySource` reads both exact public
+trees before `recoverEmptyOperation` can record a source transition. The
+existing exact-state CAS/read-back and consumer revalidation remain required;
+ordinary events cannot invoke this recovery path.
+
 This map describes executable entrypoints. It deliberately contains no secret
 values, live operational reports or copied repository inventories.
 

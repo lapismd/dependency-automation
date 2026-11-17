@@ -484,6 +484,77 @@ test("manual recovery re-admits only exact completed empty attempts, preserving 
   );
 });
 
+test("source-advanced empty recovery requires exact proof and preserves all write gates", async () => {
+  const { recoverEmptyOperation } = await import("../src/waves.mjs");
+  const graph = fixture();
+  const repo = graph.repositories[1];
+  repo.evidence.dependencyBranches = [];
+  const first = planWaves(graph, emptyState(), { ...options, runId: "123" });
+  const id = node(first, "publisher").operationId,
+    sourceSha = repo.sourceSha;
+  repo.sourceSha = "e".repeat(40);
+  const recovery = {
+    operationId: id,
+    expectedRevision: sha,
+    revision: sha,
+    completedRun: {
+      id: 123,
+      status: "completed",
+      path: ".github/workflows/reconcile.yml",
+    },
+    expectedSourceSha: repo.sourceSha,
+    sourceProof: {
+      schemaVersion: 1,
+      repository: repo.repository,
+      sourceSha,
+      currentSourceSha: repo.sourceSha,
+      projectionSha256: "f".repeat(64),
+    },
+  };
+  for (const patch of [
+    { sourceProof: undefined },
+    { expectedSourceSha: sourceSha },
+    { sourceProof: { ...recovery.sourceProof, sourceSha: repo.sourceSha } },
+    { sourceProof: { ...recovery.sourceProof, repository: "lapismd/other" } },
+    { sourceProof: { ...recovery.sourceProof, projectionSha256: "invalid" } },
+  ])
+    assert.throws(
+      () =>
+        recoverEmptyOperation(first.state, graph, { ...recovery, ...patch }),
+      /unchanged public source/,
+    );
+  const recovered = recoverEmptyOperation(first.state, graph, recovery);
+  assert.deepEqual(
+    recovered.operations[id].recovery.sourceTransition,
+    recovery.sourceProof,
+  );
+  assert.equal(first.state.operations[id].status, "admitted");
+  assert.equal(recovered.operations[id].status, "retry-approved");
+  assert.equal(
+    node(
+      planWaves(graph, recovered, { ...options, writes: false }),
+      "publisher",
+    ).status,
+    "qualification-wait",
+  );
+  repo.evidence.sha = repo.sourceSha;
+  repo.evidence.runs[0].head_sha = repo.sourceSha;
+  const replanned = planWaves(graph, recovered, { ...options, writes: false });
+  assert.equal(node(replanned, "publisher").status, "admitted");
+  assert.equal(
+    replanned.state.operations[node(replanned, "publisher").operationId].status,
+    "planned",
+  );
+  repo.evidence.dependencyBranches.push({
+    branch: "lapis-dependencies/repair",
+    head: sha,
+  });
+  assert.throws(
+    () => recoverEmptyOperation(first.state, graph, recovery),
+    /empty branch/,
+  );
+});
+
 test("package DAG admits an API while another package in its repository waits, without inventing a repository cycle", () => {
   const graph = fixture();
   const apiRepo = graph.repositories[0];

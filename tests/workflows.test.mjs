@@ -179,6 +179,20 @@ test("wave admission gates the production matrix and isolates trusted-main state
     /LAPIS_DEPENDENCY_WAVE_STATE_WRITES == 'true'/,
   );
   assert.match(workflow.jobs.inventory.if, /refs\/heads\/main/);
+  assert.deepEqual(
+    workflow.on.workflow_dispatch.inputs["recover-source-revision"],
+    {
+      description:
+        "Exact current source SHA for a proven documentation/workflow/test-only source transition",
+      required: false,
+      type: "string",
+    },
+  );
+  assert.equal(
+    workflow.jobs.inventory.steps.find((s) => s.id === "inventory").env
+      .LAPIS_WAVE_RECOVER_SOURCE,
+    "${{ inputs.recover-source-revision }}",
+  );
   const state = workflow.jobs["wave-state"];
   assert.match(state.if, /refs\/heads\/main/);
   assert.match(state.if, /LAPIS_DEPENDENCY_WAVE_STATE_WRITES == 'true'/);

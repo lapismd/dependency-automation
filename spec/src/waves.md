@@ -42,6 +42,15 @@ authorize a downstream update or suppress an eligible upstream repair.
 
 ## DA-WAVE-002 — Durable reconciliation
 
+Source-advanced recovery requires an operator-supplied exact current SHA and
+complete public trees at both immutable revisions. Only regular documentation,
+workflow, version-guard configuration and test blobs may differ; package,
+lockfile, workspace, policy and implementation changes reject recovery.
+Truncation, unavailable trees, duplicate/unsafe paths, changed symlinks and
+missing source bindings fail closed. Recovery records both revisions and the
+unchanged projection digest; fresh normal admission still owns target scope.
+Reports remain ignored artifacts; no live state enters main or public book output.
+
 **Requirement.** Versioned wave state MUST reconcile registry observations, source revisions and operation identities independently of notification delivery order.
 
 ### Acceptance details
@@ -49,7 +58,7 @@ authorize a downstream update or suppress an eligible upstream repair.
 - Registry-verified version/integrity identities coalesce duplicate hints; complete scheduled scans recover missed events without treating payloads as authority.
 - Persistent operations retain exact targets, source/policy revisions, publication baselines and blocked/failed/uncertain outcomes for future operator UI use.
 - State lives only on the dedicated coordinator state branch, with optimistic concurrency and read-back after uncertain writes; conflicting state is never overwritten or blindly retried.
-- Exact manual recovery MAY re-admit only a completed originating run with unchanged public source and proven empty branch/PR state; reports remain ignored artifacts; no live state enters main or public book output.
+- Exact manual recovery MAY re-admit only a completed originating run with proven empty branch/PR state and unchanged public source or an explicitly bound current revision with complete immutable-tree proof of unchanged implementation and dependency inputs.
 
 ## DA-WAVE-003 — Qualification and repair ownership
 
