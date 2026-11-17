@@ -39,7 +39,7 @@ values, live operational reports or copied repository inventories.
 | `completion.yml`        | Reusable trusted source `workflow_run` call              | Exact allowed source run/attempt → read-only verification → existing scoped App          | Completion hint; receiver waits for callback completion; no source writes |
 | `notify.yml`            | Reusable publisher call                                  | Exact coordinator/source revisions → `scripts/notify.mjs`                                | Registry-verified dispatch to coordinator; no npm publisher               |
 | `maintenance-audit.yml` | Daily/manual                                             | Shared monitoring policy → `scripts/audit-maintenance.mjs`                               | Read-only partial/complete JSON report, 14-day artifact                   |
-| `app-readiness.yml`     | Manual main-only                                         | One of five constrained pilots and existing encrypted App credentials                    | Scope/repository/PR read proof; no target writes                          |
+| `app-readiness.yml`     | Manual main-only                                         | One of the explicitly reviewed repositories and existing encrypted App credentials       | Scope/repository/PR read proof; no target writes                          |
 | `profile-refresh.yml`   | Gated hourly/manual                                      | Source generator → same-run artifact → coordinator `publish-profile.mjs`                 | Guarded rolling profile PR using scoped App writes                        |
 | `pages.yml`             | Main push/manual main                                    | Frozen install and complete verification → generated `spec/book`                         | Book-only Pages artifact; isolated Pages deployment authority             |
 
@@ -122,3 +122,17 @@ Docs and Tasks register their actual CI/Pages completion identities while
 remaining outside the writable pilot. The App readiness workflow adds only
 these exact read-only probe targets; source callback adoption and required
 consumer audit qualification remain separate gates.
+
+The next small-repository slice registers Spec Validator's existing Check
+workflow and Visual Delta's existing CI, PR-specification, Pages and version
+workflows by exact IDs, paths and supported events. The read-only App probe
+adds only those two exact targets. Tag publishers, native capture, image
+publishers and callback self-triggers are not completion sources; verified npm
+notifications remain separate. Both repositories retain phase `full` until
+their merged source acceptance and a separate per-entry activation/replay.
+Spec Validator currently consumes no Lapis npm dependency; no synthetic Core
+pin or version recipe is introduced to create an update. Visual Delta consumes
+only the Deno-free specification tool in development and retains its existing
+audit and compare-only browser gates. The operator requests a final merge pass
+and gives standing approval for per-repository activation after passing source
+acceptance; advisory exceptions and global full rollout are not implied.

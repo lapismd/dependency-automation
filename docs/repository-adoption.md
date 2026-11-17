@@ -150,3 +150,20 @@ requires authoritative exact source/branch/PR/run read-back and the existing
 controlled recovery procedure. Never hand-edit durable state or blindly retry
 an ambiguous write. Disabling a source callback rolls back that event route;
 manual reconciliation and the shared scheduled recovery gate remain available.
+
+## Batched source preparation and final merge pass
+
+Docs21 and Tasks31 are held drafts: current source functional lanes pass, but
+the same unapproved HIGH Changesets/picomatch advisory blocks their required
+audits. Track that exact hold in tasks55/56 and advisory71 rather than rerunning
+unchanged tests or inheriting the coordinator approval. Prepare other sources
+independently, then merge each qualified source under existing branch rules.
+The operator's standing activation approval applies after merge and passing
+acceptance, followed by a reviewed one-entry phase change, ordinary settlement
+and no-duplicate replay. It grants neither a new advisory exception nor global
+full rollout. Source registration alone remains read-only.
+
+Spec Validator currently has no Lapis dependency edges and a verified tag/OIDC
+publisher, with no Changesets writer. Its adoption retains that shape. Visual
+Delta's only Lapis edge is the Node-only development specification validator;
+its native/manual tag, audit, panel/manager/browser and baseline rules remain.
