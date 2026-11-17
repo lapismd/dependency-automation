@@ -106,6 +106,30 @@
         "path": ".github/workflows/version-packages.yml",
         "events": ["push", "workflow_dispatch"]
       }
+    ],
+    "lapismd/lapis-plugin-docs": [
+      {
+        "id": 402067767,
+        "path": ".github/workflows/ci.yml",
+        "events": ["pull_request", "push", "workflow_dispatch"]
+      },
+      {
+        "id": 412363368,
+        "path": ".github/workflows/publish-storybook-pages.yml",
+        "events": ["push", "workflow_dispatch"]
+      }
+    ],
+    "lapismd/lapis-plugin-tasks": [
+      {
+        "id": 402046918,
+        "path": ".github/workflows/ci.yml",
+        "events": ["pull_request", "push", "workflow_dispatch"]
+      },
+      {
+        "id": 402877534,
+        "path": ".github/workflows/publish-storybook-pages.yml",
+        "events": ["push", "workflow_dispatch"]
+      }
     ]
   }
 }

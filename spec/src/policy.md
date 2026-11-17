@@ -152,3 +152,9 @@ The same exact advisory entry is now retired after official upstream withdrawal
 and complete zero-finding audit evidence. Active approvals are empty. This
 DA-OPS-002 cleanup neither installs a dependency fix nor grants any new
 exception; every future finding must pass the unchanged rejection policy.
+
+Docs and Tasks add exact completion observation and one-repository read-only
+App readiness targets while retaining source phase full. This metadata does
+not grant writer, publication or audit-exception authority. Their newly observed
+HIGH Changesets finding remains blocked by the existing consumer gates; only
+separately qualified source adoption may precede a reviewed phase change.

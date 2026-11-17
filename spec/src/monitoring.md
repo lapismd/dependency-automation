@@ -60,3 +60,8 @@ resolved vars context when the Variables API is unavailable. This fallback
 requires the exact coordinator repository, main ref, audit workflow ref,
 supported event and source SHA; local or incomplete contexts remain unavailable.
 Reports retain sanitized values and their provenance under DA-OPS-001.
+
+The next Docs/Tasks source preparations may invoke the same reviewed App
+readiness workflow for their two explicitly named repositories. Tokens remain
+restricted to one selected repository with contents/PR reads only; no source
+checkout, credential retrieval/rotation or writer activation is added.

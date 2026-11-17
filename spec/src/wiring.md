@@ -117,3 +117,8 @@ public artifact downloads, with no App key, reader mint or permission probe.
 Discovery and publication collection remain public-only; missing read access
 keeps the publication unknown. Per-target writers retain their separate App
 credentials, actual audit preflight and admission gates.
+
+Docs and Tasks register their actual CI/Pages completion identities while
+remaining outside the writable pilot. The App readiness workflow adds only
+these exact read-only probe targets; source callback adoption and required
+consumer audit qualification remain separate gates.
