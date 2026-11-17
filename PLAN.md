@@ -43,9 +43,12 @@ remain open; pilot writes are enabled and scheduled/full rollout stays disabled.
       checks without rerunning publication or fabricating intent. PR90 merges
       ec0d539a. Workspaces are clean and both foundation parents are included;
       fresh Dependabot query is empty.
-- [ ] Finish Core0.13.5 publication44084229046, registry/source/artifact verification
-      and original jj-store consumer acceptance. Source merge and version output
-      are not a completed publication claim.
+- [x] Finish Core0.13.5 publication44084229046. Publication, main CI and Pages
+      succeed at ec0d539a. Registry bytes match retained artifact14328169910;
+      independent npm signature and SLSA provenance verification bind the archive
+      to that exact source and npm-production workflow. Registry adoption in
+      jj-store passes all five original failures and all28 affected-family cases;
+      complete cold consumer acceptance remains a separate open gate.
 - [ ] Automate safe recovery of the observed version-PR refresh closure. Preserve
       manual closure and repair ownership; require exact bot, source, branch and
       genuine candidate validation before reopening. Core90 now supplies a second
@@ -170,15 +173,16 @@ remain open; pilot writes are enabled and scheduled/full rollout stays disabled.
       or production-clean claim is inferred.
 - [ ] Complete jj-store source qualification. Complete cold UI counts improve
       from351pass/696fail/two skips through621/426 and956/91 to the current
-      **1036pass/11fail/two existing skips**, with all1049 cases executed. Six
+      **1046pass/one fail/two existing skips**, with all1049 cases executed. Six
       subsequent stale review/step/branch selectors pass their exact targets and
       all24 directly affected-family cases; catalog/web types and ownership pass.
-      Four original failures await the merged Core reaction/contrast repairs'
-      genuine registry release. The editor passes isolated; family diagnostics
-      show an earlier reaction accessibility error leaves Storybook's animation
-      pause cleanup unexecuted, retaining the later closed menu's pointer lock.
-      Keep the unchanged editor/family and full cold gates blocking until actual
-      registry adoption proves acceptance. Current units/static/browser, native
+      Core0.13.5 is now released and adopted through the ordinary npm range.
+      All five original reaction/contrast/editor targets and all28 directly
+      affected-family cases pass in fresh workers. Earlier diagnostics showed an
+      axe failure skipping Storybook animation cleanup; no editor assertion or
+      timeout was changed. Complete cold acceptance now has one stale reaction-name selector failure;
+      its exact reproduction is retained. Full acceptance after the repair remains
+      a separate gate; focused passes do not replace the complete-suite count. Current units/static/browser, native
       recipe, audit disposition and generic canonical handoffs remain separate;
       no accessibility rule, baseline or frozen-Deno prerequisite is waived.
       [Current source and acceptance gates](spec/records/2026-11-17-core-and-jj-store-gates.md)

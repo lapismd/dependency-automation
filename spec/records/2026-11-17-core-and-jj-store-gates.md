@@ -89,3 +89,56 @@ pass the exact cold Vite case and all29 affected schema/provenance/docs tests.
 Complete application documentation review/build, minimal Docker native-addon
 prerequisites, Core registry intake and full UI/native recipe acceptance remain
 separate pending gates. No source tooling commit or deployment is claimed yet.
+
+## Published Core and original consumer regression acceptance
+
+Core0.13.5 publication44084229046, exact-main CI44084228241 and Pages44084228324
+all succeed at ec0d539a787b570a6238476ee0045af885163c92. Release artifact14328169910
+has independently checked ZIP SHA256
+`eee65ec066f6b4d1ab9025373143293eac3e7317b3c01e1d9fb9f4c36e037010`.
+The registry tarball is byte-identical to that retained archive,2,021,356 bytes,
+SHA256`5ca50dc137da020e381bf2742024c5b39125ac2b077cab36de7ffa9de0740ba7`.
+Independent cryptographic npm signature and SLSA bundle verification bind actual
+bytes to the exact release workflow, source ec0d539a and npm-production
+environment. Metadata propagation was observed before success; no existing
+package was republished and no artifact was rebuilt to work around visibility.
+
+jj-store adopts released Core through manifest^0.13.5 and its registry lock.
+On0.13.4 the correct four-file/five-target reproduction fails all five cases;
+on0.13.5 it passes all five with23 unselected, followed by all28 affected-family
+cases passing in a second fresh worker. The exact editor/family assertions and
+deadlines remain unchanged. Complete cold Storybook is now running; its result
+must replace the complete-suite count only after all four shards finish.
+
+The fresh minimal Docker UI worker now completes the actual better-sqlite3
+native build and progress check after declaring build-essential in the owning UI
+image. Actual source review confirms the application manual remains accurate;
+its review fingerprint is updated and full documentation build succeeds,
+including all nine diagrams in both themes and144 validated closure files.
+The exact Help regression and all29 affected tests pass. Combined current
+unit/type/static/browser/specification and native recipe qualification remain
+open; M30 is not promoted and no visual baseline is updated.
+
+The complete Core0.13.5 cold run now finishes1046pass/one fail/two existing skips
+across273/0/2,284/0/0,238/0/0 and251/1/0. The sole AgentChatBody reaction helper
+expects the pre-release accessible label. Its exact fresh reproduction fails;
+the repair changes only the expected name, retaining toggle/persistence/removal
+and XML-context assertions. Complete acceptance after repair remains pending.
+Fresh full/prod audits after the actual registry update both report zero.
+
+The complete existing jj-store version command also passes in an isolated local
+workspace using the genuine desktop-browser-development note from historical
+source8ada0ffc. This is labelled historical validation input, with current
+release intent false. Actual0.2.0→0.2.1 preparation synchronizes all28 native
+package versions; lock, config and helper hashes remain unchanged. A second
+actual run on Node24.15.0/pnpm10.32.1 with a restricted PATH proves DenoENOENT.
+No App is minted and no publication command runs. Hosted source-bound adoption
+is a separate pending gate; no current package version is changed by this proof.
+
+Normal coordinator44086817043 succeeds and updates genuine Notes152, which
+auto-merges e575ecf7. Its strict original main range independently fails seven
+canonical chapter mappings despite green trusted-PR checks. Source-owned factual
+repair covers all seven without new release intent; the same original range
+then passes. Full specification checks pass and cold consumer interactions are
+running. This is another direct reproduction for the still-open generic
+canonical dependency handoff, rather than completion of that automation.
