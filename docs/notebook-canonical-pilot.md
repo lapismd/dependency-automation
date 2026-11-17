@@ -1,5 +1,27 @@
 # Notebook canonical development pilot
 
+## Current preparation boundary — November 17
+
+The bounded Core intake and Node version guard are already deployed. After
+upstream publications complete, Notebook's unchanged source policy still admits
+only its single compatible Core development patch. It does not authorize an
+API/UI migration or arbitrary other development updates.
+
+Normal wave admission now checks this source capability before adding a consumer
+writer. The exact hosted generation83 replay previously admitted nine unsupported
+updates and generated three artifact-error PRs; the repaired replay retains all
+nine as visible holds and admits none, while preserving Notes' seven updates.
+The supported Core patch and ordinary repositories without an opt-in remain
+covered by positive controls. Candidate frozen-install/canonical validation and
+all other source/ownership/publication gates remain required.
+
+This fixes admission to the existing bounded pilot. Generic preparation and
+Notebook's product/API compatibility upgrade remain separate source-owned work.
+Deploy and inspect normal reconciliation before closing unsupported bot-created
+PRs40–42; preserve their evidence and any manually repaired branches.
+
+## Earlier pilot admission and qualification
+
 This source slice adds only Notebook to the existing pilot entries. It does not
 change hosted variables, global rollout phase, scheduling, publisher contracts,
 package exclusions or service/Deno boundaries. The tracker commit beneath this

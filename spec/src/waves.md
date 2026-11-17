@@ -112,3 +112,14 @@ operation identities and CAS; an approved channel is never a release or CI waive
 - Missing or changed evidence, additional targets, catalogs, runtime coupling and peers needing changes MUST remain held under ordinary registry/channel eligibility.
 - A wait for the selected dependency MUST still block it while unrelated waits MUST remain visible and block their own updates.
 - Complete current source qualification, rollout scope, ownership, cycles, optimistic concurrency and frozen candidate/canonical-lock validation MUST remain required without widening public contracts or clearing publication evidence.
+
+## DA-WAVE-008 — Source preparation before writer admission
+
+**Requirement.** Opted-in source preparation MUST constrain normal wave admission even after publication waits clear. Unsupported update sets or missing source-policy evidence MUST remain held before consumer writer admission.
+
+### Acceptance details
+
+- The existing bounded profile MUST require its complete source-bound single-development patch facts, not merely a matching package name or a successful upstream release.
+- Mixed families, unsupported development/runtime/peer updates and unavailable or inconsistent policy/override/lock evidence MUST stay visible without generating incompatible PRs.
+- Supported source-owned patches and ordinary repositories without an opt-in MUST retain their existing admission paths and every qualification, ownership, registry, rollout and publication gate.
+- Candidate preparation MUST still validate the complete frozen install and mechanical lock/canonical closure; pre-admission evidence MUST NOT assert unrun candidate qualification or authorize a product migration.

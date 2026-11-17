@@ -145,6 +145,75 @@ function fixture() {
 }
 const notebook = (result) =>
   result.report.nodes.find((n) => n.repository === recorded.repository);
+
+function developmentTarget(f, name) {
+  const edge = f.graph.edges.find(
+    (e) => e.name === name && e.type === "devDependencies",
+  );
+  const target = semver.inc(lockVersion(f.repo, edge).version, "patch");
+  f.graph.available[name] = [target];
+  f.graph.registry[name] = {
+    [target]: { integrity: f.graph.registry[dependency]["0.13.4"].integrity },
+  };
+}
+for (const [name, mutate] of Object.entries({
+  "unsupported compatible development update": (f) => {
+    f.graph.available[dependency] = ["0.13.3"];
+    developmentTarget(f, "@lapis-notes/file-explorer");
+  },
+  "mixed supported and unsupported updates": (f) =>
+    developmentTarget(f, "@lapis-notes/file-explorer"),
+  "breaking API cohort": (f) => {
+    f.graph.available[dependency] = ["0.13.3"];
+    f.graph.available["@lapis-notes/api"] = ["0.6.7"];
+    f.graph.registry["@lapis-notes/api"] = {
+      "0.6.7": { integrity: f.graph.registry[dependency]["0.13.4"].integrity },
+    };
+  },
+  "unbound policy bytes": (f) => delete f.repo.canonicalIntake.policyBytes,
+  "missing collected policy": (f) => {
+    f.repo.paths.push(intakePolicyPath);
+    delete f.repo.canonicalIntake;
+  },
+  "inconsistent source override": (f) =>
+    (f.repo.workspace.overrides[dependency] = "0.13.2"),
+}))
+  test(`source preparation holds ${name} after publication waits clear`, () => {
+    const f = fixture();
+    mutate(f);
+    const result = planWaves(f.graph, emptyState(), options),
+      node = notebook(result);
+    assert.equal(node.waits.length, 0);
+    assert.ok(node.updates.length > 0);
+    assert.deepEqual(node.admittedUpdates, []);
+    assert.equal(node.status, "held");
+    assert.ok(
+      node.holds.some((h) => /source-owned canonical preparation/.test(h)),
+    );
+    assert.ok(!result.admitted.includes(f.repo.repository));
+    f.graph.waveAdmission = result.report;
+    assert.throws(
+      () => repositoryConfig(f.repo, f.graph, "/automation"),
+      /not admitted/,
+    );
+  });
+test("source preparation permits its supported development patch without publication waits", () => {
+  const f = fixture(),
+    node = notebook(planWaves(f.graph, emptyState(), options));
+  assert.equal(node.waits.length, 0);
+  assert.equal(node.status, "admitted");
+  assert.equal(node.admittedUpdates.length, 1);
+  assert.equal(node.admittedUpdates[0].name, dependency);
+});
+test("source preparation does not constrain ordinary repositories without an opt-in", () => {
+  const f = fixture();
+  delete f.repo.canonicalIntake;
+  developmentTarget(f, "@lapis-notes/file-explorer");
+  const node = notebook(planWaves(f.graph, emptyState(), options));
+  assert.equal(node.status, "admitted");
+  assert.equal(node.admittedUpdates.length, 2);
+});
+
 test("actual Notebook development patch admits while all six unrelated publication waits remain", () => {
   const { graph, state } = fixture();
   const result = planWaves(graph, state, options),
