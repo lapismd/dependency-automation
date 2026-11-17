@@ -74,14 +74,8 @@ export function integrityDigest(integrity) {
   return data.toString("hex");
 }
 
-export async function verifyAttestations(
-  body,
-  metadata,
-  policy,
-  info,
-  verifier,
-  artifact,
-) {
+// These untrusted claims may reject a download, but never qualify publication.
+export function inspectAttestationClaims(body, metadata, policy, info) {
   if (Buffer.byteLength(JSON.stringify(body)) > 256 * 1024)
     fail("provenance-unknown");
   if (!Array.isArray(body.attestations) || body.attestations.length !== 2)
@@ -166,6 +160,34 @@ export async function verifyAttestations(
   )
     fail("publication-source-mismatch");
   const sourceSha = source[0].digest.gitCommit;
+  return {
+    provenance,
+    sourceSha,
+    repositoryUrl,
+    workflow,
+    invocation,
+    runId: Number(match[1]),
+    runAttempt: Number(match[2]),
+  };
+}
+
+export async function verifyAttestations(
+  body,
+  metadata,
+  policy,
+  info,
+  verifier,
+  artifact,
+) {
+  const {
+    provenance,
+    sourceSha,
+    repositoryUrl,
+    workflow,
+    invocation,
+    runId,
+    runAttempt,
+  } = inspectAttestationClaims(body, metadata, policy, info);
   // Authenticate before using certificate claims as source evidence.
   const certificate = await verifier.verify(
     provenance.bundle,
@@ -174,6 +196,7 @@ export async function verifyAttestations(
       workflow: policy.workflow,
       ref: policy.ref,
       sourceSha,
+      ...(policy.kind === "plugins-static-v1" ? { profile: policy.kind } : {}),
     },
     artifact,
   );
@@ -217,8 +240,8 @@ export async function verifyAttestations(
   return {
     sourceSha,
     repositoryId: info.id,
-    runId: Number(match[1]),
-    runAttempt: Number(match[2]),
+    runId,
+    runAttempt,
     attestationSha256: hash(JSON.stringify(body)),
     subjectSha512: integrityDigest(metadata.dist.integrity),
   };

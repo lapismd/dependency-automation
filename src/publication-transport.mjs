@@ -2,7 +2,7 @@ import { inflateRawSync } from "node:zlib";
 
 export const limits = Object.freeze({
   requests: 256,
-  totalBytes: 64 * 1024 * 1024,
+  totalBytes: 128 * 1024 * 1024,
   json: 2 * 1024 * 1024,
   artifact: 8 * 1024 * 1024,
   tarball: 4 * 1024 * 1024,

@@ -30,21 +30,27 @@ remain open; pilot writes are enabled and scheduled/full rollout stays disabled.
 - [x] Coordinator PR37 retires the withdrawn deepmerge decision at9204bbdc;
       clean audit/preflight and normal pilot43963512112 restore consumer writes.
       No active advisory approval, scope expansion or state hand-edit is needed.
-- [ ] Deploy the static-publication proof repair in this source slice. Actual
-      generation80 holds Plugins/Notes on the legitimate40,983,874-byte batch;
-      source qualification now verifies all ten exact package/source contracts
-      with bounded static resources and source-bound runtime IDs. The complete
-      evidence and both original regressions are in
-      [the static batch record](spec/records/2026-11-16-static-batch-proof.md).
-      Hosted collection, real downstream progress and replay remain mandatory.
-- [ ] Merge/deploy Visual Delta PR78's qualified runtime guard: hosted complete
-      command43977922918 and artifact14281661065 pass; current owner source
-      requires fresh CI and then merged-main false/no-App acceptance.
+- [x] PR38 deploys the static batch/runtime-ID repair at8dbd06b5; exact-main
+      checks/Pages and normal inventory43986461238 pass, persisting generation81.
+      Its full workload still reaches the shared byte ceiling and holds five
+      Plugins publications; no downstream consumer write is inferred.
+- [ ] Deploy the full-inventory resource repair and repeat normal collection.
+      The exact two new regressions pass; the complete source reproduction uses
+      196 reads/84,776,455 bytes and verifies all ten new Plugins versions plus
+      still-current History without byte-budget holds under the explicit
+      128 MiB total cap. Notes' per-response bounds and all crypto/source gates
+      remain binding; [the budget record](spec/records/2026-11-17-publication-budget.md)
+      retains the original failure and the required hosted/downstream/replay gates.
+- [x] Visual Delta PR78 merges1d01be1b: exact-main CI43985171431 and Pages pass;
+      version43985171061 accepts the guard and skips App/token/action with no
+      release intent. Actual whole-recipe43977922918 remains separately qualified.
 - [ ] Finish Notebook PR39 and its separate whole-recipe/guard adoption. All
       five required local Docker lanes and565 units pass, and its six MODERATE/
       one LOW development findings become zero through compatible Hono lock
       updates; production remains clean and the obsolete withdrawn ignore is
-      removed. Guard adoption and hosted qualification are not inferred.
+      removed. Shared CI PR25 mergesae1be182; main CI and actual hosted complete
+      recipe43987271519 pass, with digest-checked artifact14286425548 and all
+      six private manifests unchanged. Owner guard adoption remains pending.
 - [ ] Retain Server's production KaTeX and jj-store's functional/accessibility
       failures as source-owned holds; no inherited exception or baseline waiver.
       Remaining eligible-writer/retained-Deno boundaries and generic canonical

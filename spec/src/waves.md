@@ -59,6 +59,11 @@ authenticated provenance, exact artifact digest, signed bundle and published-byt
 agreement before downstream admission. Archive-size holds remain explicit;
 the profile does not waive current-source checks, publication prerequisites,
 channel restrictions, ownership or operation CAS.
+The full-inventory collector uses the shared 128 MiB/256-request resource gate
+and observes all current owned versions before other tag/baseline probes.
+Reject-only claim preflight and the static verifier's 16 MiB npm cap do not
+qualify a publisher or alter release floors; incomplete or oversized publication
+evidence remains held even when its download fits the total budget.
 The atomic state commit also includes public-safe `report.json`, consumed by
 Maintenance through GitHub Contents at the branch's immutable revision.
 
