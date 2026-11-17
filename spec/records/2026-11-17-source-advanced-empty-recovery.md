@@ -42,3 +42,18 @@ Tracker50 already links sixteen separate adoption tasks51–66. This common
 recovery repair is needed for the selected pilot, rather than a return to
 serial consumer product fixes. Operational receipts remain in the ignored
 local `notebook-single-pilot-20261117` cache; no live state is committed.
+
+## Deployment and controlled execution
+
+PR67 merges at94cc8c313ec3adc2046d6d455aa0ee60598e5912 after hosted
+44128520910 succeeds. Exact-main check44129038089 and Pages44129038051 also
+succeed. The live `rollout.html` returns200 and exposes tracker50 and the
+shared adoption runbook, with all sixteen independent tasks already open.
+
+Fresh read-back before dispatch observes state7be27a0669d694b9cdaf48ec38f0233989652543,
+the original completed run44004351048, current Notebook4484fe44, zero open PRs
+and zero dependency branches. Controlled run44129153610 binds the full exact
+operation, state and current-source IDs. Writes are restored with Notebook
+alone in `pilot`; the global phase remains `pilot` and schedule remains false.
+The run passes source verification and begins authoritative inventory. This
+checkpoint does not claim hosted recovery, a new bot PR or completed replay.

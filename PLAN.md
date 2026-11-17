@@ -25,6 +25,10 @@ canonical intake and a genuine released Core0.13.4→0.13.5 update to exercise.
       the new exact-current-source recovery compares complete immutable trees
       and proves unchanged code/dependency inputs. GET-only dry qualification
       admits only Core0.13.5 and no other writer. Hosted recovery remains pending.
+      Recovery source67 merges94cc8c31 after hosted44128520910; exact-main check
+      44129038089 and Pages44129038051 pass. Live rollout/book links return200.
+      Controlled44129153610 binds fresh state7be27a06 and current4484fe44;
+      source verification passes and authoritative inventory is running.
 - [x] Implement and qualify the shared guard's reviewed development data
       before dispatching the genuine intake. An isolated copy of the actual
       Notebook source passes unchanged, then fails with only the Core override
