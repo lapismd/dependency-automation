@@ -8,12 +8,16 @@ import {
   validateIntakePolicy,
   prepareCanonicalIntake,
 } from "./canonical-intake.mjs";
+import { workspaceIntakeInputs } from "./canonical-workspace-policy.mjs";
+import { prepareWorkspaceIntake } from "./canonical-workspace.mjs";
 
 export async function prepareCanonicalFiles({
   root,
   repository,
   sourceSha,
   policySha256,
+  admittedUpdates,
+  branchName,
 }) {
   const git = (args) =>
     execFileSync("git", args, {
@@ -50,7 +54,9 @@ export async function prepareCanonicalFiles({
     after = {},
     baseChapters = {},
     currentChapters = {};
-  for (const path of intakeInputs) {
+  const inputs =
+    policy.schemaVersion === 2 ? workspaceIntakeInputs(policy) : intakeInputs;
+  for (const path of inputs) {
     before[path] = base(path);
     after[path] = await current(path);
   }
@@ -58,7 +64,11 @@ export async function prepareCanonicalFiles({
     baseChapters[path] = base(path);
     currentChapters[path] = await current(path);
   }
-  const result = prepareCanonicalIntake({
+  const prepare =
+    policy.schemaVersion === 2
+      ? prepareWorkspaceIntake
+      : prepareCanonicalIntake;
+  const result = prepare({
     repository,
     sourceSha,
     headSha,
@@ -68,6 +78,8 @@ export async function prepareCanonicalFiles({
     after,
     baseChapters,
     currentChapters,
+    admittedUpdates,
+    branchName,
     changedFiles: [
       ...git(["diff", "--name-only", "HEAD", "--"]).trim().split("\n"),
       ...git(["ls-files", "--others", "--exclude-standard", "-z"]).split("\0"),

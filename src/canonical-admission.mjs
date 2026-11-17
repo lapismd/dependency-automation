@@ -6,6 +6,76 @@ import {
   intakePolicyPath,
   validateIntakePolicy,
 } from "./canonical-intake.mjs";
+import { workspaceIntakeFacts } from "./canonical-workspace.mjs";
+
+function workspacePreparationSupported(repo, node, graph, policy) {
+  const manifests = new Map(
+    repo.manifests.map((entry) => [entry.path, entry.manifest]),
+  );
+  for (const overrides of [
+    repo.workspace.overrides,
+    ...[...manifests.values()].map((m) => m.pnpm?.overrides),
+  ])
+    for (const [selector, range] of Object.entries(overrides ?? {}))
+      for (const name of policy.dependencies)
+        if (
+          selector.includes(name) &&
+          (selector !== name ||
+            !semver.validRange(range) ||
+            node.updates.some(
+              (update) =>
+                update.name === name && !semver.satisfies(update.target, range),
+            ))
+        )
+          return false;
+  if (policy.manifests.some((path) => !manifests.has(path))) return false;
+  for (const [path, manifest] of manifests)
+    for (const type of [
+      "dependencies",
+      "devDependencies",
+      "optionalDependencies",
+      "peerDependencies",
+    ])
+      if (
+        !policy.manifests.includes(path) &&
+        policy.dependencies.some((name) =>
+          Object.hasOwn(manifest[type] ?? {}, name),
+        )
+      )
+        return false;
+  const facts = workspaceIntakeFacts(policy, {
+    "pnpm-workspace.yaml": JSON.stringify(repo.workspace),
+    "pnpm-lock.yaml": JSON.stringify(repo.lock),
+    ...Object.fromEntries(
+      policy.manifests.map((path) => [
+        path,
+        JSON.stringify(manifests.get(path)),
+      ]),
+    ),
+  });
+  return (
+    node.updates.length > 0 &&
+    node.updates.every((update) => {
+      const fact = facts.manifests[update.path]?.[update.type]?.[update.name];
+      return (
+        fact &&
+        update.repository === repo.repository &&
+        update.compatibility === "compatible" &&
+        semver.valid(update.target) &&
+        !semver.prerelease(update.target) &&
+        update.current ===
+          (fact.version ?? semver.minVersion(fact.range)?.version) &&
+        semver.gte(update.target, update.current) &&
+        [null, "patch"].includes(semver.diff(update.current, update.target)) &&
+        semver.satisfies(update.target, update.targetRange) &&
+        (graph.available[update.name] ?? []).includes(update.target) &&
+        /^sha512-[A-Za-z0-9+/]{86}==$/.test(
+          graph.registry?.[update.name]?.[update.target]?.integrity ?? "",
+        )
+      );
+    })
+  );
+}
 
 /** The complete bounded source capability applies before any writer admission. */
 function canonicalPreparationSupported(repo, node, graph) {
@@ -15,7 +85,7 @@ function canonicalPreparationSupported(repo, node, graph) {
       !/^[a-f0-9]{40}$/.test(repo.sourceSha ?? "") ||
       node.sourceSha !== repo.sourceSha ||
       node.repository !== repo.repository ||
-      node.updates.length !== 1 ||
+      !node.updates.length ||
       typeof evidence?.policyBytes !== "string" ||
       Buffer.byteLength(evidence.policyBytes) > 8192 ||
       intakeHash(evidence.policyBytes) !== evidence.sha256 ||
@@ -23,6 +93,9 @@ function canonicalPreparationSupported(repo, node, graph) {
     )
       return false;
     const policy = validateIntakePolicy(evidence.policy, repo.repository);
+    if (policy.schemaVersion === 2)
+      return workspacePreparationSupported(repo, node, graph, policy);
+    if (node.updates.length !== 1) return false;
     const update = node.updates[0],
       name = policy.dependency;
     if (
@@ -105,6 +178,7 @@ export function canonicalDevelopmentUpdate(repo, node, graph) {
   try {
     return (
       node.acceptance.state === "qualified" &&
+      repo.canonicalIntake?.policy?.schemaVersion === 1 &&
       node.holds.length === 0 &&
       !node.waits.some((wait) => wait.package === node.updates[0]?.name) &&
       canonicalPreparationSupported(repo, node, graph)

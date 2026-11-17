@@ -60,7 +60,8 @@
 | DA-TOOL-006 | In progress | GET-only refresh16/16 preserves ranges/provenance; reviewed twelve-constraint repair and full-phase exclusion proof; hosted refresh pending.                             |
 | DA-PUB-001  | Implemented | Real crypto/mutation/source/recovery tests plus reject-only claim preflight; full-inventory proof is recorded in `spec/records/2026-11-17-publication-budget.md`.        |
 | DA-PUB-002  | Implemented | Current-first collection, bounded shared 128 MiB/256-request budget and exhaustion/cache negatives; no App inventory credentials or source/channel relaxation.           |
-| DA-REL-004  | In progress | Actual Notebook fixture/preparation negatives; native extractor/rule regression admits only the paired exact override; hosted complete regeneration pending.             |
+| DA-REL-004  | In progress | Actual Notebook and Notes152 fixtures; workspace scope/target/lock/manual-edit negatives and native preparation filters; new workspace adoption remains pending.         |
+| DA-REL-005  | In progress | Actual Notes152 seven-owner fixture, target/integrity/importer/lock negatives and native filesystem/filter tests; source-owned consumer adoption pending.                |
 | DA-WAVE-007 | In progress | 59 admission regressions; actual Notebook1→0; fresh GET-only19/43/220 plan retains six waits; hosted regeneration pending.                                               |
 | DA-PUB-003  | In progress | Scoped/transitive-peer negatives; hosted generation83 retires ten published waits/one obsolete wait; Notes146 publication/replay pending.                                |
 | DA-PUB-004  | Implemented | Hosted generation82 (43989934897) verifies all ten selected packages plus History against current source-bound static contracts; size/ID/signature negatives pass.       |

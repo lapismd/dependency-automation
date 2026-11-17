@@ -67,6 +67,13 @@ rendering remains in the coordinator; an opted-in consumer verifies its actual
 candidate facts in an ordinary functional lane outside the trusted-PR spec
 wrapper. Main spec-first and functional/audit/release gates remain unchanged.
 
+The workspace profile binds its complete selected importer set and explicit
+registry-transitive lock policy. It uses the same pinned shared preparer and
+branch-scoped target context, without executing a consumer hook. Every chapter
+must contain exactly one accurate source slot; stale facts, authored repairs,
+unexpected files and oversized output stop all canonical writes. Consumer
+adoption and the first genuine hosted candidate remain separate acceptance.
+
 DA-REL-004 requires complete package identity comparisons in both shared
 preparation and the owning offline adapter; version-prefix matches cannot
 normalize a different package version into an admitted development patch.

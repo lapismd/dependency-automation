@@ -50,6 +50,14 @@ policy + GitHub default-branch manifests + npm metadata
 | Profile validation / writes  | `src/profile-writer.mjs`, `scripts/publish-profile.mjs`                                                                         |
 | Repository/spec checks       | `scripts/check.mjs`, `spec-validator.config.mjs`, package scripts                                                               |
 
+Workspace canonical preparation uses `canonical-workspace-policy.mjs` for
+source-owned schema/scope, `canonical-workspace.mjs` for actual facts and lock
+validation, and the existing `canonical-intake-files.mjs` adapter for immutable
+source/filesystem checks. `canonical-admission.mjs` restricts ordinary wave
+admission; `renovate.mjs` binds target integrity and exact output filters before
+`prepare-pr.mjs` invokes the shared preparer. Consumer deployment remains under
+DA-REL-005 qualification.
+
 ## Wave wiring
 
 `src/audit-preflight.mjs` runs the complete coordinator audit before inventory
