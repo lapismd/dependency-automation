@@ -91,3 +91,9 @@ Independent development admission under DA-WAVE-007 grants no additional consume
 commands or output paths. The existing offline source-owned guard and pinned
 shared preparer still qualify the full candidate; upstream publication waits,
 main specification-first and every functional lane retain their authority.
+
+Schema2 intake preserves an already larger immutable source chapter only with
+non-growing line and byte counts, including for a no-op or genuine admitted
+patch. Both ordinary size bounds, exact source/policy/fact bindings, authored
+content, mapped owners and every independent source guard remain required; no
+consumer shim, arbitrary higher cap or generation-time exemption is added.
