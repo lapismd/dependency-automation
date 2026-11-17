@@ -183,3 +183,20 @@ existing holds/exclusions remain unchanged, and global phase stays `pilot`.
 Actual completion, ordinary no-update settlement and repeat receipts are
 recorded in the source activation record; source registration alone is not
 claimed as a new publisher or multi-consumer update proof.
+
+Visual Delta's maintenance adoption79 mergede755e2a054967b874f25c5d620ddf490da6ecc59
+after all eight checks passed. Its current-main CI44179706967, native44179706899,
+Pages44179706925 and version44179706883 pass. The actual version guard reports
+intent=false; App minting, the version action and explicit tag creation skip.
+Three trusted source completion callbacks pass. The operator's standing approval
+therefore permits only this entry's full→pilot promotion after source acceptance.
+Notebook and Spec Validator stay enabled; every other entry/exclusion/hold and
+global pilot setting is unchanged. The only supported update is a forward0.2
+patch of the Node-only development validator under its independent source guard.
+No current update is invented; ordinary settlement/replay remains required.
+
+The publication audit hold is retained: VD-GOV-008 governs audit remediation
+and package publication, not this workflow-maintenance merge with no release
+intent. The earlier blanket draft hold was broader than that contract. The
+existing unapproved HIGH remains a publication blocker; no exception, source/
+lock rebinding, tag, package upload or baseline mutation is authorized here.

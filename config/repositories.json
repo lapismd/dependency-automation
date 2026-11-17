@@ -79,7 +79,7 @@
     },
     {
       "repository": "lapismd/storybook-addon-visual-delta",
-      "phase": "full",
+      "phase": "pilot",
       "emptyChangeset": true
     },
     {
