@@ -48,6 +48,10 @@ forcing a consumer migration. Advisory policy and publication remain source-owne
 
 ## DA-REL-004 — Source-owned canonical intake
 
+A repeated schema1 preparation MAY inspect one changed maintenance Changeset only at the exact branch-derived path. It MUST be a regular valid UTF-8 file of at most 8192 bytes with blank or empty-map release metadata; null, arrays, nonempty/malformed headers, preambles, wrong paths/scopes, multiple notes or missing/unsafe files MUST fail before any canonical write.
+
+Canonical preparation MUST NOT generate, overwrite or claim ownership of that note. Existing authored body and product intent remain intact; nonempty schema2 runtime intent retains its separate release-target validation.
+
 **Requirement.** Opted-in dependency preparation MUST carry accurate source-owned canonical facts into the same candidate without exempting main specification checks.
 
 ### Acceptance details
@@ -67,6 +71,10 @@ generation; the existing schema1 development/override profile retains its
 stricter mechanical lock comparison and independent-admission boundary.
 Managed workspace slots retain ordinary Markdown formatter output byte for byte,
 so formatting never makes a valid source opt-in stale on the next update.
+The immutable slot may use exactly the generated one-line digest paragraph or
+one newline immediately before its 64-character lowercase digest. Preparation
+MUST preserve that source-selected form in each candidate and repeat; arbitrary
+whitespace, paragraph, table, hash or marker changes remain held.
 
 Existing source-owned authored chapters may already exceed the renderer’s
 ordinary400-line or32KiB bounds. Schema2 may preserve those exact immutable

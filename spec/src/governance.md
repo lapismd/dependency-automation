@@ -124,7 +124,9 @@ Shared canonical-intake preparation and its immutable-source filesystem adapter
 map to release intent and consumer integration. Declarative source opt-ins add
 only exact reviewed canonical output paths; no executable consumer code or
 blanket main specification exemption is introduced.
-Workspace policy/fact/lock preparation shares that mapping; its normal
+Workspace policy/fact/lock and bounded digest-slot formatting preparation share
+that mapping; the feature-specific slot module retains the existing public
+renderer export and grants no formatter, hook or output authority. Normal
 admission retains the separate dependency-wave/release-intent mapping.
 
 The independent canonical development admission module maps to dependency waves

@@ -10,6 +10,7 @@ import {
 } from "./canonical-intake.mjs";
 import { workspaceIntakeInputs } from "./canonical-workspace-policy.mjs";
 import { prepareWorkspaceIntake } from "./canonical-workspace.mjs";
+import { changesetPath } from "./changesets.mjs";
 
 export async function prepareCanonicalFiles({
   root,
@@ -33,15 +34,19 @@ export async function prepareCanonicalFiles({
       );
     return git(["show", `${sourceSha}:${path}`]);
   };
-  const current = async (path) => {
+  const current = async (path, maximum = 2 * 1024 * 1024) => {
     const target = resolve(root, path);
     if (
       (await realpath(target)) !== target ||
       !(await lstat(target)).isFile() ||
-      (await lstat(target)).size > 2 * 1024 * 1024
+      (await lstat(target)).size > maximum
     )
       throw Error("Canonical intake held: unsafe current file");
-    return readFile(target, "utf8");
+    return maximum === 8192
+      ? new TextDecoder("utf-8", { fatal: true, ignoreBOM: true }).decode(
+          await readFile(target),
+        )
+      : readFile(target, "utf8");
   };
   const headSha = git(["rev-parse", "HEAD"]).trim();
   if (!/^[a-f0-9]{40}$/.test(sourceSha ?? "") || headSha !== sourceSha)
@@ -64,6 +69,16 @@ export async function prepareCanonicalFiles({
     baseChapters[path] = base(path);
     currentChapters[path] = await current(path);
   }
+  const changedFiles = [
+    ...git(["diff", "--name-only", "HEAD", "--"]).trim().split("\n"),
+    ...git(["ls-files", "--others", "--exclude-standard", "-z"]).split("\0"),
+  ].filter(Boolean);
+  // Inspect only the caller-bound optional note; all other changed paths remain
+  // scope failures. The note is never a canonical output or writer authority.
+  if (policy.schemaVersion === 1 && typeof branchName === "string") {
+    const note = changesetPath(branchName);
+    if (changedFiles.includes(note)) after[note] = await current(note, 8192);
+  }
   const prepare =
     policy.schemaVersion === 2
       ? prepareWorkspaceIntake
@@ -80,10 +95,7 @@ export async function prepareCanonicalFiles({
     currentChapters,
     admittedUpdates,
     branchName,
-    changedFiles: [
-      ...git(["diff", "--name-only", "HEAD", "--"]).trim().split("\n"),
-      ...git(["ls-files", "--others", "--exclude-standard", "-z"]).split("\0"),
-    ].filter(Boolean),
+    changedFiles,
   });
   const outputs = { ...result.outputs };
   const workspacePath = "pnpm-workspace.yaml";

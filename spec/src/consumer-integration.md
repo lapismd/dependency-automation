@@ -97,3 +97,12 @@ non-growing line and byte counts, including for a no-op or genuine admitted
 patch. Both ordinary size bounds, exact source/policy/fact bindings, authored
 content, mapped owners and every independent source guard remain required; no
 consumer shim, arbitrary higher cap or generation-time exemption is added.
+
+The filesystem preparer validates an optional changed schema1 maintenance note
+as a regular, bounded valid UTF-8 file before validating or writing canonical
+outputs. Only its exact branch-derived path and empty release metadata are
+admitted; the note itself is never a renderer output. All chapter and output
+parent checks still complete before any write, including on repeated preparation.
+Workspace digest paragraphs preserve exactly the immutable source’s one-line or
+two-line form; this adds no formatter execution, policy field, hook or output
+authority and leaves both profiles’ existing size and lock rules unchanged.
