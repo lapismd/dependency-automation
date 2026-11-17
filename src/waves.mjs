@@ -1,5 +1,6 @@
 import { createHash } from "node:crypto";
 import semver from "semver";
+import { nodeAttention } from "./wave-attention.mjs";
 import { channelProjection } from "./channels.mjs";
 import { runtimeCycles, dependencies } from "./policy.mjs";
 import {
@@ -798,6 +799,7 @@ export function planWaves(graph, previous = emptyState(), options = {}) {
         .map((u) => [u.path, u.type, u.name, u.target])
         .sort(),
     });
+    node.attention = nodeAttention(node);
     const old = state.operations[node.operationId];
     // An invocation without observed PR/source progress has uncertain outcome. Never replay it blindly.
     const unresolved = Object.values(previous.operations).find((operation) => {

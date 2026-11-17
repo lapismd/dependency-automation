@@ -95,7 +95,7 @@ The repository uses the released Deno-free `@lapismd/spec-validator` range.
 functional test suite, then runs canonical validation, book build and spec-first.
 Rollout status-only edits in `PLAN.md` do not require unrelated canonical edits.
 
-Wave planning/evidence/state and their CLI entrypoints map to `waves.md`.
+Wave planning/evidence/state/attention and their CLI entrypoints map to `waves.md`.
 The coordinator state branch is operational storage, never canonical book input.
 
 The bounded public-file and sanitized HTTP-response modules share discovery's
