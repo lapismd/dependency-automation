@@ -1478,3 +1478,11 @@ source tooling intake remains blocked by its recorded accessibility failures.
 
 [Source qualification and failure record](spec/records/2026-11-16-scoped-channels-static-proof.md)
 records actual tests, corrected preparation failures and remaining gates.
+
+### Next small-repository batch
+
+- [x] Record Docs21/Tasks31's exact hosted audit holds and passing functional checks in tracker50 and tasks55/56.
+- [x] Prepare exact completion/probe source registration for Spec Validator and Visual Delta, retaining their existing publisher boundaries.
+- [ ] Finish source checks and PRs for tasks62/63.
+- [ ] Final merge pass for qualified sources; keep real security/product holds visible.
+- [ ] Use standing operator approval to activate each qualified merged entry individually and verify ordinary settlement/replay.

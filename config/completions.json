@@ -130,6 +130,35 @@
         "path": ".github/workflows/publish-storybook-pages.yml",
         "events": ["push", "workflow_dispatch"]
       }
+    ],
+    "lapismd/spec-validator": [
+      {
+        "id": 399280612,
+        "path": ".github/workflows/check.yml",
+        "events": ["pull_request", "push"]
+      }
+    ],
+    "lapismd/storybook-addon-visual-delta": [
+      {
+        "id": 324814624,
+        "path": ".github/workflows/visual-delta-ci.yml",
+        "events": ["pull_request", "push"]
+      },
+      {
+        "id": 324814626,
+        "path": ".github/workflows/visual-delta-spec-first.yml",
+        "events": ["pull_request"]
+      },
+      {
+        "id": 325283996,
+        "path": ".github/workflows/publish-storybook-pages.yml",
+        "events": ["push", "workflow_dispatch"]
+      },
+      {
+        "id": 343690859,
+        "path": ".github/workflows/release.yml",
+        "events": ["push", "workflow_dispatch"]
+      }
     ]
   }
 }

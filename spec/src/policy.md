@@ -158,3 +158,17 @@ App readiness targets while retaining source phase full. This metadata does
 not grant writer, publication or audit-exception authority. Their newly observed
 HIGH Changesets finding remains blocked by the existing consumer gates; only
 separately qualified source adoption may precede a reviewed phase change.
+
+The next small-repository slice registers Spec Validator's existing Check
+workflow and Visual Delta's existing CI, PR-specification, Pages and version
+workflows by exact IDs, paths and supported events. The read-only App probe
+adds only those two exact targets. Tag publishers, native capture, image
+publishers and callback self-triggers are not completion sources; verified npm
+notifications remain separate. Both repositories retain phase `full` until
+their merged source acceptance and a separate per-entry activation/replay.
+Spec Validator currently consumes no Lapis npm dependency; no synthetic Core
+pin or version recipe is introduced to create an update. Visual Delta consumes
+only the Deno-free specification tool in development and retains its existing
+audit and compare-only browser gates. The operator requests a final merge pass
+and gives standing approval for per-repository activation after passing source
+acceptance; advisory exceptions and global full rollout are not implied.

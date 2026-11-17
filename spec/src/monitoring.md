@@ -65,3 +65,17 @@ The next Docs/Tasks source preparations may invoke the same reviewed App
 readiness workflow for their two explicitly named repositories. Tokens remain
 restricted to one selected repository with contents/PR reads only; no source
 checkout, credential retrieval/rotation or writer activation is added.
+
+The next small-repository slice registers Spec Validator's existing Check
+workflow and Visual Delta's existing CI, PR-specification, Pages and version
+workflows by exact IDs, paths and supported events. The read-only App probe
+adds only those two exact targets. Tag publishers, native capture, image
+publishers and callback self-triggers are not completion sources; verified npm
+notifications remain separate. Both repositories retain phase `full` until
+their merged source acceptance and a separate per-entry activation/replay.
+Spec Validator currently consumes no Lapis npm dependency; no synthetic Core
+pin or version recipe is introduced to create an update. Visual Delta consumes
+only the Deno-free specification tool in development and retains its existing
+audit and compare-only browser gates. The operator requests a final merge pass
+and gives standing approval for per-repository activation after passing source
+acceptance; advisory exceptions and global full rollout are not implied.
