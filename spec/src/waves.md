@@ -7,6 +7,22 @@ The reviewed Profile0.2.4 publication-only binding retires only its own genuinel
 newer, fully verified and currently qualified release. It does not admit Profile
 consumer updates or bypass dependency floors, channel drift or replay/CAS gates.
 
+An existing waiting release intent MUST retain an actionable direct runtime or
+optional-runtime manifest-minimum repair when a compatible simple caret/tilde
+range still starts below its exact required target, even if an incidental lock
+refresh already installed that same currently eligible target. Only the same
+public package/repository/field intent qualifies. Missing or settled intent,
+private packages, peers, development fields, catalogs, compound/custom ranges,
+changed targets and newer installed versions MUST NOT create this repair. The
+ordinary candidate, source/ownership/rollout and newer verified publication-floor
+gates remain required; no release wait is cleared from a lock update alone.
+An unobserved admitted operation MUST remain uncertain across unrelated source
+changes until both its retained minimum and lock target are observed on main;
+a newer source SHA and matching lock alone MUST NOT assert completion.
+Independent channel/provenance publication holds MUST remain visible while a
+retained manifest-minimum repair is actionable; their visibility alone does not
+authorize a downstream update or suppress an eligible upstream repair.
+
 ## DA-WAVE-001 — Derived admission
 
 **Requirement.** Wave admission MUST derive update and public release chains from exact manifest, lockfile and registry evidence before selecting consumer targets.

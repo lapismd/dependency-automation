@@ -52,6 +52,12 @@ remain open; pilot writes are enabled and scheduled/full rollout stays disabled.
       accept durable generations99/100 with identical release objects and
       operation IDs and no consumer writer execution. The original403 cause
       remains unproven.
+- [x] Profile publication-only PR44 mergesf241d61f. Exact-main check44030751965
+      and Pages44030751948 pass; normal44030763839 accepts generation101.
+      Artifact14304738207 has verified ZIP SHA256a3d7a425…10539a2f. Profile0.2.4
+      is independently verified and its channel hold clears without changing
+      raw latest/next facts or consumer scopes. The required Core minimum still
+      blocks retirement; no completed Notes chain is claimed.
 - [ ] Finish genuine Notes publication and replay. Dependency PR146 merges
       `3bd015b5`; canonical version preparation PR148 merges `ddd83d39` after
       199 release tests,69 specification cases and288 cold interaction/axe cases.
@@ -67,10 +73,14 @@ remain open; pilot writes are enabled and scheduled/full rollout stays disabled.
       and notification without rebuilding or republishing. Reconciliation/replay
       remains open: PR43 restores normal hosted reads; generations99/100 preserve
       identical releases/operation IDs. The exact Profile0.2.4 publication-only
-      channel binding is under qualification; no consumer eligibility is added.
-      Live proof also preserves a genuine separate hold: Profile declares Core
-      ^0.13.3 while retained intent requires minimum0.13.4; trace original intent
-      before changing source or release policy, without relaxing floor checks.
+      channel binding is deployed and qualified; no consumer eligibility is added.
+      Source tracing proves Profile's original4d9e01e6 lock was0.13.3 and its
+      current92f1cdbf lock is0.13.4, while the manifest stays^0.13.3. Planning
+      incorrectly drops the still-required manifest minimum once the lock moves.
+      The source repair now qualifies431 tests and a fresh GET-only graph: exactly
+      one Notes Profile Core minimum update^0.13.3→^0.13.4 is actionable; the
+      original publication floor remains binding. Hosted repair/candidate/release
+      and subsequent publisher retirement/replay remain open.
 - [x] Stop Notebook's unsupported bot candidates: PR42 merges4e8a66b5, with
       exact-main check44005505946/Pages44005505992 passing. Normal run44005707754
       persists generation89 and skips the consumer writer matrix. Notebook's

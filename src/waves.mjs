@@ -172,6 +172,30 @@ function targetRange(edge, target) {
   return /^[~^]/.test(edge.range) ? edge.range[0] + target : target;
 }
 
+// A compatible lock refresh can arrive before an already-required manifest bump.
+// Reconcile that existing intent only; do not manufacture new minimum policies.
+function retainedMinimumRequired(previous, repo, edge, target) {
+  const release = previous.releases[edge.consumer];
+  const manifest = repo.manifests.find((p) => p.path === edge.path)?.manifest;
+  return (
+    ["dependencies", "optionalDependencies"].includes(edge.type) &&
+    release?.status === "waiting" &&
+    release.repository === repo.repository &&
+    release.name === manifest?.name &&
+    !manifest.private &&
+    manifest[edge.type]?.[edge.name] === edge.range &&
+    /^[~^]\d+\.\d+\.\d+$/.test(edge.range) &&
+    semver.satisfies(target, edge.range) &&
+    semver.lt(semver.minVersion(edge.range), target) &&
+    release.requires.some(
+      (req) =>
+        req.name === edge.name &&
+        req.type === edge.type &&
+        req.target === target,
+    )
+  );
+}
+
 function compoundRequirement(req, entry, metadata, repo) {
   const range = entry.manifest[req.type]?.[req.name];
   if (
@@ -367,7 +391,11 @@ export function planWaves(graph, previous = emptyState(), options = {}) {
         continue;
       }
       if (
-        !semver.gt(target, resolved.version) ||
+        (!semver.gt(target, resolved.version) &&
+          !(
+            resolved.version === target &&
+            retainedMinimumRequired(previous, repo, edge, target)
+          )) ||
         (edge.type === "peerDependencies" &&
           semver.satisfies(target, edge.range))
       )
@@ -505,7 +533,8 @@ export function planWaves(graph, previous = emptyState(), options = {}) {
         r.repository === node.repository &&
         r.status === "waiting" &&
         r.requires.length &&
-        !node.updates.some((u) => u.releaseIntent === r.name),
+        (!node.updates.some((u) => u.releaseIntent === r.name) ||
+          previous.releases[r.name]?.status === "waiting"),
     )) {
       const own = repo.manifests.find(
         (p) => p.manifest.name === release.name,
@@ -694,7 +723,11 @@ export function planWaves(graph, previous = emptyState(), options = {}) {
           if (edge?.type === "peerDependencies")
             return semver.satisfies(t.target, edge.range);
           const current = edge && lockVersion(repo, edge).version;
-          return current && semver.gte(current, t.target);
+          return (
+            current &&
+            semver.gte(current, t.target) &&
+            !retainedMinimumRequired(previous, repo, edge, t.target)
+          );
         })
       );
     });
@@ -768,7 +801,11 @@ export function planWaves(graph, previous = emptyState(), options = {}) {
         if (edge?.type === "peerDependencies")
           return semver.satisfies(t.target, edge.range);
         const current = edge && lockVersion(repo, edge).version;
-        return current && semver.gte(current, t.target);
+        return (
+          current &&
+          semver.gte(current, t.target) &&
+          !retainedMinimumRequired(previous, repo, edge, t.target)
+        );
       })
     )
       operation.status = "accepted-on-main";
