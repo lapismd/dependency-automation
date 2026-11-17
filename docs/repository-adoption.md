@@ -45,6 +45,11 @@ frozen host boundaries are not portability work authorized by adoption.
    profile; workspace consumers must qualify their own schema and owner map.
 5. Verify publication hints and completion callbacks against exact workflow
    IDs, paths, names and events. Follow [completion adoption](completion-adoption.md).
+   Review any missing source registration in `config/completions.json` and
+   publication/tooling policy before installing its callback. The verifier loads
+   policy from the same immutable coordinator pin as its implementation: use
+   the reviewed registration commit for both reusable workflow and
+   `automation-ref`, rather than copying a pin whose policy lacks this source.
    Privileged callbacks execute reviewed shared code only, with no candidate
    checkout/artifact/cache execution. Check verification before App minting,
    final revalidation, actual dispatch and receiver settlement.
@@ -57,6 +62,8 @@ frozen host boundaries are not portability work authorized by adoption.
    changing its entry to `pilot` in a coordinator PR. Preserve every other
    entry, exclusion and hold. Keep global phase `pilot` and the single shared
    schedule. No global full-phase cutover is required.
+   A target's own hold needs recorded source acceptance before explicit removal;
+   changing its phase alone cannot qualify a private projection or migration.
 8. Use ordinary reconciliation with a genuine available update. Review the
    actual bot-owned candidate and complete current-head checks before merge.
    Verify main acceptance and the actual version/publication disposition,

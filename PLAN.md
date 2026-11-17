@@ -2,94 +2,58 @@
 
 ## Active objective — finish one pilot, then independent adoption
 
-The November17 operator direction supersedes the earlier requirement to finish
-all consumer rollout serially. Finish and enable one shared workflow end to end,
-then create a central tracker with independently assignable repository tasks.
-Notebook is selected because it has no root Deno input, an existing bounded
-canonical intake and a genuine released Core0.13.4→0.13.5 update to exercise.
+The November17 operator direction selects Notebook for the completed shared
+workflow, then independent per-repository adoption. Other repositories do not
+gate this milestone. Preserve global phase `pilot`, frozen boundaries and all
+Community/Nostr/Deno-only exclusions. The exact evidence is retained in
+[the single-pilot record](spec/records/2026-11-17-notebook-single-pilot.md).
 
-- [x] Merge and deploy Notebook-only pilot selection through49 at260b817a;
-      exact-main check44114336243 and Pages44114335710 pass. Keep the global phase
-      `pilot`; move other entries to `full` so enabling the schedule cannot
-      enable their writers. Existing verified completion observations remain
-      independent of write activation.
-- [x] Reconcile Notebook's exact retained/uncertain state without overwriting
-      manual work or hand-editing coordinator state. Its closed bot-only Visual
-      Delta0.1.0 branch is older than the0.1.5 already selected on main; establish
-      exact supersession is proven and its exact ref removed with404 read-back.
-      Controlled recovery44119443025 then marks the old empty attempt
-      retry-approved and publishes statef32db5f0, with consumer writes disabled.
-      No state is hand-edited or unsupported API migration re-admitted.
-      Genuine replay44125843709 exposes a second older empty admission0f1650a6
-      from44004351048. Source has advanced only through the reviewed setup43;
-      the new exact-current-source recovery compares complete immutable trees
-      and proves unchanged code/dependency inputs. GET-only dry qualification
-      admits only Core0.13.5 and no other writer. Hosted recovery remains pending.
-      Recovery source67 merges94cc8c31 after hosted44128520910; exact-main check
-      44129038089 and Pages44129038051 pass. Live rollout/book links return200.
-      Controlled44129153610 binds fresh state7be27a06 and current4484fe44;
-      source verification passes and authoritative inventory is running.
-- [x] Implement and qualify the shared guard's reviewed development data
-      before dispatching the genuine intake. An isolated copy of the actual
-      Notebook source passes unchanged, then fails with only the Core override
-      changed0.13.4→0.13.5 (`Version recipe source bytes changed`). Retain exact
-      executable/config/settings binding while admitting only source-reviewed
-      compatible development coordinates; do not disable or remove the guard.
-      Shared CI28 mergesd678a21e with301 source tests; the actual full Notebook
-      recipe passes on frozen released Core0.13.5 with Deno absent. Source code,
-      private manifests and lock graph remain bound; Notebook43 adopts the same
-      pinned guard in quality CI and before the version writer. Consumer hosted
-      acceptance passes through Notebook43 merge4484fe44: main CI44124089823,
-      version44124089171 and Pages44124089176 succeed. The version writer/App
-      correctly skip with no release intent. Callback44124857164 verifies the
-      source and sends its completion dispatch. Restore writes for Notebook
-      alone and run normal reconciliation44125843709; scheduling remains off.
-      Receipts: local cache `notebook-single-pilot-20261117/`.
-- [ ] Run the genuine Core0.13.5 intake through shared preparation, bot PR,
-      complete current CI, merge, main acceptance and Pages. Verify the
-      development-only update creates no false publication intent. Distinguish
-      actual publication evidence from a correctly skipped publication branch.
-      Controlled44129153610 opens real Notebook44 atcbc7e84d; digest-checked
-      artifact14349611790 and durable generation147 prove only this admission.
-      Native pnpm trims an authored workspace blank line, invalidating the exact
-      version-input digest. The shared preparer now preserves that immutable
-      ending, with an exact1→0 regression,50 affected/466 full cases and real44
-      fixture acceptance. Its frozen install, independent intake, explicit
-      three-input/two-chapter main range and unchanged full guard pass with
-      no release intent. Deploy/regenerate before requiring fresh candidate CI.
-      Source68 deploys8d9c6aca with main check44133921647/Pages44133921557 green.
-      Normal44134079685 consumes the rebase checkbox and regenerates44 to422e3cab,
-      but actual quality44135375420 rejects the workspace fingerprint: the native
-      artifact filter omitted that repaired input. The follow-up adds only the
-      exact governed workspace path for canonical opt-ins. Two native collector/
-      commit regressions change2→0 and54 affected cases pass; the actual422e3cab
-      final artifact matches all five qualified files and unchanged guard.
-      Fresh audit now denies two HIGH picomatch paths underGHSA-fc5q-39xc-vjpf
-      on unchanged dependency-source9d657a74/locka3e1f05f. No patched release is
-      recorded; consumer writes are placed off, scheduling stays off and the
-      active approval list was empty. Source69 is now deployed at1eaa910e;
-      main check44142073205 and Pages44142073234 pass. The operator subsequently
-      approves exactly the two picomatch paths/source/lock bindings through
-      November19 at00:00UTC or sooner on a known fix. Policy activation and
-      fresh audit qualification are recorded separately from pending hosted
-      deployment and writable candidate regeneration. Prior LOW decisions do
-      not cover this approval; all other gates remain blocking.
-- [ ] Exercise completion/catch-up and idempotent repeated runs, enable normal
-      scheduling for this sole pilot and retain exact run/source receipts.
-- [x] Create a tracker in dependency-automation with separate adoption tasks,
-      prerequisites, source-specific blockers, acceptance and rollback for all
-      remaining eligible repositories. Community, Nostr and Deno-only packages
-      remain excluded. Other product repairs do not block the pilot.
-      [Tracker50](https://github.com/lapismd/dependency-automation/issues/50)
-      links16 independent tasks51–66 and
-      [the common runbook](docs/repository-adoption.md). Pilot activation/replay
-      acceptance remains unchecked until its actual evidence is complete.
+- [x] Restrict source writer admission to Notebook through49, keeping the other
+      entries observation-only or explicitly held. The live manifest/registry
+      graph derives package order rather than a manually maintained repo list.
+- [x] Recover both historical empty Notebook operations through exact checked
+      workflows, without manual state edits or unsupported migration admission.
+      Recovery44119443025 and44129153610 retain their exact source/state proof.
+- [x] Qualify the actual Deno-free version recipe on frozen released Core0.13.5.
+      Shared CI28 and Notebook43 retain the independent strict source/version
+      guard in quality CI and before any version App minting. Local whole-recipe
+      qualification remains distinct from actual publication.
+- [x] Repair shared canonical preparation and native commit artifact retention
+      through68/69. Exact regressions pass before broader acceptance; no consumer
+      workspace hash, assertion, diagnostic or branch policy is weakened.
+- [x] Deploy the operator-approved exact picomatch runtime exception through70,
+      with unchanged source/lock, two paths and exclusive November19 expiry or
+      earlier known-fix termination. Preflight repeats before planning and App
+      minting. Raw HIGH findings stay visible; no consumer exception is added.
+- [x] Regenerate existing Notebook44 through the native rebase checkbox and
+      ordinary44147251601. Its2153f41 head contains exactly the five qualified
+      files, passes all10 checks and automatically merges94a494fa through native
+      receiver44149861102. Candidate callback44150236170 verifies and dispatches.
+- [x] Verify exact-main CI44150919874, Pages44150918474, version44150918464 and
+      registry disposition44152696047. Genuine version intent is false; App and
+      Changesets skip, npm/registry publication skip, registry coordinates and
+      archive integrity remain unchanged, and the live Pages deployment binds94a494fa.
+- [x] Verify complete current-main coordinator qualification and durable target
+      settlement, then ordinary replay with no duplicate PR or publication.
+- [x] Enable and read back normal hourly scheduling for this sole pilot after
+      acceptance/replay. Retain default-off behavior and every other writer hold.
+      Activation read-back19:03UTC matches all five reviewed settings. Normal
+      post-activation44154386399 supplies an additional observation in tracker50;
+      the first timed cron is not claimed.
+- [x] Prepare final immutable acceptance receipts and the source/spec handoff.
+      Hosted PR/main/Pages delivery is a distinct gate recorded in tracker50
+      after actual deployment and post-activation verification.
+- [x] Create [tracker50](https://github.com/lapismd/dependency-automation/issues/50)
+      with16 separately assignable adoption tasks51–66 and
+      [the common runbook](docs/repository-adoption.md), including exact source
+      registration/pins, acceptance, per-entry activation and rollback.
 
-Notes155 remains a prepared adoption PR. Its Cloudflare job fails with
-`VerifiedPluginInstaller.fetchBundle: Failed to fetch` on both155 and unchanged
-main29011545 (runs44110558786 and44099157524). This is a Notes adoption blocker,
-not a reason to restart serial product repair across consumers. Generic source
-preparation47 and formatter repair48 are merged; main checks and Pages pass.
+[Issue71](https://github.com/lapismd/dependency-automation/issues/71) owns the
+separate time-bounded runtime remediation/approval retirement; pilot success
+cannot renew it. S3/S6 global adoption remains open in the16 tasks. Notes155's
+Cloudflare fetch failure on both PR and unchanged main belongs in53. JJ Store90
+is merged; its remaining workflow adoption belongs in66. Private projections,
+frozen hosts and unsupported runtime migrations remain held.
 
 ## Current publication and tooling checkpoint — November 17
 

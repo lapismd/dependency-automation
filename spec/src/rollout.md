@@ -2,11 +2,13 @@
 
 ## Single-repository completion
 
-The current objective is to complete and enable Notebook end to end before
-expanding adoption. Other repositories no longer gate that milestone. Notebook
-is the only source `pilot` entry; the global phase stays `pilot`, including
-after scheduling is enabled. Promoting one reviewed entry from `full` to
-`pilot` enables that repository independently, without a global full rollout.
+The shared dependency workflow is qualified and enabled for Notebook after its
+genuine Core0.13.5 development intake, complete candidate/main CI, native
+auto-merge, Pages and repeated normal reconciliation. Other repositories remain
+independent adoption work. Notebook is the only source `pilot` entry; global
+phase stays `pilot` with hourly scheduling enabled. Promoting one reviewed entry
+from `full` to `pilot` enables that repository independently, without a global
+full rollout.
 
 Acceptance requires a genuine compatible Core update, shared canonical
 preparation, current PR and main qualification, source-owned version/release
@@ -23,8 +25,8 @@ activation/rollback steps. Community, Nostr and Deno-only packages stay excluded
 sixteen separately assignable adoption tasks. The
 [common adoption runbook](https://github.com/lapismd/dependency-automation/blob/main/docs/repository-adoption.md)
 defines source inspection, shared pins, independent qualification, per-entry
-activation, replay and rollback. The tracker retains the pilot's pending gates
-separately from the remaining rollout; creating tasks does not enable writers.
+activation, replay and rollback. The tracker records the completed pilot separately from remaining adoption;
+creating tasks does not enable writers.
 
 The detailed [maintenance plan](https://github.com/lapismd/dependency-automation/blob/main/PLAN.md)
 owns delivery steps and dated receipts. This page explains scope without
@@ -34,7 +36,7 @@ embedding live operational data in the public book.
 | -------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | S1 Policy/authentication   | Shared monitoring, read-only audit/probes and the isolated scheduled profile writer are qualified. All eligible version writers have migrated and passed their main App/Changesets jobs; genuine Plugins and profile candidates also started CI and merged.                      |
 | S2 Image churn             | Shared signed producer/resolver is qualified in Plugins and Notes, including full warm/repeated-producer acceptance and Notes production deployment. Both obsolete image-pin PRs are closed.                                                                                     |
-| S3 Dependency waves        | Wave admission, durable public-safe state, registry coalescing and repair ownership are deployed. State and writable pilots are qualified. All four pilot completion callers are qualified; the genuine release-chain/replay gate and steady-state scheduling remain pending.    |
+| S3 Dependency waves        | Notebook proves compatible development intake, native auto-merge, current-main completion and repeat reconciliation; hourly single-pilot scheduling is enabled. Other consumer/release-chain adoption remains independently tracked.                                             |
 | S4 Maintenance integration | The deployed app reads monitoring policy, waves and open issues and supports confirmed eligible batches. Real report parsing and a disposable live command/preflight test are qualified; visual review remains separate.                                                         |
 | S5 Publication recovery    | Registry preparation and publication are separate. Immutable artifact reuse, unchanged replay and rejection before writer minting are hosted-qualified; a genuine three-plugin batch is deployed and its public signatures verified. Package publishers retain source authority. |
 | S6 Tooling/drift           | Node CLI contracts, initial source cohorts, candidate guards, operational drift reporting and exact advisory admission are deployed. Additional cohorts and consumer whole-recipe guard adoption remain in progress.                                                             |
@@ -49,20 +51,24 @@ consumer adoption remain separate; existing frozen Deno host sources and all
 advisory exception rules remain unchanged.
 
 S6b adds production maintenance drift reporting and exact coordinator advisory
-admission before dependency write planning and App minting. Its initial approval
-list was empty; the operator subsequently approved one exact source/lock/path
-decision with November 21 expiry, recorded under DA-OPS-002. Consumer adoption
-and source-owner treatment of reported unknowns remain separate; a matching
-static check name is not a complete security qualification.
+admission before dependency write planning and App minting. The earlier LOW
+decision is retired. The separately approved HIGH picomatch decision covers two
+exact runtime paths/source/lock bindings through November19,00:00UTC or sooner
+on a known fix. Issue71 tracks remediation and retirement; pilot success cannot
+renew it. Consumer adoption and source-owner treatment of reported unknowns
+remain separate; a matching static check name is not complete qualification.
 
-The bounded canonical-intake preparer and Notebook source opt-in are deployed.
-Normal bot regeneration and its downstream acceptance remain pending, within
-the selected rollout phase. Source verification preserves unrelated peer edges
-and holds ambiguous contexts; local preparation is not hosted intake acceptance.
+The bounded canonical-intake preparer and Notebook source opt-in are hosted
+qualified through44, including strict native committed-payload and unchanged
+consumer guard checks. The [single-pilot evidence record](https://github.com/lapismd/dependency-automation/blob/main/spec/records/2026-11-17-notebook-single-pilot.md)
+retains exact source/run/state receipts and distinguishes the correct
+no-publication outcome from an actual npm release. Source verification still
+preserves unrelated peer edges and holds ambiguous contexts.
 
 Successful same-source package recovery preserves retained signed artifacts and
 verifies existing registry bytes before resuming failed qualification. Automatic
 registry install-metadata readiness remains a concrete S5 maintenance follow-up;
 manual recovery is not completion of that automation. The bounded Notebook
-pilot source proposal under DA-WAVE-007 retains every unrelated publisher wait;
-normal bot regeneration and downstream acceptance remain pending source review.
+pilot under DA-WAVE-007 retains every unrelated publisher wait while qualifying
+only its source-authorized development patch. Other source profiles, publisher
+contracts and unsupported migrations remain independent adoption work.
