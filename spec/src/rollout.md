@@ -97,3 +97,18 @@ existing holds/exclusions remain unchanged, and global phase stays `pilot`.
 Actual completion, ordinary no-update settlement and repeat receipts are
 recorded in the source activation record; source registration alone is not
 claimed as a new publisher or multi-consumer update proof.
+
+Spec Validator activation75 is deployed at8c71f71d. Exact-main checks, live
+Pages and completion-driven run44176226486 pass; its current sourcef3bab118
+is qualified with no updates, holds or waits. The active no-op operation is
+unchanged, and durable state matches the hosted candidate. This is producer/
+no-input adoption, not an invented dependency update or new package release.
+The owned source audit follow-up is Spec Validator8, separate from activation.
+
+Ordinary replay44177306438 retains the same unchanged operation after the first
+post-activation run44176226486. Generations171→172 form the expected durable
+state chain and both published states match their hosted candidates. No
+dependency PR or package release is created; Spec Validator adoption62 is
+complete. Existing development-tool remediation remains separately tracked in
+Spec Validator8. The other fifteen repository adoptions and their real holds
+remain open; this is not global full rollout.

@@ -1493,5 +1493,6 @@ records actual tests, corrected preparation failures and remaining gates.
 - [x] Pass existing-App read probes for Spec Validator44173967888 and Visual Delta44173971797.
 - [x] Merge Spec Validator7 and pass exact-main Check44174151693 atf3bab118.
 - [x] Prepare only Spec Validator's `full`→`pilot` source phase change under standing operator approval; preserve all other entries/global settings.
-- [ ] Verify actual successful completion, deploy the reviewed phase change, then prove ordinary no-update settlement and repeat with no fabricated release.
+- [x] Verify actual completion and deploy activation75 after green checks; main/Pages pass and ordinary settlement44176226486 qualifies current source without updates.
+- [x] Verify ordinary repeat44177306438: same unchanged operation, generation172 follows171, durable state matches its candidate and no dependency PR or release is created.
 - [ ] Keep Docs21/Tasks31/Visual Delta79 in the final queue with exact security/acceptance holds.
