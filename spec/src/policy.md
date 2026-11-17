@@ -60,6 +60,11 @@ visibility before collecting source. Public coordinator artifacts/state contain
 only verified public sources; inaccessible/non-public entries produce opaque
 coverage holds without widening credentials or revealing source names/bodies.
 
+DA-INV-005 public raw reads use the same reviewed entries and exact source tree.
+They grant no additional installation, credential, private-source or write scope;
+unknown visibility and unverified file bytes remain held. DA-INV-006 HTTP
+diagnostics expose only sanitized failure context, never access tokens or bodies.
+
 Monitoring token detection includes Changesets' explicit `github-token` input;
 this classification does not expand dependency targets or installation scope.
 The separate config/tooling.json contract follows DA-TOOL-001 through

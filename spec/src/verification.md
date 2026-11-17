@@ -10,6 +10,8 @@
 | DA-INV-002  | Implemented | Registry-only availability closure and error semantics; `tests/policy.test.mjs` and `tests/github.test.mjs`.                                                             |
 | DA-INV-003  | Implemented | Portability/onboarding/hold matrix in `scripts/inventory.mjs`; unpublished-private-consumer regression.                                                                  |
 | DA-INV-004  | Implemented | `runtimeCycles` and cycle-aware generated rules; SCC and update-policy cases in `tests/policy.test.mjs`.                                                                 |
+| DA-INV-005  | In progress | `tests/github-public-files.test.mjs`; exact-tree public transport and hosted acceptance remain under qualification.                                                      |
+| DA-INV-006  | In progress | `tests/github-public-files.test.mjs`; sanitized quota/error context and hosted diagnostics remain under qualification.                                                   |
 | DA-REC-001  | Implemented | Restricted `repositoryConfig` plus central `renovate.config.cjs`; generated configuration validation.                                                                    |
 | DA-REC-002  | Implemented | Compatible/breaking Renovate rules; `tests/automerge.test.mjs` and `tests/policy.test.mjs`; repository merge rules remain external gates.                                |
 | DA-REC-003  | Implemented | Explicit environment/variable gates in `reconcile.yml`, `scripts/inventory.mjs` and `renovate.config.cjs`.                                                               |
@@ -62,7 +64,7 @@
 | DA-WAVE-007 | In progress | 59 admission regressions; actual Notebook1→0; fresh GET-only19/43/220 plan retains six waits; hosted regeneration pending.                                               |
 | DA-PUB-003  | In progress | Scoped/transitive-peer negatives; hosted generation83 retires ten published waits/one obsolete wait; Notes146 publication/replay pending.                                |
 | DA-PUB-004  | Implemented | Hosted generation82 (43989934897) verifies all ten selected packages plus History against current source-bound static contracts; size/ID/signature negatives pass.       |
-| DA-WAVE-008 | In progress | Six failing normal-admission regressions become eight passes; real generation83 replay holds all nine unsupported targets; hosted acceptance pending.                    |
+| DA-WAVE-008 | Implemented | Eight focused/379 total tests; hosted generation89/90 holds unsupported targets before writers; source-preparation-admission record retains candidate closure evidence.  |
 
 Detailed bootstrap commands, failure counts and hosted handoff live in
 [the specification/Pages qualification record](https://github.com/lapismd/dependency-automation/blob/main/spec/records/2026-11-15-canonical-spec-and-pages.md).

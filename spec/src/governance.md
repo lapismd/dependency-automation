@@ -91,6 +91,10 @@ Rollout status-only edits in `PLAN.md` do not require unrelated canonical edits.
 Wave planning/evidence/state and their CLI entrypoints map to `waves.md`.
 The coordinator state branch is operational storage, never canonical book input.
 
+The bounded public-file and sanitized HTTP-response modules share discovery's
+Inventory and Repository policy owners under DA-INV-005/006. Their explicit map
+does not authorize new scopes or change operational rollout gates.
+
 The wave pilot/recovery runbook is operational guidance linked from README;
 canonical wave requirements and workflow gates remain authoritative.
 
