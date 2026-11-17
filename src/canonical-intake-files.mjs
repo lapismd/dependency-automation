@@ -85,14 +85,35 @@ export async function prepareCanonicalFiles({
       ...git(["ls-files", "--others", "--exclude-standard", "-z"]).split("\0"),
     ].filter(Boolean),
   });
-  // Every byte/path/ownership check completes before touching either chapter.
-  for (const [path, bytes] of Object.entries(result.outputs)) {
+  const outputs = { ...result.outputs };
+  const workspacePath = "pnpm-workspace.yaml";
+  // pnpm's native updater trims final blank lines. Restore only the immutable
+  // source's newline ending after all semantic/scope checks, preserving exact
+  // recipe-input bindings without relaxing the consumer's independent guard.
+  if (
+    typeof before[workspacePath] === "string" &&
+    typeof after[workspacePath] === "string"
+  ) {
+    const ending = (bytes) => bytes.match(/(?:\r?\n)*$/)[0];
+    const original = ending(before[workspacePath]),
+      candidate = ending(after[workspacePath]);
+    if (original !== candidate)
+      outputs[workspacePath] =
+        after[workspacePath].slice(
+          0,
+          after[workspacePath].length - candidate.length,
+        ) + original;
+  }
+  // Every byte/path/ownership check completes before touching any output.
+  for (const path of Object.keys(outputs)) {
     if (
       (await realpath(dirname(resolve(root, path)))) !==
       dirname(resolve(root, path))
     )
       throw Error("Canonical intake held: unsafe output parent");
-    if (currentChapters[path] !== bytes)
+  }
+  for (const [path, bytes] of Object.entries(outputs)) {
+    if ((currentChapters[path] ?? after[path]) !== bytes)
       await writeFile(resolve(root, path), bytes);
   }
   return result;

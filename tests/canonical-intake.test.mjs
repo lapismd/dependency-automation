@@ -219,6 +219,18 @@ test("filesystem preparation binds admitted source, regular paths and immutable 
   try {
     git(["init", "--quiet"]);
     const data = input();
+    // Native pnpm/Renovate trims an authored final blank line. Restore it in
+    // the shared writer so an exact source-owned version-input guard survives.
+    const workspacePath = "pnpm-workspace.yaml";
+    data.before[workspacePath] = data.before[workspacePath].replace(
+      /(?:\r?\n)*$/,
+      "\n\n",
+    );
+    data.after[workspacePath] = data.after[workspacePath].replace(
+      /(?:\r?\n)*$/,
+      "\n",
+    );
+    const expectedWorkspace = data.after[workspacePath] + "\n";
     const seed = {
       ...data.before,
       ...data.baseChapters,
@@ -268,6 +280,10 @@ test("filesystem preparation binds admitted source, regular paths and immutable 
     );
     for (const p of chapters)
       assert.equal(await readFile(join(root, p), "utf8"), data.baseChapters[p]);
+    assert.equal(
+      await readFile(join(root, workspacePath), "utf8"),
+      data.after[workspacePath],
+    );
     const { fileURLToPath } = await import("node:url");
     const { chmod } = await import("node:fs/promises");
     const toolsRoot = await mkdtemp(join(tmpdir(), "canonical-tools-"));
@@ -316,6 +332,10 @@ test("filesystem preparation binds admitted source, regular paths and immutable 
         stdio: "pipe",
       });
       assert.equal(
+        await readFile(join(root, workspacePath), "utf8"),
+        expectedWorkspace,
+      );
+      assert.equal(
         (await readFile(logFile, "utf8")).trim(),
         "install --frozen-lockfile --ignore-scripts --ignore-pnpmfile",
       );
@@ -323,6 +343,10 @@ test("filesystem preparation binds admitted source, regular paths and immutable 
       await rm(toolsRoot, { recursive: true, force: true });
     }
     const result = await prepareCanonicalFiles(args);
+    assert.equal(
+      await readFile(join(root, workspacePath), "utf8"),
+      expectedWorkspace,
+    );
     for (const p of chapters)
       assert.equal(await readFile(join(root, p), "utf8"), result.outputs[p]);
     await rm(join(root, chapters[0]));

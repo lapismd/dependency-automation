@@ -49,6 +49,14 @@ canonical intake and a genuine released Core0.13.4→0.13.5 update to exercise.
       complete current CI, merge, main acceptance and Pages. Verify the
       development-only update creates no false publication intent. Distinguish
       actual publication evidence from a correctly skipped publication branch.
+      Controlled44129153610 opens real Notebook44 atcbc7e84d; digest-checked
+      artifact14349611790 and durable generation147 prove only this admission.
+      Native pnpm trims an authored workspace blank line, invalidating the exact
+      version-input digest. The shared preparer now preserves that immutable
+      ending, with an exact1→0 regression,50 affected/466 full cases and real44
+      fixture acceptance. Its frozen install, independent intake, explicit
+      three-input/two-chapter main range and unchanged full guard pass with
+      no release intent. Deploy/regenerate before requiring fresh candidate CI.
 - [ ] Exercise completion/catch-up and idempotent repeated runs, enable normal
       scheduling for this sole pilot and retain exact run/source receipts.
 - [x] Create a tracker in dependency-automation with separate adoption tasks,
