@@ -62,7 +62,7 @@ Reports remain ignored artifacts; no live state enters main or public book outpu
 
 ## DA-WAVE-003 — Qualification and repair ownership
 
-The single-repository pilot retains Notebook alone in the source `pilot` phase.
+The accepted initial single-repository pilot selected Notebook in source `pilot` phase.
 Other consumers remain observable, including through already deployed verified
 completion callers, but cannot enter the pilot writer matrix. Enabling the
 schedule does not promote `full` entries or bypass candidate/ownership checks.
@@ -173,6 +173,17 @@ only the Deno-free specification tool in development and retains its existing
 audit and compare-only browser gates. The operator requests a final merge pass
 and gives standing approval for per-repository activation after passing source
 acceptance; advisory exceptions and global full rollout are not implied.
+
+The operator-approved next activation adds only Spec Validator after its source7
+mergedf3bab11837648045540bf7ef948503131dcab041 and main Check44174151693
+passed. Read-only existing-App probe44173967888 passed. Its normal functional
+no-Lapis-input contract preserves the current zero-update graph; no Changesets
+writer, dependency bump, version/tag or publication is invented. Notebook
+remains the sole exercised dependency-writing consumer; all other entries and
+existing holds/exclusions remain unchanged, and global phase stays `pilot`.
+Actual completion, ordinary no-update settlement and repeat receipts are
+recorded in the source activation record; source registration alone is not
+claimed as a new publisher or multi-consumer update proof.
 
 **Requirement.** Opted-in source preparation MUST constrain normal wave admission even after publication waits clear. Unsupported update sets or missing source-policy evidence MUST remain held before consumer writer admission.
 

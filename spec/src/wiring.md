@@ -1,12 +1,12 @@
 # Workflow and module wiring
 
-The active single-repository rollout uses Notebook alone in the existing
-`pilot` phase. `config/completions.json` also binds its actual CI, Pages and
+The accepted initial single-repository rollout uses Notebook in the existing
+`pilot` phase; the next qualified source entry is the no-input Spec Validator. `config/completions.json` also binds its actual CI, Pages and
 version workflow IDs; verified observer callbacks from other known non-held
 consumers remain accepted without enabling those consumers' writers. The
 coordinator's hourly schedule is enabled after the Notebook acceptance and
-normal replay receipts. Live settings retain global phase `pilot` and only the
-Notebook entry; the [single-pilot record](https://github.com/lapismd/dependency-automation/blob/main/spec/records/2026-11-17-notebook-single-pilot.md)
+normal replay receipts. The source policy retains global phase `pilot`, Notebook and only the
+separately accepted no-input Spec Validator entry; the [single-pilot record](https://github.com/lapismd/dependency-automation/blob/main/spec/records/2026-11-17-notebook-single-pilot.md)
 separates actual candidate/main/callback evidence, timer configuration and the
 first unobserved cron event. Sixteen adoption tasks reuse this same flow; no
 consumer copies the engine or independently enables another schedule.
@@ -136,3 +136,14 @@ only the Deno-free specification tool in development and retains its existing
 audit and compare-only browser gates. The operator requests a final merge pass
 and gives standing approval for per-repository activation after passing source
 acceptance; advisory exceptions and global full rollout are not implied.
+
+The operator-approved next activation adds only Spec Validator after its source7
+mergedf3bab11837648045540bf7ef948503131dcab041 and main Check44174151693
+passed. Read-only existing-App probe44173967888 passed. Its normal functional
+no-Lapis-input contract preserves the current zero-update graph; no Changesets
+writer, dependency bump, version/tag or publication is invented. Notebook
+remains the sole exercised dependency-writing consumer; all other entries and
+existing holds/exclusions remain unchanged, and global phase stays `pilot`.
+Actual completion, ordinary no-update settlement and repeat receipts are
+recorded in the source activation record; source registration alone is not
+claimed as a new publisher or multi-consumer update proof.
