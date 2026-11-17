@@ -107,8 +107,11 @@ release validation44043361070 succeeds. Publication44043671120 attempt1 succeeds
 including published-package verification, GitHub release and dependency
 notification. Both registry metadata profiles and the exact31,132-byte archive
 independently match retained artifact14311820861; the six intended runtime
-minimums are present. The separate Profile0.2.5 publication-only binding and
-normal hosted retirement/replay remain open. No fabricated release, floor
+minimums are present. Profile0.2.5 publication-only PR46 mergesa814b1b4;
+normal hosted44050266761/44051773415 persist generations115/116 and identical
+release state/operation identities, with independent durable read-back. The
+[publication handoff record](2026-11-17-profile025-publication-channel.md) retains
+exact artifact digests, source proof and the unchanged writer/exclusion gates. No fabricated release, floor
 relaxation, global channel admission or state hand-edit participates.
 
 This handoff does not complete S3 or S6 or enable full rollout.

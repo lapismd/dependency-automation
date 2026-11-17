@@ -85,7 +85,33 @@ latest/stable-candidate0.1.0 remains distinct from the empty admitted Profile
 pool. Every direct consumer projection retains that existing empty pool and
 never admits0.2.5. The full graph remains unmodified by replay.
 
+## Deployed retirement and replay
+
+PR46 passes its current-head hosted check and merges
+`a814b1b466e65af006e4d879427f0aeffea6f44d`. Exact-main check44050163791 and
+specification Pages44050163782 succeed. Normal reconciliation44050266761
+succeeds and persists generation115, retiring the original Profile intent to
+verified0.2.5 with all six floors and its original intent identity retained.
+Notes is unchanged with zero updates; the consumer writer matrix is skipped.
+Artifact14312739057 has independently verified ZIP SHA256
+`e2f3639b5c3103a100459f864e1adfd3561d3d5a0acbc75dd18d11020ba230e0`.
+Fresh state read-back at5d30c662df2af5562ada141d394b2a4171779fe7 retains the exact
+release object and generation115; a local plan is not used as durable proof.
+
+Repeat normal reconciliation44051773415 succeeds and persists generation116.
+Artifact14313682778 has verified ZIP SHA256
+`5efc17d3520eec1c43b9d0ec596fd3c66b29b70c3be61453ce64636abd87278c`.
+Both complete release objects and operation identity sets are equal between
+the two artifacts; substantive operation fields are unchanged, with only
+observation timestamps refreshed. Notes still has zero updates, Notebook's nine
+unsupported proposals remain held with zero admitted updates, and the writer
+matrix is again skipped. Fresh durable read-back at
+`654160a9c1ed91f7d00eca8c162e0a2582e7d28b` preserves generation116 and the full
+release state. Both inventories retain19 repositories,43 owners,220 edges and
+zero graph gaps/cycles. No duplicate PR, republish, forced retry, state hand-edit
+or activation change participates.
+
 Receipts remain outside source under
-`~/.cache/coordinator-profile025-channel-20261117/`. Actual deployed retirement
-and repeat reconciliation are still required. S3/S6 and full scheduled rollout
-remain open.
+`~/.cache/coordinator-profile025-channel-20261117/`. This completes the genuine
+Notes repair/version/publication/retirement/replay handoff. It does not complete
+S3/S6, remaining consumer/tool-cohort qualification or full scheduled rollout.

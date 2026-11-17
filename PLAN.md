@@ -59,7 +59,7 @@ remain open; pilot writes are enabled and scheduled/full rollout stays disabled.
       is independently verified and its channel hold clears without changing
       raw latest/next facts or consumer scopes. The required Core minimum still
       blocks retirement; no completed Notes chain is claimed.
-- [ ] Finish genuine Notes publication and replay. Dependency PR146 merges
+- [x] Finish genuine Notes publication and replay. Dependency PR146 merges
       `3bd015b5`; canonical version preparation PR148 merges `ddd83d39` after
       199 release tests,69 specification cases and288 cold interaction/axe cases.
       The actual bot command generates all five required canonical pages.
@@ -95,7 +95,12 @@ remain open; pilot writes are enabled and scheduled/full rollout stays disabled.
       three spec lanes, Actionlint and19 native configurations. Fresh public
       inventory independently verifies provenance and locally retires the retained
       six-floor wait to0.2.5; Notes has zero updates and replay preserves release
-      state/operation identities. Actual deployed retirement/replay remain open.
+      state/operation identities. PR46 mergesa814b1b4; exact-main check44050163791
+      and Pages44050163782 pass. Normal44050266761/44051773415 persist
+      generations115/116 with digest-checked artifacts14312739057/14313682778
+      and independent durable read-back. Complete release state and operation
+      identities remain equal; Notes has zero updates and both writer jobs skip.
+      This completes this genuine Notes handoff, not all S3/S6 gates.
 - [x] Stop Notebook's unsupported bot candidates: PR42 merges4e8a66b5, with
       exact-main check44005505946/Pages44005505992 passing. Normal run44005707754
       persists generation89 and skips the consumer writer matrix. Notebook's
@@ -145,7 +150,11 @@ remain open; pilot writes are enabled and scheduled/full rollout stays disabled.
       351pass/696fail/two skips through621pass/426fail/two skips to the latest
       complete956pass/91fail/two skips. The exact mobile search skeleton race
       and five profile/capture/repository regressions pass, and catalog/web types
-      and ownership pass. Remaining91 failures and wider/cold lanes stay open. Existing audit findings and
+      and ownership pass. A subsequent seven-case target passes6/7; the retained
+      custom-image adapter is repaired and asserted. The remaining textual
+      fallback/count defect is reproduced in Core; source repair swolpwus passes
+      its3 owning stories while full qualification/release/adoption remain open.
+      Remaining full-suite failures and wider/cold lanes stay open. Existing audit findings and
       generic canonical handoffs remain independent gates;
       no accessibility rule, baseline or retained-Deno prerequisite is waived.
 
