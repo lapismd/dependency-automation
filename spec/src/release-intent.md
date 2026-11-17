@@ -57,6 +57,24 @@ forcing a consumer migration. Advisory policy and publication remain source-owne
 - Preparation MUST preserve authored content and emit deterministic current facts without executing candidate code or asserting unrun qualification.
 - Exact output paths MUST survive native Renovate filtering, and stale sources, unexpected changes and unsupported lock deltas MUST fail before writes.
 
+## DA-REL-005 — Workspace canonical preparation
+
+The schema2 workspace profile records actual declared/resolved ranges, locked
+versions and integrity fingerprints in each source-owned slot. Its compact
+table is current dependency evidence, not a release or functional acceptance
+claim. Source-owned paths and policy bytes remain immutable throughout native
+generation; the existing schema1 development/override profile retains its
+stricter mechanical lock comparison and independent-admission boundary.
+
+**Requirement.** Source-owned workspace preparation MUST emit current dependency facts only for explicitly admitted compatible registry updates across its declared importer and chapter scope.
+
+### Acceptance details
+
+- Immutable policy bytes and complete active importer coverage MUST bind chapter slots, declared ranges, registry versions and expected integrity before writes.
+- Other manifest fields, direct importer identities, workspace settings, first-party metadata and first-party edges MUST retain their independently governed source contracts.
+- Explicit third-party registry closure regeneration MAY follow the scripts-disabled frozen install while retaining tooling, audit and functional gates.
+- Manual or stale facts, external resolution, same-version integrity drift and unexpected candidate paths MUST fail without writing any chapter.
+
 ## Independent development admission
 
 Native generation MUST admit both the development manifest edge and its exact

@@ -277,6 +277,18 @@ export function repositoryConfig(repo, graph, automationRoot) {
           ? {
               sourceSha: repo.sourceSha,
               canonicalPolicySha256: repo.canonicalIntake.sha256,
+              ...(repo.canonicalIntake.policy.schemaVersion === 2
+                ? {
+                    canonicalUpdates: (admission?.admittedUpdates ?? []).map(
+                      (update) => ({
+                        ...update,
+                        integrity:
+                          graph.registry?.[update.name]?.[update.target]
+                            ?.integrity,
+                      }),
+                    ),
+                  }
+                : {}),
             }
           : {}),
       }),

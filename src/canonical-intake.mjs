@@ -2,6 +2,7 @@ import { createHash } from "node:crypto";
 import { isDeepStrictEqual } from "node:util";
 import semver from "semver";
 import YAML from "yaml";
+import { validateWorkspaceIntakePolicy } from "./canonical-workspace-policy.mjs";
 
 export const intakePolicyPath =
   ".github/dependency-automation/canonical-intake.json";
@@ -32,6 +33,8 @@ const canonical = (v) =>
         )
       : v;
 export function validateIntakePolicy(policy, repository) {
+  if (policy?.schemaVersion === 2)
+    return validateWorkspaceIntakePolicy(policy, repository);
   if (
     !exact(policy, [
       "schemaVersion",
@@ -120,7 +123,7 @@ export function intakeFacts(policy, policyBytes, bytes) {
 export function intakeSlot(policy, facts) {
   return `<!-- dependency-intake:${policy.slot}:start -->\n\n\`\`\`json\n${JSON.stringify(facts, null, 2)}\n\`\`\`\n\n<!-- dependency-intake:${policy.slot}:end -->`;
 }
-function slotBounds(text, policy) {
+export function slotBounds(text, policy) {
   const start = `<!-- dependency-intake:${policy.slot}:start -->`,
     end = `<!-- dependency-intake:${policy.slot}:end -->`;
   if (

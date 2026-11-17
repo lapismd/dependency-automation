@@ -45,7 +45,7 @@ the single allowed post-upgrade command and explicit write activation.
 ### Acceptance details
 
 - Tokens MUST be minted for one selected repository with contents/PR writes and checks/status reads.
-- The only allowed post-upgrade command MUST be the exact coordinator `prepare-pr.mjs` entrypoint.
+- The only allowed post-upgrade command MUST be the exact coordinator `prepare-pr.mjs` entrypoint with source-bound workspace context and output paths.
 - General package scripts and unrestricted environment exposure MUST remain disabled.
 - Reconciliation MUST NOT prune stale branches automatically; wave mode adds explicit repair ownership.
 

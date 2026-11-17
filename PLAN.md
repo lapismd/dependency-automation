@@ -25,6 +25,46 @@ remain open; pilot writes are enabled and scheduled/full rollout stays disabled.
       release workflow pass. The original two missing mappings are repaired;
       local unsupported-WebKit launch failures are replaced by supported cold
       proof196 passed/one existing skip, without changing tests or baselines.
+- [x] Core source PR89 merges `df9b0cf1` after all11 hosted checks, including
+      supported browser and dependency-audit gates. The reaction textual-name,
+      destructive-alert contrast, literal-loopback and cold-consumer pnpm fixes
+      are merged; this is source acceptance, not publication or jj-store adoption.
+- [x] Qualify native Core canonical preparation. Shared CI27 merges30fd2352;
+      actual read-only proof44078471329/artifact14325727742 passes for immutable
+      source8952b8e3, including both actual0.13.5 canonical outputs. Independent
+      downloaded ZIP SHA256a54a3dbc…73c263e matches GitHub metadata and the local
+      after-hashes. The deployed6511 runtime guard also accepts the exact new
+      binding. Core91 passes all11 checks and mergesee8b5d43.
+- [x] Regenerate and qualify genuine Core0.13.5. Actual native main versioning
+      44080735998 preparesc2528f11 with both mapped chapters. Refresh resets the
+      existing branch through main and closes PR90 while leaving the genuine
+      six-file candidate on the branch. Independent canonical/spec and48 release
+      controls pass; reopening the existing PR restores all11 fresh successful
+      checks without rerunning publication or fabricating intent. PR90 merges
+      ec0d539a. Workspaces are clean and both foundation parents are included;
+      fresh Dependabot query is empty.
+- [x] Finish Core0.13.5 publication44084229046. Publication, main CI and Pages
+      succeed at ec0d539a. Registry bytes match retained artifact14328169910;
+      independent npm signature and SLSA provenance verification bind the archive
+      to that exact source and npm-production workflow. Registry adoption in
+      jj-store passes all five original failures and all28 affected-family cases;
+      complete cold consumer acceptance remains a separate open gate.
+- [x] Notes Core0.13.5 intake repair154 merges29011545 after all current checks.
+      The original strict range has seven missing canonical areas; the repair
+      carries accurate owner facts, passes that full range and the complete
+      specification check, and executes all288 cold interaction/axe cases.
+- [x] Implement shared workspace canonical preparation in source. Schema2 carries
+      exact admitted versions/integrity and source-owned chapter paths through
+      native Renovate. Actual Notes152 data prepares all seven owners;118 combined
+      intake tests and461 complete coordinator tests pass. Native filesystem,
+      authored intent, catalog routing and first-party edge controls are retained.
+      This is source qualification; consumer adoption is still pending.
+- [ ] Deploy and adopt the workspace profile in the remaining eligible consumers,
+      verify their offline guards and complete hosted candidate/main acceptance.
+- [ ] Automate safe recovery of the observed version-PR refresh closure. Preserve
+      manual closure and repair ownership; require exact bot, source, branch and
+      genuine candidate validation before reopening. Core90 now supplies a second
+      concrete hosted occurrence alongside the earlier Notes observation.
 - [x] Notebook's bounded Core intake is already qualified: genuine bot PR36
       mergesadc4b650 with successful main CI43852663104, versioning, Pages and
       registry workflows. This does not claim generic canonical preparation.
@@ -59,7 +99,7 @@ remain open; pilot writes are enabled and scheduled/full rollout stays disabled.
       is independently verified and its channel hold clears without changing
       raw latest/next facts or consumer scopes. The required Core minimum still
       blocks retirement; no completed Notes chain is claimed.
-- [ ] Finish genuine Notes publication and replay. Dependency PR146 merges
+- [x] Finish genuine Notes publication and replay. Dependency PR146 merges
       `3bd015b5`; canonical version preparation PR148 merges `ddd83d39` after
       199 release tests,69 specification cases and288 cold interaction/axe cases.
       The actual bot command generates all five required canonical pages.
@@ -95,7 +135,12 @@ remain open; pilot writes are enabled and scheduled/full rollout stays disabled.
       three spec lanes, Actionlint and19 native configurations. Fresh public
       inventory independently verifies provenance and locally retires the retained
       six-floor wait to0.2.5; Notes has zero updates and replay preserves release
-      state/operation identities. Actual deployed retirement/replay remain open.
+      state/operation identities. PR46 mergesa814b1b4; exact-main check44050163791
+      and Pages44050163782 pass. Normal44050266761/44051773415 persist
+      generations115/116 with digest-checked artifacts14312739057/14313682778
+      and independent durable read-back. Complete release state and operation
+      identities remain equal; Notes has zero updates and both writer jobs skip.
+      This completes this genuine Notes handoff, not all S3/S6 gates.
 - [x] Stop Notebook's unsupported bot candidates: PR42 merges4e8a66b5, with
       exact-main check44005505946/Pages44005505992 passing. Normal run44005707754
       persists generation89 and skips the consumer writer matrix. Notebook's
@@ -138,16 +183,24 @@ remain open; pilot writes are enabled and scheduled/full rollout stays disabled.
       container44024715361/44024658502 and Storybook Pages44024658151 succeed.
       Existing source-approved KaTeX policy remains unchanged; no new exception
       or production-clean claim is inferred.
-- [ ] Complete jj-store source qualification. The exact original story now
-      passes in a cold worker and all nine native-ID stories pass; a wider
-      seven-family run initially has27 passes/11 failures; source-owned name
-      repairs now pass all38 cases. Full cold acceptance improves from
-      351pass/696fail/two skips through621pass/426fail/two skips to the latest
-      complete956pass/91fail/two skips. The exact mobile search skeleton race
-      and five profile/capture/repository regressions pass, and catalog/web types
-      and ownership pass. Remaining91 failures and wider/cold lanes stay open. Existing audit findings and
-      generic canonical handoffs remain independent gates;
-      no accessibility rule, baseline or retained-Deno prerequisite is waived.
+- [ ] Complete jj-store source qualification. Complete cold UI counts improve
+      from351pass/696fail/two skips through621/426 and956/91 to the current
+      **1047pass/zero failures/two existing skips**, with all1049 cases executed. Six
+      subsequent stale review/step/branch selectors pass their exact targets and
+      all24 directly affected-family cases; catalog/web types and ownership pass.
+      Core0.13.5 is now released and adopted through the ordinary npm range.
+      All five original reaction/contrast/editor targets and all28 directly
+      affected-family cases pass in fresh workers. Earlier diagnostics showed an
+      axe failure skipping Storybook animation cleanup; no editor assertion or
+      timeout was changed. Complete cold Storybook now passes all1047 cases with two existing skips.
+      Current types,1221 catalog units and180 web units pass; the cold static
+      browser contract also passes. Application browser acceptance remains open: its
+      complete115-case audit found26 failures, and exact selector repairs are
+      being qualified without changing timing, outcomes or accessibility rules. Current units/static/browser, native
+      recipe, audit disposition and generic canonical handoffs remain separate;
+      no accessibility rule, baseline or frozen-Deno prerequisite is waived.
+      [Current source and acceptance gates](spec/records/2026-11-17-core-and-jj-store-gates.md)
+      distinguish complete-suite evidence from subsequent focused results.
 
 ## Bot review context follow-up
 

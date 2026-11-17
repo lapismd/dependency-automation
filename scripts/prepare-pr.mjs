@@ -120,6 +120,8 @@ if (context.canonicalPolicySha256) {
     repository: process.env.LAPIS_AUTOMATION_REPOSITORY,
     sourceSha: context.sourceSha,
     policySha256: context.canonicalPolicySha256,
+    admittedUpdates: context.canonicalUpdates,
+    branchName: context.branchName,
   });
 }
 const empty =

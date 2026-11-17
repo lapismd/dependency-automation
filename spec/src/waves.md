@@ -1,5 +1,11 @@
 # Dependency and release waves
 
+The schema2 workspace canonical capability applies to ordinary admitted
+compatible patches across explicitly covered manifests. It verifies source
+policy bytes, active importer coverage, current locked facts and exact registry
+targets before writer admission. It grants no independent wait bypass; only the
+existing schema1 development profile retains that separately bounded behavior.
+
 Wave admission is implemented behind `LAPIS_DEPENDENCY_WAVES=true`, default off.
 Hosted pilot qualification and activation remain separate operator decisions.
 
