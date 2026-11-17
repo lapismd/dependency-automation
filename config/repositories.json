@@ -24,16 +24,16 @@
   "repositories": [
     {
       "repository": "lapismd/mira-mde",
-      "phase": "pilot",
+      "phase": "full",
       "emptyChangeset": true
     },
-    { "repository": "lapismd/design-core", "phase": "pilot" },
+    { "repository": "lapismd/design-core", "phase": "full" },
     {
       "repository": "lapismd/lapis-notes",
-      "phase": "pilot",
+      "phase": "full",
       "emptyChangeset": true
     },
-    { "repository": "lapismd/lapis-plugins", "phase": "pilot" },
+    { "repository": "lapismd/lapis-plugins", "phase": "full" },
     { "repository": "lapismd/lapis-plugin-tasks", "phase": "full" },
     { "repository": "lapismd/lapis-plugin-docs", "phase": "full" },
     { "repository": "lapismd/lapis-plugin-notebook", "phase": "pilot" },

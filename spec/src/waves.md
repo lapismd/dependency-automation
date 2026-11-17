@@ -53,6 +53,11 @@ authorize a downstream update or suppress an eligible upstream repair.
 
 ## DA-WAVE-003 — Qualification and repair ownership
 
+The single-repository pilot retains Notebook alone in the source `pilot` phase.
+Other consumers remain observable, including through already deployed verified
+completion callers, but cannot enter the pilot writer matrix. Enabling the
+schedule does not promote `full` entries or bypass candidate/ownership checks.
+
 **Requirement.** Reconciliation MUST preserve manually repaired branches and require complete current revision qualification before advancing release chains.
 
 ### Acceptance details

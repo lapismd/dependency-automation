@@ -32,9 +32,7 @@ export function validateCompletionPolicy(policy, entries) {
     hold("invalid-completion-policy");
   for (const [repository, workflows] of Object.entries(policy.repositories)) {
     if (
-      !entries.some(
-        (e) => e.repository === repository && e.phase === "pilot",
-      ) ||
+      !entries.some((e) => e.repository === repository && !e.holdReason) ||
       !Array.isArray(workflows) ||
       !workflows.length
     )

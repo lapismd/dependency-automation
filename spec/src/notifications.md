@@ -53,6 +53,13 @@ unknown payload fields before writing public artifacts.
 
 ## DA-NOT-003 — Verified completion wake-up
 
+Known, non-held consumers may continue supplying verified completion observations
+while outside the writable pilot. Callback scope does not grant write admission;
+the current phase, candidate and ownership gates still select every writer.
+Notebook's source policy admits only its exact active CI, Pages and version
+workflow IDs/paths. Registry release and callback self-triggers are not admitted;
+the source-owned npm publication notification remains a separate boundary.
+
 **Requirement.** Completion callbacks MUST verify successful current non-fork source workflow evidence before minting a coordinator-scoped dispatch token.
 
 ### Acceptance details

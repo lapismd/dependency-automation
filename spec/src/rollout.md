@@ -1,5 +1,24 @@
 # Rollout and remaining work
 
+## Single-repository completion
+
+The current objective is to complete and enable Notebook end to end before
+expanding adoption. Other repositories no longer gate that milestone. Notebook
+is the only source `pilot` entry; the global phase stays `pilot`, including
+after scheduling is enabled. Promoting one reviewed entry from `full` to
+`pilot` enables that repository independently, without a global full rollout.
+
+Acceptance requires a genuine compatible Core update, shared canonical
+preparation, current PR and main qualification, source-owned version/release
+disposition, Pages, automatic completion/catch-up and idempotent repeat runs.
+A development-only update must retain no publication intent; it cannot stand
+in for evidence that an npm publication occurred. Existing genuine publication
+evidence and any unexercised release branch remain explicitly distinguished.
+
+Remaining repository adoption belongs in separate assignable tasks with the
+same checklist, exact source evidence, repository-specific blockers and
+activation/rollback steps. Community, Nostr and Deno-only packages stay excluded.
+
 The detailed [maintenance plan](https://github.com/lapismd/dependency-automation/blob/main/PLAN.md)
 owns delivery steps and dated receipts. This page explains scope without
 embedding live operational data in the public book.
