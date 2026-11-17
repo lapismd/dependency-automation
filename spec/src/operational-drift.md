@@ -61,7 +61,7 @@ source/lock bytes, scope, activation or pilot gate. The
 [retirement record](../records/2026-11-16-advisory-retirement.md) retains the
 before/after preflight and pending hosted reconciliation distinction.
 
-## Unapproved picomatch observation — November 17
+## Picomatch observation and exact approval — November 17
 
 Fresh coordinator audit reports HIGH GHSA-fc5q-39xc-vjpf on picomatch2.3.2 and
 4.0.7 at two exact Renovate runtime paths. The dependency-source/lock bytes are
@@ -71,3 +71,12 @@ minting, and the operator also places the consumer writer switch off while
 scheduling remains off. The disabled proposal in
 `docs/proposals/picomatch-high-2026-11-19.md` grants no authority; DA-OPS-002
 still requires a fixed dependency graph or explicit exact operator decision.
+
+The operator subsequently explicitly approves exactly the two proposal bindings
+at `2026-11-17T18:15:39.194Z`, expiring exclusively November19,2026 at00:00UTC
+or sooner on a known published fix. Active policy retains unchanged dependency
+source9d657a74/locka3e1f05f and reviewed proposal PR69. Fresh preflight must
+accept only those two paths; raw audit still reports HIGH, all other gates
+remain blocking, and hosted deployment/regeneration acceptance is separate.
+The [activation evidence](../records/2026-11-17-picomatch-approval.md) records
+before/after qualification without treating the graph as clean.

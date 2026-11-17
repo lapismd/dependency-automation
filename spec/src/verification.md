@@ -51,7 +51,7 @@
 | DA-PR-005   | Implemented | Managed profile context, maintainer-text preservation, ambiguous-marker and GET-only duplicate regressions in profile/message tests.                                     |
 | DA-TOOL-004 | In progress | Revision/lock/CI bindings and recipe separation in tests/tooling-evidence.test.mjs; production inventory.                                                                |
 | DA-OPS-001  | In progress | Operational-drift regressions cover local composites, settings gaps and trusted activation context; hosted context read-back remains pending.                            |
-| DA-OPS-002  | Implemented | Advisory tests, PR34 exact preflight and 2026-11-16 retirement record prove bindings, rejection and stale cleanup after official withdrawal; active approvals are empty. |
+| DA-OPS-002  | Implemented | Advisory/preflight tests and November17 approval record prove two bounded picomatch paths, immutable source/lock, November19 expiry and all unchanged rejection controls |
 | DA-OPS-003  | In progress | Inventory pre-admission audit and repeated pre-App preflight; read-only/state-only behavior preserved; hosted acceptance pending.                                        |
 | DA-NOT-003  | Implemented | Completion/workflow regressions reject stale/fork/unknown evidence; actual CLI metadata-only test permits one dispatch and forbids candidate files and npm reads.        |
 | DA-WAVE-005 | Implemented | Callback settlement, pending-check timing and graph isolation tests; all four pilot callers and repeated Plugins dispatch are hosted-qualified (PLAN.md).                |

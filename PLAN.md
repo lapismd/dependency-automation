@@ -67,9 +67,13 @@ canonical intake and a genuine released Core0.13.4→0.13.5 update to exercise.
       Fresh audit now denies two HIGH picomatch paths underGHSA-fc5q-39xc-vjpf
       on unchanged dependency-source9d657a74/locka3e1f05f. No patched release is
       recorded; consumer writes are placed off, scheduling stays off and the
-      active approval list remains empty. The disabled exact proposal is
-      `docs/proposals/picomatch-high-2026-11-19.md`; prior LOW approvals do not
-      cover it. Complete source repair delivery while this decision is pending.
+      active approval list was empty. Source69 is now deployed at1eaa910e;
+      main check44142073205 and Pages44142073234 pass. The operator subsequently
+      approves exactly the two picomatch paths/source/lock bindings through
+      November19 at00:00UTC or sooner on a known fix. Policy activation and
+      fresh audit qualification are recorded separately from pending hosted
+      deployment and writable candidate regeneration. Prior LOW decisions do
+      not cover this approval; all other gates remain blocking.
 - [ ] Exercise completion/catch-up and idempotent repeated runs, enable normal
       scheduling for this sole pilot and retain exact run/source receipts.
 - [x] Create a tracker in dependency-automation with separate adoption tasks,
@@ -90,7 +94,8 @@ preparation47 and formatter repair48 are merged; main checks and Pages pass.
 ## Current publication and tooling checkpoint — November 17
 
 This checkpoint supersedes dated activity/pending statements below. S3 and S6
-remain open; pilot writes are enabled and scheduled/full rollout stays disabled.
+remain open; the active objective above owns the current pilot/security hold;
+scheduled/full rollout stays disabled.
 
 - [x] Plugins publisher `43962605517` succeeds at `993e5345`, including its
       dependency notification; all ten selected npm versions are read back.
