@@ -9,6 +9,113 @@ const sha = "a".repeat(40),
 const ok = (data) => ({ ok: true, status: 200, json: async () => data });
 const blob = (value) => ({ content: Buffer.from(value).toString("base64") });
 
+test("source-advanced recovery proves unchanged code and dependency inputs from complete exact trees", async () => {
+  const { qualifyRecoverySource } = await import("../src/wave-evidence.mjs");
+  const sourceSha = "b".repeat(40),
+    currentSourceSha = "c".repeat(40);
+  const entry = (path, value = "d".repeat(40), mode = "100644") => ({
+    path,
+    sha: value,
+    mode,
+    type: "blob",
+  });
+  const before = {
+    sha,
+    truncated: false,
+    tree: [
+      entry("package.json"),
+      entry("pnpm-lock.yaml"),
+      entry("pnpm-workspace.yaml"),
+      entry("src/index.mjs"),
+      entry("spec/src/governance.md"),
+    ],
+  };
+  const after = structuredClone(before);
+  after.tree.at(-1).sha = "e".repeat(40);
+  after.tree.push(
+    entry(".github/workflows/ci.yml"),
+    entry(".github/versioning-runtime.json"),
+    entry("scripts/release-pipeline.test.mjs"),
+  );
+  const calls = [];
+  const options = {
+    expectedSourceSha: currentSourceSha,
+    fetcher: async (url) => {
+      calls.push(url);
+      return ok(url.includes(sourceSha) ? before : after);
+    },
+  };
+  const proof = await qualifyRecoverySource(
+    { repository: repo.repository, sourceSha },
+    { ...repo, sourceSha: currentSourceSha, visibility: "public" },
+    options,
+  );
+  assert.equal(proof.sourceSha, sourceSha);
+  assert.equal(proof.currentSourceSha, currentSourceSha);
+  assert.match(proof.projectionSha256, /^[a-f0-9]{64}$/);
+  assert.deepEqual(
+    calls,
+    [sourceSha, currentSourceSha].map(
+      (ref) =>
+        `https://api.github.com/repos/${repo.repository}/git/trees/${ref}?recursive=1`,
+    ),
+  );
+  for (const path of [
+    "package.json",
+    "pnpm-lock.yaml",
+    "pnpm-workspace.yaml",
+    "src/index.mjs",
+    ".github/dependency-automation/canonical-intake.json",
+    "AGENTS.md",
+  ]) {
+    const changed = structuredClone(after);
+    const found = changed.tree.find((e) => e.path === path);
+    if (found) found.sha = "f".repeat(40);
+    else changed.tree.push(entry(path));
+    await assert.rejects(
+      qualifyRecoverySource(
+        { repository: repo.repository, sourceSha },
+        { ...repo, sourceSha: currentSourceSha, visibility: "public" },
+        {
+          ...options,
+          fetcher: async (url) =>
+            ok(url.includes(sourceSha) ? before : changed),
+        },
+      ),
+      /unchanged code and dependency inputs/,
+    );
+  }
+  for (const invalid of [
+    { ...after, truncated: true },
+    { ...after, tree: [...after.tree, after.tree[0]] },
+    { ...after, tree: [...after.tree, entry("../escape")] },
+    {
+      ...after,
+      tree: [...after.tree, entry("spec/link", "f".repeat(40), "120000")],
+    },
+  ])
+    await assert.rejects(
+      qualifyRecoverySource(
+        { repository: repo.repository, sourceSha },
+        { ...repo, sourceSha: currentSourceSha, visibility: "public" },
+        {
+          ...options,
+          fetcher: async (url) =>
+            ok(url.includes(sourceSha) ? before : invalid),
+        },
+      ),
+    );
+  for (const expectedSourceSha of [undefined, "a".repeat(40)])
+    await assert.rejects(
+      qualifyRecoverySource(
+        { repository: repo.repository, sourceSha },
+        { ...repo, sourceSha: currentSourceSha, visibility: "public" },
+        { ...options, expectedSourceSha },
+      ),
+      /exact current public source/,
+    );
+});
+
 test("private and unclassified scopes are opaque coverage holds before reading source", async () => {
   for (const visibility of [{ private: true }, {}]) {
     const calls = [];

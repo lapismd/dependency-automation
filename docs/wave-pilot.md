@@ -104,10 +104,21 @@ PR-head hint verification never replaces the current default-branch graph.
     -f expected-state-revision=EXACT_40_HEX_STATE_COMMIT
   ```
 
-  The collector rejects stale state, changed source, unknown coverage, any
+  The collector rejects stale state, unqualified changed source, unknown coverage, any
   retained dependency branch, any open dependency PR or an incomplete run.
   Recovery creates a new durable decision before a retry. It cannot overwrite
   repair work or bypass qualification.
+
+  If the default branch advanced only through documentation, workflows,
+  version-guard configuration or tests, add
+  `-f recover-source-revision=EXACT_CURRENT_40_HEX_SOURCE_COMMIT`. The collector
+  reads complete immutable public trees at both revisions and requires every
+  other blob/submodule identity and mode to remain unchanged. Manifest, lock,
+  workspace, canonical policy or implementation changes, truncated trees and
+  unsafe/duplicate paths reject this route. Recovery records both revisions
+  and their unchanged projection digest; ordinary fresh planning and required
+  checks still decide which targets may proceed. Never use a guessed SHA or
+  remove a retained repair branch merely to satisfy recovery.
 
 - Manual commits hold their exact rolling or publisher compatibility family.
   Ambiguous branch names hold regeneration conservatively. Resolve/merge the

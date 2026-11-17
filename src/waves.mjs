@@ -865,6 +865,8 @@ export function recoverEmptyOperation(
     expectedRevision,
     revision,
     completedRun,
+    expectedSourceSha,
+    sourceProof,
     now = new Date().toISOString(),
   },
 ) {
@@ -896,9 +898,19 @@ export function recoverEmptyOperation(
   const repo = graph.repositories.find(
     (r) => r.repository === operation.repository,
   );
+  const sourceUnchanged = repo?.sourceSha === operation.sourceSha;
+  const sourceTransition =
+    !sourceUnchanged &&
+    expectedSourceSha === repo?.sourceSha &&
+    sourceProof?.schemaVersion === 1 &&
+    sourceProof.repository === operation.repository &&
+    sourceProof.sourceSha === operation.sourceSha &&
+    sourceProof.currentSourceSha === repo?.sourceSha &&
+    /^[a-f0-9]{64}$/.test(sourceProof.projectionSha256 ?? "");
   if (
     !repo ||
-    repo.sourceSha !== operation.sourceSha ||
+    repo.visibility !== "public" ||
+    (!sourceUnchanged && !sourceTransition) ||
     repo.evidence?.incomplete ||
     !repo.evidence?.dependencyBranches ||
     repo.evidence.dependencyBranches.length ||
@@ -915,6 +927,7 @@ export function recoverEmptyOperation(
     expectedRevision,
     observedAt: now,
     previousRunId: operation.runId,
+    ...(sourceTransition ? { sourceTransition: sourceProof } : {}),
   };
   return state;
 }

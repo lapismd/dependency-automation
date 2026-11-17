@@ -5,6 +5,13 @@ configuration. `scripts/configure-renovate.mjs` selects a target only from the
 validated inventory. `renovate.config.cjs` binds that generated configuration,
 the single allowed post-upgrade command and explicit write activation.
 
+Manual recovery binds the exact stored operation, completed originating run,
+current state revision and empty dependency branch/PR evidence. If source has
+advanced, a separate exact current-source input and immutable-tree projection
+must prove unchanged non-operational code/inputs. This only records recovery;
+fresh ordinary planning, source revalidation and every writer/merge gate still
+apply. No repair branch or live state is overwritten to resume an old attempt.
+
 ## DA-REC-001 — Restricted update managers
 
 **Requirement.** Generated reconciliation MUST handle only eligible first-party npm dependencies within discovered active manifest paths.

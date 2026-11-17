@@ -1,6 +1,82 @@
 import semver from "semver";
+import { createHash } from "node:crypto";
 import { workflowApplies } from "./policy.mjs";
 import { discoverRepository, requestJson } from "./github.mjs";
+
+export async function qualifyRecoverySource(operation, repo, options = {}) {
+  const validSha = (value) => /^[a-f0-9]{40}$/.test(value ?? "");
+  if (
+    repo?.visibility !== "public" ||
+    repo.repository !== operation?.repository ||
+    !validSha(operation.sourceSha) ||
+    !validSha(repo.sourceSha) ||
+    options.expectedSourceSha !== repo.sourceSha
+  )
+    throw Error("Recovery requires an exact current public source revision");
+  const projection = async (revision) => {
+    const tree = await requestJson(
+      `https://api.github.com/repos/${repo.repository}/git/trees/${revision}?recursive=1`,
+      options,
+    );
+    if (
+      tree.truncated !== false ||
+      !validSha(tree.sha) ||
+      !Array.isArray(tree.tree) ||
+      !tree.tree.length
+    )
+      throw Error("Recovery requires complete immutable source trees");
+    const paths = new Set(),
+      entries = [];
+    for (const entry of tree.tree) {
+      if (
+        typeof entry.path !== "string" ||
+        !entry.path ||
+        /[\x00-\x1f\x7f\\]/.test(entry.path) ||
+        entry.path.split("/").some((p) => !p || p === "." || p === "..") ||
+        paths.has(entry.path) ||
+        !validSha(entry.sha) ||
+        !{
+          blob: ["100644", "100755", "120000"],
+          tree: ["040000"],
+          commit: ["160000"],
+        }[entry.type]?.includes(entry.mode)
+      )
+        throw Error("Recovery requires complete safe unique source paths");
+      paths.add(entry.path);
+      if (entry.type === "tree") {
+        if (entry.mode !== "040000") throw Error("Invalid recovery tree mode");
+        continue;
+      }
+      const operational =
+        entry.type === "blob" &&
+        entry.mode === "100644" &&
+        (/^(?:spec|docs)\/.*\.md$/.test(entry.path) ||
+          /^\.github\/workflows\/[^/]+\.ya?ml$/.test(entry.path) ||
+          entry.path === ".github/versioning-runtime.json" ||
+          /^(?:scripts|tests)\/.*\.test\.[cm]?[jt]s$/.test(entry.path));
+      if (!operational)
+        entries.push([entry.path, entry.type, entry.mode, entry.sha]);
+    }
+    return createHash("sha256")
+      .update(
+        JSON.stringify(entries.sort((a, b) => a[0].localeCompare(b[0], "en"))),
+      )
+      .digest("hex");
+  };
+  const before = await projection(operation.sourceSha);
+  const after = await projection(repo.sourceSha);
+  if (before !== after)
+    throw Error(
+      "Source-advanced recovery requires unchanged code and dependency inputs",
+    );
+  return {
+    schemaVersion: 1,
+    repository: repo.repository,
+    sourceSha: operation.sourceSha,
+    currentSourceSha: repo.sourceSha,
+    projectionSha256: before,
+  };
+}
 
 // Pagination is bounded and fails closed; incomplete evidence never qualifies.
 export async function pages(url, options = {}, field) {

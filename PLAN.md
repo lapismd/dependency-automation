@@ -8,24 +8,53 @@ then create a central tracker with independently assignable repository tasks.
 Notebook is selected because it has no root Deno input, an existing bounded
 canonical intake and a genuine released Core0.13.4→0.13.5 update to exercise.
 
-- [ ] Merge and deploy Notebook-only pilot selection. Keep the global phase
+- [x] Merge and deploy Notebook-only pilot selection through49 at260b817a;
+      exact-main check44114336243 and Pages44114335710 pass. Keep the global phase
       `pilot`; move other entries to `full` so enabling the schedule cannot
       enable their writers. Existing verified completion observations remain
       independent of write activation.
-- [ ] Reconcile Notebook's exact retained/uncertain state without overwriting
+- [x] Reconcile Notebook's exact retained/uncertain state without overwriting
       manual work or hand-editing coordinator state. Its closed bot-only Visual
       Delta0.1.0 branch is older than the0.1.5 already selected on main; establish
-      exact supersession before removing it.
+      exact supersession is proven and its exact ref removed with404 read-back.
+      Controlled recovery44119443025 then marks the old empty attempt
+      retry-approved and publishes statef32db5f0, with consumer writes disabled.
+      No state is hand-edited or unsupported API migration re-admitted.
+      Genuine replay44125843709 exposes a second older empty admission0f1650a6
+      from44004351048. Source has advanced only through the reviewed setup43;
+      the new exact-current-source recovery compares complete immutable trees
+      and proves unchanged code/dependency inputs. GET-only dry qualification
+      admits only Core0.13.5 and no other writer. Hosted recovery remains pending.
+- [x] Implement and qualify the shared guard's reviewed development data
+      before dispatching the genuine intake. An isolated copy of the actual
+      Notebook source passes unchanged, then fails with only the Core override
+      changed0.13.4→0.13.5 (`Version recipe source bytes changed`). Retain exact
+      executable/config/settings binding while admitting only source-reviewed
+      compatible development coordinates; do not disable or remove the guard.
+      Shared CI28 mergesd678a21e with301 source tests; the actual full Notebook
+      recipe passes on frozen released Core0.13.5 with Deno absent. Source code,
+      private manifests and lock graph remain bound; Notebook43 adopts the same
+      pinned guard in quality CI and before the version writer. Consumer hosted
+      acceptance passes through Notebook43 merge4484fe44: main CI44124089823,
+      version44124089171 and Pages44124089176 succeed. The version writer/App
+      correctly skip with no release intent. Callback44124857164 verifies the
+      source and sends its completion dispatch. Restore writes for Notebook
+      alone and run normal reconciliation44125843709; scheduling remains off.
+      Receipts: local cache `notebook-single-pilot-20261117/`.
 - [ ] Run the genuine Core0.13.5 intake through shared preparation, bot PR,
       complete current CI, merge, main acceptance and Pages. Verify the
       development-only update creates no false publication intent. Distinguish
       actual publication evidence from a correctly skipped publication branch.
 - [ ] Exercise completion/catch-up and idempotent repeated runs, enable normal
       scheduling for this sole pilot and retain exact run/source receipts.
-- [ ] Create a tracker in dependency-automation with separate adoption tasks,
+- [x] Create a tracker in dependency-automation with separate adoption tasks,
       prerequisites, source-specific blockers, acceptance and rollback for all
       remaining eligible repositories. Community, Nostr and Deno-only packages
       remain excluded. Other product repairs do not block the pilot.
+      [Tracker50](https://github.com/lapismd/dependency-automation/issues/50)
+      links16 independent tasks51–66 and
+      [the common runbook](docs/repository-adoption.md). Pilot activation/replay
+      acceptance remains unchecked until its actual evidence is complete.
 
 Notes155 remains a prepared adoption PR. Its Cloudflare job fails with
 `VerifiedPluginInstaller.fetchBundle: Failed to fetch` on both155 and unchanged

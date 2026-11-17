@@ -41,7 +41,7 @@
 | DA-DOC-001  | Implemented | Released Node validator, pinned mdBook, 42 tests and all three spec lanes; Pages book job 43759765158 passed.                                                            |
 | DA-DOC-002  | Implemented | Main-only isolated deployment 7809666306 succeeded; all indexed chapters, navigation, CSS and JavaScript read back over HTTPS.                                           |
 | DA-WAVE-001 | Implemented | `tests/runtime-minimum-repair.test.mjs`: retained minimum, native candidate and operation/replay gates; wave, catalog and compound regressions remain passing.           |
-| DA-WAVE-002 | Implemented | 80-test source qualification, wave/evidence/CAS regressions and production admission wiring; hosted pilot pending.                                                       |
+| DA-WAVE-002 | Implemented | Exact empty-attempt/CAS recovery; source-advance tree proof rejects changed inputs and preserves current qualification; hosted acceptance remains separate.              |
 | DA-WAVE-003 | Implemented | 80-test source qualification, wave/evidence/CAS regressions and production admission wiring; hosted pilot pending.                                                       |
 | DA-WAVE-004 | Implemented | 80-test source qualification, wave/evidence/CAS regressions and production admission wiring; hosted pilot pending.                                                       |
 | DA-TOOL-001 | In progress | tests/tooling.test.mjs; Node-only generated fixture; hosted/consumer qualification pending.                                                                              |
@@ -58,6 +58,7 @@
 | DA-WAVE-006 | Implemented | Compound/mixed release-floor and lock regressions plus the bound generation82 replay in `spec/records/2026-11-17-scoped-publisher-retirement.md`.                        |
 | DA-TOOL-005 | In progress | Source/job/attempt controls; reviewed cohort record binds Docs/Agent UI/Terminal/Mira jobs and16 same-source observations; hosted refresh pending.                       |
 | DA-TOOL-006 | In progress | GET-only refresh16/16 preserves ranges/provenance; reviewed twelve-constraint repair and full-phase exclusion proof; hosted refresh pending.                             |
+| DA-TOOL-007 | In progress | CI28: exact1→0,29 focused/301 full cases and frozen Core0.13.5 recipe proof; Notebook43 main CI/version guard pass at4484fe44.                                           |
 | DA-PUB-001  | Implemented | Real crypto/mutation/source/recovery tests plus reject-only claim preflight; full-inventory proof is recorded in `spec/records/2026-11-17-publication-budget.md`.        |
 | DA-PUB-002  | Implemented | Current-first collection, bounded shared 128 MiB/256-request budget and exhaustion/cache negatives; no App inventory credentials or source/channel relaxation.           |
 | DA-REL-004  | In progress | Actual Notebook and Notes152 fixtures; workspace scope/target/lock/manual-edit negatives and native preparation filters; new workspace adoption remains pending.         |

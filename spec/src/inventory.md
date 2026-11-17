@@ -11,6 +11,13 @@ coverage, executable source authority or Maintenance/durable report fields.
 runtime cycles and computes eligible stable versions. `scripts/inventory.mjs`
 writes ignored local reports and a gated reconciliation matrix.
 
+Manual empty-attempt recovery may read complete immutable public trees at the
+originating and explicitly selected current source revisions. A source advance
+qualifies only when every non-operational blob/commit identity and mode remain
+equal; documentary/workflow/version-guard/test changes cannot conceal a changed
+manifest, lockfile, workspace, canonical intake policy or implementation. Unknown
+or truncated trees remain holds before state publication or consumer writes.
+
 ## DA-INV-001 — Revision-bound discovery
 
 **Requirement.** Inventory MUST discover active workspace manifests at an exact source revision and retain ownership, consumer and portability evidence.

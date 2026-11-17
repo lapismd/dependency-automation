@@ -19,6 +19,13 @@ Remaining repository adoption belongs in separate assignable tasks with the
 same checklist, exact source evidence, repository-specific blockers and
 activation/rollback steps. Community, Nostr and Deno-only packages stay excluded.
 
+[Tracker50](https://github.com/lapismd/dependency-automation/issues/50) now links
+sixteen separately assignable adoption tasks. The
+[common adoption runbook](https://github.com/lapismd/dependency-automation/blob/main/docs/repository-adoption.md)
+defines source inspection, shared pins, independent qualification, per-entry
+activation, replay and rollback. The tracker retains the pilot's pending gates
+separately from the remaining rollout; creating tasks does not enable writers.
+
 The detailed [maintenance plan](https://github.com/lapismd/dependency-automation/blob/main/PLAN.md)
 owns delivery steps and dated receipts. This page explains scope without
 embedding live operational data in the public book.
