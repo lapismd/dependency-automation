@@ -5,7 +5,7 @@
 The shared dependency workflow is qualified and enabled for Notebook after its
 genuine Core0.13.5 development intake, complete candidate/main CI, native
 auto-merge, Pages and repeated normal reconciliation. Other repositories remain
-independent adoption work. Notebook and the source-qualified no-input Spec Validator are source `pilot` entries; global
+independent adoption work. Notebook, Spec Validator and the source-qualified Visual Delta are source `pilot` entries; global
 phase stays `pilot` with hourly scheduling enabled. Promoting one reviewed entry
 from `full` to `pilot` enables that repository independently, without a global
 full rollout.
@@ -112,3 +112,20 @@ dependency PR or package release is created; Spec Validator adoption62 is
 complete. Existing development-tool remediation remains separately tracked in
 Spec Validator8. The other fifteen repository adoptions and their real holds
 remain open; this is not global full rollout.
+
+Visual Delta's maintenance adoption79 mergede755e2a054967b874f25c5d620ddf490da6ecc59
+after all eight checks passed. Its current-main CI44179706967, native44179706899,
+Pages44179706925 and version44179706883 pass. The actual version guard reports
+intent=false; App minting, the version action and explicit tag creation skip.
+Three trusted source completion callbacks pass. The operator's standing approval
+therefore permits only this entry's full→pilot promotion after source acceptance.
+Notebook and Spec Validator stay enabled; every other entry/exclusion/hold and
+global pilot setting is unchanged. The only supported update is a forward0.2
+patch of the Node-only development validator under its independent source guard.
+No current update is invented; ordinary settlement/replay remains required.
+
+The publication audit hold is retained: VD-GOV-008 governs audit remediation
+and package publication, not this workflow-maintenance merge with no release
+intent. The earlier blanket draft hold was broader than that contract. The
+existing unapproved HIGH remains a publication blocker; no exception, source/
+lock rebinding, tag, package upload or baseline mutation is authorized here.

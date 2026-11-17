@@ -1495,4 +1495,12 @@ records actual tests, corrected preparation failures and remaining gates.
 - [x] Prepare only Spec Validator's `full`→`pilot` source phase change under standing operator approval; preserve all other entries/global settings.
 - [x] Verify actual completion and deploy activation75 after green checks; main/Pages pass and ordinary settlement44176226486 qualifies current source without updates.
 - [x] Verify ordinary repeat44177306438: same unchanged operation, generation172 follows171, durable state matches its candidate and no dependency PR or release is created.
-- [ ] Keep Docs21/Tasks31/Visual Delta79 in the final queue with exact security/acceptance holds.
+- [x] Review the final queue: Docs21/Tasks31 retain required audit failures; Visual Delta79 merged after maintenance-scope review and awaits its separate activation.
+
+### Visual Delta maintenance acceptance and activation
+
+- [x] Merge79 after all eight source checks pass; retain the distinct publication audit gate under VD-GOV-008.
+- [x] Pass current-main CI/native/Pages/version and three verified callbacks; actual intent=false skips App/version/tag writes.
+- [x] Prepare only Visual Delta's full→pilot promotion under standing approval; retain all other entries, global settings and advisory boundaries.
+- [ ] Deploy the reviewed activation after source validation, then record ordinary settlement/replay without inventing a package update or publication.
+- [ ] Keep Docs21/Tasks31 held on their actual required audit failures; retain Visual Delta's future publication audit hold separately.
