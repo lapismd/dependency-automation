@@ -33,7 +33,7 @@ version alone does not admit it or change registry tags.
 ### Acceptance details
 
 - Source policy MUST bind each package, version, integrity, public publisher and attested source; fresh channel, verified publication and exact source-contract evidence MUST agree.
-- Direct admission MUST match repository, manifest path and dependency type; prerequisite closure MUST use only the reviewed cohort allowed at that manifest path, without widening unrelated consumers.
+- Direct admission MUST match repository, manifest path and dependency type; consumer prerequisite closure MUST remain rooted in that path's approved seeds, and public owned publisher retirement MAY use only approved actual runtime/optional/peer fields and their freshly verified cohort prerequisites, with direct scope filters and global eligibility unchanged.
 - Unknown policy, missing scope, deprecated or moved channel, incomplete proof and changed identity MUST fail closed; immediate target revalidation MUST refresh registry identities before consumer writes.
 - Raw publication channel facts MUST remain unchanged; reports MUST retain remaining channel, source, release-floor, compatibility and ownership holds, with unchanged durable/report schemas and CAS.
 

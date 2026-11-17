@@ -133,6 +133,49 @@ export function channelProjection(graph, policy = loadChannelPolicy()) {
   const qualified = policy.cohort.packages.filter((p) =>
     reviewedPublication(graph, p.name, p.version, policy),
   );
+  function project(scoped) {
+    const selected = [...scoped],
+      seen = new Set(selected.map((p) => p.name));
+    // Only already-reviewed, freshly verified pins can close a scoped seed's
+    // required dependency/peer chain; this never creates direct scope entries.
+    for (const pin of selected) {
+      const metadata = graph.registry[pin.name][pin.version];
+      for (const section of ["dependencies", "peerDependencies"])
+        for (const [name, range] of Object.entries(metadata[section] ?? {})) {
+          if (
+            seen.has(name) ||
+            !semver.validRange(range) ||
+            (section === "peerDependencies" &&
+              metadata.peerDependenciesMeta?.[name]?.optional) ||
+            (graph.available[name] ?? []).some((v) =>
+              semver.satisfies(v, range),
+            )
+          )
+            continue;
+          const provider = qualified.find(
+            (p) => p.name === name && semver.satisfies(p.version, range),
+          );
+          if (provider) {
+            seen.add(name);
+            selected.push(provider);
+          }
+        }
+    }
+    const pool = new Map(
+      Object.entries(graph.stableCandidates).map(([n, vs]) => [n, [...vs]]),
+    );
+    for (const p of selected)
+      pool.set(
+        p.name,
+        [...new Set([...(pool.get(p.name) ?? []), p.version])].sort(
+          semver.compare,
+        ),
+      );
+    const registry = new Map(
+      Object.entries(graph.registry).map(([n, versions]) => [n, { versions }]),
+    );
+    return prerequisiteClosure(registry, pool);
+  }
   function forPath(repository, path) {
     const key = repository + ":" + path;
     if (cache.has(key)) return cache.get(key);
@@ -147,24 +190,52 @@ export function channelProjection(graph, policy = loadChannelPolicy()) {
           s.repository === repository && s.path === path && s.name === p.name,
       ),
     );
-    const pool = new Map(
-      Object.entries(graph.stableCandidates).map(([n, vs]) => [n, [...vs]]),
-    );
-    for (const p of scoped)
-      pool.set(
-        p.name,
-        [...new Set([...(pool.get(p.name) ?? []), p.version])].sort(
-          semver.compare,
-        ),
-      );
-    const registry = new Map(
-      Object.entries(graph.registry).map(([n, versions]) => [n, { versions }]),
-    );
-    const result = prerequisiteClosure(registry, pool);
+    const result = project(scoped);
     cache.set(key, result);
     return result;
   }
   return {
+    publisherVersions(repository, path, name) {
+      const repo = graph.repositories.find(
+        (r) => r.repository === repository && r.visibility === "public",
+      );
+      const entry = repo?.manifests.find(
+        (p) =>
+          p.path === path && p.manifest.name === name && !p.manifest.private,
+      );
+      if (
+        !entry ||
+        !graph.packages.some(
+          (p) =>
+            p.repository === repository && p.path === path && p.name === name,
+        )
+      )
+        return [];
+      if (
+        graph.channelPolicySha256 !== channelPolicyDigest(policy) ||
+        !graph.stableCandidates
+      )
+        return graph.available[name] ?? [];
+      const scoped = qualified.filter((pin) =>
+        policy.cohort.scopes.some((scope) => {
+          const range = entry.manifest[scope.type]?.[pin.name];
+          return (
+            scope.repository === repository &&
+            scope.path === path &&
+            scope.name === pin.name &&
+            [
+              "dependencies",
+              "optionalDependencies",
+              "peerDependencies",
+            ].includes(scope.type) &&
+            typeof range === "string" &&
+            semver.validRange(range) &&
+            semver.satisfies(pin.version, range)
+          );
+        }),
+      );
+      return project(scoped)[name] ?? [];
+    },
     versions(edge) {
       const vs = forPath(edge.repository, edge.path)?.[edge.name] ?? [];
       return vs.filter(

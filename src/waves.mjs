@@ -169,11 +169,29 @@ function targetRange(edge, target) {
   return /^[~^]/.test(edge.range) ? edge.range[0] + target : target;
 }
 
-function released(intent, graph, repo) {
+function compoundRequirement(req, entry, metadata, repo) {
+  const range = entry.manifest[req.type]?.[req.name];
+  if (
+    !["dependencies", "optionalDependencies"].includes(req.type) ||
+    typeof range !== "string" ||
+    !range.includes("||") ||
+    !semver.validRange(range) ||
+    !semver.satisfies(req.target, range) ||
+    metadata[req.type]?.[req.name] !== range
+  )
+    return false;
+  const resolved = lockVersion(repo, {
+    path: entry.path,
+    type: req.type,
+    name: req.name,
+  }).version;
+  return !!resolved && semver.gte(resolved, req.target);
+}
+
+function released(intent, graph, repo, channels) {
   if (!intent.requires.length) return false;
-  const own = repo.manifests.find(
-    (p) => p.manifest.name === intent.name,
-  )?.manifest;
+  const entry = repo.manifests.find((p) => p.manifest.name === intent.name),
+    own = entry?.manifest;
   if (
     !own ||
     !semver.valid(own.version) ||
@@ -185,12 +203,15 @@ function released(intent, graph, repo) {
     !metadata?.integrity ||
     !verifiedPublication(metadata, repo, own) ||
     (metadata.publication.channel.admitted !== true &&
-      !channelProjection(graph).publication(intent.name, own.version)) ||
+      !channels.publication(intent.name, own.version)) ||
     (!(graph.available[intent.name] ?? []).includes(own.version) &&
-      !channelProjection(graph).publication(intent.name, own.version))
+      !channels.publication(intent.name, own.version) &&
+      !channels
+        .publisherVersions(repo.repository, entry.path, intent.name)
+        .includes(own.version))
   )
     return false;
-  return intent.requires.every((req) => {
+  const floors = intent.requires.map((req) => {
     const range = metadata[req.type]?.[req.name];
     return (
       semver.validRange(range) &&
@@ -199,11 +220,17 @@ function released(intent, graph, repo) {
         semver.gte(semver.minVersion(range), req.target))
     );
   });
+  return (
+    floors.some(Boolean) &&
+    intent.requires.every(
+      (req, n) => floors[n] || compoundRequirement(req, entry, metadata, repo),
+    )
+  );
 }
 
 // Earlier planners could invent publication intent for a lock-only compound
 // update. Retire only that disproved wait, never claim a new publication.
-function obsoleteCompoundIntent(intent, graph, repo) {
+function obsoleteCompoundIntent(intent, graph, repo, channels) {
   const entry = repo.manifests.find((p) => p.manifest.name === intent.name);
   const own = entry?.manifest;
   const metadata = graph.registry?.[intent.name]?.[own?.version];
@@ -213,29 +240,17 @@ function obsoleteCompoundIntent(intent, graph, repo) {
     !metadata?.integrity ||
     !verifiedPublication(metadata, repo, own) ||
     (metadata.publication.channel.admitted !== true &&
-      !channelProjection(graph).publication(intent.name, own.version)) ||
+      !channels.publication(intent.name, own.version)) ||
     (!(graph.available[intent.name] ?? []).includes(own.version) &&
-      !channelProjection(graph).publication(intent.name, own.version))
+      !channels.publication(intent.name, own.version) &&
+      !channels
+        .publisherVersions(repo.repository, entry.path, intent.name)
+        .includes(own.version))
   )
     return false;
-  return intent.requires.every((req) => {
-    const range = own[req.type]?.[req.name];
-    if (
-      !["dependencies", "optionalDependencies"].includes(req.type) ||
-      typeof range !== "string" ||
-      !range.includes("||") ||
-      !semver.validRange(range) ||
-      !semver.satisfies(req.target, range) ||
-      metadata[req.type]?.[req.name] !== range
-    )
-      return false;
-    const resolved = lockVersion(repo, {
-      path: entry.path,
-      type: req.type,
-      name: req.name,
-    }).version;
-    return resolved && semver.gte(resolved, req.target);
-  });
+  return intent.requires.every((req) =>
+    compoundRequirement(req, entry, metadata, repo),
+  );
 }
 
 // Package SCCs prevent false repository cycles (A's API -> B -> A's app).
@@ -460,14 +475,14 @@ export function planWaves(graph, previous = emptyState(), options = {}) {
         release.requires.length &&
         !intents.has(release.name) &&
         node.acceptance.state === "qualified" &&
-        obsoleteCompoundIntent(release, graph, repo)
+        obsoleteCompoundIntent(release, graph, repo, channels)
       ) {
         release.status = "superseded";
         release.supersededSourceSha = node.sourceSha;
       }
       if (
         release.status === "waiting" &&
-        released(release, graph, repo) &&
+        released(release, graph, repo, channels) &&
         node.acceptance.state === "qualified"
       ) {
         release.status = "published";
