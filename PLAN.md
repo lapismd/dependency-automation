@@ -30,7 +30,11 @@ canonical intake and a genuine released Core0.13.4→0.13.5 update to exercise.
       recipe passes on frozen released Core0.13.5 with Deno absent. Source code,
       private manifests and lock graph remain bound; Notebook43 adopts the same
       pinned guard in quality CI and before the version writer. Consumer hosted
-      acceptance remains pending, and temporary consumer writes stay disabled.
+      acceptance passes through Notebook43 merge4484fe44: main CI44124089823,
+      version44124089171 and Pages44124089176 succeed. The version writer/App
+      correctly skip with no release intent. Callback44124857164 verifies the
+      source and sends its completion dispatch. Restore writes for Notebook
+      alone and run normal reconciliation44125843709; scheduling remains off.
       Receipts: local cache `notebook-single-pilot-20261117/`.
 - [ ] Run the genuine Core0.13.5 intake through shared preparation, bot PR,
       complete current CI, merge, main acceptance and Pages. Verify the
@@ -38,10 +42,14 @@ canonical intake and a genuine released Core0.13.4→0.13.5 update to exercise.
       actual publication evidence from a correctly skipped publication branch.
 - [ ] Exercise completion/catch-up and idempotent repeated runs, enable normal
       scheduling for this sole pilot and retain exact run/source receipts.
-- [ ] Create a tracker in dependency-automation with separate adoption tasks,
+- [x] Create a tracker in dependency-automation with separate adoption tasks,
       prerequisites, source-specific blockers, acceptance and rollback for all
       remaining eligible repositories. Community, Nostr and Deno-only packages
       remain excluded. Other product repairs do not block the pilot.
+      [Tracker50](https://github.com/lapismd/dependency-automation/issues/50)
+      links16 independent tasks51–66 and
+      [the common runbook](docs/repository-adoption.md). Pilot activation/replay
+      acceptance remains unchecked until its actual evidence is complete.
 
 Notes155 remains a prepared adoption PR. Its Cloudflare job fails with
 `VerifiedPluginInstaller.fetchBundle: Failed to fetch` on both155 and unchanged

@@ -36,3 +36,39 @@ This source slice does not enable scheduling or claim end-to-end completion.
 Remaining gates are the deployed callback, safe exact-operation recovery,
 genuine bot candidate/current CI/merge/main/Pages, correct release disposition,
 completion and repeat-run proof, then the separate adoption tracker.
+
+## Deployed pilot setup and parallel handoff
+
+Coordinator49 merges260b817ae9bb418baec50ee9fce7647c12535d30. Its exact-main
+check44114336243 and Pages44114335710 succeed. The old empty Notebook
+operation215bd52c16f965b635684a10ec7e7cd1f0efec6a5a4d303927ed938f41b32a94
+is recovered only through the existing controlled workflow44119443025 while
+consumer writes are disabled. Durable statef32db5f0 records retry-approved with
+the original run43997513897; no state is hand-edited and no unsupported target
+is re-admitted.
+
+Shared CI28 mergesd678a21e after301 source tests. Its optional reviewed direct
+development override preserves exact recipe/settings binding. The actual
+Notebook version command passes on a frozen released Core0.13.5 install with
+Deno absent, preserving private packages and the lock graph; this is isolated
+local whole-recipe proof, not a new npm publication. Its receipt remains in the
+local `notebook-single-pilot-20261117` cache. Existing hosted whole-recipe
+43987271519 remains separately attributed to its original source/inputs.
+
+Notebook43 merges4484fe4440f7ae5febc947b5db9b8c1f348f32ad. Its complete main
+CI44124089823, Pages44124089176 and version44124089171 succeed. The ordinary
+quality lane runs the guard before merge; main versioning accepts the same
+guard and correctly skips App minting/Changesets with no release intent.
+CI's publication branch also skips. Callback44124857164 verifies current
+completion and sends its exact-source coordinator wake-up. Restore only the
+already reviewed Notebook writer and dispatch ordinary44125843709. The hourly
+schedule stays off pending genuine intake and replay acceptance.
+
+Tracker50 and16 child tasks51–66 now separate remaining repository adoption.
+Each task includes graph-derived owner/upstream context, current source
+inspection, shared integration, independent canonical/recipe qualification,
+functional checks, publication/completion, per-entry activation and rollback.
+Notes155's existing Cloudflare main failure and Desktop's explicit projection
+hold remain visible; these are not new serial pilot gates. The source runbook
+is `docs/repository-adoption.md`. Genuine intake, settled replay and scheduled
+acceptance are still pending at this checkpoint.

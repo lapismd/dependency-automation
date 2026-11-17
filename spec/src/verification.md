@@ -58,7 +58,7 @@
 | DA-WAVE-006 | Implemented | Compound/mixed release-floor and lock regressions plus the bound generation82 replay in `spec/records/2026-11-17-scoped-publisher-retirement.md`.                        |
 | DA-TOOL-005 | In progress | Source/job/attempt controls; reviewed cohort record binds Docs/Agent UI/Terminal/Mira jobs and16 same-source observations; hosted refresh pending.                       |
 | DA-TOOL-006 | In progress | GET-only refresh16/16 preserves ranges/provenance; reviewed twelve-constraint repair and full-phase exclusion proof; hosted refresh pending.                             |
-| DA-TOOL-007 | In progress | CI28: exact1→0,29 focused/301 full cases and frozen Core0.13.5 recipe proof; Notebook43 hosted adoption pending.                                                         |
+| DA-TOOL-007 | In progress | CI28: exact1→0,29 focused/301 full cases and frozen Core0.13.5 recipe proof; Notebook43 main CI/version guard pass at4484fe44.                                           |
 | DA-PUB-001  | Implemented | Real crypto/mutation/source/recovery tests plus reject-only claim preflight; full-inventory proof is recorded in `spec/records/2026-11-17-publication-budget.md`.        |
 | DA-PUB-002  | Implemented | Current-first collection, bounded shared 128 MiB/256-request budget and exhaustion/cache negatives; no App inventory credentials or source/channel relaxation.           |
 | DA-REL-004  | In progress | Actual Notebook and Notes152 fixtures; workspace scope/target/lock/manual-edit negatives and native preparation filters; new workspace adoption remains pending.         |
