@@ -13,8 +13,9 @@ remain open; pilot writes are enabled and scheduled/full rollout stays disabled.
       Search0.1.13 version page are verified. The complete reviewed registry
       batch is live without republishing an existing package.
 - [x] Notes readiness PR145 is merged at `f450b46c`; exact-main CI43963799582
-      passes. Its next genuine downstream release must still exercise deployed
-      publication verification; local retained-artifact proof does not close it.
+      passes. Genuine Profile0.2.5 publisher44043671120 now passes the deployed
+      signature/provenance/install verifier and notification on attempt1;
+      independent public metadata/archive and coordinator proof agree.
 - [x] Terminal's corrected shared native recipe passes43964207457, with its
       digest-checked artifact and private-none plan preserved. Owner PR25 merges
       `f93e854a`; exact-main CI43973344590 and version43973344633 pass, with no
@@ -79,8 +80,22 @@ remain open; pilot writes are enabled and scheduled/full rollout stays disabled.
       incorrectly drops the still-required manifest minimum once the lock moves.
       The source repair now qualifies431 tests and a fresh GET-only graph: exactly
       one Notes Profile Core minimum update^0.13.3→^0.13.4 is actionable; the
-      original publication floor remains binding. Hosted repair/candidate/release
-      and subsequent publisher retirement/replay remain open.
+      original publication floor remains binding. PR45 deploysd3305ef4; main
+      check44033990840/Pages44033990799 and normal reconciliation44034002231
+      succeed. Digest-checked artifact14305964766 retains generation102 and the
+      original six floors; the native writer opens genuine repair150. Notes'
+      mapped owner evidence, complete root check/test/build/spec and288 cold
+      interactions pass, then150 mergesddb58c80. Automatic versioning generates
+      genuine Profile0.2.5 PR151 and its five canonical pages; final-head CI and
+      main-range/release/spec checks pass. PR151 merges5774c6ab and main release
+      validation44043361070 succeeds. Publication44043671120 attempt1 passes
+      publish, verification, GitHub release and notification. Full/install
+      registry metadata and the31,132-byte tarball match digest-checked release
+      artifact14311820861. The exact publication-only rebind passes431 tests,
+      three spec lanes, Actionlint and19 native configurations. Fresh public
+      inventory independently verifies provenance and locally retires the retained
+      six-floor wait to0.2.5; Notes has zero updates and replay preserves release
+      state/operation identities. Actual deployed retirement/replay remain open.
 - [x] Stop Notebook's unsupported bot candidates: PR42 merges4e8a66b5, with
       exact-main check44005505946/Pages44005505992 passing. Normal run44005707754
       persists generation89 and skips the consumer writer matrix. Notebook's
@@ -118,14 +133,19 @@ remain open; pilot writes are enabled and scheduled/full rollout stays disabled.
       versioning44020957109 accepts the guard, then mints the scoped App and
       updates genuine version PR97; the empty-plan publication branch is skipped.
       Local212 units/eight CLI-workflow cases and actual/empty-plan probes pass.
-      Existing source-approved KaTeX policy remains unchanged; actual version
-      delivery and complete main qualification stay separate.
+      Genuine version PR97 merges83fca8ddd25b7b7913723e231779862f94f7dbcb.
+      Exact-main Server CI44024658167, release44024658166, CLI archives44024718975,
+      container44024715361/44024658502 and Storybook Pages44024658151 succeed.
+      Existing source-approved KaTeX policy remains unchanged; no new exception
+      or production-clean claim is inferred.
 - [ ] Complete jj-store source qualification. The exact original story now
       passes in a cold worker and all nine native-ID stories pass; a wider
       seven-family run initially has27 passes/11 failures; source-owned name
       repairs now pass all38 cases. Full cold acceptance improves from
-      351pass/696fail/two skips to621pass/426fail/two skips; remaining failures
-      and required wider/cold lanes stay open. Existing audit findings and
+      351pass/696fail/two skips through621pass/426fail/two skips to the latest
+      complete956pass/91fail/two skips. The exact mobile search skeleton race
+      and five profile/capture/repository regressions pass, and catalog/web types
+      and ownership pass. Remaining91 failures and wider/cold lanes stay open. Existing audit findings and
       generic canonical handoffs remain independent gates;
       no accessibility rule, baseline or retained-Deno prerequisite is waived.
 

@@ -3,7 +3,7 @@
 Wave admission is implemented behind `LAPIS_DEPENDENCY_WAVES=true`, default off.
 Hosted pilot qualification and activation remain separate operator decisions.
 
-The reviewed Profile0.2.4 publication-only binding retires only its own genuinely
+The reviewed Profile0.2.5 publication-only binding retires only its own genuinely
 newer, fully verified and currently qualified release. It does not admit Profile
 consumer updates or bypass dependency floors, channel drift or replay/CAS gates.
 
