@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "kind": "notes-eligibility-prospective",
+  "observedAt": "2026-11-18T04:02:22.734Z",
+  "policyRevision": "336b19f4b741d03759e103537c173fdd7f6e4e37",
+  "source": "538bb4697839a788f041e1830465907e10f50bba",
+  "phase": "pilot",
+  "emptyChangeset": true,
+  "acceptance": {
+    "state": "waiting",
+    "reason": "current CI still running"
+  },
+  "status": "upstream-wait",
+  "updates": 1,
+  "admittedUpdates": 0,
+  "holds": [],
+  "waits": 16,
+  "requestedWrites": false,
+  "stateWrites": false,
+  "strictActualAuiAndCjsConfig": "passed",
+  "notesWriterRefusesHeldNode": true,
+  "coverage": [],
+  "cycles": []
+}

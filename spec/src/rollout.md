@@ -5,7 +5,9 @@
 The shared dependency workflow is qualified and enabled for Notebook after its
 genuine Core0.13.5 development intake, complete candidate/main CI, native
 auto-merge, Pages and repeated normal reconciliation. Other repositories remain
-independent adoption work. Notebook, Spec Validator, Visual Delta, Terminal and Registry are source `pilot` entries; global
+independent adoption work. Notebook, Spec Validator, Visual Delta, Terminal, Registry, Plugins, Agent UI,
+AI, JJ Store and Notes are source `pilot` policy entries; the first five have
+completed their applicable live/replay acceptance. Global
 phase stays `pilot` with hourly scheduling enabled. Promoting one reviewed entry
 from `full` to `pilot` enables that repository independently, without a global
 full rollout.
@@ -192,3 +194,17 @@ every other empty-note setting, exclusions, holds and global pilot gates remain
 unchanged. Ordinary live reconciliation, exact settlement and repeat acceptance
 remain open until their own receipts exist. The user's unrelated JJ Store
 main/release repair exclusion does not alter the collector or assert a pass.
+
+## Notes activation eligibility
+
+Standing post-merge operator approval promotes only Notes from full to pilot
+after source155 merged with all required checks passing. Its existing measured
+`emptyChangeset: true` flag remains unchanged. Source policy limits supported
+inputs and preserves frozen hosts; publisher/channel/audit authority stays
+with the source. The [activation record](https://github.com/lapismd/dependency-automation/blob/main/spec/records/2026-11-18-notes-activation.md)
+separates source acceptance, current-source release preparation and the live
+publication attempt. Pending current CI and upstream/publication waits continue
+to hold writers. Existing nine pilot entries, all other flags/holds/exclusions,
+empty artifact capabilities and global pilot/schedule settings are unchanged.
+Actual publication proof, ordinary live settlement and repeat remain required;
+policy eligibility alone does not complete adoption53.
