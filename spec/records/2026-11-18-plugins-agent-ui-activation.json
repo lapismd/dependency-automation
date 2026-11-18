@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "kind": "pre-merge-source-activation-qualification",
+  "observedAt": "2026-11-18T01:59:36.408Z",
+  "coordinatorParent": "2645f68c860e3441cdfe54f36cd51b71a784d9f7",
+  "proposedRepositoryPolicySha256": "db01d3525ff2f677257ed1ccf7390d0b1336d4a9733fba4f5c13c5acf7702911",
+  "requestedWrites": false,
+  "effectiveWritableAdmission": false,
+  "sourceEntries": {
+    "lapismd/lapis-plugins": {
+      "sourceSha": "8a90c1063dab11af5e5c211bc00a3ebbce79c0cd",
+      "canonicalPolicySha256": "83acf38da08046331ae7d7475df1c73e01a0706aa7a9a97b36e1aa04c5a5cf52",
+      "phase": "pilot",
+      "forcedEmptyNote": false,
+      "acceptance": {
+        "state": "qualified",
+        "reason": "all observed current workflows and checks completed"
+      },
+      "status": "upstream-wait",
+      "availableUpdateInputs": 11,
+      "admittedUpdateInputs": 0,
+      "sourceHolds": 0,
+      "upstreamWaits": 21,
+      "branchOwnershipHolds": 1,
+      "operationId": "159c1b92a04edadb843705705efaf258e38929f4d175d110b7737268435442f4"
+    },
+    "lapismd/agent-ui": {
+      "sourceSha": "92778247fe369da6455a00909039b818503fab3e",
+      "canonicalPolicySha256": "07f966aac8ef2ce5ed9e6bfcb9058c7796e30fa1d017352cc0371dbccc58226b",
+      "phase": "pilot",
+      "forcedEmptyNote": false,
+      "acceptance": {
+        "state": "qualified",
+        "reason": "all observed current workflows and checks completed"
+      },
+      "status": "admitted",
+      "availableUpdateInputs": 3,
+      "admittedUpdateInputs": 3,
+      "sourceHolds": 0,
+      "upstreamWaits": 2,
+      "branchOwnershipHolds": 0,
+      "operationId": "726d8feef0c98971bb1afc2b7162e39476a394d8e996436568d42713afca55dc"
+    }
+  },
+  "runtimeAdvisory": {
+    "dependencySource": "9d657a7458e40ca84962a12c9b8e361534b3470f",
+    "lockSha256": "a3e1f05fe6a25925d61b6af7baf5316c24156a0b71319611f6e3298bbca61b8b",
+    "acceptedExactPaths": 2,
+    "changed": false
+  },
+  "deployed": false,
+  "liveReconciliationAndRepeat": "pending; no release or update outcome inferred"
+}

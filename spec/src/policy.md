@@ -207,7 +207,8 @@ The next adoption batches cover existing Node foundations/plugins, native/server
 packages and applications/registry independently. Only the parent coordinator
 changes registrations, per-repository activation or durable shared state; source
 preparation does not enable writes. Notebook, Spec Validator and Visual Delta
-remain the only enabled entries until each additional source passes acceptance.
+were the three enabled entries at the start of parallel preparation; subsequent
+per-entry activation is recorded in the dated sections below.
 
 Agent Redaction publicly exports `./deno` and requires `pnpm test:deno` under its
 tracked guide. The operator excludes any Deno package. Its monitoring exclusion,
@@ -241,3 +242,15 @@ private registry access or version recipe; a later promotion must remove this
 observer opt-in rather than silently inherit it. Excluded Deno roots cannot use
 this registration mechanism. Schedule, preview, trial, health, image publication
 and callback self-triggers remain outside the allowed workflow/event pairs.
+
+## Plugins and Agent UI activation
+
+The operator's standing post-merge approval promotes only Plugins and Agent UI
+from full to pilot after exact-source, current-main and verified completion
+acceptance. Their existing empty-Changeset settings stay unchanged: each real
+version recipe correctly returns false intent without a forced empty note.
+All other phases, holds, exclusions, global pilot settings and exact advisory
+bindings remain unchanged. The [source activation receipt](https://github.com/lapismd/dependency-automation/blob/main/spec/records/2026-11-18-plugins-agent-ui-activation.md)
+records their independent evidence. Ordinary live reconciliation and repeat
+remain required; unavailable upstream publication floors are not waived, and
+no dependency update, version PR or publication is invented to force activity.
