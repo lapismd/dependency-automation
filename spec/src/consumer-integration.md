@@ -1,5 +1,11 @@
 # Consumer integration
 
+DA-REL-006 adds an inactive SDK artifact capability, not a private prerequisite
+workaround. Its trusted Node generator uses an existing immutable portable
+closure and data-only source descriptor. Exact private-source inventory and
+nested CI-docs manifest bytes remain bound; full archive/source qualification
+and any later operator eligibility decision remain independent prerequisites.
+
 `scripts/prepare-consumer.mjs` installs the governed policy wrapper and patches
 known workflow/validation boundaries. It preserves repository-owned commands.
 `scripts/onboard-changesets.mjs` prepares selected public root packages for

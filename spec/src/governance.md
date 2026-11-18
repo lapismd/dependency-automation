@@ -1,5 +1,9 @@
 # Specification governance
 
+Seeded SDK artifact data, policy, native generation and filesystem adapters map
+to DA-REL-006 under Release intent and Consumer integration; normal ownership,
+explicit capability decisions and independent source gates remain required.
+
 The source-owned tagged-workspace publication verifier maps to DA-PUB-005 and
 Waves; this registration changes no publisher execution or completion authority.
 

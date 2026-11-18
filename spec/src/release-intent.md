@@ -14,6 +14,7 @@ Changeset writing to `src/changesets.mjs`.
 - Missing or invalid Renovate branch context MUST fail.
 - The install MUST use `--frozen-lockfile`, `--ignore-scripts` and `--ignore-pnpmfile`.
 - Workspace catalog changes MUST inspect every active affected consumer, including peer contracts.
+- DA-REL-006 MAY prepare SDK artifacts only after its frozen projection verification; it MUST NOT create runtime release intent or substitute tooling evidence for full private-archive candidate qualification.
 
 ## DA-REL-002 — Appropriate release targets
 
@@ -110,3 +111,14 @@ declared preparation profile. Unsupported sets remain explicit holds before a
 writer token or Renovate execution, instead of creating recurring artifact-error
 PRs. Repositories without an opt-in keep their existing behavior; expanding a
 source policy or qualifying a product/API migration remains source-owned work.
+
+## DA-REL-006 — Inactive seeded SDK artifact capability
+
+**Requirement.** A private Desktop SDK artifact projection MUST require both an immutable source descriptor and a separate exact trusted coordinator capability, with no live entry enabled by this capability change.
+
+### Acceptance details
+
+- The bounded root-development-only profile MUST freeze all nonselected manifest/workspace/portable-lock fields and exact private source-inventory/CI-docs bytes; only selected SDK identity, importer, existing override and registry integrity may normalize, without masking generic peer hashes or another SDK context.
+- Native pinned Node24/pnpm generation MUST seed the actual existing SDK/jiti/TypeScript closure, disable scripts/hooks and credentials, verify the projection frozen and surgically copy only independently proved native SDK blocks; no-op output MUST preserve original full bytes, and unrelated/shared/metadata/closure changes MUST fail before copyback.
+- Only the explicitly selected regex manager MAY defer artifacts to the existing trusted preparation hook; its actual extraction, artifact/post-task collection and final commit behavior MUST be qualified against real pinned Renovate, while ordinary npm profiles and all canonical/candidate/native checks remain required.
+- Source data MUST NOT clear a private/rollout/CI/publication/audit hold or grant activation; a projection is not full Desktop installation or a production-clean claim, and source-owned eight-archive/audit/product gates plus a separate later eligibility decision remain mandatory.

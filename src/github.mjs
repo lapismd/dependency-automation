@@ -11,6 +11,13 @@ import { monitoringRepositories } from "./maintenance-policy.mjs";
 import { httpResponseError } from "./github-response.mjs";
 import { publicSourceFileReader } from "./github-public-files.mjs";
 import {
+  projectionPath,
+  projectionInputs,
+  projectionHash,
+  validateProjectionDescriptor,
+  parseProjectionDescriptor,
+} from "./artifact-projection.mjs";
+import {
   activeManifests,
   dependencies,
   excluded,
@@ -163,6 +170,26 @@ export async function discoverRepository(entry, options = {}) {
     }
   }
   let canonicalIntake;
+  let artifactProjection;
+  if (paths.includes(projectionPath)) {
+    const bytes = await file(projectionPath);
+    if (Buffer.byteLength(bytes) > 8192)
+      throw Error("Oversized artifact projection descriptor");
+    artifactProjection = {
+      bytes,
+      sha256: projectionHash(bytes),
+      descriptor: parseProjectionDescriptor(bytes),
+      inputs: Object.fromEntries(
+        await Promise.all(
+          projectionInputs.map(async (p) => [p, await file(p)]),
+        ),
+      ),
+    };
+    validateProjectionDescriptor(
+      artifactProjection.descriptor,
+      artifactProjection.inputs,
+    );
+  }
   if (paths.includes(intakePolicyPath)) {
     const bytes = await file(intakePolicyPath);
     if (Buffer.byteLength(bytes) > 8192)
@@ -209,6 +236,7 @@ export async function discoverRepository(entry, options = {}) {
     ...(entry.holdReason ? { holdReason: entry.holdReason } : {}),
     sourceSha: sha,
     ...(canonicalIntake ? { canonicalIntake } : {}),
+    ...(artifactProjection ? { artifactProjection } : {}),
     pushWorkflows,
     prWorkflows,
     prWorkflowRules,

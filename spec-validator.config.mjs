@@ -39,6 +39,14 @@ export default defineConfig(headingRequirements(), {
       ],
       rules: [
         {
+          pattern:
+            "^src/artifact-projection(?:-(?:policy|native|files))?\\.mjs$|^config/artifact-projections\\.json$",
+          chapters: [
+            "spec/src/release-intent.md",
+            "spec/src/consumer-integration.md",
+          ],
+        },
+        {
           pattern: "^src/canonical-admission\\.mjs$",
           chapters: ["spec/src/waves.md", "spec/src/release-intent.md"],
         },

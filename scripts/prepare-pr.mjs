@@ -25,13 +25,24 @@ try {
 }
 if (hasCanonicalPolicy && !context.canonicalPolicySha256)
   throw Error("Canonical intake held: missing admitted source policy context");
-// Renovate has already regenerated candidate artifacts. Prove that the exact
-// candidate installs without rewriting its lockfile or executing package code.
-execFileSync(
-  "pnpm",
-  ["install", "--frozen-lockfile", "--ignore-scripts", "--ignore-pnpmfile"],
-  { cwd: root, stdio: "inherit", timeout: 20 * 60 * 1000 },
-);
+// Ordinary managers already generated artifacts. Only an exact two-key SDK
+// capability may use the trusted seeded generator; both paths verify frozen
+// metadata without running consumer scripts, before release-intent preparation.
+if (context.artifactProjection) {
+  const { prepareProjectedArtifacts } =
+    await import("../src/artifact-projection-files.mjs");
+  await prepareProjectedArtifacts({
+    root,
+    repository: process.env.LAPIS_AUTOMATION_REPOSITORY,
+    sourceSha: context.sourceSha,
+    context: context.artifactProjection,
+  });
+} else
+  execFileSync(
+    "pnpm",
+    ["install", "--frozen-lockfile", "--ignore-scripts", "--ignore-pnpmfile"],
+    { cwd: root, stdio: "inherit", timeout: 20 * 60 * 1000 },
+  );
 const git = (args) =>
   execFileSync("git", args, { cwd: root, encoding: "utf8" });
 const formattingInputs = ["deno.json", "deno.jsonc"];

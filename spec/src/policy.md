@@ -1,5 +1,9 @@
 # Repository policy
 
+DA-REL-006's separate artifact capability map defaults to no repositories. A
+source opt-in cannot enable native projections or alter any existing private,
+phase, CI, publication or audit hold. This implementation installs no live entry.
+
 DA-PUB-005 registers only Agent UI's reviewed tagged-workspace publisher and
 source-byte contract. It changes no repository phase, channel scope, publication
 floor, signing tool or completion authority.

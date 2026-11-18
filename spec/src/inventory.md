@@ -1,5 +1,9 @@
 # Inventory and registry availability
 
+DA-REL-006 discovers only a bounded data-only artifact descriptor and its exact
+immutable inputs. Discovery grants no operator capability or private-scope
+admission; an absent central capability retains normal held behavior.
+
 Public source opt-ins retain their bounded original declarative policy bytes
 beside the parsed policy and digest at the exact discovered revision. Independent
 canonical development admission verifies their agreement; older inventory
