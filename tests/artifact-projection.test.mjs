@@ -459,133 +459,177 @@ test("ordinary npm remains default and neither source data nor capability clears
   );
 });
 
-test(
-  "real pinned Renovate regex, native artifact phase, trusted post-task and commit collect the seeded outputs",
-  { timeout: 180000 },
-  async () => {
-    const f = controlledOptIn(),
-      root = await mkdtemp(join(tmpdir(), "sdk-native-post-")),
-      tools = await mkdtemp(join(tmpdir(), "sdk-native-tools-"));
-    try {
-      for (const [path, bytes] of Object.entries(f.before)) {
-        await mkdir(dirname(join(root, path)), { recursive: true });
-        await writeFile(join(root, path), bytes);
-      }
-      const inputFile = join(tools, "input.json"),
-        outputFile = join(tools, "output.json"),
-        config = repositoryConfig(
-          f.repo,
-          f.graph,
-          process.cwd(),
-          f.capabilities,
+for (const scoped of [false, true])
+  test(
+    `real pinned Renovate regex, native artifact phase, trusted post-task and commit collect seeded outputs${scoped ? " with a separately bound SDK scope" : ""}`,
+    { timeout: 180000 },
+    async () => {
+      const f = controlledOptIn(),
+        root = await mkdtemp(join(tmpdir(), "sdk-native-post-")),
+        tools = await mkdtemp(join(tmpdir(), "sdk-native-tools-"));
+      const grant = {
+        descriptorSha256: f.repo.artifactProjection.sha256,
+        canonicalPolicySha256: f.repo.canonicalIntake.sha256,
+        immutableShapeSha256:
+          f.repo.artifactProjection.descriptor.immutableShapeSha256,
+        frozenPrerequisites: [
+          { path: "package.json", type: "dependencies", name: "@lapismd/ai" },
+        ],
+      };
+      const scopeBytes = scoped
+        ? JSON.stringify({
+            schemaVersion: 1,
+            repositories: { [f.repo.repository]: grant },
+          })
+        : undefined;
+      if (scoped)
+        f.node.scopedAdmission = {
+          kind: "desktop-sdk-development",
+          policySha256: projectionHash(scopeBytes),
+          grantSha256: projectionHash(JSON.stringify(grant)),
+          descriptorSha256: grant.descriptorSha256,
+          deferredUpdates: [],
+          deferredHolds: [],
+          deferredHoldFacts: [],
+          deferredWaits: [],
+        };
+      const ordinaryGraph = structuredClone(f.graph);
+      delete ordinaryGraph.waveAdmission.nodes[0].scopedAdmission;
+      try {
+        for (const [path, bytes] of Object.entries(f.before)) {
+          await mkdir(dirname(join(root, path)), { recursive: true });
+          await writeFile(join(root, path), bytes);
+        }
+        const inputFile = join(tools, "input.json"),
+          outputFile = join(tools, "output.json"),
+          config = repositoryConfig(
+            f.repo,
+            f.graph,
+            process.cwd(),
+            f.capabilities,
+            scopeBytes,
+          );
+        const collect = [
+          "package.json",
+          "pnpm-workspace.yaml",
+          "pnpm-lock.yaml",
+          ...f.policy.chapters,
+        ];
+        for (const [label, generated] of [
+          ["projection", config],
+          ["ordinary", repositoryConfig(f.repo, ordinaryGraph, process.cwd())],
+        ]) {
+          const path = join(tools, `${label}-config.json`);
+          await writeFile(path, JSON.stringify(generated));
+          const output = execFileSync(
+            process.execPath,
+            [
+              fileURLToPath(
+                new URL(
+                  "../node_modules/renovate/dist/config-validator.js",
+                  import.meta.url,
+                ),
+              ),
+              "--strict",
+              path,
+            ],
+            {
+              encoding: "utf8",
+              timeout: 30000,
+              maxBuffer: 1024 * 1024,
+              env: {
+                PATH: dirname(process.execPath) + ":/usr/bin:/bin",
+                TMPDIR: tmpdir(),
+              },
+            },
+          );
+          assert.match(output, /Config validated successfully/);
+        }
+        await writeFile(
+          inputFile,
+          JSON.stringify({
+            root,
+            before: f.before,
+            sourceSha: f.sourceSha,
+            collect,
+            capabilityPath: fileURLToPath(
+              new URL("../config/artifact-projections.json", import.meta.url),
+            ),
+            capabilityBytes: f.capabilityBytes,
+            ...(scoped
+              ? {
+                  scopeBytes,
+                  scopePath: fileURLToPath(
+                    new URL(
+                      "../config/scoped-admissions.json",
+                      import.meta.url,
+                    ),
+                  ),
+                }
+              : {}),
+            cacheDir: join(tools, "cache"),
+            config,
+          }),
         );
-      const collect = [
-        "package.json",
-        "pnpm-workspace.yaml",
-        "pnpm-lock.yaml",
-        ...f.policy.chapters,
-      ];
-      for (const [label, generated] of [
-        ["projection", config],
-        ["ordinary", repositoryConfig(f.repo, f.graph, process.cwd())],
-      ]) {
-        const path = join(tools, `${label}-config.json`);
-        await writeFile(path, JSON.stringify(generated));
-        const output = execFileSync(
+        execFileSync(
           process.execPath,
           [
+            "--experimental-test-module-mocks",
             fileURLToPath(
               new URL(
-                "../node_modules/renovate/dist/config-validator.js",
+                "./helpers/native-projected-renovate.mjs",
                 import.meta.url,
               ),
             ),
-            "--strict",
-            path,
+            inputFile,
+            outputFile,
           ],
           {
-            encoding: "utf8",
-            timeout: 30000,
-            maxBuffer: 1024 * 1024,
             env: {
-              PATH: dirname(process.execPath) + ":/usr/bin:/bin",
-              TMPDIR: tmpdir(),
+              ...process.env,
+              LAPIS_AUTOMATION_REPOSITORY: f.repo.repository,
             },
+            encoding: "utf8",
+            timeout: 170000,
+            maxBuffer: 2 * 1024 * 1024,
           },
         );
-        assert.match(output, /Config validated successfully/);
+        const result = JSON.parse(await readFile(outputFile, "utf8"));
+        assert.equal(result.extracted.deps.length, 1);
+        assert.equal(result.nativeArtifactCount, 0);
+        assert.deepEqual(Object.keys(result.finalFiles).sort(), collect.sort());
+        const after = { ...f.before, ...result.finalFiles };
+        assert.equal(
+          immutableProjectionShape(after),
+          f.repo.artifactProjection.descriptor.immutableShapeSha256,
+        );
+        assert.equal(
+          JSON.parse(after["package.json"]).devDependencies[
+            "@lapismd/spec-validator"
+          ],
+          "0.2.1",
+        );
+        assert.equal(
+          after["scripts/ci-sources.json"],
+          f.before["scripts/ci-sources.json"],
+        );
+        assert.equal(
+          after[".github/ci-docs/package.json"],
+          f.before[".github/ci-docs/package.json"],
+        );
+        assert(
+          f.policy.chapters.every(
+            (p) =>
+              after[p].includes('"version": "0.2.1"') &&
+              after[p].endsWith("Authored control text remains.\n"),
+          ),
+        );
+      } finally {
+        await rm(root, { recursive: true, force: true });
+        await rm(tools, { recursive: true, force: true });
       }
-      await writeFile(
-        inputFile,
-        JSON.stringify({
-          root,
-          before: f.before,
-          sourceSha: f.sourceSha,
-          collect,
-          capabilityPath: fileURLToPath(
-            new URL("../config/artifact-projections.json", import.meta.url),
-          ),
-          capabilityBytes: f.capabilityBytes,
-          cacheDir: join(tools, "cache"),
-          config,
-        }),
-      );
-      execFileSync(
-        process.execPath,
-        [
-          "--experimental-test-module-mocks",
-          fileURLToPath(
-            new URL("./helpers/native-projected-renovate.mjs", import.meta.url),
-          ),
-          inputFile,
-          outputFile,
-        ],
-        {
-          env: {
-            ...process.env,
-            LAPIS_AUTOMATION_REPOSITORY: f.repo.repository,
-          },
-          encoding: "utf8",
-          timeout: 170000,
-          maxBuffer: 2 * 1024 * 1024,
-        },
-      );
-      const result = JSON.parse(await readFile(outputFile, "utf8"));
-      assert.equal(result.extracted.deps.length, 1);
-      assert.equal(result.nativeArtifactCount, 0);
-      assert.deepEqual(Object.keys(result.finalFiles).sort(), collect.sort());
-      const after = { ...f.before, ...result.finalFiles };
-      assert.equal(
-        immutableProjectionShape(after),
-        f.repo.artifactProjection.descriptor.immutableShapeSha256,
-      );
-      assert.equal(
-        JSON.parse(after["package.json"]).devDependencies[
-          "@lapismd/spec-validator"
-        ],
-        "0.2.1",
-      );
-      assert.equal(
-        after["scripts/ci-sources.json"],
-        f.before["scripts/ci-sources.json"],
-      );
-      assert.equal(
-        after[".github/ci-docs/package.json"],
-        f.before[".github/ci-docs/package.json"],
-      );
-      assert(
-        f.policy.chapters.every(
-          (p) =>
-            after[p].includes('"version": "0.2.1"') &&
-            after[p].endsWith("Authored control text remains.\n"),
-        ),
-      );
-    } finally {
-      await rm(root, { recursive: true, force: true });
-      await rm(tools, { recursive: true, force: true });
-    }
-  },
-);
+    },
+  );
 
 for (const portMutation of ["revoke-capability", "private-input-drift"])
   test(

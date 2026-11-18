@@ -13,6 +13,8 @@ import {
 } from "./artifact-projection.mjs";
 import { projectionCapabilities } from "./artifact-projection-policy.mjs";
 import { nativeProjectionArtifacts } from "./artifact-projection-native.mjs";
+import { assertScopedBinding } from "./scoped-admission.mjs";
+import { intakePolicyPath } from "./canonical-intake.mjs";
 
 export async function prepareProjectedArtifacts({
   root,
@@ -21,6 +23,7 @@ export async function prepareProjectedArtifacts({
   context,
 }) {
   const capabilities = projectionCapabilities();
+  const scopeGrant = assertScopedBinding(repository, context?.scopeEligibility);
   if (
     repository !== projectionRepository ||
     capabilities.sha256 !== context?.capabilitySha256 ||
@@ -65,6 +68,14 @@ export async function prepareProjectedArtifacts({
     projectionInputs.map((path) => [path, base(path)]),
   );
   const descriptor = parseProjectionDescriptor(bytes, before);
+  if (
+    scopeGrant &&
+    (scopeGrant.descriptorSha256 !== context.descriptorSha256 ||
+      scopeGrant.canonicalPolicySha256 !==
+        projectionHash(base(intakePolicyPath)) ||
+      scopeGrant.immutableShapeSha256 !== descriptor.immutableShapeSha256)
+  )
+    throw Error("Scoped SDK admission held: source binding changed");
   const allowed = ["package.json", "pnpm-workspace.yaml", "pnpm-lock.yaml"];
   const changed = [
     ...git(["diff", "--name-only", "HEAD", "--"]).trim().split("\n"),
@@ -118,6 +129,7 @@ export async function prepareProjectedArtifacts({
     git(["rev-parse", "HEAD"]).trim() !== sourceSha
   )
     throw Error("Artifact projection held: late binding drift");
+  assertScopedBinding(repository, context?.scopeEligibility);
   if (
     [
       ...git(["diff", "--name-only", "HEAD", "--"]).trim().split("\n"),

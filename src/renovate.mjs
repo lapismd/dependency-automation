@@ -10,12 +10,14 @@ import {
   configuredProjection,
   projectionRegexManager,
 } from "./artifact-projection-policy.mjs";
+import { assertScopedBinding } from "./scoped-admission.mjs";
 
 export function repositoryConfig(
   repo,
   graph,
   automationRoot,
   capabilities = undefined,
+  scopedPolicyBytes = undefined,
 ) {
   const channels = channelProjection(graph);
   const own = graph.packages
@@ -105,6 +107,18 @@ export function repositoryConfig(
     (n) => n.repository === repo.repository,
   );
   const projection = configuredProjection(repo, capabilities);
+  const scope = admission?.scopedAdmission;
+  if (scope && !projection)
+    throw Error("Scoped SDK admission held: artifact capability is missing");
+  const scopeContext = scope
+    ? {
+        policySha256: scope.policySha256,
+        grantSha256: scope.grantSha256,
+        descriptorSha256: scope.descriptorSha256,
+      }
+    : undefined;
+  if (projection)
+    assertScopedBinding(repo.repository, scopeContext, scopedPolicyBytes);
   if (projection && !canonicalDevelopmentUpdate(repo, admission, graph))
     throw Error(
       "Artifact projection held: ordinary canonical admission is not qualified",
@@ -297,6 +311,7 @@ export function repositoryConfig(
           ? {
               artifactProjection: {
                 ...projection,
+                ...(scopeContext ? { scopeEligibility: scopeContext } : {}),
                 update: {
                   ...admission.admittedUpdates[0],
                   integrity:

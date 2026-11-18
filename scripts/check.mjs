@@ -13,6 +13,8 @@ const entries = await loadAllowlist();
 const { projectionCapabilities } =
   await import("../src/artifact-projection-policy.mjs");
 projectionCapabilities();
+const { scopedEligibilityPolicy } = await import("../src/scoped-admission.mjs");
+scopedEligibilityPolicy();
 const { loadChannelPolicy } = await import("../src/channels.mjs");
 loadChannelPolicy();
 const { loadCompletionPolicy } = await import("../src/completion.mjs");

@@ -1,12 +1,16 @@
 import { createHash } from "node:crypto";
 import semver from "semver";
 import { channelProjection } from "./channels.mjs";
-import { runtimeCycles } from "./policy.mjs";
+import { runtimeCycles, dependencies } from "./policy.mjs";
 import {
   verifiedPublication,
   validatePublicationEvidence,
 } from "./publications.mjs";
 import { releaseIntent } from "./changesets.mjs";
+import {
+  scopeDevelopmentAdmission,
+  scopedEligibilityPolicy,
+} from "./scoped-admission.mjs";
 import {
   canonicalDevelopmentUpdate,
   canonicalPreparationHold,
@@ -316,6 +320,79 @@ function branchFamily(graph, branch) {
     : null;
 }
 
+function observedOperationTargets(repo, operation, graph, options) {
+  if (!operation.targets.length) return false;
+  return operation.targets.every((target) => {
+    const edge = graph.edges.find(
+      (e) =>
+        e.repository === repo.repository &&
+        e.path === target.path &&
+        e.type === target.type &&
+        e.name === target.name,
+    );
+    const current = edge && lockVersion(repo, edge).version;
+    if (!current) return false;
+    const type = updateType(current, target.target);
+    const family = updateFamily(graph, {
+      ...target,
+      compatibility:
+        type === "major" || (semver.major(current) === 0 && type === "minor")
+          ? "breaking"
+          : "compatible",
+    });
+    return (repo.evidence?.prs ?? []).some((pr) => {
+      const candidate = pr.candidate;
+      if (
+        !family ||
+        branchFamily(graph, pr.head?.ref) !== family ||
+        branchOwnership([pr], options.botLogin, options.botAuthor).state !==
+          "bot-owned" ||
+        !/^[a-f0-9]{40}$/.test(pr.head?.sha ?? "") ||
+        candidate?.sourceSha !== pr.head.sha ||
+        candidate.visibility !== "public"
+      )
+        return false;
+      const manifest = candidate.manifests?.find(
+        (p) => p.path === target.path,
+      )?.manifest;
+      const range =
+        manifest &&
+        dependencies(manifest, candidate.workspace).find(
+          (e) => e.type === target.type && e.name === target.name,
+        )?.range;
+      if (!semver.validRange(range)) return false;
+      if (target.type === "peerDependencies")
+        return (
+          semver.satisfies(target.target, range) &&
+          semver.subset(edge.range, range)
+        );
+      const resolved = lockVersion(candidate, target).version,
+        expected = targetRange(edge, target.target);
+      if (
+        !resolved ||
+        !(graph.available[target.name] ?? []).includes(resolved) ||
+        !semver.satisfies(resolved, range) ||
+        semver.prerelease(resolved) ||
+        semver.lt(resolved, target.target) ||
+        semver.major(resolved) !== semver.major(target.target) ||
+        (semver.major(resolved) === 0 &&
+          semver.minor(resolved) !== semver.minor(target.target))
+      )
+        return false;
+      if (range === expected) return true;
+      // A later compatible result may cover an older uncertain target. Compound
+      // ranges must remain exact; simple ranges retain their original operator.
+      return (
+        /^[~^]?\d+\.\d+\.\d+$/.test(expected ?? "") &&
+        /^[~^]?\d+\.\d+\.\d+$/.test(range) &&
+        (range.match(/^[~^]/)?.[0] ?? "") ===
+          (expected.match(/^[~^]/)?.[0] ?? "") &&
+        semver.gte(semver.minVersion(range), semver.minVersion(expected))
+      );
+    });
+  });
+}
+
 export function planWaves(graph, previous = emptyState(), options = {}) {
   validateState(previous);
   const now = options.now ?? new Date().toISOString();
@@ -345,10 +422,24 @@ export function planWaves(graph, previous = emptyState(), options = {}) {
       options.botAuthor,
     );
     const updates = [],
-      holds = [];
+      holds = [],
+      sourceHoldFacts = [];
+    const hold = (message, kind, edge = {}) => {
+      holds.push(message);
+      sourceHoldFacts.push({ message, kind, ...edge });
+    };
     if (graph.coverage?.length) holds.push("incomplete public source coverage");
     if (repo.holdReason) holds.push(repo.holdReason);
-    holds.push(...repo.nonPortable);
+    for (const message of repo.nonPortable) {
+      const details = (repo.nonPortableDetails ?? []).filter(
+        (f) => f.message === message,
+      );
+      hold(
+        message,
+        "unknown-nonportable",
+        details.length === 1 ? details[0] : {},
+      );
+    }
     if (repo.missingChangesets) holds.push("Changesets onboarding required");
     if (options.phase !== "full" && repo.phase !== "pilot")
       holds.push("outside pilot phase");
@@ -383,7 +474,16 @@ export function planWaves(graph, previous = emptyState(), options = {}) {
       const versions = channels.versions(edge);
       const target = versions.at(-1);
       if (!target) {
-        holds.push(`${edge.name}: unavailable registry prerequisite`);
+        hold(
+          `${edge.name}: unavailable registry prerequisite`,
+          "unavailable-registry",
+          {
+            path: edge.path,
+            type: edge.type,
+            name: edge.name,
+            range: edge.range,
+          },
+        );
         continue;
       }
       if (!resolved.version) {
@@ -445,6 +545,7 @@ export function planWaves(graph, previous = emptyState(), options = {}) {
       branchHolds,
       updates,
       holds,
+      sourceHoldFacts,
       waits: [],
       status: "unchanged",
     };
@@ -602,7 +703,13 @@ export function planWaves(graph, previous = emptyState(), options = {}) {
     }
   } while (changed);
   const cycles = cyclicPackages(graph);
+  // Validate even an empty/no-update inventory; invalid operator data is global.
+  scopedEligibilityPolicy(options.scopedEligibility);
   for (const node of nodes) {
+    const repo = graph.repositories.find(
+      (r) => r.repository === node.repository,
+    );
+    scopeDevelopmentAdmission(repo, node, graph, options);
     const sourceHeld = node.holds.length > 0;
     const blocked = new Map();
     const block = (u, reason) => {
@@ -610,9 +717,6 @@ export function planWaves(graph, previous = emptyState(), options = {}) {
       const text = `${u.path}:${u.name}: ${reason}`;
       if (!node.holds.includes(text)) node.holds.push(text);
     };
-    const repo = graph.repositories.find(
-      (r) => r.repository === node.repository,
-    );
     const independent = canonicalDevelopmentUpdate(repo, node, graph);
     const preparationHold = canonicalPreparationHold(repo, node, graph);
     // Scope repair/orphan ownership to the exact rolling or compatibility family.
@@ -684,6 +788,12 @@ export function planWaves(graph, previous = emptyState(), options = {}) {
       repository: node.repository,
       sourceSha: node.sourceSha,
       policyRevision,
+      ...(node.scopedAdmission
+        ? {
+            scope: node.scopedAdmission.grantSha256,
+            scopePolicy: node.scopedAdmission.policySha256,
+          }
+        : {}),
       targets: node.admittedUpdates
         .map((u) => [u.path, u.type, u.name, u.target])
         .sort(),
@@ -734,8 +844,7 @@ export function planWaves(graph, previous = emptyState(), options = {}) {
     if (
       node.status === "admitted" &&
       unresolved &&
-      !graph.repositories.find((r) => r.repository === node.repository).evidence
-        ?.prs?.length
+      !observedOperationTargets(repo, unresolved, graph, options)
     ) {
       node.status = "uncertain";
       node.holds.push(

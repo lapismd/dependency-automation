@@ -70,6 +70,7 @@
 | DA-PUB-005  | Implemented | Separate Agent UI source-hash-bound tagged-cohort profile; real pinned Sigstore/npm witnesses and original public source/artifact replay with negative scope, certificate, coverage, graph and byte mutations. See the publication record.                                        |
 | DA-PUB-004  | Implemented | Hosted generation82 (43989934897) verifies all ten selected packages plus History against current source-bound static contracts; size/ID/signature negatives pass.                                                                                                                |
 | DA-WAVE-008 | Implemented | Eight focused/379 total tests; hosted generation89/90 holds unsupported targets before writers; source-preparation-admission record retains candidate closure evidence.                                                                                                           |
+| DA-WAVE-009 | In progress | Scoped SDK admission tests retain immutable authority, deferred private evidence and normal global/current-source gates; live grant remains empty.                                                                                                                                |
 
 Detailed bootstrap commands, failure counts and hosted handoff live in
 [the specification/Pages qualification record](https://github.com/lapismd/dependency-automation/blob/main/spec/records/2026-11-15-canonical-spec-and-pages.md).

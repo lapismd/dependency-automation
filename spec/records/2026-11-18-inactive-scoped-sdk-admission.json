@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "kind": "inactive-scoped-sdk-qualification",
+  "observedAt": "2026-11-18T04:42:45.717Z",
+  "tests": {
+    "all": 637,
+    "failed": 0,
+    "skipped": 0,
+    "focusedScope": 38,
+    "nativeFrozen": 2,
+    "realRenovateModes": 2,
+    "independentReviewControls": 6
+  },
+  "sourcePolicyUnchanged": true,
+  "artifactCapabilities": {},
+  "scopedAdmissions": {},
+  "inventory": {
+    "repositories": 19,
+    "packages": 42,
+    "edges": 212,
+    "coverage": [],
+    "cycles": [],
+    "writes": false,
+    "stateWrites": false
+  },
+  "strictControlledConfig": "passed JSON and CJS",
+  "sdkLatest": "0.2.1",
+  "remaining": [
+    "actual Desktop hosted/source HIGH decision and qualification",
+    "Maintenance16 hosted/main/Pages acceptance",
+    "separate scoped grant/phase/hold decision",
+    "ordinary live no-op and replay; no genuine SDK update exists"
+  ]
+}

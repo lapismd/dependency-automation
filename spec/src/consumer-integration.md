@@ -112,3 +112,10 @@ parent checks still complete before any write, including on repeated preparation
 Workspace digest paragraphs preserve exactly the immutable source’s one-line or
 two-line form; this adds no formatter execution, policy field, hook or output
 authority and leaves both profiles’ existing size and lock rules unchanged.
+
+DA-WAVE-009 optionally isolates one explicitly granted Desktop development SDK
+view while retaining every other source update and constraint as deferred
+evidence. It requires the exact independent source descriptor/canonical guard,
+full current-source qualification and the separate artifact capability. Actual
+private-archive audits and candidate functional gates remain mandatory; the
+public tooling projection does not replace them or authorize runtime changes.

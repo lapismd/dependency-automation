@@ -1,5 +1,10 @@
 # Repository policy
 
+The default-empty `config/scoped-admissions.json` is a separate operator grant
+for DA-WAVE-009. Its exact Desktop descriptor, canonical-policy and immutable
+private-shape hashes do not enable another source or grant general private
+dependency updates. Every other source keeps ordinary whole-repository holds.
+
 DA-REL-006's separate artifact capability map defaults to no repositories. A
 source opt-in cannot enable native projections or alter any existing private,
 phase, CI, publication or audit hold. This implementation installs no live entry.

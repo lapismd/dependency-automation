@@ -20,6 +20,21 @@ function text(value, limit = 180) {
   }
   return result + (input.length > limit ? "…" : "");
 }
+export function scopedContextSummary(node) {
+  const scope = node.scopedAdmission;
+  if (!scope) return "";
+  const updates = scope.deferredUpdates ?? [],
+    holds = scope.deferredHolds ?? [],
+    waits = scope.deferredWaits ?? [];
+  return `Scope: **root SDK development only**. Deferred outside this PR: ${updates.length} update(s)${
+    updates.length
+      ? ` (${updates
+          .slice(0, 3)
+          .map((u) => text(u.name, 100))
+          .join(", ")}${updates.length > 3 ? ", more in the inventory" : ""})`
+      : ""
+  }, ${holds.length} frozen prerequisite hold(s), ${waits.length} publication/upstream wait(s). These constraints remain held for every other dependency; scoped eligibility is not full-repository acceptance.`;
+}
 function revision(repository, value) {
   return publicRepo(repository) && sha(value)
     ? `[${repository}@${value.slice(0, 12)}](https://github.com/${repository}/commit/${value})`
@@ -136,6 +151,7 @@ export function dependencyNotes(repo, graph) {
       "",
       `Wave observation: ${timestamp(report.observedAt)}; policy ${revision("lapismd/dependency-automation", report.policyRevision)}; admission **${text(node.status, 30)}**.`,
       `Source CI at this observation: **${text(node.acceptance?.state, 30)}** (${text(node.acceptance?.reason)}).`,
+      ...(node.scopedAdmission ? [scopedContextSummary(node)] : []),
       "",
       "Repository scan candidates (the native package table above defines this PR's actual diff):",
       "",
@@ -153,7 +169,11 @@ export function dependencyNotes(repo, graph) {
       );
     const holds = [
       ...(node.holds ?? []),
+      ...(node.scopedAdmission?.deferredHolds ?? []),
       ...(node.waits ?? []).map(
+        (w) => `${w.package ?? "upstream"}: ${w.reason}`,
+      ),
+      ...(node.scopedAdmission?.deferredWaits ?? []).map(
         (w) => `${w.package ?? "upstream"}: ${w.reason}`,
       ),
       ...(node.branchHolds ?? []).map(

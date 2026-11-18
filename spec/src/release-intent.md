@@ -1,5 +1,11 @@
 # Release intent
 
+DA-WAVE-009 may select only a separately authorized Desktop root SDK development
+patch before DA-REL-006 artifact generation. Its exact grant is checked during
+configuration and again before generation and artifact copyback. Missing, changed
+or revoked scope authority grants no candidate writes. Full private-archive
+source/candidate functional and audit gates remain separate and mandatory.
+
 `scripts/prepare-pr.mjs` runs only from Renovate's branch-scoped context. It
 proves the candidate can install without rewriting the lockfile or running
 package hooks, compares affected active manifests and delegates deterministic
