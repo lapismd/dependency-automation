@@ -215,7 +215,7 @@ guard, publication, ownership and state-concurrency requirements remain binding.
 - The existing bounded profile MUST require its complete source-bound single-development patch facts, not merely a matching package name or a successful upstream release.
 - Mixed families, unsupported development/runtime/peer updates and unavailable or inconsistent policy/override/lock evidence MUST stay visible without generating incompatible PRs.
 - Supported source-owned patches and ordinary repositories without an opt-in MUST retain their existing admission paths and every qualification, ownership, registry, rollout and publication gate.
-- Candidate preparation MUST still validate the complete frozen install and mechanical lock/canonical closure; pre-admission evidence MUST NOT assert unrun candidate qualification or authorize a product migration.
+- Ordinary candidate preparation MUST still validate the complete frozen install and mechanical lock/canonical closure; DA-REL-006's tooling artifact proof MUST NOT count as full private candidate qualification, which remains required before merge/completion, and pre-admission evidence MUST NOT assert unrun qualification or authorize a product migration.
 
 ## Terminal and Registry activation
 

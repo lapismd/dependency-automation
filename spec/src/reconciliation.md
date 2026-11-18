@@ -1,5 +1,10 @@
 # Reconciliation and review policy
 
+DA-REL-006 may select only an explicitly operator-enabled source SDK regex
+profile. Its existing trusted post-upgrade command owns native seeded artifacts;
+ordinary npm management, default artifact checks, admission holds and write gates
+remain unchanged. No live Desktop capability entry is supplied here.
+
 The runner uses generated central rules, not consumer-controlled Renovate
 configuration. `scripts/configure-renovate.mjs` selects a target only from the
 validated inventory. `renovate.config.cjs` binds that generated configuration,

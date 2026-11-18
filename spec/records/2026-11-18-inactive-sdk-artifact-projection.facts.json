@@ -1,0 +1,240 @@
+{
+  "schemaVersion": 1,
+  "kind": "inactive-seeded-sdk-artifact-qualification",
+  "observedAt": "2026-11-18T03:35:47.948291+00:00",
+  "baseSource": "7551d13a4de4dca0b63c8a9cfa9a1f8e2c2cbf58",
+  "operationalCapabilities": {},
+  "desktopPolicyUnchanged": {
+    "repository": "lapismd/lapis-desktop",
+    "phase": "full",
+    "holdReason": "Private Profile/API 0.2.3 remains pinned; qualify the unpublished archive projection before enabling dependency writes."
+  },
+  "before": {
+    "source": "18aac2800dcc69ea50b1e78b242b95c667af0447",
+    "actualDeclared": "^0.2.1",
+    "actualLocked": "0.2.1",
+    "failures": {
+      "frozenBaseline": 1,
+      "nativeUpdateVariants": 4,
+      "success": 0
+    },
+    "validOutputs": 0,
+    "receiptSha256": "f711398049addc1faae873f3417e4acce27f901e321d720a706210b80a893fbd"
+  },
+  "nativeProofs": [
+    {
+      "label": "actual-current-noop",
+      "descriptor": {
+        "schemaVersion": 1,
+        "kind": "seeded-sdk-development-lock",
+        "repository": "lapismd/lapis-desktop",
+        "dependency": "@lapismd/spec-validator",
+        "immutableShapeSha256": "e83f7897e8ef7e6439a0bfcedf91ba129b7504a336d45bf5b787af37705568c7"
+      },
+      "proof": {
+        "node": "24.15.0",
+        "pnpm": "10.34.5",
+        "pnpmSha256": "ca969fbb32c08be8395c744c64e131c2ba2c93067e1b483171dbc6ed439e1143",
+        "sourceVersion": "0.2.1",
+        "seedClosure": [
+          "@lapismd/spec-validator@0.2.1",
+          "jiti@2.7.0",
+          "typescript@5.9.3"
+        ],
+        "sourceLockSha256": "45718cc76b2a5f086773affa62b1dc674be73c3954c8a76f9601f54a801a58ef",
+        "commands": [
+          [
+            "/home/steve/.local/share/mise/installs/node/24.15.0/bin/node",
+            "/home/steve/.cache/node/corepack/v1/pnpm/10.34.5/dist/pnpm.cjs",
+            "update",
+            "@lapismd/spec-validator@^0.2.1",
+            "--dev",
+            "--lockfile-only",
+            "--ignore-scripts",
+            "--ignore-pnpmfile",
+            "--config.manage-package-manager-versions=false",
+            "--registry=https://registry.npmjs.org/",
+            "--config.fetch-retries=0",
+            "--config.fetch-timeout=30000",
+            "--store-dir=/home/steve/.cache/lapis-rollout-20261117/tmp/foundations/lapis-sdk-artifacts-X8KbYx/public-store",
+            "--reporter=append-only"
+          ],
+          [
+            "/home/steve/.local/share/mise/installs/node/24.15.0/bin/node",
+            "/home/steve/.cache/node/corepack/v1/pnpm/10.34.5/dist/pnpm.cjs",
+            "install",
+            "--frozen-lockfile",
+            "--ignore-scripts",
+            "--ignore-pnpmfile",
+            "--config.manage-package-manager-versions=false",
+            "--registry=https://registry.npmjs.org/",
+            "--config.fetch-retries=0",
+            "--config.fetch-timeout=30000",
+            "--store-dir=/home/steve/.cache/lapis-rollout-20261117/tmp/foundations/lapis-sdk-artifacts-X8KbYx/public-store",
+            "--reporter=append-only"
+          ]
+        ],
+        "scriptsAndPnpmfileDisabled": true,
+        "fullRootProductionQualified": false
+      },
+      "changed": false,
+      "shapeBefore": "e83f7897e8ef7e6439a0bfcedf91ba129b7504a336d45bf5b787af37705568c7",
+      "shapeAfter": "e83f7897e8ef7e6439a0bfcedf91ba129b7504a336d45bf5b787af37705568c7",
+      "sameAllBytes": true,
+      "changedPaths": []
+    },
+    {
+      "label": "genuine-historical-patch",
+      "descriptor": {
+        "schemaVersion": 1,
+        "kind": "seeded-sdk-development-lock",
+        "repository": "lapismd/lapis-desktop",
+        "dependency": "@lapismd/spec-validator",
+        "immutableShapeSha256": "16f9b6e0eeb94b2f04354d143a12728d9d0126c063860fc10c4bb7362fb82b09"
+      },
+      "proof": {
+        "node": "24.15.0",
+        "pnpm": "10.34.5",
+        "pnpmSha256": "ca969fbb32c08be8395c744c64e131c2ba2c93067e1b483171dbc6ed439e1143",
+        "sourceVersion": "0.2.0",
+        "seedClosure": [
+          "@lapismd/spec-validator@0.2.0",
+          "jiti@2.7.0",
+          "typescript@5.9.3"
+        ],
+        "sourceLockSha256": "7c36377c84946a2a5df0a313d3f01ba3fb62c9a03c1d85b92355cd2ecf4b87f4",
+        "commands": [
+          [
+            "/home/steve/.local/share/mise/installs/node/24.15.0/bin/node",
+            "/home/steve/.cache/node/corepack/v1/pnpm/10.34.5/dist/pnpm.cjs",
+            "update",
+            "@lapismd/spec-validator@^0.2.1",
+            "--dev",
+            "--lockfile-only",
+            "--ignore-scripts",
+            "--ignore-pnpmfile",
+            "--config.manage-package-manager-versions=false",
+            "--registry=https://registry.npmjs.org/",
+            "--config.fetch-retries=0",
+            "--config.fetch-timeout=30000",
+            "--store-dir=/home/steve/.cache/lapis-rollout-20261117/tmp/foundations/lapis-sdk-artifacts-5CmBkG/public-store",
+            "--reporter=append-only"
+          ],
+          [
+            "/home/steve/.local/share/mise/installs/node/24.15.0/bin/node",
+            "/home/steve/.cache/node/corepack/v1/pnpm/10.34.5/dist/pnpm.cjs",
+            "install",
+            "--frozen-lockfile",
+            "--ignore-scripts",
+            "--ignore-pnpmfile",
+            "--config.manage-package-manager-versions=false",
+            "--registry=https://registry.npmjs.org/",
+            "--config.fetch-retries=0",
+            "--config.fetch-timeout=30000",
+            "--store-dir=/home/steve/.cache/lapis-rollout-20261117/tmp/foundations/lapis-sdk-artifacts-5CmBkG/public-store",
+            "--reporter=append-only"
+          ]
+        ],
+        "scriptsAndPnpmfileDisabled": true,
+        "fullRootProductionQualified": false
+      },
+      "changed": true,
+      "shapeBefore": "16f9b6e0eeb94b2f04354d143a12728d9d0126c063860fc10c4bb7362fb82b09",
+      "shapeAfter": "16f9b6e0eeb94b2f04354d143a12728d9d0126c063860fc10c4bb7362fb82b09",
+      "sameAllBytes": false,
+      "changedPaths": ["package.json", "pnpm-lock.yaml"]
+    }
+  ],
+  "officialPnpmTool": {
+    "version": "10.34.5",
+    "url": "https://registry.npmjs.org/pnpm/-/pnpm-10.34.5.tgz",
+    "integrity": "sha512-pO4F8vc2WCVb1qiYWcBlpFwopX2u+uLIk6Fo7itzFow3uR6D5X6mdlStA/AwMXRkMOi84442LgQmBfuKvIAZLg==",
+    "sha256": "ccb5c479cab1b00621325bfe7d4c9a8a8031e7a525d7249e275ecbec81b08db2"
+  },
+  "nativeBundledEntrySha256": "ca969fbb32c08be8395c744c64e131c2ba2c93067e1b483171dbc6ed439e1143",
+  "renovate": {
+    "version": "44.199.0",
+    "realExtraction": true,
+    "realArtifactPhase": true,
+    "npmArtifactCount": 0,
+    "realPostUpgradeExecutor": true,
+    "realNativePnpm": true,
+    "realCommitSelection": true,
+    "finalFiles": [
+      "package.json",
+      "pnpm-workspace.yaml",
+      "pnpm-lock.yaml",
+      "spec/src/current/governance.md",
+      "spec/src/current/local-dependencies.md"
+    ],
+    "controlledPorts": [
+      "Git source/status reads",
+      "trusted capability fixture reads",
+      "remote SCM write transport"
+    ],
+    "sourceFixture": "real historical package inputs plus explicitly controlled pinned canonical opt-in and unit admission; not current source or live bot E2E",
+    "strictConfigs": ["ordinary npm", "two-key SDK custom.regex"],
+    "skipInstallsConfigured": false,
+    "skipArtifactsUpdateConfigured": false
+  },
+  "checks": {
+    "pnpmVerify": "pass",
+    "tests": 596,
+    "focusedCases": 29,
+    "specLanes": 3,
+    "formatting": "pass",
+    "actionlint": "pass",
+    "doctor": "11pass0warnings",
+    "notices": "Existing optional RE2 fallback and Node module-mock experimental/deprecation notices remain visible"
+  },
+  "freshGetOnlyInventory": {
+    "repositories": 19,
+    "publicPackages": 42,
+    "edges": 212,
+    "coverageGaps": 0,
+    "cycles": [],
+    "unpublished": ["@lapismd/ai"],
+    "rawSha256": "ce29a03c17a7322e79e44301e79d52ee67167b4e6f6c2e0e1ab05a2a8377bf01"
+  },
+  "sourceSha256": {
+    "src/artifact-projection.mjs": "a19c3928922682fbb1aac02d6441d4f579a96c19c21eee3014e31bca403247e4",
+    "src/artifact-projection-native.mjs": "8af7cdcc98a6435f0b15c3939304b4296d52e6fdf400a819e418e835e0673439",
+    "src/artifact-projection-policy.mjs": "067726257408a977cf2b4e28d866cfc70c7f2ba9fa8339adf907bf4e2af6c682",
+    "src/artifact-projection-files.mjs": "cbb371dd0e3e5ba8998f3b1720be431cc4e6d0b1fd16e93c96ff5ac8a5837f1a",
+    "src/renovate.mjs": "321628df2db9758e017b1413a9abf82f324c82d43fa244ba7c2b9e3fc29388e0",
+    "src/github.mjs": "fc08398a6e96f949ba67f6083d9ce1d8dcf91cd87397ed2b23412b7fc8933492",
+    "scripts/prepare-pr.mjs": "2b601ff617dd79733dd267599948d5296b0217213d9ee672754041015a17edc9",
+    "scripts/check.mjs": "df6c7583137e31fd37f0f176d600bc8ec97375ca2310e1a52d0b727b8eae815e",
+    "config/artifact-projections.json": "0dc287cf788c2a23c072a5ba8c2a8be550ab82f14a1763400681b83a982006e9",
+    "tests/artifact-projection.test.mjs": "0c39dd34676fd4f6012a5662c05c7b43c70ef68d8195472e835cd9ddf93e1b92",
+    "tests/helpers/native-projected-renovate.mjs": "931e9d01bfe91cf88540bf7988f01e26a813e66de5224a98a6651d2083dd1e03",
+    "tests/helpers/projection-source-port.mjs": "27eca684b682250b2ca78f54860a752535b7d31390d05ffb9edb350027ffbc6d",
+    "tests/fixtures/desktop-seeded-sdk-projection.json.gz": "260522178141038fb7c0905eea63fd10e64efeefa9b2ade249a0708a27d8aae1"
+  },
+  "unchangedProtectedBindings": {
+    "config/repositories.json": "470294df190026f8bb5d5f7a174554690a43d61c33f56c854cd4a4987a7f3ed8",
+    "config/advisories.json": "1f19a2c80d9eab66180c4a04cb453ae974a158180ffe177920709c4a98ea410e",
+    "config/channels.json": "0450d58dc2ba89b13a39c111ab9e0afd67e1c495118c358d81d04f5337d426b8",
+    "config/completions.json": "d8678cd5564c725e9d72943cadc4988e516b21a8e4ee294cf713aac3feca79fc",
+    "config/tooling.json": "232310fdd5455bc971abf29942f5e78beca2baa887ef28f10674aeda21ed333c",
+    "package.json": "adcc9e6f19b7e640f82971a110dc3682e28187bc476a9c9e3f8c94a583815cb1",
+    "pnpm-lock.yaml": "a3e1f05fe6a25925d61b6af7baf5316c24156a0b71319611f6e3298bbca61b8b",
+    ".github/workflows/reconcile.yml": "3cf108a122ca71a81240e217d6fc8007e5f8c2d99dd61dd59254503aca5c98c5"
+  },
+  "prospectiveSourceInterface": {
+    "computedAtSource": "6b13b20dbf76435f84bd7ece9dd97ab7b93c4a29",
+    "immutableShapeSha256": "d8fa74cb4f137b2af96a530d7e37afbe4ce082e720802023a47196f0d1f0fbc2",
+    "descriptorSha256": "1816cce05457ae1853f28bead21ad4a109a56e0f4318318f9a4b5f2194e0ffd2",
+    "installed": false
+  },
+  "stillRequired": [
+    "reviewed source opt-in and independent guard",
+    "full source-owned eight-archive/frozen/native/product/audit qualification",
+    "separate explicit scoped eligibility/capability decision",
+    "real current-source bot update and live qualification when genuine update exists"
+  ],
+  "fullRootProductionQualifiedByThisProof": false,
+  "phaseOrHoldChanges": false,
+  "exceptionChanges": false,
+  "publicationOrCredentialActions": false
+}

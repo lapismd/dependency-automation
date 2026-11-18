@@ -6,8 +6,17 @@ import { lockVersion } from "./wave-evidence.mjs";
 import { validateIntakePolicy } from "./canonical-intake.mjs";
 import { canonicalDevelopmentUpdate } from "./canonical-admission.mjs";
 import { dependencyNotes } from "./pr-messages.mjs";
+import {
+  configuredProjection,
+  projectionRegexManager,
+} from "./artifact-projection-policy.mjs";
 
-export function repositoryConfig(repo, graph, automationRoot) {
+export function repositoryConfig(
+  repo,
+  graph,
+  automationRoot,
+  capabilities = undefined,
+) {
   const channels = channelProjection(graph);
   const own = graph.packages
     .filter((p) => p.repository === repo.repository)
@@ -95,6 +104,11 @@ export function repositoryConfig(repo, graph, automationRoot) {
   const admission = graph.waveAdmission?.nodes.find(
     (n) => n.repository === repo.repository,
   );
+  const projection = configuredProjection(repo, capabilities);
+  if (projection && !canonicalDevelopmentUpdate(repo, admission, graph))
+    throw Error(
+      "Artifact projection held: ordinary canonical admission is not qualified",
+    );
   if (graph.waveAdmission) {
     const qualifiedRolling = (pr) =>
       pr.head?.ref === "lapis-dependencies/lapis-first-party" &&
@@ -237,7 +251,13 @@ export function repositoryConfig(repo, graph, automationRoot) {
   }
   return {
     repository: repo.repository,
-    enabledManagers: ["npm"],
+    enabledManagers: projection ? ["custom.regex"] : ["npm"],
+    ...(projection
+      ? {
+          customManagers: [projectionRegexManager()],
+          autoReplaceGlobalMatch: false,
+        }
+      : {}),
     includePaths: repo.paths,
     ignoreDeps: [...own, ...(graph.excludedPackages ?? [])],
     dependencyDashboard: false,
@@ -273,6 +293,20 @@ export function repositoryConfig(repo, graph, automationRoot) {
       executionMode: "branch",
       dataFileTemplate: JSON.stringify({
         branchName: "{{{branchName}}}",
+        ...(projection
+          ? {
+              artifactProjection: {
+                ...projection,
+                update: {
+                  ...admission.admittedUpdates[0],
+                  integrity:
+                    graph.registry?.[admission.admittedUpdates[0].name]?.[
+                      admission.admittedUpdates[0].target
+                    ]?.integrity,
+                },
+              },
+            }
+          : {}),
         ...(repo.canonicalIntake
           ? {
               sourceSha: repo.sourceSha,
@@ -293,6 +327,7 @@ export function repositoryConfig(repo, graph, automationRoot) {
           : {}),
       }),
       fileFilters: [
+        ...(projection ? ["package.json", "pnpm-lock.yaml"] : []),
         ".changeset/lapis-dependencies-*.md",
         ...(repo.canonicalIntake
           ? [
