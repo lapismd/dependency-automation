@@ -15,9 +15,16 @@ floor, signing tool or completion authority.
 
 The reviewed Notes channel cohort follows DA-PUB-003 with exact package,
 version, integrity and consumer-manifest scopes. It adds no repository entries,
-recognizes Profile0.2.5 publication only, and changes no phase, schedule or write
+recognizes the configured Profile publication only, and changes no phase, schedule or write
 activation. Profile consumer scope entries stay forbidden. DA-POL-001
 through DA-POL-003 retain their existing authority and excluded hosts.
+
+The November18 Notes refresh changes exactly four package identities to their
+verified source538bb469 cohort after same-byte publication recovery. It adds no
+consumer scope or repository and retains file-explorer0.2.8 and defaultlatest.
+Current-main qualification, source-owned canonical support and upstream floors
+remain independent holds; the normalized proof is recorded in
+`spec/records/2026-11-18-notes-cohort-recovery.md`.
 
 `config/repositories.json` is the versioned authority for dependency-update
 entries, monitoring additions/exclusions and excluded package names. It is not

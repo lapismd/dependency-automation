@@ -15,7 +15,7 @@ existing schema1 development profile retains that separately bounded behavior.
 Wave admission is implemented behind `LAPIS_DEPENDENCY_WAVES=true`, default off.
 Hosted pilot qualification and activation remain separate operator decisions.
 
-The reviewed Profile0.2.5 publication-only binding retires only its own genuinely
+The reviewed configured Profile publication-only binding retires only its own genuinely
 newer, fully verified and currently qualified release. It does not admit Profile
 consumer updates or bypass dependency floors, channel drift or replay/CAS gates.
 
@@ -34,6 +34,12 @@ a newer source SHA and matching lock alone MUST NOT assert completion.
 Independent channel/provenance publication holds MUST remain visible while a
 retained manifest-minimum repair is actionable; their visibility alone does not
 authorize a downstream update or suppress an eligible upstream repair.
+
+The exact November18 Notes cohort refresh retires only freshly verified
+publication/channel waits under the existing scoped contract; current-main CI,
+upstream dependency floors and source-owned intake remain binding. Origin and
+recovery attempts retain the same artifact identity, without a new operation
+or synthetic publication.
 
 ## DA-WAVE-001 — Derived admission
 
