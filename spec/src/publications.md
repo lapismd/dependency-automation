@@ -1,5 +1,8 @@
 # Published source evidence and channels
 
+Agent UI's separate tagged-workspace profile under DA-PUB-005 preserves its
+existing publisher; it does not relax main-head completion or channel admission.
+
 Publication observations are independent of update eligibility. The latest-only
 policy remains the default for candidate selection; observing a next-tagged
 version alone does not admit it or change registry tags.
@@ -49,3 +52,14 @@ The exact Profile0.2.5 source/integrity binding MAY retire its verified own publ
 - The runtime plugin ID/version MUST come from the public source manifest returned as a file at the attested commit, with package directory/release tag and runtime ID/archive coordinates remaining distinct and source/signature-bound.
 - The immutable candidate MUST bind package/version, plan, manifest, tarball digest/size and registry bytes within the static profile's 64 MiB ZIP/aggregate inflation, 16 MiB npm archive, 8 MiB plugin archive/signed file and 32 MiB nested inflation caps, retaining release/path bounds and rejecting ambiguous, expired, mismatched or different-byte skip evidence.
 - The reader and cryptographic verifier MUST share the static profile's 16 MiB npm archive bound only for the reviewed Plugins publisher, reject unreviewed profiles and retain Notes' existing 8 MiB artifact/4 MiB tarball/32 MiB inflation bounds plus the shared total fetch-byte, request, source and recovery gates without candidate execution, signer access or publisher writes.
+
+## DA-PUB-005 — Tagged workspace publisher proof
+
+**Requirement.** Agent UI publication MUST use a separate reject-by-default tagged-cohort contract for its existing npm publisher, authenticated through the unchanged standard verifier.
+
+### Acceptance details
+
+- Only repository `lapismd/agent-ui`, workflow400453743 at `.github/workflows/npm-publish.yml` with its exact reviewed source-byte hash, tag-push provenance and `npm-production` certificate environment qualify; the exact stable tag must equal the attested source Agent UI package version, without accepting branch, dispatch or arbitrary tag fallbacks.
+- Both exact public source packages and unequal versions must match the original three-file artifact schema, SHA256 artifact identity, source-bound manifest, each SHA512 tarball and fresh official registry bytes; missing, extra, duplicate, different-byte or expired evidence fails closed under existing archive bounds.
+- The exact successful prepare job, both version-specific matrix publish jobs, registry verification job and completed origin attempt remain required, together with complete source CI/status coverage, current package contract, source ancestry and all existing cryptographic issuer/signer/source/subject/registry checks.
+- This profile grants no publication, tag mutation, new key, credential or completion authority; Notes/static profiles, channel floors, budgets and main-head completion remain unchanged, and an unsupported or unexercised publisher cannot become verified by registration alone.

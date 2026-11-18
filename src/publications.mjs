@@ -4,6 +4,11 @@ import {
   verifyStaticPublisherSource,
   validateStaticPublisher,
 } from "./publication-static.mjs";
+import {
+  validateTaggedWorkspacePublisher,
+  resolveTaggedWorkspacePublisher,
+  verifyTaggedWorkspaceSource,
+} from "./publication-tagged-workspace.mjs";
 import { stableVersions } from "./policy.mjs";
 import { loadPublicationVerifier, hash } from "./publication-tool.mjs";
 import {
@@ -59,6 +64,10 @@ export async function loadPublicationPolicy(entries = undefined) {
   )
     fail();
   for (const [repository, policy] of Object.entries(p.publishers ?? {})) {
+    if (policy.kind === "agent-ui-tagged-workspace-v1") {
+      validateTaggedWorkspacePublisher(repository, policy, entries);
+      continue;
+    }
     if (policy.kind === "plugins-static-v1") {
       validateStaticPublisher(repository, policy, entries);
       continue;
@@ -166,8 +175,17 @@ export function validatePublicationEvidence(p) {
     !/^(?:lapismd|stevejuma)\/[\w.-]+$/.test(proof.repository ?? "") ||
     !sha(proof.sourceSha) ||
     !positive(proof.repositoryId) ||
-    proof.workflow !== ".github/workflows/release.yml" ||
-    proof.ref !== "refs/heads/main" ||
+    !(
+      (proof.workflow === ".github/workflows/release.yml" &&
+        proof.ref === "refs/heads/main") ||
+      (proof.repository === "lapismd/agent-ui" &&
+        proof.workflow === ".github/workflows/npm-publish.yml" &&
+        typeof proof.ref === "string" &&
+        proof.ref.length <= 128 &&
+        /^refs\/tags\/v(?:0|[1-9][0-9]*)\.(?:0|[1-9][0-9]*)\.(?:0|[1-9][0-9]*)$/.test(
+          proof.ref,
+        ))
+    ) ||
     !positive(proof.runId) ||
     !positive(proof.runAttempt) ||
     !/^[a-f0-9]{128}$/.test(proof.subjectSha512 ?? "") ||
@@ -287,7 +305,7 @@ export async function observePublications(
         evidence.state = "unpublished";
         throw Error("registry-version-unpublished");
       }
-      const publisher = policy.publishers[owner.repository];
+      let publisher = policy.publishers[owner.repository];
       if (!publisher) throw Error("publisher-contract-unreviewed");
       if (
         record.name !== owner.name ||
@@ -323,6 +341,8 @@ export async function observePublications(
       )
         throw Error("publication-source-not-public");
       const body = await reader.json(url.href, 256 * 1024);
+      if (publisher.kind === "agent-ui-tagged-workspace-v1")
+        publisher = resolveTaggedWorkspacePublisher(publisher, body);
       inspectAttestationClaims(body, record, publisher, info);
       const artifactBytes = await reader.bytes(
         publishedTarballUrl(record),
@@ -341,7 +361,9 @@ export async function observePublications(
       const source = await (
         publisher.kind === "plugins-static-v1"
           ? verifyStaticPublisherSource
-          : verifyPublisherSource
+          : publisher.kind === "agent-ui-tagged-workspace-v1"
+            ? verifyTaggedWorkspaceSource
+            : verifyPublisherSource
       )(reader, context, publisher, info, record, {
         ...owner,
         sourceSha: repo.sourceSha,

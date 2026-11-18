@@ -1,0 +1,551 @@
+{
+  "total_count": 5,
+  "jobs": [
+    {
+      "id": 133035451947,
+      "run_id": 43786568782,
+      "workflow_name": "Publish npm packages",
+      "head_branch": "v0.2.8",
+      "run_url": "https://api.github.com/repos/lapismd/agent-ui/actions/runs/43786568782",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOVbTeJs8AAAAe-YfmKw",
+      "head_sha": "48435a193aadb906006800f36858fd33d8e278de",
+      "url": "https://api.github.com/repos/lapismd/agent-ui/actions/jobs/133035451947",
+      "html_url": "https://github.com/lapismd/agent-ui/actions/runs/43786568782/job/133035451947",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-11-16T01:29:34Z",
+      "started_at": "2026-11-16T01:29:36Z",
+      "completed_at": "2026-11-16T01:30:36Z",
+      "name": "Validate and pack packages",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-11-16T01:29:37Z",
+          "completed_at": "2026-11-16T01:29:39Z"
+        },
+        {
+          "name": "Run actions/checkout@v6",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-11-16T01:29:39Z",
+          "completed_at": "2026-11-16T01:29:41Z"
+        },
+        {
+          "name": "Run pnpm/action-setup@v6",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-11-16T01:29:41Z",
+          "completed_at": "2026-11-16T01:29:44Z"
+        },
+        {
+          "name": "Run actions/setup-node@v6",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-11-16T01:29:44Z",
+          "completed_at": "2026-11-16T01:29:49Z"
+        },
+        {
+          "name": "Record packed source",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 5,
+          "started_at": "2026-11-16T01:29:49Z",
+          "completed_at": "2026-11-16T01:29:49Z"
+        },
+        {
+          "name": "Run actions/download-artifact@v4",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 6,
+          "started_at": "2026-11-16T01:29:49Z",
+          "completed_at": "2026-11-16T01:29:49Z"
+        },
+        {
+          "name": "Run taiki-e/install-action@v2",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-11-16T01:29:49Z",
+          "completed_at": "2026-11-16T01:29:50Z"
+        },
+        {
+          "name": "Run pnpm install --frozen-lockfile",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-11-16T01:29:50Z",
+          "completed_at": "2026-11-16T01:29:52Z"
+        },
+        {
+          "name": "Validate release identity",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9,
+          "started_at": "2026-11-16T01:29:52Z",
+          "completed_at": "2026-11-16T01:29:53Z"
+        },
+        {
+          "name": "Run pnpm build",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10,
+          "started_at": "2026-11-16T01:29:53Z",
+          "completed_at": "2026-11-16T01:30:04Z"
+        },
+        {
+          "name": "Run pnpm test:package",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-11-16T01:30:04Z",
+          "completed_at": "2026-11-16T01:30:27Z"
+        },
+        {
+          "name": "Pack both packages",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-11-16T01:30:27Z",
+          "completed_at": "2026-11-16T01:30:31Z"
+        },
+        {
+          "name": "Bind exact package versions and artifact integrity",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-11-16T01:30:31Z",
+          "completed_at": "2026-11-16T01:30:31Z"
+        },
+        {
+          "name": "Run actions/upload-artifact@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 14,
+          "started_at": "2026-11-16T01:30:31Z",
+          "completed_at": "2026-11-16T01:30:33Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@v6",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 26,
+          "started_at": "2026-11-16T01:30:33Z",
+          "completed_at": "2026-11-16T01:30:33Z"
+        },
+        {
+          "name": "Post Run pnpm/action-setup@v6",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 27,
+          "started_at": "2026-11-16T01:30:33Z",
+          "completed_at": "2026-11-16T01:30:33Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v6",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 28,
+          "started_at": "2026-11-16T01:30:33Z",
+          "completed_at": "2026-11-16T01:30:33Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 29,
+          "started_at": "2026-11-16T01:30:33Z",
+          "completed_at": "2026-11-16T01:30:33Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/lapismd/agent-ui/check-runs/133035451947",
+      "labels": ["ubuntu-latest"],
+      "runner_id": 1000029489,
+      "runner_name": "GitHub Actions 1000029489",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 133035778319,
+      "run_id": 43786568782,
+      "workflow_name": "Publish npm packages",
+      "head_branch": "v0.2.8",
+      "run_url": "https://api.github.com/repos/lapismd/agent-ui/actions/runs/43786568782",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOVbTeJs8AAAAe-YzhDw",
+      "head_sha": "48435a193aadb906006800f36858fd33d8e278de",
+      "url": "https://api.github.com/repos/lapismd/agent-ui/actions/jobs/133035778319",
+      "html_url": "https://github.com/lapismd/agent-ui/actions/runs/43786568782/job/133035778319",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-11-16T01:30:36Z",
+      "started_at": "2026-11-16T01:30:39Z",
+      "completed_at": "2026-11-16T01:30:55Z",
+      "name": "Publish with npm trusted publishing (agent-ui, 0.2.8)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-11-16T01:30:39Z",
+          "completed_at": "2026-11-16T01:30:41Z"
+        },
+        {
+          "name": "Run actions/setup-node@v6",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-11-16T01:30:41Z",
+          "completed_at": "2026-11-16T01:30:42Z"
+        },
+        {
+          "name": "Run npm install --global npm@12.0.2",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-11-16T01:30:42Z",
+          "completed_at": "2026-11-16T01:30:46Z"
+        },
+        {
+          "name": "Run actions/download-artifact@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-11-16T01:30:46Z",
+          "completed_at": "2026-11-16T01:30:47Z"
+        },
+        {
+          "name": "Publish agent-ui",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-11-16T01:30:47Z",
+          "completed_at": "2026-11-16T01:30:53Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@v6",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10,
+          "started_at": "2026-11-16T01:30:53Z",
+          "completed_at": "2026-11-16T01:30:53Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-11-16T01:30:53Z",
+          "completed_at": "2026-11-16T01:30:53Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/lapismd/agent-ui/check-runs/133035778319",
+      "labels": ["ubuntu-latest"],
+      "runner_id": 1000029494,
+      "runner_name": "GitHub Actions 1000029494",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 133035778334,
+      "run_id": 43786568782,
+      "workflow_name": "Publish npm packages",
+      "head_branch": "v0.2.8",
+      "run_url": "https://api.github.com/repos/lapismd/agent-ui/actions/runs/43786568782",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOVbTeJs8AAAAe-YzhHg",
+      "head_sha": "48435a193aadb906006800f36858fd33d8e278de",
+      "url": "https://api.github.com/repos/lapismd/agent-ui/actions/jobs/133035778334",
+      "html_url": "https://github.com/lapismd/agent-ui/actions/runs/43786568782/job/133035778334",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-11-16T01:30:36Z",
+      "started_at": "2026-11-16T01:30:39Z",
+      "completed_at": "2026-11-16T01:30:55Z",
+      "name": "Publish with npm trusted publishing (repository-ui, 0.2.6)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-11-16T01:30:39Z",
+          "completed_at": "2026-11-16T01:30:41Z"
+        },
+        {
+          "name": "Run actions/setup-node@v6",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-11-16T01:30:41Z",
+          "completed_at": "2026-11-16T01:30:42Z"
+        },
+        {
+          "name": "Run npm install --global npm@12.0.2",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-11-16T01:30:42Z",
+          "completed_at": "2026-11-16T01:30:46Z"
+        },
+        {
+          "name": "Run actions/download-artifact@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-11-16T01:30:46Z",
+          "completed_at": "2026-11-16T01:30:47Z"
+        },
+        {
+          "name": "Publish repository-ui",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-11-16T01:30:47Z",
+          "completed_at": "2026-11-16T01:30:53Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@v6",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10,
+          "started_at": "2026-11-16T01:30:53Z",
+          "completed_at": "2026-11-16T01:30:53Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-11-16T01:30:53Z",
+          "completed_at": "2026-11-16T01:30:53Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/lapismd/agent-ui/check-runs/133035778334",
+      "labels": ["ubuntu-latest"],
+      "runner_id": 1000029493,
+      "runner_name": "GitHub Actions 1000029493",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 133035877758,
+      "run_id": 43786568782,
+      "workflow_name": "Publish npm packages",
+      "head_branch": "v0.2.8",
+      "run_url": "https://api.github.com/repos/lapismd/agent-ui/actions/runs/43786568782",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOVbTeJs8AAAAe-Y5lfg",
+      "head_sha": "48435a193aadb906006800f36858fd33d8e278de",
+      "url": "https://api.github.com/repos/lapismd/agent-ui/actions/jobs/133035877758",
+      "html_url": "https://github.com/lapismd/agent-ui/actions/runs/43786568782/job/133035877758",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-11-16T01:30:56Z",
+      "started_at": "2026-11-16T01:30:57Z",
+      "completed_at": "2026-11-16T01:34:32Z",
+      "name": "Verify registry artifacts and provenance",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-11-16T01:30:58Z",
+          "completed_at": "2026-11-16T01:30:59Z"
+        },
+        {
+          "name": "Run actions/setup-node@v6",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-11-16T01:30:59Z",
+          "completed_at": "2026-11-16T01:31:02Z"
+        },
+        {
+          "name": "Run npm install --global npm@12.0.2",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-11-16T01:31:02Z",
+          "completed_at": "2026-11-16T01:31:06Z"
+        },
+        {
+          "name": "Run actions/download-artifact@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-11-16T01:31:06Z",
+          "completed_at": "2026-11-16T01:31:07Z"
+        },
+        {
+          "name": "Verify exact registry bytes and a clean signed install",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-11-16T01:31:07Z",
+          "completed_at": "2026-11-16T01:34:30Z"
+        },
+        {
+          "name": "Run actions/upload-artifact@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-11-16T01:34:30Z",
+          "completed_at": "2026-11-16T01:34:31Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@v6",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-11-16T01:34:31Z",
+          "completed_at": "2026-11-16T01:34:31Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-11-16T01:34:31Z",
+          "completed_at": "2026-11-16T01:34:31Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/lapismd/agent-ui/check-runs/133035877758",
+      "labels": ["ubuntu-latest"],
+      "runner_id": 1000029495,
+      "runner_name": "GitHub Actions 1000029495",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 133036944508,
+      "run_id": 43786568782,
+      "workflow_name": "Publish npm packages",
+      "head_branch": "v0.2.8",
+      "run_url": "https://api.github.com/repos/lapismd/agent-ui/actions/runs/43786568782",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOVbTeJs8AAAAe-Z6sfA",
+      "head_sha": "48435a193aadb906006800f36858fd33d8e278de",
+      "url": "https://api.github.com/repos/lapismd/agent-ui/actions/jobs/133036944508",
+      "html_url": "https://github.com/lapismd/agent-ui/actions/runs/43786568782/job/133036944508",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-11-16T01:34:32Z",
+      "started_at": "2026-11-16T01:34:34Z",
+      "completed_at": "2026-11-16T01:34:46Z",
+      "name": "Notify dependency consumers / notify",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-11-16T01:34:35Z",
+          "completed_at": "2026-11-16T01:34:35Z"
+        },
+        {
+          "name": "Require notification setup",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-11-16T01:34:35Z",
+          "completed_at": "2026-11-16T01:34:35Z"
+        },
+        {
+          "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-11-16T01:34:35Z",
+          "completed_at": "2026-11-16T01:34:36Z"
+        },
+        {
+          "name": "Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-11-16T01:34:36Z",
+          "completed_at": "2026-11-16T01:34:40Z"
+        },
+        {
+          "name": "Run corepack enable && corepack prepare pnpm@10.34.5 --activate",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-11-16T01:34:40Z",
+          "completed_at": "2026-11-16T01:34:41Z"
+        },
+        {
+          "name": "Run pnpm --dir automation install --prod --frozen-lockfile --ignore-scripts",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-11-16T01:34:41Z",
+          "completed_at": "2026-11-16T01:34:42Z"
+        },
+        {
+          "name": "Run actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-11-16T01:34:42Z",
+          "completed_at": "2026-11-16T01:34:42Z"
+        },
+        {
+          "name": "Verify registry versions and send notification",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-11-16T01:34:42Z",
+          "completed_at": "2026-11-16T01:34:44Z"
+        },
+        {
+          "name": "Post Run actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 14,
+          "started_at": "2026-11-16T01:34:44Z",
+          "completed_at": "2026-11-16T01:34:45Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-11-16T01:34:45Z",
+          "completed_at": "2026-11-16T01:34:45Z"
+        },
+        {
+          "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16,
+          "started_at": "2026-11-16T01:34:45Z",
+          "completed_at": "2026-11-16T01:34:45Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17,
+          "started_at": "2026-11-16T01:34:45Z",
+          "completed_at": "2026-11-16T01:34:45Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/lapismd/agent-ui/check-runs/133036944508",
+      "labels": ["ubuntu-latest"],
+      "runner_id": 1000029514,
+      "runner_name": "GitHub Actions 1000029514",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    }
+  ]
+}

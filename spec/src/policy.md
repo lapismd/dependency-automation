@@ -1,5 +1,9 @@
 # Repository policy
 
+DA-PUB-005 registers only Agent UI's reviewed tagged-workspace publisher and
+source-byte contract. It changes no repository phase, channel scope, publication
+floor, signing tool or completion authority.
+
 The reviewed Notes channel cohort follows DA-PUB-003 with exact package,
 version, integrity and consumer-manifest scopes. It adds no repository entries,
 recognizes Profile0.2.5 publication only, and changes no phase, schedule or write

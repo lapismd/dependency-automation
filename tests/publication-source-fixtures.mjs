@@ -34,6 +34,7 @@ export const owner = {
 };
 export const repo = { repository, sourceSha: currentSha, visibility: "public" };
 export const entries = [
+  { repository: "lapismd/agent-ui", phase: "pilot" },
   { repository, phase: "pilot" },
   { repository: "lapismd/lapis-plugins", phase: "pilot" },
 ];

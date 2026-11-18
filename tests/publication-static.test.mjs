@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 test("Plugins static-v1 has a separate exact publisher contract, never a Notes schema relaxation", async () => {
   const { loadPublicationPolicy } = await import("../src/publications.mjs");
   const policy = await loadPublicationPolicy([
+    { repository: "lapismd/agent-ui" },
     { repository: "lapismd/lapis-notes" },
     { repository: "lapismd/lapis-plugins" },
   ]);
@@ -35,6 +36,7 @@ import {
   staticFixture,
 } from "./static-publication-fixtures.mjs";
 const entries = [
+  { repository: "lapismd/agent-ui" },
   { repository: "lapismd/lapis-notes" },
   { repository: "lapismd/lapis-plugins" },
 ];
