@@ -39,7 +39,7 @@
     },
     {
       "repository": "lapismd/lapis-plugins",
-      "phase": "full"
+      "phase": "pilot"
     },
     {
       "repository": "lapismd/lapis-plugin-tasks",
@@ -64,7 +64,7 @@
     },
     {
       "repository": "lapismd/agent-ui",
-      "phase": "full"
+      "phase": "pilot"
     },
     {
       "repository": "lapismd/lapis-ai",

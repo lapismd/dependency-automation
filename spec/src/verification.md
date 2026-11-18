@@ -80,3 +80,5 @@ extend DA-WAVE-003/005/007 evidence without waiving another source's gate.
 
 Desktop held-observer registration and its unchanged write boundary are recorded
 in the [bounded qualification receipt](https://github.com/lapismd/dependency-automation/blob/main/spec/records/2026-11-18-desktop-held-observer.md).
+
+Plugins and Agent UI post-merge activation uses the [independent source receipts](https://github.com/lapismd/dependency-automation/blob/main/spec/records/2026-11-18-plugins-agent-ui-activation.md); live reconciliation and repeat remain pending their actual observation.

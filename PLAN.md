@@ -1529,3 +1529,12 @@ records actual tests, corrected preparation failures and remaining gates.
 - [x] Deploy81 (d188a5e4) after full policy validation; Check/Pages pass and all other phases/holds remain unchanged.
 - [x] Verify genuine Terminal28/current-main151, no-intent version/Cargo skips, verified completion, generation192 accepted-on-main, and ordinary repeat44208057432; Registry retains its qualified API wait and no update. Neither repository has an open PR or duplicate writer.
 - [x] Record exact source/run/artifact/state receipts in `spec/records/2026-11-18-terminal-registry-live-replay.md`; close own tasks61/65 after this evidence lands and update parent50. All unrelated product/security/host holds remain binding.
+
+### Plugins and Agent UI activation batch
+
+- [x] Merge Plugins157 and Agent UI41 under normal current-head checks.
+- [x] Pass exact-main CI, image/Pages delivery, version disposition and verified current completion callbacks independently for both sources.
+- [x] Confirm both real version recipes require no added forced-empty flag; preserve all published versions and existing qualification bindings.
+- [ ] Deploy only these two full-to-pilot changes after policy validation and passing required CI; retain every other phase, hold, exclusion and global setting.
+- [ ] Run ordinary live reconciliation and repeat, qualify any genuine bot-owned candidate, and record honest upstream waits or no-op outcomes without fabricated releases.
+- [ ] Attach immutable state/artifact/source evidence, update parent50, and close tasks54/59 only after their own acceptance completes.
