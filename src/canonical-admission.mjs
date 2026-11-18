@@ -7,8 +7,10 @@ import {
   validateIntakePolicy,
 } from "./canonical-intake.mjs";
 import { workspaceIntakeFacts } from "./canonical-workspace.mjs";
+import { channelProjection } from "./channels.mjs";
 
 function workspacePreparationSupported(repo, node, graph, policy) {
+  const channels = channelProjection(graph);
   const manifests = new Map(
     repo.manifests.map((entry) => [entry.path, entry.manifest]),
   );
@@ -68,7 +70,7 @@ function workspacePreparationSupported(repo, node, graph, policy) {
         semver.gte(update.target, update.current) &&
         [null, "patch"].includes(semver.diff(update.current, update.target)) &&
         semver.satisfies(update.target, update.targetRange) &&
-        (graph.available[update.name] ?? []).includes(update.target) &&
+        channels.versions(update).includes(update.target) &&
         /^sha512-[A-Za-z0-9+/]{86}==$/.test(
           graph.registry?.[update.name]?.[update.target]?.integrity ?? "",
         )

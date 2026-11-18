@@ -41,6 +41,13 @@ upstream dependency floors and source-owned intake remain binding. Origin and
 recovery attempts retain the same artifact identity, without a new operation
 or synthetic publication.
 
+Canonical schema2 preparation checks target availability through the same exact
+repository/path/dependency-type reviewed channel projection as wave planning.
+Raw latest-only availability stays unchanged; valid scoped `next` patches do
+not become unsupported solely because they are absent from that raw pool.
+This preparation check never separates schema2 updates from upstream waits,
+current source qualification or any other admission gate.
+
 ## DA-WAVE-001 — Derived admission
 
 **Requirement.** Wave admission MUST derive update and public release chains from exact manifest, lockfile and registry evidence before selecting consumer targets.

@@ -11,6 +11,13 @@ proves the candidate can install without rewriting the lockfile or running
 package hooks, compares affected active manifests and delegates deterministic
 Changeset writing to `src/changesets.mjs`.
 
+Schema2 candidate eligibility uses the existing exact reviewed channel view
+for each selected manifest edge before preparation. All targets in the batch
+still require source policy/facts, patch compatibility and exact integrity;
+missing scope, moved tags or invalid publication proof retain the whole hold.
+The ordinary available pool and schema1 independent-development profile remain
+unchanged. This does not grant schema2 an independent wait bypass.
+
 ## DA-REL-001 — Candidate install before release intent
 
 **Requirement.** The post-upgrade helper MUST prove the exact candidate frozen install before writing dependency release intent.
