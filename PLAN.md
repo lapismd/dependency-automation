@@ -1519,13 +1519,13 @@ records actual tests, corrected preparation failures and remaining gates.
 - [x] Reproduce real immutable Mira no-op rejection at the shared schema2 renderer.
 - [x] Preserve only non-growing oversized source chapters without changing either ordinary cap, schema1, authored text, output authority or any runtime/publication gate.
 - [x] Pass10 exact regressions, real Mira byte-identical replay and477 full tests/three spec lanes after isolated TMPDIR recovery.
-- [ ] Merge reviewed owning coordinator fix after hosted checks; requalify affected source profiles against the deployed preparer.
+- [x] Merge owning coordinator80 (ecf981d2) and82 (2e0d1616); real Mira, Server and JJ source preparations/repeats retain their independent guards.
 
 ### Terminal and Registry activation batch
 
 - [x] Merge source Terminal27 and Registry184 under normal green-check policy.
 - [x] Pass exact-main native/spec/version/publication and actual trusted callbacks; preserve false/no-version release dispositions.
 - [x] Prove Terminal’s genuine no-note Core candidate needs no emptyChangeset flag; retain Registry’s upstream API wait.
-- [ ] Deploy only their two source-phase promotions after full policy validation.
-- [ ] Verify ordinary Terminal candidate/current-main settlement and repeat, plus Registry’s accurately held/no-update result and no duplicate writer.
-- [ ] Update own tasks61/65 and parent50 with exact receipts; no unrelated product/security/host hold is waived.
+- [x] Deploy81 (d188a5e4) after full policy validation; Check/Pages pass and all other phases/holds remain unchanged.
+- [x] Verify genuine Terminal28/current-main151, no-intent version/Cargo skips, verified completion, generation192 accepted-on-main, and ordinary repeat44208057432; Registry retains its qualified API wait and no update. Neither repository has an open PR or duplicate writer.
+- [x] Record exact source/run/artifact/state receipts in `spec/records/2026-11-18-terminal-registry-live-replay.md`; close own tasks61/65 after this evidence lands and update parent50. All unrelated product/security/host holds remain binding.

@@ -157,5 +157,8 @@ version recipe; the coordinator’s empty-Changeset flag remains unchanged.
 Registry source184 merged69d8c063, passes current Checks/signed publication
 and actual callbacks, and retains its private API0.1/no-version contract.
 Its upstream API publication wait remains binding; activation does not waive
-that prerequisite or claim an invented npm release. Ordinary live settlement
-and replay are required after policy deployment.
+that prerequisite or claim an invented npm release. The [live acceptance record](https://github.com/lapismd/dependency-automation/blob/main/spec/records/2026-11-18-terminal-registry-live-replay.md)
+now proves Terminal's genuine Core update, current-main/no-intent completion,
+durable settlement and unchanged repeat. Registry's qualified no-update repeat
+retains its API prerequisite and unexercised dependency-publication branch.
+These two adoption tasks may close; all other source work remains separate.
