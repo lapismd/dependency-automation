@@ -7,7 +7,7 @@ Publication observations are independent of update eligibility. The latest-only
 policy remains the default for candidate selection; observing a next-tagged
 version alone does not admit it or change registry tags.
 
-The exact configured Profile source/integrity binding MAY retire its verified own publication wait only; Profile MUST remain forbidden in consumer scope entries, leaving direct update eligibility and npm tags unchanged.
+The exact configured Profile source/integrity binding MAY retire its verified own publication wait. Direct Profile consumption MUST be restricted to Server's root `package.json` runtime `dependencies`; every other repository, manifest path and dependency type remains forbidden. Its exact verified `next` pin changes no registry tag, release floor, canonical source guard or advisory policy.
 
 The November18 reviewed cohort refresh binds API0.6.9, UI0.2.4, Workspace0.4.8
 and Profile0.2.6 to the exact successful Notes538bb469 publication and immutable
@@ -45,7 +45,7 @@ The complete measured proof is retained in
 ### Acceptance details
 
 - Source policy MUST bind each package, version, integrity, public publisher and attested source; fresh channel, verified publication and exact source-contract evidence MUST agree.
-- Direct admission MUST match repository, manifest path and dependency type; consumer prerequisite closure MUST remain rooted in that path's approved seeds, and public owned publisher retirement MAY use only approved actual runtime/optional/peer fields and their freshly verified cohort prerequisites, with direct scope filters and global eligibility unchanged.
+- Direct admission MUST match repository, manifest path and dependency type, with Profile restricted to Server's root runtime dependencies; consumer prerequisite closure MUST remain rooted in that path's approved seeds, and public owned publisher retirement MAY use only approved actual runtime/optional/peer fields and their freshly verified cohort prerequisites, with direct scope filters and global eligibility unchanged.
 - Unknown policy, missing scope, deprecated or moved channel, incomplete proof and changed identity MUST fail closed; immediate target revalidation MUST refresh registry identities before consumer writes.
 - Raw publication channel facts MUST remain unchanged; reports MUST retain remaining channel, source, release-floor, compatibility and ownership holds, with unchanged durable/report schemas and CAS.
 

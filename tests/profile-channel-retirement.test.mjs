@@ -2,11 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { channelFixture, options, revision } from "./channel-fixtures.mjs";
 import { observedPublication } from "./publication-fixtures.mjs";
-import {
-  channelProjection,
-  loadChannelPolicy,
-  validateChannelPolicy,
-} from "../src/channels.mjs";
+import { channelProjection, loadChannelPolicy } from "../src/channels.mjs";
 import { planWaves, emptyState } from "../src/waves.mjs";
 
 const name = "@lapis-notes/app-profile";
@@ -76,26 +72,25 @@ function fixture(coreRange = "^0.13.4") {
   };
   return { graph, state, metadata, repo };
 }
-test("Profile026 is an exact publication-only cohort pin with no consumer scope", () => {
+test("Profile026 retains its exact publication pin and only the reviewed Server scope", () => {
   const policy = loadChannelPolicy();
   assert.deepEqual(
     policy.cohort.packages.find((p) => p.name === name),
     pin,
   );
-  assert.equal(
-    policy.cohort.scopes.some((s) => s.name === name),
-    false,
+  assert.deepEqual(
+    policy.cohort.scopes.filter((s) => s.name === name),
+    [
+      {
+        repository: "lapismd/lapis-server",
+        path: "package.json",
+        type: "dependencies",
+        name,
+      },
+    ],
   );
-  const changed = structuredClone(policy);
-  changed.cohort.scopes.push({
-    repository: "lapismd/lapis-server",
-    path: "package.json",
-    type: "dependencies",
-    name,
-  });
-  assert.throws(() => validateChannelPolicy(changed));
 });
-test("verified Profile026 retires its own wait without admitting consumer updates, changing tags or duplicating replay", () => {
+test("verified Profile026 retires its own wait without admitting other consumers, changing tags or duplicating replay", () => {
   const { graph, state } = fixture(),
     before = JSON.stringify(graph);
   const first = planWaves(graph, state, options),
@@ -103,10 +98,11 @@ test("verified Profile026 retires its own wait without admitting consumer update
   assert.equal(first.state.releases[name].status, "published");
   assert.equal(first.state.releases[name].version, pin.version);
   for (const repository of [
-    "lapismd/lapis-server",
     "lapismd/lapis-desktop",
     "lapismd/lapis-notes",
     "lapismd/lapis-plugins",
+    "lapismd/lapis-plugin-tasks",
+    "lapismd/lapis-plugin-notebook",
   ])
     assert.deepEqual(
       projection.versions({

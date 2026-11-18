@@ -353,6 +353,12 @@
         "path": "package.json",
         "type": "dependencies",
         "name": "@lapis-notes/workspace"
+      },
+      {
+        "repository": "lapismd/lapis-server",
+        "path": "package.json",
+        "type": "dependencies",
+        "name": "@lapis-notes/app-profile"
       }
     ]
   }

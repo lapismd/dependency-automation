@@ -14,9 +14,10 @@ source-byte contract. It changes no repository phase, channel scope, publication
 floor, signing tool or completion authority.
 
 The reviewed Notes channel cohort follows DA-PUB-003 with exact package,
-version, integrity and consumer-manifest scopes. It adds no repository entries,
-recognizes the configured Profile publication only, and changes no phase, schedule or write
-activation. Profile consumer scope entries stay forbidden. DA-POL-001
+version, integrity and consumer-manifest scopes. It adds no repository entries
+and changes no phase, schedule or write activation. Profile's separate reviewed
+consumer scope is restricted to Server's root runtime dependencies; other
+Profile consumer scopes remain forbidden. DA-POL-001
 through DA-POL-003 retain their existing authority and excluded hosts.
 
 The November18 Notes refresh changes exactly four package identities to their
@@ -25,6 +26,11 @@ consumer scope or repository and retains file-explorer0.2.8 and defaultlatest.
 Current-main qualification, source-owned canonical support and upstream floors
 remain independent holds; the normalized proof is recorded in
 `spec/records/2026-11-18-notes-cohort-recovery.md`.
+
+The subsequent exact Server Profile scope changes only direct channel selection
+for its existing public prerequisite, as recorded in
+`spec/records/2026-11-18-server-profile-scope.md`; source compatibility,
+publication-floor and production audit holds remain independent.
 
 Server joins the existing ten pilot entries after source103 and exact-main
 CI/image/Pages/completion qualification. Its measured empty managed note records
