@@ -1,6 +1,7 @@
 import { readFile } from "node:fs/promises";
 import { setTimeout } from "node:timers/promises";
-import { requestJson } from "./github.mjs";
+import { requestJson, loadPolicy } from "./github.mjs";
+import { validateHeldCompletionObservers } from "./completion-observers.mjs";
 
 const sha = (value) => /^[a-f0-9]{40}$/.test(value ?? "");
 const positive = (value) => Number.isSafeInteger(value) && value > 0;
@@ -17,22 +18,37 @@ export async function loadCompletionPolicy(entries) {
       "utf8",
     ),
   );
-  return validateCompletionPolicy(policy, entries);
+  return validateCompletionPolicy(
+    policy,
+    entries,
+    (await loadPolicy()).monitoring?.excludedRepositories ?? [],
+  );
 }
 
-export function validateCompletionPolicy(policy, entries) {
+export function validateCompletionPolicy(policy, entries, excluded = []) {
   if (
     policy.schemaVersion !== 1 ||
     !workflowPath(policy.callbackPath) ||
     !policy.repositories ||
     Object.keys(policy).some(
-      (k) => !["schemaVersion", "callbackPath", "repositories"].includes(k),
+      (k) =>
+        ![
+          "schemaVersion",
+          "callbackPath",
+          "repositories",
+          "heldObservers",
+        ].includes(k),
     )
   )
     hold("invalid-completion-policy");
+  const observers = validateHeldCompletionObservers(policy, entries, excluded);
   for (const [repository, workflows] of Object.entries(policy.repositories)) {
     if (
-      !entries.some((e) => e.repository === repository && !e.holdReason) ||
+      !entries.some(
+        (e) =>
+          e.repository === repository &&
+          (!e.holdReason || observers.has(repository)),
+      ) ||
       !Array.isArray(workflows) ||
       !workflows.length
     )

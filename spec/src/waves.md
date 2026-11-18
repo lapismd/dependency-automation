@@ -230,3 +230,11 @@ and actual callbacks, and retains its private API0.1/no-version contract.
 Its upstream API publication wait remains binding; activation does not waive
 that prerequisite or claim an invented npm release. Ordinary live settlement
 and replay are required after policy deployment.
+
+## Held source completion observation
+
+Desktop may explicitly observe its registered successful CI/Pages completions
+while its private projection write hold and phase `full` remain intact.
+DA-NOT-004's metadata observer is not dependency admission or publication
+qualification. Existing hold, registry, current-main, ownership and per-entry
+activation checks remain required; excluded roots cannot opt into this path.

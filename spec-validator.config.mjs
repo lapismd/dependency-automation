@@ -57,7 +57,7 @@ export default defineConfig(headingRequirements(), {
         },
         {
           pattern:
-            "^src/completion\\.mjs$|^scripts/qualify-completion\\.mjs$|^config/completions\\.json$",
+            "^src/completion(?:-observers)?\\.mjs$|^scripts/qualify-completion\\.mjs$|^config/completions\\.json$",
           chapters: ["spec/src/notifications.md", "spec/src/waves.md"],
         },
         {

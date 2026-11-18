@@ -14,7 +14,9 @@ The accepted initial rollout selected Notebook as the first `pilot` entry.
 With the coordinator phase retained at `pilot`, every `full` entry remains
 observation-only until its own adoption task explicitly promotes that entry.
 Existing completion callers remain read/dispatch observers independently of
-write activation; excluded and held roots remain ineligible for those callers.
+write activation. Excluded roots remain ineligible. A held full-phase source
+may register a separately reviewed metadata-only observer under DA-NOT-004;
+its hold and dependency-write ineligibility remain binding.
 
 ## DA-POL-001 — Explicit dependency scope
 
@@ -230,3 +232,12 @@ and actual callbacks, and retains its private API0.1/no-version contract.
 Its upstream API publication wait remains binding; activation does not waive
 that prerequisite or claim an invented npm release. Ordinary live settlement
 and replay are required after policy deployment.
+
+The Desktop observer registration names only CI400533153 and Pages403244157,
+with their exact paths and original PR/push/manual events. Its explicit
+`heldObservers` opt-in is valid only while the existing private/archive hold and
+full phase remain present. It grants no writer admission, publication authority,
+private registry access or version recipe; a later promotion must remove this
+observer opt-in rather than silently inherit it. Excluded Deno roots cannot use
+this registration mechanism. Schedule, preview, trial, health, image publication
+and callback self-triggers remain outside the allowed workflow/event pairs.

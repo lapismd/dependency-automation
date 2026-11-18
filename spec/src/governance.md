@@ -136,3 +136,8 @@ contract; Maintenance report and durable state schemas remain unchanged.
 The channel policy/projection and static publisher reader map to publications
 and waves. Only source-reviewed cohort coordinates/scopes are committed; live
 proofs and operational artifacts remain ignored and outside public book uploads.
+
+The completion observer feature module maps only to its existing notification
+and wave owners. Adding `src/completion-observers.mjs` does not introduce a
+catch-all protected-path exemption; DA-NOT-004 keeps held and excluded-source
+behavior explicit while preserving every dependency-write gate.
