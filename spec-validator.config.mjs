@@ -93,7 +93,7 @@ export default defineConfig(headingRequirements(), {
         },
         {
           pattern:
-            "^src/wave(?:s|-evidence|-state)\\.mjs$|^scripts/(?:wave-state|validate-wave-target)\\.mjs$",
+            "^src/wave(?:s|-(?:attention|evidence|state))\\.mjs$|^scripts/(?:wave-state|validate-wave-target)\\.mjs$",
           chapters: ["spec/src/waves.md"],
         },
         {

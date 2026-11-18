@@ -80,6 +80,11 @@ covering its manifest/lock tuple; missing candidate data and empty historic
 targets remain uncertain until explicit recovery. A later compatible candidate
 may cover an older target without relaxing minimum or peer-support requirements.
 
+Public reports MAY include a bounded presentation-only attention projection
+derived from existing holds, waits, qualification and ownership evidence. Each
+entry retains a stable category, remediation and validated public coordinates
+without granting command authority or replacing immutable evidence.
+
 ### Acceptance details
 
 - Registry-verified version/integrity identities coalesce duplicate hints; complete scheduled scans recover missed events without treating payloads as authority.
