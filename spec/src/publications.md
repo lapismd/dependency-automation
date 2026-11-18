@@ -7,7 +7,14 @@ Publication observations are independent of update eligibility. The latest-only
 policy remains the default for candidate selection; observing a next-tagged
 version alone does not admit it or change registry tags.
 
-The exact Profile0.2.5 source/integrity binding MAY retire its verified own publication wait only; Profile MUST remain forbidden in consumer scope entries, leaving direct update eligibility and npm tags unchanged.
+The exact configured Profile source/integrity binding MAY retire its verified own publication wait only; Profile MUST remain forbidden in consumer scope entries, leaving direct update eligibility and npm tags unchanged.
+
+The November18 reviewed cohort refresh binds API0.6.9, UI0.2.4, Workspace0.4.8
+and Profile0.2.6 to the exact successful Notes538bb469 publication and immutable
+artifact. Origin attempt1 and same-byte verification recovery attempt2 remain
+distinct; file-explorer0.2.8, all consumer scopes and default latest are unchanged.
+The complete measured proof is retained in
+`spec/records/2026-11-18-notes-cohort-recovery.md`.
 
 ## DA-PUB-001 — Verified publication identity
 

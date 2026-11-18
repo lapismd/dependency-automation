@@ -1,0 +1,193 @@
+{
+  "observedAt": null,
+  "graph": {
+    "repositories": 19,
+    "owners": 42,
+    "edges": 212,
+    "coverageGaps": 0,
+    "cycles": 0
+  },
+  "publicationCoverage": {
+    "schemaVersion": 1,
+    "requests": 199,
+    "bytes": 85968396
+  },
+  "publications": {
+    "@lapis-notes/api": {
+      "schemaVersion": 1,
+      "state": "verified",
+      "reason": "verified-publication",
+      "channel": {
+        "policy": "latest",
+        "admitted": false,
+        "latest": "0.1.0",
+        "tags": ["next"]
+      },
+      "currentSourceSha": "747a85555ab90dc0eb91efafaac169c233a3b6fb",
+      "currentContractSha256": "dbc4eaf9bdd65a8dc8bc0a483f692ef6dcc794b61c209a7caa70d0aa932ffef8",
+      "matchesCurrentContract": true,
+      "proof": {
+        "repository": "lapismd/lapis-notes",
+        "sourceSha": "538bb4697839a788f041e1830465907e10f50bba",
+        "repositoryId": 1349575966,
+        "runId": 44232734973,
+        "runAttempt": 1,
+        "attestationSha256": "3309690506dd0e8636c7671a9b3e6c4aa9d11383659c6a9281184f89fb8f9938",
+        "subjectSha512": "a5f9b6be1c57834e8ba029faad2089f3f8c64eb61a9191a562ec62c0330816c8928243b9c88f0982da13b9ac08600697ceaecb3568ec05f12d6ae37ee5575e78",
+        "workflow": ".github/workflows/release.yml",
+        "ref": "refs/heads/main",
+        "toolSha256": "78d23db0253c21065d8b570fb5a6f7c60d57d1e15e8076db75445fb500377e3d",
+        "artifact": {
+          "id": 14396531231,
+          "sha256": "906c65acdb2600f671e53ced31300fc28a6fc4e5db657c209ae3f34edef4b954",
+          "manifestSha256": "ca2986a365dc8a575cc8853d137cf2a2599e94ad8e7ef51a66bd89561f6cd6c5",
+          "tarballSha256": "b3a7f248619da11d5641945d895ae77875b2c21cf644b30dfa1871fe9dd92303"
+        },
+        "verification": {
+          "runId": 44232734973,
+          "runAttempt": 2,
+          "id": 14396531231,
+          "sha256": "906c65acdb2600f671e53ced31300fc28a6fc4e5db657c209ae3f34edef4b954",
+          "manifestSha256": "ca2986a365dc8a575cc8853d137cf2a2599e94ad8e7ef51a66bd89561f6cd6c5",
+          "tarballSha256": "b3a7f248619da11d5641945d895ae77875b2c21cf644b30dfa1871fe9dd92303"
+        },
+        "sourceContractSha256": "dbc4eaf9bdd65a8dc8bc0a483f692ef6dcc794b61c209a7caa70d0aa932ffef8",
+        "sourceCiSha256": "7fbff75df9be79ef9a84ca423e27a65407f22d9fa7950f5b039142ff93e1e0b7",
+        "dependencyContractSha256": "0c1e5da1162ac0cb0082adf0081aa2dca81f520bcd4f77bd93d49a385e095985"
+      }
+    },
+    "@lapis-notes/ui": {
+      "schemaVersion": 1,
+      "state": "verified",
+      "reason": "verified-publication",
+      "channel": {
+        "policy": "latest",
+        "admitted": false,
+        "latest": "0.1.0",
+        "tags": ["next"]
+      },
+      "currentSourceSha": "747a85555ab90dc0eb91efafaac169c233a3b6fb",
+      "currentContractSha256": "b3da8bf1c204b1a02180e292617c6f72c38022624309a55a5fa3dd0353e217ef",
+      "matchesCurrentContract": true,
+      "proof": {
+        "repository": "lapismd/lapis-notes",
+        "sourceSha": "538bb4697839a788f041e1830465907e10f50bba",
+        "repositoryId": 1349575966,
+        "runId": 44232734973,
+        "runAttempt": 1,
+        "attestationSha256": "fa1af93124e48573d78a36b8e09ef6380576d986a77824d621d53190097c3a48",
+        "subjectSha512": "76df88c66f481b675fc14762cf1a8192c7cb311cdefdb3935341a1d5df3e1c1591ef02f246435808e7d22e56df5e927abb7f79e1a915b6e03de1ab636b61de56",
+        "workflow": ".github/workflows/release.yml",
+        "ref": "refs/heads/main",
+        "toolSha256": "78d23db0253c21065d8b570fb5a6f7c60d57d1e15e8076db75445fb500377e3d",
+        "artifact": {
+          "id": 14396531231,
+          "sha256": "906c65acdb2600f671e53ced31300fc28a6fc4e5db657c209ae3f34edef4b954",
+          "manifestSha256": "ca2986a365dc8a575cc8853d137cf2a2599e94ad8e7ef51a66bd89561f6cd6c5",
+          "tarballSha256": "0c76c9df4a30a04fc8ebc65c31f5b9854535154db4b88969597c00f8eb34aeff"
+        },
+        "verification": {
+          "runId": 44232734973,
+          "runAttempt": 2,
+          "id": 14396531231,
+          "sha256": "906c65acdb2600f671e53ced31300fc28a6fc4e5db657c209ae3f34edef4b954",
+          "manifestSha256": "ca2986a365dc8a575cc8853d137cf2a2599e94ad8e7ef51a66bd89561f6cd6c5",
+          "tarballSha256": "0c76c9df4a30a04fc8ebc65c31f5b9854535154db4b88969597c00f8eb34aeff"
+        },
+        "sourceContractSha256": "b3da8bf1c204b1a02180e292617c6f72c38022624309a55a5fa3dd0353e217ef",
+        "sourceCiSha256": "7fbff75df9be79ef9a84ca423e27a65407f22d9fa7950f5b039142ff93e1e0b7",
+        "dependencyContractSha256": "18f8a8d96c3d08f613b572f676708f2c9dc7b0e50a17b03e96f29b0ffbb825d6"
+      }
+    },
+    "@lapis-notes/workspace": {
+      "schemaVersion": 1,
+      "state": "verified",
+      "reason": "verified-publication",
+      "channel": {
+        "policy": "latest",
+        "admitted": false,
+        "latest": "0.1.0",
+        "tags": ["next"]
+      },
+      "currentSourceSha": "747a85555ab90dc0eb91efafaac169c233a3b6fb",
+      "currentContractSha256": "4222bfc68fe9691c152dad1b71439798ab62f75b18595588d967055dbbc42884",
+      "matchesCurrentContract": true,
+      "proof": {
+        "repository": "lapismd/lapis-notes",
+        "sourceSha": "538bb4697839a788f041e1830465907e10f50bba",
+        "repositoryId": 1349575966,
+        "runId": 44232734973,
+        "runAttempt": 1,
+        "attestationSha256": "eaa1cae3be2b1eebc52f422e525790a8d51728eff389c2f5aa8d69e9dfa80b6a",
+        "subjectSha512": "d138667b94bd8f48e2f75cfd996330648ef0689985d02eefe66d6e41619ac1336c975f017c7d5087650ddb32f689d75a1ce122b2f4fc34fa0e64b7a1d03ff8d9",
+        "workflow": ".github/workflows/release.yml",
+        "ref": "refs/heads/main",
+        "toolSha256": "78d23db0253c21065d8b570fb5a6f7c60d57d1e15e8076db75445fb500377e3d",
+        "artifact": {
+          "id": 14396531231,
+          "sha256": "906c65acdb2600f671e53ced31300fc28a6fc4e5db657c209ae3f34edef4b954",
+          "manifestSha256": "ca2986a365dc8a575cc8853d137cf2a2599e94ad8e7ef51a66bd89561f6cd6c5",
+          "tarballSha256": "558ecb749a420cbb222a790f19f5527aef9b2d956fcb367e633ca26cc7d60177"
+        },
+        "verification": {
+          "runId": 44232734973,
+          "runAttempt": 2,
+          "id": 14396531231,
+          "sha256": "906c65acdb2600f671e53ced31300fc28a6fc4e5db657c209ae3f34edef4b954",
+          "manifestSha256": "ca2986a365dc8a575cc8853d137cf2a2599e94ad8e7ef51a66bd89561f6cd6c5",
+          "tarballSha256": "558ecb749a420cbb222a790f19f5527aef9b2d956fcb367e633ca26cc7d60177"
+        },
+        "sourceContractSha256": "4222bfc68fe9691c152dad1b71439798ab62f75b18595588d967055dbbc42884",
+        "sourceCiSha256": "7fbff75df9be79ef9a84ca423e27a65407f22d9fa7950f5b039142ff93e1e0b7",
+        "dependencyContractSha256": "2be0642b8e051bda64f4217749e556aa96a0ab84b2f24b15c26aecc49f34d76d"
+      }
+    },
+    "@lapis-notes/app-profile": {
+      "schemaVersion": 1,
+      "state": "verified",
+      "reason": "verified-publication",
+      "channel": {
+        "policy": "latest",
+        "admitted": false,
+        "latest": "0.1.0",
+        "tags": ["next"]
+      },
+      "currentSourceSha": "747a85555ab90dc0eb91efafaac169c233a3b6fb",
+      "currentContractSha256": "30cab5472cfc59621831cdf406053e2aca9a4c795d85b6523139b51786102bfc",
+      "matchesCurrentContract": true,
+      "proof": {
+        "repository": "lapismd/lapis-notes",
+        "sourceSha": "538bb4697839a788f041e1830465907e10f50bba",
+        "repositoryId": 1349575966,
+        "runId": 44232734973,
+        "runAttempt": 1,
+        "attestationSha256": "640762928823dabf25734077de39fa774e5e74ea6acb3f96306e6a2fcc5cd9f1",
+        "subjectSha512": "4946b3e523c460369d57f92f76733c5058928f8fc4a889391bcf15c728dc2c3cb53daa41350ef5eb76351054c618cced24350fd8ff8ee31aa094295ba3f881ca",
+        "workflow": ".github/workflows/release.yml",
+        "ref": "refs/heads/main",
+        "toolSha256": "78d23db0253c21065d8b570fb5a6f7c60d57d1e15e8076db75445fb500377e3d",
+        "artifact": {
+          "id": 14396531231,
+          "sha256": "906c65acdb2600f671e53ced31300fc28a6fc4e5db657c209ae3f34edef4b954",
+          "manifestSha256": "ca2986a365dc8a575cc8853d137cf2a2599e94ad8e7ef51a66bd89561f6cd6c5",
+          "tarballSha256": "90eee3a9367cc4d115d28f06d5e5111399baa99f551cc361b6042fbd48e668b9"
+        },
+        "verification": {
+          "runId": 44232734973,
+          "runAttempt": 2,
+          "id": 14396531231,
+          "sha256": "906c65acdb2600f671e53ced31300fc28a6fc4e5db657c209ae3f34edef4b954",
+          "manifestSha256": "ca2986a365dc8a575cc8853d137cf2a2599e94ad8e7ef51a66bd89561f6cd6c5",
+          "tarballSha256": "90eee3a9367cc4d115d28f06d5e5111399baa99f551cc361b6042fbd48e668b9"
+        },
+        "sourceContractSha256": "30cab5472cfc59621831cdf406053e2aca9a4c795d85b6523139b51786102bfc",
+        "sourceCiSha256": "7fbff75df9be79ef9a84ca423e27a65407f22d9fa7950f5b039142ff93e1e0b7",
+        "dependencyContractSha256": "18710000629951ff909d9e3ca773d5126e2f8e026acd555b296b686af98c00df"
+      }
+    }
+  },
+  "requestedWrites": false,
+  "effectiveWrites": false,
+  "stateWrites": false,
+  "policy": "Only four exact Notes identities refresh; unchanged consumer scopes/defaultlatest/file-explorer/publication rules/phases/holds/advisory grants."
+}
