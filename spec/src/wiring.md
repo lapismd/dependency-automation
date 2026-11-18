@@ -196,3 +196,21 @@ bindings remain unchanged. The [source activation receipt](https://github.com/la
 records their independent evidence. Ordinary live reconciliation and repeat
 remain required; unavailable upstream publication floors are not waived, and
 no dependency update, version PR or publication is invented to force activity.
+
+## AI and JJ Store activation eligibility
+
+Standing post-merge operator approval promotes only AI and JJ Store from full
+to pilot after independently green source adoption and whole-recipe acceptance.
+Both entries add the proven `emptyChangeset: true` capability: an actual managed
+empty note lets the source CLI classify supported development intake without
+inventing version or publication intent. Their real no-note macros alone do not
+prove the changed-candidate guard succeeds. The [bounded activation receipt](https://github.com/lapismd/dependency-automation/blob/main/spec/records/2026-11-18-ai-jj-store-activation.md)
+retains those separate controls and exact current-main observations.
+
+This is eligibility, not a current-main qualification override. Pending or failed
+current CI, source/audit policy, ownership and publication prerequisites still
+hold actual writes and release-chain advancement. Existing seven pilot entries,
+every other empty-note setting, exclusions, holds and global pilot gates remain
+unchanged. Ordinary live reconciliation, exact settlement and repeat acceptance
+remain open until their own receipts exist. The user's unrelated JJ Store
+main/release repair exclusion does not alter the collector or assert a pass.

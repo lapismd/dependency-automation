@@ -68,7 +68,8 @@
     },
     {
       "repository": "lapismd/lapis-ai",
-      "phase": "full"
+      "phase": "pilot",
+      "emptyChangeset": true
     },
     {
       "repository": "lapismd/lapis-terminal",
@@ -104,7 +105,8 @@
     },
     {
       "repository": "stevejuma/jj-store",
-      "phase": "full"
+      "phase": "pilot",
+      "emptyChangeset": true
     }
   ]
 }

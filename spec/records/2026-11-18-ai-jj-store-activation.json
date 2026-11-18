@@ -1,0 +1,173 @@
+{
+  "schemaVersion": 1,
+  "kind": "pre-merge-source-activation-qualification",
+  "observedAt": "2026-11-18T02:35:54.134Z",
+  "coordinatorParent": "9cc60c653c57637e5d7e9859b73ee963d4540e00",
+  "proposedRepositoryPolicySha256": "470294df190026f8bb5d5f7a174554690a43d61c33f56c854cd4a4987a7f3ed8",
+  "requestedWrites": false,
+  "requestedWaveStateWrites": false,
+  "effectiveWritableAdmission": false,
+  "previousPilotEntriesUnchanged": 7,
+  "proposedPilotCount": 9,
+  "sourceEntries": {
+    "lapismd/lapis-ai": {
+      "sourceSha": "87629985f60e74a793158dc1a442ad3f6a9b9ed0",
+      "phase": "pilot",
+      "emptyChangeset": true,
+      "canonicalPolicySha256": "3aa73330b177ffb38c07e8096b526ff9ba66b32a973a36d0339f16c0e09ccb72",
+      "rootManifestSha256": "810b86e1415aa760f129a717503cbdecd03eceac73c691f442bc31ff633c9b0b",
+      "lockSha256": "960678610bcc2ae5018001d999cf49041a0c5ef9efffd239f575e9eaf94a9a4b",
+      "acceptance": {
+        "state": "waiting",
+        "reason": "current CI still running"
+      },
+      "status": "unchanged",
+      "availableUpdateInputs": 0,
+      "admittedUpdateInputs": 0,
+      "sourceHolds": 0,
+      "upstreamWaits": 0,
+      "branchOwnershipHolds": 0,
+      "writerConfiguration": {
+        "writerConfiguration": "refused",
+        "reason": "Wave target is not admitted at this source revision"
+      },
+      "operationId": "b3299bb5c5105792cb9657ce6c7f6af2e36a6faa327e381b7dbe2aaee5a086ab",
+      "emptyNoteControl": {
+        "baselineSource": "1e6743d0095f83c52b3329782a927437e63b3107",
+        "controlledSource": "16766a1d3435abd4bea36bc630eddfe50faac3a2",
+        "withoutNoteCliExit": 1,
+        "withoutNoteRawMacroExit": 0,
+        "actualEmptyNoteCliExit": 0,
+        "actualEmptyIntent": false,
+        "actualEmptyRawMacroExit": 0,
+        "versionsUnchanged": true,
+        "sourceBoundManagedNoteAndTwoRepeats": true,
+        "negativeCases": [
+          {
+            "name": "runtime",
+            "exit": 1
+          },
+          {
+            "name": "null",
+            "exit": 1
+          },
+          {
+            "name": "oversized",
+            "exit": 1
+          }
+        ]
+      }
+    },
+    "stevejuma/jj-store": {
+      "sourceSha": "027eda3957a87a4bfd3df49745de82ccc88cf1ee",
+      "phase": "pilot",
+      "emptyChangeset": true,
+      "canonicalPolicySha256": "b2a3e5e62c3a58a5c475c112b33d7388e7b774bcc0a12c5390899b6d5cf0d2f9",
+      "rootManifestSha256": "48ef3d38b8bcd5c2249ffbf135686ec69b31ec3ea53df72f56cd36c853e95576",
+      "lockSha256": "87ab964c94959c9e6e660b6ed74afcd1b02c6765e16c4d0dae5417d612c8cb25",
+      "acceptance": {
+        "state": "waiting",
+        "reason": "current CI still running"
+      },
+      "status": "unchanged",
+      "availableUpdateInputs": 0,
+      "admittedUpdateInputs": 0,
+      "sourceHolds": 0,
+      "upstreamWaits": 0,
+      "branchOwnershipHolds": 0,
+      "writerConfiguration": {
+        "writerConfiguration": "refused",
+        "reason": "Wave target is not admitted at this source revision"
+      },
+      "operationId": "74bc9dbba7ed5cadc112a0bf7a5837e5ca162bc66c778325792c3a0e3d3a3fa5",
+      "emptyNoteControl": {
+        "baselineSource": "30d632e30089980e763567e0136dcbc88f9789d9",
+        "controlledSource": "345109184e4f78d598673596e10ae63476fdc314",
+        "withoutNoteCliExit": 1,
+        "withoutNoteRawMacroExit": 0,
+        "actualEmptyNoteCliExit": 0,
+        "actualEmptyIntent": false,
+        "actualEmptyRawMacroExit": 0,
+        "versionsUnchanged": true,
+        "sourceBoundManagedNoteAndTwoRepeats": true,
+        "negativeCases": [
+          {
+            "name": "runtime",
+            "exit": 1
+          },
+          {
+            "name": "null",
+            "exit": 1
+          },
+          {
+            "name": "oversized",
+            "exit": 1
+          }
+        ]
+      }
+    }
+  },
+  "coverage": {
+    "repositories": 19,
+    "owners": 42,
+    "edges": 212,
+    "cycles": 0,
+    "coverageGaps": 0
+  },
+  "strictRenovate": {
+    "admittedRepository": "lapismd/agent-ui",
+    "sourceSha": "92778247fe369da6455a00909039b818503fab3e",
+    "admittedInputs": 3,
+    "generatedConfig": "pass",
+    "actualCjsWrapper": "pass",
+    "retainedExistingWarning": "optional native RE2 binding unavailable; both strict validators exit0"
+  },
+  "validation": {
+    "tests": 567,
+    "failed": 0,
+    "specificationLanes": 3,
+    "doctorChecks": 11,
+    "qmd": "semantic discovery passed",
+    "formatting": "pass",
+    "actionlint": "pass",
+    "newTests": 0,
+    "inventory": "fresh GET-only; repository/state writes both false"
+  },
+  "runtimeAdvisory": {
+    "dependencySource": "9d657a7458e40ca84962a12c9b8e361534b3470f",
+    "lockSha256": "a3e1f05fe6a25925d61b6af7baf5316c24156a0b71319611f6e3298bbca61b8b",
+    "acceptedExactPaths": 2,
+    "changed": false
+  },
+  "preservedConfigurationSha256": {
+    "advisories.json": "1f19a2c80d9eab66180c4a04cb453ae974a158180ffe177920709c4a98ea410e",
+    "tooling.json": "232310fdd5455bc971abf29942f5e78beca2baa887ef28f10674aeda21ed333c",
+    "completions.json": "d8678cd5564c725e9d72943cadc4988e516b21a8e4ee294cf713aac3feca79fc",
+    "publications.json": "65b08e7e5e192a0f74ed80dca2c572f43472fcaa8e6d8d0aafea1d9894d14a36",
+    "channels.json": "0450d58dc2ba89b13a39c111ab9e0afd67e1c495118c358d81d04f5337d426b8",
+    "operations.json": "e1b7ec6201d332877ef784f104aa20758594e5374c787c5e0909cf2a1c449748"
+  },
+  "currentRunObservations": {
+    "aiPushCi": {
+      "conclusion": null,
+      "event": "push",
+      "head_sha": "87629985f60e74a793158dc1a442ad3f6a9b9ed0",
+      "id": 44222567253,
+      "name": "CI",
+      "status": "in_progress",
+      "updated_at": "2026-11-18T02:33:39Z"
+    },
+    "jjQualifiedPublication": {
+      "conclusion": null,
+      "event": "workflow_dispatch",
+      "head_sha": "027eda3957a87a4bfd3df49745de82ccc88cf1ee",
+      "id": 44218757122,
+      "name": "Publish qualified release",
+      "status": "in_progress",
+      "updated_at": "2026-11-18T02:30:41Z"
+    }
+  },
+  "publicationNotification": "JJ version/Pages callbacks explicitly delivered completed-source wake-ups; qualified publication remains pending, not reported delivered or skipped.",
+  "deployed": false,
+  "liveReconciliationAndRepeat": "pending; tasks60/66 remain open; no candidate/publication/settlement inferred"
+}

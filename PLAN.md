@@ -1538,3 +1538,12 @@ records actual tests, corrected preparation failures and remaining gates.
 - [ ] Deploy only these two full-to-pilot changes after policy validation and passing required CI; retain every other phase, hold, exclusion and global setting.
 - [ ] Run ordinary live reconciliation and repeat, qualify any genuine bot-owned candidate, and record honest upstream waits or no-op outcomes without fabricated releases.
 - [ ] Attach immutable state/artifact/source evidence, update parent50, and close tasks54/59 only after their own acceptance completes.
+
+### AI and JJ Store post-merge eligibility batch
+
+- [x] Merge independently qualified AI16 and JJ Store92 under normal current-head/merge-group gates.
+- [x] Retain each actual whole recipe and exact CLI no-note/managed-empty controls; both need emptyChangeset:true while false intent preserves unchanged versions.
+- [x] Prepare only these two full-to-pilot changes and their measured flags under standing post-merge approval; preserve the prior seven pilot entries, all other policy fields and shared runtime exceptions.
+- [ ] Deploy the reviewed eligibility slice after coordinator checks; current-main pending/failed workflows and actual source/publication prerequisites still hold writers.
+- [ ] Observe ordinary live reconciliation and repeat; qualify a genuine candidate or honestly retain source/upstream holds without fabricating updates or releases.
+- [ ] Attach immutable main/state/artifact receipts, update parent50 and close tasks60/66 only after their own acceptance. The unrelated JJ Store failed-main repair exclusion does not change qualification semantics.
