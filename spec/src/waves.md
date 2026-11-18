@@ -15,9 +15,11 @@ existing schema1 development profile retains that separately bounded behavior.
 Wave admission is implemented behind `LAPIS_DEPENDENCY_WAVES=true`, default off.
 Hosted pilot qualification and activation remain separate operator decisions.
 
-The reviewed configured Profile publication-only binding retires only its own genuinely
-newer, fully verified and currently qualified release. It does not admit Profile
-consumer updates or bypass dependency floors, channel drift or replay/CAS gates.
+The reviewed configured Profile publication binding retires only its own genuinely
+newer, fully verified and currently qualified release. Direct Profile selection
+is separately restricted to Server's root runtime dependency scope; that scope
+cannot bypass source compatibility, dependency floors, channel drift or replay/CAS
+gates, and does not admit another Profile consumer.
 
 An existing waiting release intent MUST retain an actionable direct runtime or
 optional-runtime manifest-minimum repair when a compatible simple caret/tilde

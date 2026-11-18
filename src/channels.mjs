@@ -11,8 +11,13 @@ const names = [
   "@lapis-notes/workspace",
   "@lapis-notes/file-explorer",
 ];
-// Profile is verified only for publisher retirement; consumer scopes stay unchanged.
+// Profile consumption is separately restricted to Server's root runtime field.
 const publicationNames = [...names, "@lapis-notes/app-profile"];
+const profileScope = (s) =>
+  s.name === "@lapis-notes/app-profile" &&
+  s.repository === "lapismd/lapis-server" &&
+  s.path === "package.json" &&
+  s.type === "dependencies";
 const repositories = [
   "lapismd/lapis-notes",
   "lapismd/lapis-plugins",
@@ -70,7 +75,7 @@ export function validateChannelPolicy(p) {
     if (
       !fields(scope, ["repository", "path", "type", "name"]) ||
       !repositories.includes(scope.repository) ||
-      !names.includes(scope.name) ||
+      (!names.includes(scope.name) && !profileScope(scope)) ||
       !/^(?:[A-Za-z0-9_.-]+\/)*package\.json$/.test(scope.path ?? "") ||
       scope.path.split("/").some((s) => [".", ".."].includes(s)) ||
       ![
