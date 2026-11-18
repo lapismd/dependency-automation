@@ -60,7 +60,8 @@
     },
     {
       "repository": "lapismd/lapis-server",
-      "phase": "full"
+      "phase": "pilot",
+      "emptyChangeset": true
     },
     {
       "repository": "lapismd/agent-ui",
