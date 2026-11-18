@@ -2,6 +2,7 @@ import { createHash } from "node:crypto";
 import { isDeepStrictEqual } from "node:util";
 import semver from "semver";
 import YAML from "yaml";
+import { assertEmptyChangeset, changesetPath } from "./changesets.mjs";
 import { validateWorkspaceIntakePolicy } from "./canonical-workspace-policy.mjs";
 
 export const intakePolicyPath =
@@ -189,6 +190,7 @@ export function prepareCanonicalIntake({
   baseChapters,
   currentChapters,
   changedFiles,
+  branchName,
 }) {
   if (!/^[a-f0-9]{40}$/.test(sourceSha ?? "") || sourceSha !== headSha)
     fail("stale admitted source");
@@ -200,6 +202,20 @@ export function prepareCanonicalIntake({
     fail("missing or changed source policy");
   const policy = validateIntakePolicy(JSON.parse(policyBytes), repository);
   const allowed = new Set([...intakeInputs, ...policy.chapters]);
+  const notes = changedFiles.filter((path) => path.startsWith(".changeset/"));
+  if (notes.length) {
+    if (
+      notes.length !== 1 ||
+      typeof branchName !== "string" ||
+      !branchName ||
+      branchName.length > 250 ||
+      /[\x00-\x20\x7f]/.test(branchName) ||
+      notes[0] !== changesetPath(branchName)
+    )
+      fail("unexpected managed maintenance note");
+    assertEmptyChangeset(after[notes[0]]);
+    allowed.add(notes[0]);
+  }
   if (changedFiles.some((p) => !allowed.has(p)))
     fail("unexpected candidate scope");
   const previous = parse(before),

@@ -61,8 +61,8 @@
 | DA-TOOL-007 | In progress | CI28: exact1→0,29 focused/301 full cases and frozen Core0.13.5 recipe proof; Notebook43 main CI/version guard pass at4484fe44.                                           |
 | DA-PUB-001  | Implemented | Real crypto/mutation/source/recovery tests plus reject-only claim preflight; full-inventory proof is recorded in `spec/records/2026-11-17-publication-budget.md`.        |
 | DA-PUB-002  | Implemented | Current-first collection, bounded shared 128 MiB/256-request budget and exhaustion/cache negatives; no App inventory credentials or source/channel relaxation.           |
-| DA-REL-004  | Implemented | Native collector/commit2→0,54 affected/466 full cases and exact five-file2153f41 proof; Notebook44 auto-merges and current main passes.                                  |
-| DA-REL-005  | Implemented | Workspace source/lock/formatter/filesystem tests plus ten non-growing legacy chapter/cap/repair regressions and real Mira no-op evidence.                                |
+| DA-REL-004  | Implemented | Schema1 source, branch-note retry and zero-write rejection;40 focused/517 full tests plus real Server replay.                                                            |
+| DA-REL-005  | Implemented | Workspace source/lock/format tests and ten unchanged legacy-bound cases; exact digest-style repeats plus real JJStore replay.                                            |
 | DA-WAVE-007 | Implemented | Source-bound admission regressions and hosted Notebook Core0.13.5 intake/auto-merge/main/replay; unrelated publisher/runtime waits remain held.                          |
 | DA-PUB-003  | In progress | Scoped/transitive-peer negatives; hosted generation83 retires ten published waits/one obsolete wait; Notes146 publication/replay pending.                                |
 | DA-PUB-004  | Implemented | Hosted generation82 (43989934897) verifies all ten selected packages plus History against current source-bound static contracts; size/ID/signature negatives pass.       |

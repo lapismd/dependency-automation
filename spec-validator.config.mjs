@@ -44,7 +44,7 @@ export default defineConfig(headingRequirements(), {
         },
         {
           pattern:
-            "^src/canonical-(?:intake(?:-files)?|workspace(?:-policy)?)\\.mjs$",
+            "^src/canonical-(?:intake(?:-files)?|workspace(?:-(?:policy|slot))?)\\.mjs$",
           chapters: [
             "spec/src/release-intent.md",
             "spec/src/consumer-integration.md",

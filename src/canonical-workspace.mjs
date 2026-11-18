@@ -3,11 +3,13 @@ import semver from "semver";
 import YAML from "yaml";
 import { changesetPath } from "./changesets.mjs";
 import { dependencies } from "./policy.mjs";
-import { intakeHash, lockShape, slotBounds } from "./canonical-intake.mjs";
+import { lockShape, slotBounds } from "./canonical-intake.mjs";
 import {
   validateWorkspaceIntakePolicy,
   workspaceIntakeInputs,
 } from "./canonical-workspace-policy.mjs";
+
+import { prepareWorkspaceIntakeSlot } from "./canonical-workspace-slot.mjs";
 
 const sections = [
   "dependencies",
@@ -102,29 +104,7 @@ export function workspaceIntakeFacts(policy, bytes) {
   return facts;
 }
 
-export function workspaceIntakeSlot(policy, facts) {
-  const rows = [];
-  for (const [path, entry] of Object.entries(facts.manifests))
-    for (const [type, group] of Object.entries(entry))
-      for (const [name, fact] of Object.entries(group))
-        rows.push(
-          `| \`${path}\` (${type}) | \`${name}\` | \`${fact.range.replaceAll("|", "\\|")}\` | ${fact.version ? `\`${fact.version}\`` : "Peer support"} |`,
-        );
-  return [
-    `<!-- dependency-intake:${policy.slot}:start -->`,
-    "",
-    "Current registry dependency coordinates; qualification remains separate.",
-    "",
-    "<!-- prettier-ignore -->",
-    "| Manifest | Dependency | Range | Locked version |",
-    "| --- | --- | --- | --- |",
-    ...rows,
-    "",
-    `Manifest, peer and integrity facts SHA256: \`${intakeHash(JSON.stringify(facts))}\`.`,
-    "",
-    `<!-- dependency-intake:${policy.slot}:end -->`,
-  ].join("\n");
-}
+export { workspaceIntakeSlot } from "./canonical-workspace-slot.mjs";
 
 function stripManifest(manifest, policy) {
   const copy = structuredClone(manifest);
@@ -387,10 +367,13 @@ export function prepareWorkspaceIntake(data) {
     const base = baseChapters[path],
       current = currentChapters[path];
     const [a, b] = slotBounds(base, policy);
-    if (base.slice(a, b) !== workspaceIntakeSlot(policy, oldFacts))
-      fail("stale or manually changed workspace facts");
-    const prepared =
-      base.slice(0, a) + workspaceIntakeSlot(policy, facts) + base.slice(b);
+    const next = prepareWorkspaceIntakeSlot(
+      policy,
+      oldFacts,
+      facts,
+      base.slice(a, b),
+    );
+    const prepared = base.slice(0, a) + next + base.slice(b);
     if (current !== base && current !== prepared)
       fail("manual canonical edits must be preserved");
     const sourceLines = base.split("\n").length,

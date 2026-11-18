@@ -40,6 +40,35 @@ export function changesetPath(scope = "lapis-first-party") {
   return `.changeset/lapis-dependencies-${key}.md`;
 }
 
+// A canonical development-only retry may inspect this metadata, never generate
+// or rewrite the note. Body bytes and existing product intent remain owned by
+// the Changesets writer and its separate release-target policy.
+export function assertEmptyChangeset(bytes) {
+  const fail = () => {
+    throw Error(
+      "Managed maintenance Changeset requires bounded empty release metadata",
+    );
+  };
+  if (
+    typeof bytes !== "string" ||
+    !bytes.isWellFormed() ||
+    Buffer.byteLength(bytes) > 8192
+  )
+    fail();
+  const front = /^---\r?\n([\s\S]*?)^---[ \t]*(?:\r?\n|$)/m.exec(bytes);
+  if (!front || front.index !== 0) fail();
+  const metadata = front[1].trim() ? YAML.parse(front[1]) : {};
+  if (
+    !metadata ||
+    typeof metadata !== "object" ||
+    Array.isArray(metadata) ||
+    ![Object.prototype, null].includes(Object.getPrototypeOf(metadata)) ||
+    Object.keys(metadata).length
+  )
+    fail();
+  return true;
+}
+
 export async function writeChangeset(
   root,
   changes,
