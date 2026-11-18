@@ -83,3 +83,8 @@ Desktop held-observer registration and its unchanged write boundary are recorded
 in the [bounded qualification receipt](https://github.com/lapismd/dependency-automation/blob/main/spec/records/2026-11-18-desktop-held-observer.md).
 
 Plugins and Agent UI post-merge activation uses the [independent source receipts](https://github.com/lapismd/dependency-automation/blob/main/spec/records/2026-11-18-plugins-agent-ui-activation.md); live reconciliation and repeat remain pending their actual observation.
+
+AI and JJ Store's [source/flag qualification](https://github.com/lapismd/dependency-automation/blob/main/spec/records/2026-11-18-ai-jj-store-activation.md)
+extends DA-POL-001/003 and DA-WAVE-003/004 without bypassing complete current-main
+CI or publication/source holds. Deployment, live settlement and repeat remain
+pending their actual observations.
