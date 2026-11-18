@@ -8,6 +8,19 @@
     "setupRef": "bfa9743d8b403681ef7fb81ae3c5e53a99e3de55"
   },
   "publishers": {
+    "lapismd/agent-ui": {
+      "kind": "agent-ui-tagged-workspace-v1",
+      "workflowSha256": "2be4a9256ce520f4a241a9af42fdbdb038039152e3686ee617d4c35f53ec59d3",
+      "workflowId": 400453743,
+      "workflow": ".github/workflows/npm-publish.yml",
+      "event": "push",
+      "environment": "npm-production",
+      "artifactPrefix": "agent-ui-release-",
+      "manifest": "manifest.json",
+      "prepareJob": "Validate and pack packages",
+      "publishJob": "Publish with npm trusted publishing",
+      "verifyJob": "Verify registry artifacts and provenance"
+    },
     "lapismd/lapis-notes": {
       "workflowId": 344605363,
       "workflow": ".github/workflows/release.yml",

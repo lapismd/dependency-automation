@@ -1,0 +1,183 @@
+{
+  "schemaVersion": 1,
+  "kind": "reviewed-tagged-workspace-publication-qualification",
+  "observedAt": "2026-11-18T02:20:54.315831+00:00",
+  "baseSource": "2e7d8ac47da32759ca7cb4e12b95984102a43e7e",
+  "publisherRepository": "lapismd/agent-ui",
+  "acceptedCurrentSource": "92778247fe369da6455a00909039b818503fab3e",
+  "attestedSource": "48435a193aadb906006800f36858fd33d8e278de",
+  "publisherContract": {
+    "kind": "agent-ui-tagged-workspace-v1",
+    "workflowSha256": "2be4a9256ce520f4a241a9af42fdbdb038039152e3686ee617d4c35f53ec59d3",
+    "workflowId": 400453743,
+    "workflow": ".github/workflows/npm-publish.yml",
+    "event": "push",
+    "environment": "npm-production",
+    "artifactPrefix": "agent-ui-release-",
+    "manifest": "manifest.json",
+    "prepareJob": "Validate and pack packages",
+    "publishJob": "Publish with npm trusted publishing",
+    "verifyJob": "Verify registry artifacts and provenance"
+  },
+  "unchangedVerifierContract": {
+    "node": "24.15.0",
+    "gh": "2.102.0",
+    "sha256": "7469124f706944133d6a169691dd1c6c3511b12e85878d255e044e2948df4c9b",
+    "trustSeedSha256": "1300a33af16967e998983b364ab9988cd5c20e94c44e75d642dbeda1dbc255d9",
+    "setupRef": "bfa9743d8b403681ef7fb81ae3c5e53a99e3de55"
+  },
+  "verifiedExistingPackages": {
+    "@lapismd/agent-ui@0.2.8": {
+      "schemaVersion": 1,
+      "state": "verified",
+      "reason": "verified-publication",
+      "channel": {
+        "policy": "latest",
+        "admitted": true,
+        "latest": "0.2.8",
+        "tags": ["latest"]
+      },
+      "currentSourceSha": "92778247fe369da6455a00909039b818503fab3e",
+      "currentContractSha256": "5fa24e492d655ac66476b1b3e145667a8a9860d01912625303c43054de9435c4",
+      "matchesCurrentContract": true,
+      "proof": {
+        "repository": "lapismd/agent-ui",
+        "sourceSha": "48435a193aadb906006800f36858fd33d8e278de",
+        "repositoryId": 1437916710,
+        "runId": 43786568782,
+        "runAttempt": 1,
+        "attestationSha256": "6d20269373e7b1ac706fefead9e69c43922c1e3d1a9cd651de592a8ad5662036",
+        "subjectSha512": "d3ef0dff31160ab8590aec3732171462bcfeb3501055ed8840e1fec7154cf7f519e283f15e8df5dad0e8ddca05dda7f55cfeab7bc177e0849eaa33165c16ac30",
+        "workflow": ".github/workflows/npm-publish.yml",
+        "ref": "refs/tags/v0.2.8",
+        "toolSha256": "78d23db0253c21065d8b570fb5a6f7c60d57d1e15e8076db75445fb500377e3d",
+        "artifact": {
+          "id": 14190407906,
+          "sha256": "66a1a750b9790bcd3e4e8383571b64958d6b7c56a2d0e046f17a472da30d2af3",
+          "manifestSha256": "6d238ee8ce45290932c52f0b5d2a28b0f86535a790cab8f6ae3eb5cf4cd154f8",
+          "tarballSha256": "fab8211f8888b68d7ba2bf278d05322275c1b61b607ac8274871333154ab6f88"
+        },
+        "verification": {
+          "runId": 43786568782,
+          "runAttempt": 1,
+          "id": 14190407906,
+          "sha256": "66a1a750b9790bcd3e4e8383571b64958d6b7c56a2d0e046f17a472da30d2af3",
+          "manifestSha256": "6d238ee8ce45290932c52f0b5d2a28b0f86535a790cab8f6ae3eb5cf4cd154f8",
+          "tarballSha256": "fab8211f8888b68d7ba2bf278d05322275c1b61b607ac8274871333154ab6f88"
+        },
+        "sourceContractSha256": "5fa24e492d655ac66476b1b3e145667a8a9860d01912625303c43054de9435c4",
+        "sourceCiSha256": "d9419c87554a72d4fc39f3d0f12b421bfbfe15e97186ebf6cb4948ca012575b1",
+        "dependencyContractSha256": "8fb514d22ab15bc6ec9bfee847b6f502f510c896942b22240a6387bcdca20747"
+      }
+    },
+    "@lapismd/repository-ui@0.2.6": {
+      "schemaVersion": 1,
+      "state": "verified",
+      "reason": "verified-publication",
+      "channel": {
+        "policy": "latest",
+        "admitted": true,
+        "latest": "0.2.6",
+        "tags": ["latest"]
+      },
+      "currentSourceSha": "92778247fe369da6455a00909039b818503fab3e",
+      "currentContractSha256": "4b01ba097ac60589ac60d5d39b6b52658006909f70b8d365f4cfb23d8a479782",
+      "matchesCurrentContract": true,
+      "proof": {
+        "repository": "lapismd/agent-ui",
+        "sourceSha": "48435a193aadb906006800f36858fd33d8e278de",
+        "repositoryId": 1437916710,
+        "runId": 43786568782,
+        "runAttempt": 1,
+        "attestationSha256": "d48485587ca4241efa797d1df8b98cc28246d9c462a33c736e2d3ee4b6646f36",
+        "subjectSha512": "4cc7a2676b7fb50fe63b6a9bfc55da5f5d8f6dbf1fc7fc0464d996de320b18b265aa7b3a2e77fffa65a62568dab84d6fcd7febbe245208771f8b4e151fc3db3e",
+        "workflow": ".github/workflows/npm-publish.yml",
+        "ref": "refs/tags/v0.2.8",
+        "toolSha256": "78d23db0253c21065d8b570fb5a6f7c60d57d1e15e8076db75445fb500377e3d",
+        "artifact": {
+          "id": 14190407906,
+          "sha256": "66a1a750b9790bcd3e4e8383571b64958d6b7c56a2d0e046f17a472da30d2af3",
+          "manifestSha256": "6d238ee8ce45290932c52f0b5d2a28b0f86535a790cab8f6ae3eb5cf4cd154f8",
+          "tarballSha256": "096641a486988df0552fbc8254fb31400c3d18f51bd29b4951f34b78ab149bb3"
+        },
+        "verification": {
+          "runId": 43786568782,
+          "runAttempt": 1,
+          "id": 14190407906,
+          "sha256": "66a1a750b9790bcd3e4e8383571b64958d6b7c56a2d0e046f17a472da30d2af3",
+          "manifestSha256": "6d238ee8ce45290932c52f0b5d2a28b0f86535a790cab8f6ae3eb5cf4cd154f8",
+          "tarballSha256": "096641a486988df0552fbc8254fb31400c3d18f51bd29b4951f34b78ab149bb3"
+        },
+        "sourceContractSha256": "4b01ba097ac60589ac60d5d39b6b52658006909f70b8d365f4cfb23d8a479782",
+        "sourceCiSha256": "d9419c87554a72d4fc39f3d0f12b421bfbfe15e97186ebf6cb4948ca012575b1",
+        "dependencyContractSha256": "38e8209cfd03a8e09776a8f4a152069fefd4fc46e1a5d60fba7afa97acb1ad2d"
+      }
+    }
+  },
+  "originalArtifactSha256": "66a1a750b9790bcd3e4e8383571b64958d6b7c56a2d0e046f17a472da30d2af3",
+  "sharedFetchCounts": {
+    "requests": 27,
+    "bytes": 1446353
+  },
+  "checks": {
+    "beforeFocusedFailures": 1,
+    "focusedCases": 45,
+    "coordinatorTests": 567,
+    "fullVerification": "pass; pnpm verify",
+    "actionlint": "pass",
+    "renovateConfig": "pass; optional RE2 unavailable, existing RegExp fallback warning",
+    "doctor": "11pass0warnings",
+    "specLanes": 3
+  },
+  "readOnlyRegistryInventory": {
+    "repositories": 19,
+    "publicPackages": 42,
+    "edges": 212,
+    "coverageGaps": 0,
+    "cycles": [],
+    "unpublished": ["@lapismd/ai"],
+    "rawSha256": "d7ecded47a4dc5ccf54db07e004fc39e2ad0ff01edb7640b53dab7d250e80241"
+  },
+  "sourceSha256": {
+    "src/publication-tagged-workspace.mjs": "9b6fba73254bc8609ee3e2c0fede64402d6fc89b845ff3369943f24ba5fbdbbe",
+    "src/publications.mjs": "86a7fe1a2b1f2bffd4378de88ca0ba1808653bf79430dbbc8bd382bd26249692",
+    "config/publications.json": "65b08e7e5e192a0f74ed80dca2c572f43472fcaa8e6d8d0aafea1d9894d14a36",
+    "spec-validator.config.mjs": "46ff4e941d09655698fddb1bffdd58169a7ff084141803bdde0952c1217e4690",
+    "tests/publication-tagged-workspace.test.mjs": "c4205c08b270ad27f480105b160a06831949b022df16d2b029e36a08d5ccf7a7",
+    "tests/tagged-workspace-fixtures.mjs": "96d41c5a20e6d9e453965b88bf0ff2463b3d8e7a70779bf8e314f69322f6c87c"
+  },
+  "fixtureSha256": {
+    "tests/fixtures/agent-ui-publication/README.md": "1c5ae85cb4cb440f626101ad16b0dc3c8d3872f54c3938e80142496d8decbd35",
+    "tests/fixtures/agent-ui-publication/inputs.json": "af6b3dd5d55e5f5005ba51cd8f500eeaac298d0d40372cd485a8cdc8d0056fc3",
+    "tests/fixtures/agent-ui-publication/response-00.json": "f8f96babaf8f7ee3385ddebeb7cdfd9bc9f3fe420de9f7ce4e4e7994b291ff6d",
+    "tests/fixtures/agent-ui-publication/response-01.json": "84ebb790360e9d460297ab2ca5ddb9d9119465f526a27e86b7a700b415c9556c",
+    "tests/fixtures/agent-ui-publication/response-03.json": "bc419f2126d88deff59ec48a254ebfb57090e8251a56279b85332326a2e92bf2",
+    "tests/fixtures/agent-ui-publication/response-04.json": "d304d85f01c4519008120c667f78f4973098f8c9b2e74743654b183a0d8d5e90",
+    "tests/fixtures/agent-ui-publication/response-06.json": "6f33038eecc71dd34dc50305eb9c518ca4fb68294c1d8a40c18a6db53fd630b7",
+    "tests/fixtures/agent-ui-publication/response-07.json": "445e20338f18461384f33fb7d6eb1e0cbdbf1cac1dfdd1bd5bc09a42a7c7b5da",
+    "tests/fixtures/agent-ui-publication/response-08.bin": "fab8211f8888b68d7ba2bf278d05322275c1b61b607ac8274871333154ab6f88",
+    "tests/fixtures/agent-ui-publication/response-09.json": "99c8da810a7b946e1781d773723891f2a385f26f0a28aae86dce6afb853c8428",
+    "tests/fixtures/agent-ui-publication/response-10.json": "614f89d127e735eb277227c9c11c45fee508e19ace53550aac3e80b0ac7a47ec",
+    "tests/fixtures/agent-ui-publication/response-11.json": "b281e7390556230e90aa47c617c1fd64891e0745391da8613a25b350f867b5ec",
+    "tests/fixtures/agent-ui-publication/response-12.json": "0e4ffdb23708c86464afeebca35ef5850f01de449c67a92afb455e6f2f5e3aa4",
+    "tests/fixtures/agent-ui-publication/response-13.json": "84cf4599997af252dd4eac1e132af6b7c307ead5cb96e8444feaf2409aabccea",
+    "tests/fixtures/agent-ui-publication/response-14.json": "fa2cd6c26e67d2ec4468e184860aa54c0417cbcb72043f6485c5ed44eefbb624",
+    "tests/fixtures/agent-ui-publication/response-15.bin": "66a1a750b9790bcd3e4e8383571b64958d6b7c56a2d0e046f17a472da30d2af3",
+    "tests/fixtures/agent-ui-publication/response-16.bin": "096641a486988df0552fbc8254fb31400c3d18f51bd29b4951f34b78ab149bb3",
+    "tests/fixtures/agent-ui-publication/response-17.json": "9c50abe3f836e123d001dcc6714c4f8389370b16028710f6b305575c527c523d",
+    "tests/fixtures/agent-ui-publication/response-18.json": "e1d92c2b8b81de6412364b158cbe75b5e697ecd6c4bbe4030a0f819dd65ecfb7",
+    "tests/fixtures/agent-ui-publication/response-19.json": "2873c94d68fa4733d7cd877323045838ca6b07f40d72e3760ef0b6254e233236",
+    "tests/fixtures/agent-ui-publication/response-20.json": "aa5bb8088a77efd36fdb0404d2781c6797a5c88d1e0f0aa665824487eec72e41",
+    "tests/fixtures/agent-ui-publication/response-21.json": "132da85b3e6d1601048524005ec1bfec3e3bab0ff8ea405db2440042f77633bd",
+    "tests/fixtures/agent-ui-publication/response-22.json": "1dd47c926c22576c7d35908c8c8acf9886866bb26636e77a59dd153978aa26bd",
+    "tests/fixtures/agent-ui-publication/response-23.json": "a77b6fce68b04fd589f8140d888ad5738e5c4b31198c015fb765ebd34350e835",
+    "tests/fixtures/agent-ui-publication/response-24.json": "dec9830774f817af4580f06b5f0cf0acc6df3d2cc9c6c9ee7ecbe21a40502160",
+    "tests/fixtures/agent-ui-publication/response-25.json": "d232416eb5d20b414ac8e3b8e8d3ec530a42684fc70a508c8d32893de8ed8fab",
+    "tests/fixtures/agent-ui-publication/response-26.json": "db1bee3f2d8f4896eb18bdee904ccb26ec28d41bb6c58f28f117e4b4a0970125",
+    "tests/fixtures/agent-ui-publication/response-27.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "tests/fixtures/agent-ui-publication/response-28.json": "9f5c188a2a4d9cd6d8eb952bf0375e7a951f54417288bf6d82f29ebcb32191cc",
+    "tests/fixtures/agent-ui-publication/responses.json": "6a71d2cfa5d1cf5f4ee17479e277fb25cb150fcd9e7be58b32a249db1f6bc59c"
+  },
+  "authorityChanges": [],
+  "notes": "No publication, token/key handling, source publisher migration, tag mutation, audit decision or completion change. Existing Notes/static crypto, bounds and channel/phase policy retained."
+}

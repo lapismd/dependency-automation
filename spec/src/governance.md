@@ -1,5 +1,8 @@
 # Specification governance
 
+The source-owned tagged-workspace publication verifier maps to DA-PUB-005 and
+Waves; this registration changes no publisher execution or completion authority.
+
 S6 operational drift and advisory admission are mapped to DA-OPS-001 through
 DA-OPS-003. Normal source checks validate both policy schemas, retained runtime
 exclusions and upstream version-template pins; live audit success is a separate

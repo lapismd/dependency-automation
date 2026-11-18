@@ -52,7 +52,7 @@ export default defineConfig(headingRequirements(), {
         },
         {
           pattern:
-            "^src/(?:channels|publication(?:s|-tool|-transport|-source|-evidence|-static))\\.mjs$|^config/(?:publications|channels)\\.json$|^scripts/inspect-publications\\.mjs$",
+            "^src/(?:channels|publication(?:s|-tool|-transport|-source|-evidence|-static|-tagged-workspace))\\.mjs$|^config/(?:publications|channels)\\.json$|^scripts/inspect-publications\\.mjs$",
           chapters: ["spec/src/publications.md", "spec/src/waves.md"],
         },
         {

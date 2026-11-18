@@ -1,5 +1,8 @@
 # Dependency and release waves
 
+DA-PUB-005 may retire an Agent UI publication wait only after exact tagged-cohort
+verification; its source publisher and main-only completion gates remain distinct.
+
 The schema2 workspace canonical capability applies to ordinary admitted
 compatible patches across explicitly covered manifests. It verifies source
 policy bytes, active importer coverage, current locked facts and exact registry
