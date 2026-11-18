@@ -1,0 +1,122 @@
+{
+  "schemaVersion": 1,
+  "policyRevision": "2e0d1616e595c0b87083e29409837d0f7e2a2f85",
+  "replayRun": "44208057432",
+  "inventoryArtifact": "14385505814",
+  "observedAt": "2026-11-18T00:34:32.912Z",
+  "sources": {
+    "lapismd/lapis-terminal": {
+      "sourceSha": "151dc0f525651cbf852c4b02c649b3fff37a5cad",
+      "acceptance": {
+        "state": "qualified",
+        "reason": "all observed current workflows and checks completed"
+      },
+      "status": "unchanged",
+      "updates": [],
+      "holds": [],
+      "waits": [],
+      "operationId": "e4ed32c899fcdbd4c44ebea13164e4c7f059546c24e9012cd0bcf7e921c5ec31"
+    },
+    "lapismd/plugin-registry": {
+      "sourceSha": "69d8c06375f8fed507bc7443d265405ea255f021",
+      "acceptance": {
+        "state": "qualified",
+        "reason": "all observed current workflows and checks completed"
+      },
+      "status": "upstream-wait",
+      "updates": [],
+      "holds": [],
+      "waits": [
+        {
+          "package": "@lapis-notes/api",
+          "path": "package.json",
+          "repository": "lapismd/lapis-notes",
+          "reason": "upstream qualification/publication required"
+        }
+      ],
+      "operationId": "c19eaf310a6e9bffa6647319f614b0236a20575d6f9d8b55e091c70c0b706161"
+    }
+  },
+  "terminalAcceptance": {
+    "operationId": "100b2109ee9d618e90b3b15fac8880e7cebd0ac0b5b9357b0599f1fb749858f9",
+    "merge": {
+      "pr": 28,
+      "mergedAt": "2026-11-18T00:12:09Z",
+      "sourceSha": "151dc0f525651cbf852c4b02c649b3fff37a5cad"
+    },
+    "sourceFacts": [
+      {
+        "repository": "lapismd/lapis-terminal",
+        "sourceSha": "50d1bb9fa41a4eed6636b7f7bf10c93a398d2534",
+        "declared": "0.13.4",
+        "override": "0.13.4",
+        "locked": "0.13.4",
+        "lockSpecifier": "0.13.4"
+      },
+      {
+        "repository": "lapismd/lapis-terminal",
+        "sourceSha": "151dc0f525651cbf852c4b02c649b3fff37a5cad",
+        "declared": "0.13.5",
+        "override": "0.13.5",
+        "locked": "0.13.5",
+        "lockSpecifier": "0.13.5"
+      }
+    ],
+    "lastAdmitted": {
+      "stateCommit": "5cdeba07c3a7e99671d45dbb98a808c43bba33a3",
+      "committedAt": "2026-11-18T00:13:31Z",
+      "generation": 191,
+      "stateObservedAt": "2026-11-18T00:09:25.804Z",
+      "operation": {
+        "id": "100b2109ee9d618e90b3b15fac8880e7cebd0ac0b5b9357b0599f1fb749858f9",
+        "repository": "lapismd/lapis-terminal",
+        "sourceSha": "50d1bb9fa41a4eed6636b7f7bf10c93a398d2534",
+        "policyRevision": "d188a5e42217538f7cfc692d9ef361efe22e4c03",
+        "targets": [
+          {
+            "name": "@lapismd/design-core",
+            "target": "0.13.5",
+            "path": "package.json",
+            "type": "devDependencies"
+          }
+        ],
+        "status": "admitted",
+        "runId": "44204129507",
+        "firstObservedAt": "2026-11-17T23:58:30.691Z",
+        "observedAt": "2026-11-18T00:09:25.804Z",
+        "ownership": "bot-owned",
+        "reason": "all observed current workflows and checks completed",
+        "acceptance": "qualified"
+      }
+    },
+    "firstAccepted": {
+      "stateCommit": "8e7bfee7f6ea9f5055a3c4a43ddaf27529c12c5b",
+      "committedAt": "2026-11-18T00:24:02Z",
+      "generation": 192,
+      "stateObservedAt": "2026-11-18T00:23:13.969Z",
+      "operation": {
+        "id": "100b2109ee9d618e90b3b15fac8880e7cebd0ac0b5b9357b0599f1fb749858f9",
+        "repository": "lapismd/lapis-terminal",
+        "sourceSha": "50d1bb9fa41a4eed6636b7f7bf10c93a398d2534",
+        "policyRevision": "d188a5e42217538f7cfc692d9ef361efe22e4c03",
+        "targets": [
+          {
+            "name": "@lapismd/design-core",
+            "target": "0.13.5",
+            "path": "package.json",
+            "type": "devDependencies"
+          }
+        ],
+        "status": "accepted-on-main",
+        "runId": "44204129507",
+        "firstObservedAt": "2026-11-17T23:58:30.691Z",
+        "observedAt": "2026-11-18T00:09:25.804Z",
+        "ownership": "bot-owned",
+        "reason": "all observed current workflows and checks completed",
+        "acceptance": "qualified"
+      }
+    },
+    "acceptedStateCommittedAfterMerge": true,
+    "acceptanceScanAfterMerge": true
+  }
+}

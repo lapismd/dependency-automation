@@ -70,3 +70,9 @@
 
 Detailed bootstrap commands, failure counts and hosted handoff live in
 [the specification/Pages qualification record](https://github.com/lapismd/dependency-automation/blob/main/spec/records/2026-11-15-canonical-spec-and-pages.md).
+
+Terminal and Registry adoption acceptance is recorded in the [live replay receipt](https://github.com/lapismd/dependency-automation/blob/main/spec/records/2026-11-18-terminal-registry-live-replay.md).
+Terminal qualifies genuine development intake through current-main completion,
+false publication intent and durable repeat; Registry qualifies an honest
+no-update repeat while preserving its API publication wait. These observations
+extend DA-WAVE-003/005/007 evidence without waiving another source's gate.
