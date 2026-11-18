@@ -26,6 +26,12 @@ Current-main qualification, source-owned canonical support and upstream floors
 remain independent holds; the normalized proof is recorded in
 `spec/records/2026-11-18-notes-cohort-recovery.md`.
 
+Server joins the existing ten pilot entries after source103 and exact-main
+CI/image/Pages/completion qualification. Its measured empty managed note records
+no npm/private-package release intent; registry prerequisites, source intake,
+publication and production audit holds remain independent. Eligibility does not
+complete Server adoption or enable any excluded host.
+
 `config/repositories.json` is the versioned authority for dependency-update
 entries, monitoring additions/exclusions and excluded package names. It is not
 a live installation or secret store.

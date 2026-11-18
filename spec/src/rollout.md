@@ -6,11 +6,16 @@ The shared dependency workflow is qualified and enabled for Notebook after its
 genuine Core0.13.5 development intake, complete candidate/main CI, native
 auto-merge, Pages and repeated normal reconciliation. Other repositories remain
 independent adoption work. Notebook, Spec Validator, Visual Delta, Terminal, Registry, Plugins, Agent UI,
-AI, JJ Store and Notes are source `pilot` policy entries; the first five have
+AI, JJ Store, Notes and Server are source `pilot` policy entries; the first five have
 completed their applicable live/replay acceptance. Global
 phase stays `pilot` with hourly scheduling enabled. Promoting one reviewed entry
 from `full` to `pilot` enables that repository independently, without a global
 full rollout.
+
+Server source103 is merged and its exact-main CI, hash-tagged image, Pages and
+normal completion callbacks pass. Per-entry eligibility retains its measured
+empty-note convention and all registry/migration/source/audit holds; full normal
+reconciliation and replay remain pending under adoption58.
 
 Acceptance requires a genuine compatible Core update, shared canonical
 preparation, current PR and main qualification, source-owned version/release

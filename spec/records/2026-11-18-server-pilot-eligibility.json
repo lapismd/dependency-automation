@@ -1,0 +1,159 @@
+{
+  "graph": {
+    "repositories": 19,
+    "owners": 42,
+    "edges": 212,
+    "coverageGaps": 0,
+    "cycles": 0
+  },
+  "repository": "lapismd/lapis-server",
+  "sourceSha": "3c8e48a2f0f4c345edc836493419184914d3bc27",
+  "phase": "pilot",
+  "emptyChangeset": true,
+  "acceptance": {
+    "state": "qualified",
+    "reason": "all observed current workflows and checks completed"
+  },
+  "holds": [
+    "@lapis-notes/app-profile: unavailable registry prerequisite",
+    "package.json:@lapis-notes/api: source-owned canonical preparation does not support this update set",
+    "package.json:@lapis-notes/search: source-owned canonical preparation does not support this update set",
+    "package.json:@lapis-notes/source-editor: source-owned canonical preparation does not support this update set",
+    "package.json:@lapis-notes/ui: source-owned canonical preparation does not support this update set",
+    "package.json:@lapis-notes/workspace: source-owned canonical preparation does not support this update set",
+    "package.json:@lapismd/design-core: source-owned canonical preparation does not support this update set",
+    "package.json:@lapis-notes/lapis-plugin-tasks: source-owned canonical preparation does not support this update set"
+  ],
+  "waits": [
+    {
+      "package": "@lapis-notes/app-profile",
+      "path": "package.json",
+      "repository": "lapismd/lapis-notes",
+      "reason": "upstream qualification/publication required"
+    },
+    {
+      "package": "@lapis-notes/search",
+      "path": "package.json",
+      "repository": "lapismd/lapis-plugins",
+      "reason": "upstream qualification/publication required"
+    },
+    {
+      "package": "@lapis-notes/source-editor",
+      "path": "package.json",
+      "repository": "lapismd/lapis-plugins",
+      "reason": "upstream qualification/publication required"
+    }
+  ],
+  "updates": [
+    {
+      "name": "@lapis-notes/api",
+      "range": "^0.6.5",
+      "type": "dependencies",
+      "repository": "lapismd/lapis-server",
+      "path": "package.json",
+      "consumer": "@lapismd/lapis-server",
+      "current": "0.6.5",
+      "target": "0.6.9",
+      "targetRange": "^0.6.9",
+      "updateType": "patch",
+      "compatibility": "compatible",
+      "releaseIntent": null,
+      "basis": "lock"
+    },
+    {
+      "name": "@lapis-notes/search",
+      "range": "^0.1.12",
+      "type": "dependencies",
+      "repository": "lapismd/lapis-server",
+      "path": "package.json",
+      "consumer": "@lapismd/lapis-server",
+      "current": "0.1.12",
+      "target": "0.1.13",
+      "targetRange": "^0.1.13",
+      "updateType": "patch",
+      "compatibility": "compatible",
+      "releaseIntent": null,
+      "basis": "lock"
+    },
+    {
+      "name": "@lapis-notes/source-editor",
+      "range": "^0.1.11",
+      "type": "dependencies",
+      "repository": "lapismd/lapis-server",
+      "path": "package.json",
+      "consumer": "@lapismd/lapis-server",
+      "current": "0.1.11",
+      "target": "0.1.12",
+      "targetRange": "^0.1.12",
+      "updateType": "patch",
+      "compatibility": "compatible",
+      "releaseIntent": null,
+      "basis": "lock"
+    },
+    {
+      "name": "@lapis-notes/ui",
+      "range": "^0.2.1",
+      "type": "dependencies",
+      "repository": "lapismd/lapis-server",
+      "path": "package.json",
+      "consumer": "@lapismd/lapis-server",
+      "current": "0.2.1",
+      "target": "0.2.4",
+      "targetRange": "^0.2.4",
+      "updateType": "patch",
+      "compatibility": "compatible",
+      "releaseIntent": null,
+      "basis": "lock"
+    },
+    {
+      "name": "@lapis-notes/workspace",
+      "range": "^0.4.6",
+      "type": "dependencies",
+      "repository": "lapismd/lapis-server",
+      "path": "package.json",
+      "consumer": "@lapismd/lapis-server",
+      "current": "0.4.6",
+      "target": "0.4.8",
+      "targetRange": "^0.4.8",
+      "updateType": "patch",
+      "compatibility": "compatible",
+      "releaseIntent": null,
+      "basis": "lock"
+    },
+    {
+      "name": "@lapismd/design-core",
+      "range": "^0.13.4",
+      "type": "dependencies",
+      "repository": "lapismd/lapis-server",
+      "path": "package.json",
+      "consumer": "@lapismd/lapis-server",
+      "current": "0.13.4",
+      "target": "0.13.5",
+      "targetRange": "^0.13.5",
+      "updateType": "patch",
+      "compatibility": "compatible",
+      "releaseIntent": null,
+      "basis": "lock"
+    },
+    {
+      "name": "@lapis-notes/lapis-plugin-tasks",
+      "range": "^0.1.1",
+      "type": "devDependencies",
+      "repository": "lapismd/lapis-server",
+      "path": "package.json",
+      "consumer": "@lapismd/lapis-server",
+      "current": "0.1.1",
+      "target": "0.2.1",
+      "targetRange": "^0.2.1",
+      "updateType": "minor",
+      "compatibility": "breaking",
+      "releaseIntent": null,
+      "basis": "lock"
+    }
+  ],
+  "admittedUpdates": [],
+  "writesRequested": false,
+  "effectiveWrites": false,
+  "stateWrites": false,
+  "sourceMainEvidence": "server103-main-final-runs.json retained outside source; all CI/image/Pages/Release/three completion runs successful on3c8e48a2."
+}
