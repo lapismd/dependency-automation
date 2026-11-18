@@ -261,6 +261,19 @@
         "path": ".github/workflows/publish.yml",
         "events": ["push", "workflow_dispatch"]
       }
+    ],
+    "lapismd/lapis-desktop": [
+      {
+        "id": 400533153,
+        "path": ".github/workflows/ci.yml",
+        "events": ["pull_request", "push", "workflow_dispatch"]
+      },
+      {
+        "id": 403244157,
+        "path": ".github/workflows/publish-storybook-pages.yml",
+        "events": ["push", "workflow_dispatch"]
+      }
     ]
-  }
+  },
+  "heldObservers": ["lapismd/lapis-desktop"]
 }

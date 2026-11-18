@@ -99,3 +99,19 @@ signed deployment is its actual completion boundary, not an invented npm release
 Registration is read/dispatch authority only; each source caller must pin this
 reviewed implementation and policy together and pass independent source/main
 acceptance before a separate per-entry activation and durable replay.
+
+Desktop's existing CI400533153 and Pages403244157 are the only new registered
+workflows. CI supports original PR/push/manual events; Pages supports push/manual.
+Scheduled CI, preview/trial/image/health publishers and callback self-triggers
+remain excluded. Desktop's private projection hold and phase `full` remain
+unchanged; source acceptance and a separate reviewed activation still apply.
+
+## DA-NOT-004 — Held source observation
+
+**Requirement.** Held metadata observers MUST preserve every dependency-write, publication and activation hold.
+
+### Acceptance details
+
+- `heldObservers` MUST explicitly name a registered full-phase repository with an existing nonempty write hold; missing, duplicate, unknown or prematurely promoted opt-ins MUST fail closed.
+- Monitoring-excluded roots MUST remain ineligible even when an observer opt-in is supplied.
+- Observation MUST retain the same exact source/run/workflow/head checks and metadata-only callback boundary without clearing holds, modifying source or granting publisher authority.
