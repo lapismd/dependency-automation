@@ -82,3 +82,7 @@ Renovate regression adds test-only canonical/capability data over genuine
 historical package inputs and mocks only Git/config/SCM transport ports; native
 pnpm and Renovate extraction/artifact/post-task/commit code execute for real.
 Neither test claims a current Desktop bot E2E or activates private eligibility.
+
+The separate [inactive SDK scope](scoped-sdk-admission.md) MAY select a bounded
+view only after another explicit operator grant and source acceptance. Artifact
+authority alone still removes no hold or update prerequisite.

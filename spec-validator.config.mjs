@@ -40,6 +40,11 @@ export default defineConfig(headingRequirements(), {
       rules: [
         {
           pattern:
+            "^src/scoped-admission\\.mjs$|^config/scoped-admissions\\.json$",
+          chapters: ["spec/src/waves.md", "spec/src/policy.md"],
+        },
+        {
+          pattern:
             "^src/artifact-projection(?:-(?:policy|native|files))?\\.mjs$|^config/artifact-projections\\.json$",
           chapters: [
             "spec/src/release-intent.md",

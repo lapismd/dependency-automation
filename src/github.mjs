@@ -201,6 +201,7 @@ export async function discoverRepository(entry, options = {}) {
     };
   }
   const nonPortable = [];
+  const nonPortableDetails = [];
   for (const p of manifests)
     for (const section of [
       "dependencies",
@@ -209,12 +210,32 @@ export async function discoverRepository(entry, options = {}) {
       "optionalDependencies",
     ]) {
       for (const [name, value] of Object.entries(p.manifest[section] ?? {}))
-        if (firstParty(name) && /^(?:link:|file:)/.test(value))
-          nonPortable.push(`${p.path}:${section}:${name}`);
+        if (firstParty(name) && /^(?:link:|file:)/.test(value)) {
+          const message = `${p.path}:${section}:${name}`;
+          nonPortable.push(message);
+          nonPortableDetails.push({
+            kind: "local-path",
+            message,
+            path: p.path,
+            type: section,
+            name,
+            range: value,
+          });
+        }
     }
   for (const [name, value] of Object.entries(workspace.overrides ?? {}))
-    if (firstParty(name) && /^(?:link:|file:)/.test(value))
-      nonPortable.push(`pnpm-workspace.yaml:overrides:${name}`);
+    if (firstParty(name) && /^(?:link:|file:)/.test(value)) {
+      const message = `pnpm-workspace.yaml:overrides:${name}`;
+      nonPortable.push(message);
+      nonPortableDetails.push({
+        kind: "local-path",
+        message,
+        path: "pnpm-workspace.yaml",
+        type: "overrides",
+        name,
+        range: value,
+      });
+    }
   const needsChangesets = manifests.some(
     (p) =>
       !p.manifest.private &&
@@ -267,6 +288,7 @@ export async function discoverRepository(entry, options = {}) {
     manifests,
     workspace,
     nonPortable,
+    nonPortableDetails,
     missingChangesets,
     paths: manifests
       .map((p) => p.path)
@@ -274,6 +296,27 @@ export async function discoverRepository(entry, options = {}) {
         paths.includes("pnpm-workspace.yaml") ? ["pnpm-workspace.yaml"] : [],
       ),
   };
+}
+
+export function markUnpublishedDependencies(repositories, edges, unpublished) {
+  for (const edge of edges) {
+    if (!unpublished.includes(edge.name)) continue;
+    const repo = repositories.find((r) => r.repository === edge.repository);
+    if (!repo || repo.manifests.some((p) => p.manifest.name === edge.name))
+      continue;
+    const message = `${edge.path}:${edge.type}:${edge.name}: unpublished registry dependency`;
+    if (!repo.nonPortable.includes(message)) repo.nonPortable.push(message);
+    repo.nonPortableDetails ??= [];
+    if (!repo.nonPortableDetails.some((f) => f.message === message))
+      repo.nonPortableDetails.push({
+        kind: "unpublished-registry",
+        message,
+        path: edge.path,
+        type: edge.type,
+        name: edge.name,
+        range: edge.range,
+      });
+  }
 }
 
 export async function inventory(entries, options = {}) {
@@ -358,14 +401,7 @@ export async function inventory(entries, options = {}) {
       }
     }
   const unpublished = [...names].filter((n) => !registry.has(n)).sort();
-  for (const edge of edges) {
-    if (!unpublished.includes(edge.name)) continue;
-    const repo = repositories.find((r) => r.repository === edge.repository);
-    if (repo.manifests.some((p) => p.manifest.name === edge.name)) continue;
-    repo.nonPortable.push(
-      `${edge.path}:${edge.type}:${edge.name}: unpublished registry dependency`,
-    );
-  }
+  markUnpublishedDependencies(repositories, edges, unpublished);
   let publicationEvidence;
   let channelPolicySha256;
   if (options.waveEvidence) {

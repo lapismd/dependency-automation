@@ -9,6 +9,7 @@ const input = JSON.parse(
   fs.readFileSync(process.env.LAPIS_TEST_PROJECTION_PORT, "utf8"),
 );
 let capabilityBytes = input.capabilityBytes;
+let scopeBytes = input.scopeBytes;
 const changed = () =>
   Object.keys(input.before).filter(
     (p) => fs.readFileSync(resolve(input.root, p), "utf8") !== input.before[p],
@@ -22,6 +23,8 @@ mock.module("node:child_process", {
         if (file === process.execPath && args.includes("update")) {
           if (input.portMutation === "revoke-capability")
             capabilityBytes = '{"schemaVersion":1,"repositories":{}}';
+          if (input.portMutation === "revoke-scope")
+            scopeBytes = '{"schemaVersion":1,"repositories":{}}';
           if (input.portMutation === "private-input-drift")
             fs.appendFileSync(
               resolve(input.root, "scripts/ci-sources.json"),
@@ -62,6 +65,7 @@ mock.module("node:fs", {
     readFileSync(path, ...args) {
       const file = path instanceof URL ? fileURLToPath(path) : String(path);
       if (file === input.capabilityPath) return capabilityBytes;
+      if (file === input.scopePath) return scopeBytes;
       return fs.readFileSync(path, ...args);
     },
   },

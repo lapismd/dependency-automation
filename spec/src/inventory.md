@@ -145,3 +145,9 @@ configuration; no candidate policy or executable module can widen write paths.
 Wave inventories retain the unpruned stable candidate pool and a source-policy
 digest for reviewed channel projection. The normal available pool remains
 latest-only; path-specific prerequisite closure cannot widen another consumer.
+
+DA-WAVE-009 retains structured originating unpublished/local-path findings beside
+the existing human constraints. Fresh exact-target discovery reconstructs the
+same unpublished findings from immutable source and observed registry absence
+before replanning; matching text cannot grant scope authority. Human summaries
+retain selected SDK scope and deferred update/hold/wait counts.

@@ -1,5 +1,8 @@
 # Dependency and release waves
 
+DA-WAVE-009 is an inactive, separately granted SDK-only selected view. The
+artifact-generation opt-in alone does not waive any source admission hold.
+
 DA-PUB-005 may retire an Agent UI publication wait only after exact tagged-cohort
 verification; its source publisher and main-only completion gates remain distinct.
 
@@ -55,6 +58,12 @@ unchanged projection digest; fresh normal admission still owns target scope.
 Reports remain ignored artifacts; no live state enters main or public book output.
 
 **Requirement.** Versioned wave state MUST reconcile registry observations, source revisions and operation identities independently of notification delivery order.
+
+An unrelated observed PR MUST NOT clear an uncertain operation. Each retained
+target requires bot-owned branch-family and exact public candidate-head evidence
+covering its manifest/lock tuple; missing candidate data and empty historic
+targets remain uncertain until explicit recovery. A later compatible candidate
+may cover an older target without relaxing minimum or peer-support requirements.
 
 ### Acceptance details
 
@@ -271,3 +280,17 @@ every other empty-note setting, exclusions, holds and global pilot gates remain
 unchanged. Ordinary live reconciliation, exact settlement and repeat acceptance
 remain open until their own receipts exist. The user's unrelated JJ Store
 main/release repair exclusion does not alter the collector or assert a pass.
+
+## DA-WAVE-009 — Source-bound SDK scope
+
+**Requirement.** A separate explicit operator grant MAY isolate only Desktop's
+root SDK development patch when exact immutable source/private-shape/canonical
+bindings and complete current-source qualification prove independence from
+enumerated frozen prerequisites.
+
+### Acceptance details
+
+- Both exact artifact and scope grants MUST bind the descriptor, canonical policy and immutable private shape; the source MUST already be pilot with no explicit operator hold; default-empty policies grant no phase change, audit decision or publication authority.
+- Frozen prerequisite separation MUST use structured exact path/field/name registry findings for runtime AI/Profile and development Tasks; unknown, local-path, coverage, source-CI, identity, audit and selected-SDK constraints MUST remain blocking; matching human text cannot grant authority.
+- Reports MUST retain deferred updates, typed holds and waits while only the selected SDK reaches ordinary canonical preparation and native frozen generation; private source/candidate audit and functional gates remain mandatory; all other dependency writers stay held.
+- Exact scope authority MUST enter operation identity and be rechecked during configuration, generation and copyback; candidate ownership, source/registry integrity, compatibility, fresh target revalidation and durable CAS remain mandatory; unknown or revoked grants MUST fail closed.

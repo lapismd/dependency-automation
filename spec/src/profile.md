@@ -63,3 +63,8 @@ same workflow run and publishes a narrowly checked rolling PR.
 
 The scheduler is hourly with manual recovery. It does not automatically merge
 the profile PR, approve reviews or change branch protection.
+
+DA-WAVE-009 changes only dependency-PR context. Organization profile generation,
+its managed message, native diff preservation, confirmation and source-bound
+writer contract remain unchanged; scoped dependency authority cannot trigger a
+profile refresh or authorize another publication.

@@ -121,3 +121,10 @@ workspace file, compound selectors, catalogs or other overrides.
 DA-PUB-003 channel targets use exact admitted path/type/version rules with
 `respectLatest: false` only on those individually approved rules. Default and
 flat configuration retain latest protection, breaking drafts and all CI gates.
+
+DA-WAVE-009 carries an explicit exact scope binding through generated context
+and rejects missing or revoked authority before artifact copyback. Dependency
+PR context labels SDK-only selection and preserves bounded deferred Core/private
+constraints; it must not describe selected admission as full-source acceptance.
+An unrelated PR is not evidence of an uncertain target write. Exact owned
+branch/candidate manifest-lock coverage remains required before normal replay.

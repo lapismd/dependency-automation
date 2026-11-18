@@ -148,3 +148,9 @@ The completion observer feature module maps only to its existing notification
 and wave owners. Adding `src/completion-observers.mjs` does not introduce a
 catch-all protected-path exemption; DA-NOT-004 keeps held and excluded-source
 behavior explicit while preserving every dependency-write gate.
+
+The separate default-empty SDK scope policy is checked alongside existing
+artifact policy before planning/configuration. DA-WAVE-009 maps scoped admission
+to wave/policy owners; its data grants no audit decision, source qualification,
+phase change or broad private dependency writer. Independent source guards and
+all ordinary candidate checks remain mandatory.

@@ -15,6 +15,7 @@ import { execFileSync } from "node:child_process";
 import { validateNotification, validateCompletion } from "../src/policy.mjs";
 import { assessTooling, loadToolingPolicy } from "../src/tooling.mjs";
 import { auditPreflight } from "../src/audit-preflight.mjs";
+import { scopedContextSummary } from "../src/pr-messages.mjs";
 
 const entries = await loadAllowlist();
 let hint;
@@ -188,7 +189,7 @@ const blocked = result.repositories
       `${r.repository}: ${[...r.nonPortable, ...(r.holdReason ? [r.holdReason] : []), ...(r.missingChangesets ? ["Changesets onboarding must land before dependency writes"] : [])].join(", ")}`,
   )
   .join("\n\n");
-const summary = `# First-party npm inventory\n\n${result.repositories.length} repositories; ${result.packages.length} public package owners; ${result.edges.length} consumer edges.\n\nRollout: ${phase}. Writes: ${process.env.LAPIS_WRITE_ENABLED === "true" ? "enabled" : "disabled (dry-run)"}.\n\nRuntime cycles: ${result.cycles.length}. Unpublished references: ${result.unpublished.join(", ") || "none"}.\n\nConsumers waiting for portable registry dependencies:\n\n${blocked || "None"}\n\nCoverage holds: ${result.coverage?.length ?? 0}. Wave mode: ${waveMode ? "enabled" : "disabled"}.\n${waves ? waves.report.nodes.map((n) => `${n.repository}: ${n.status}; ${[...n.holds, ...n.waits.map((w) => w.reason)].join(", ")}`).join("\n") : ""}\n`;
+const summary = `# First-party npm inventory\n\n${result.repositories.length} repositories; ${result.packages.length} public package owners; ${result.edges.length} consumer edges.\n\nRollout: ${phase}. Writes: ${process.env.LAPIS_WRITE_ENABLED === "true" ? "enabled" : "disabled (dry-run)"}.\n\nRuntime cycles: ${result.cycles.length}. Unpublished references: ${result.unpublished.join(", ") || "none"}.\n\nConsumers waiting for portable registry dependencies:\n\n${blocked || "None"}\n\nCoverage holds: ${result.coverage?.length ?? 0}. Wave mode: ${waveMode ? "enabled" : "disabled"}.\n${waves ? waves.report.nodes.map((n) => `${n.repository}: ${n.status}; ${[...n.holds, ...n.waits.map((w) => w.reason)].join(", ")}${n.scopedAdmission ? `; ${scopedContextSummary(n)}` : ""}`).join("\n") : ""}\n`;
 await writeFile("reports/inventory.md", summary);
 if (process.env.GITHUB_STEP_SUMMARY)
   await appendFile(process.env.GITHUB_STEP_SUMMARY, summary);
