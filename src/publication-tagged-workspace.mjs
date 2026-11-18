@@ -152,31 +152,103 @@ export async function verifyTaggedWorkspaceSource(
     workflow.state !== "active"
   )
     reject("publication-publisher-unreviewed");
+  const validRun = (run, attempt) => {
+    if (
+      run.id !== context.runId ||
+      run.run_attempt !== attempt ||
+      run.head_sha !== context.sourceSha ||
+      run.path !== policy.workflow ||
+      run.workflow_id !== policy.workflowId ||
+      run.event !== policy.event ||
+      run.head_branch !== ref.slice(10) ||
+      run.repository?.id !== info.id ||
+      run.head_repository?.id !== info.id ||
+      run.head_repository?.full_name !== repository ||
+      run.head_repository?.fork !== false ||
+      run.status !== "completed"
+    )
+      reject("publication-run-mismatch");
+  };
   const run = await reader.json(
     `${base}/actions/runs/${context.runId}/attempts/${context.runAttempt}`,
   );
-  if (
-    run.id !== context.runId ||
-    run.run_attempt !== context.runAttempt ||
-    run.head_sha !== context.sourceSha ||
-    run.path !== policy.workflow ||
-    run.workflow_id !== policy.workflowId ||
-    run.event !== "push" ||
-    run.head_branch !== ref.slice(10) ||
-    run.repository?.id !== info.id ||
-    run.head_repository?.id !== info.id ||
-    run.head_repository?.full_name !== repository ||
-    run.head_repository?.fork !== false ||
-    run.status !== "completed" ||
-    run.conclusion !== "success"
-  )
-    reject("publication-run-mismatch");
+  validRun(run, context.runAttempt);
   const rows = await jobs(reader, base, context);
-  requireJobs(rows, [
+  const publicationNames = [
     policy.prepareJob,
-    policy.verifyJob,
     ...cohort.map((p) => `${policy.publishJob} (${p.directory}, ${p.version})`),
-  ]);
+  ];
+  requireJobs(rows, publicationNames);
+  let verificationAttempt = context.runAttempt;
+  if (run.conclusion === "success") {
+    requireJobs(rows, [policy.verifyJob]);
+  } else {
+    // Only the immediately following same-run verification retry is supported.
+    // Original successful publication jobs are authority, never their projected IDs.
+    const originalVerify = rows.filter((r) => r.name === policy.verifyJob);
+    const times = (r) => [Date.parse(r.started_at), Date.parse(r.completed_at)];
+    const validJob = (r, attempt) =>
+      Number.isSafeInteger(r.id) &&
+      r.id > 0 &&
+      r.run_id === context.runId &&
+      r.run_attempt === attempt &&
+      r.head_sha === context.sourceSha &&
+      r.head_branch === ref.slice(10) &&
+      Array.isArray(r.steps) &&
+      r.steps.length > 0 &&
+      r.steps.length <= 100 &&
+      times(r).every(Number.isFinite) &&
+      times(r)[0] <= times(r)[1];
+    if (
+      run.conclusion !== "failure" ||
+      originalVerify.length !== 1 ||
+      originalVerify[0].status !== "completed" ||
+      originalVerify[0].conclusion !== "failure" ||
+      !validJob(originalVerify[0], context.runAttempt) ||
+      publicationNames.some((name) => {
+        const r = rows.find((r) => r.name === name);
+        return (
+          !validJob(r, context.runAttempt) ||
+          times(r)[1] > times(originalVerify[0])[0]
+        );
+      })
+    )
+      reject("publication-recovery-mismatch");
+    const recovered = await reader.json(
+      `${base}/actions/runs/${context.runId}`,
+    );
+    verificationAttempt = context.runAttempt + 1;
+    validRun(recovered, verificationAttempt);
+    if (recovered.conclusion !== "success")
+      reject("publication-verification-incomplete");
+    const recovery = { ...context, runAttempt: verificationAttempt };
+    const actual = await reader.json(
+      `${base}/actions/runs/${context.runId}/attempts/${verificationAttempt}`,
+    );
+    validRun(actual, verificationAttempt);
+    if (actual.conclusion !== "success")
+      reject("publication-verification-incomplete");
+    const recoveredJobs = await jobs(reader, base, recovery);
+    requireJobs(recoveredJobs, [...publicationNames, policy.verifyJob]);
+    for (const name of publicationNames) {
+      const original = rows.find((r) => r.name === name);
+      const projected = recoveredJobs.find((r) => r.name === name);
+      if (
+        !validJob(projected, verificationAttempt) ||
+        projected.started_at !== original.started_at ||
+        projected.completed_at !== original.completed_at ||
+        !isDeepStrictEqual(projected.steps, original.steps)
+      )
+        reject("publication-recovery-mismatch");
+    }
+    const verified = recoveredJobs.find((r) => r.name === policy.verifyJob);
+    if (
+      !validJob(verified, verificationAttempt) ||
+      verified.id === originalVerify[0].id ||
+      times(verified)[0] <= times(originalVerify[0])[1]
+    )
+      reject("publication-recovery-mismatch");
+  }
   const artifacts = list(
     await reader.json(
       `${base}/actions/runs/${context.runId}/artifacts?per_page=100`,
@@ -276,7 +348,7 @@ export async function verifyTaggedWorkspaceSource(
     artifact: selected,
     verification: {
       runId: context.runId,
-      runAttempt: context.runAttempt,
+      runAttempt: verificationAttempt,
       ...selected,
     },
     ...(await verifySourceContract(

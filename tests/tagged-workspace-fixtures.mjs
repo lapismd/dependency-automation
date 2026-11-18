@@ -17,9 +17,12 @@ export const artifactUrl = `${api}/actions/artifacts/14190407906/zip`;
 
 /** Actual public responses captured from the original publication, never signed test claims. */
 export function taggedFixture() {
+  return fixture(original, inputs);
+}
+export function fixture(records, inputs) {
   const f = {
     records: new Map(
-      [...original].map(([url, bytes]) => [url, Buffer.from(bytes)]),
+      [...records].map(([url, bytes]) => [url, Buffer.from(bytes)]),
     ),
     inputs: structuredClone(inputs),
     requests: [],

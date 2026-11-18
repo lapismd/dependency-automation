@@ -1,0 +1,65 @@
+{
+  "total_count": 5,
+  "workflows": [
+    {
+      "id": 402863628,
+      "node_id": "W_kwDOVbTeJs4YAzYM",
+      "name": "Prepare package versions",
+      "path": ".github/workflows/changesets.yml",
+      "state": "active",
+      "created_at": "2026-10-31T16:03:58.000+00:00",
+      "updated_at": "2026-10-31T16:03:58.000+00:00",
+      "url": "https://api.github.com/repos/lapismd/agent-ui/actions/workflows/402863628",
+      "html_url": "https://github.com/lapismd/agent-ui/blob/main/.github/workflows/changesets.yml",
+      "badge_url": "https://github.com/lapismd/agent-ui/workflows/Prepare%20package%20versions/badge.svg"
+    },
+    {
+      "id": 400169793,
+      "node_id": "W_kwDOVbTeJs4X2htB",
+      "name": "Verify packages and review catalog",
+      "path": ".github/workflows/check.yml",
+      "state": "active",
+      "created_at": "2026-10-29T03:51:01.000+00:00",
+      "updated_at": "2026-10-29T03:51:11.000+00:00",
+      "url": "https://api.github.com/repos/lapismd/agent-ui/actions/workflows/400169793",
+      "html_url": "https://github.com/lapismd/agent-ui/blob/main/.github/workflows/check.yml",
+      "badge_url": "https://github.com/lapismd/agent-ui/workflows/Verify%20packages%20and%20review%20catalog/badge.svg"
+    },
+    {
+      "id": 422045407,
+      "node_id": "W_kwDOVbTeJs4ZJ-bf",
+      "name": "Notify dependency completion",
+      "path": ".github/workflows/dependency-completed.yml",
+      "state": "active",
+      "created_at": "2026-11-18T00:51:23.000+00:00",
+      "updated_at": "2026-11-18T00:51:23.000+00:00",
+      "url": "https://api.github.com/repos/lapismd/agent-ui/actions/workflows/422045407",
+      "html_url": "https://github.com/lapismd/agent-ui/blob/main/.github/workflows/dependency-completed.yml",
+      "badge_url": "https://github.com/lapismd/agent-ui/workflows/Notify%20dependency%20completion/badge.svg"
+    },
+    {
+      "id": 400453743,
+      "node_id": "W_kwDOVbTeJs4X3nBv",
+      "name": "Publish npm packages",
+      "path": ".github/workflows/npm-publish.yml",
+      "state": "active",
+      "created_at": "2026-10-29T10:03:42.000+00:00",
+      "updated_at": "2026-10-29T10:03:42.000+00:00",
+      "url": "https://api.github.com/repos/lapismd/agent-ui/actions/workflows/400453743",
+      "html_url": "https://github.com/lapismd/agent-ui/blob/main/.github/workflows/npm-publish.yml",
+      "badge_url": "https://github.com/lapismd/agent-ui/workflows/Publish%20npm%20packages/badge.svg"
+    },
+    {
+      "id": 400526739,
+      "node_id": "W_kwDOVbTeJs4X342T",
+      "name": "Publish Storybook to GitHub Pages",
+      "path": ".github/workflows/publish-storybook-pages.yml",
+      "state": "active",
+      "created_at": "2026-10-29T11:26:11.000+00:00",
+      "updated_at": "2026-10-29T11:26:11.000+00:00",
+      "url": "https://api.github.com/repos/lapismd/agent-ui/actions/workflows/400526739",
+      "html_url": "https://github.com/lapismd/agent-ui/blob/main/.github/workflows/publish-storybook-pages.yml",
+      "badge_url": "https://github.com/lapismd/agent-ui/workflows/Publish%20Storybook%20to%20GitHub%20Pages/badge.svg"
+    }
+  ]
+}

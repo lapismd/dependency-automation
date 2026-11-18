@@ -1,0 +1,45 @@
+{
+  "total_count": 2,
+  "artifacts": [
+    {
+      "id": 14405220741,
+      "node_id": "MDg6QXJ0aWZhY3QxNDQwNTIyMDc0MQ==",
+      "name": "agent-ui-release-cea9cdb3611b314cef1d9f94c084c6d53225fde3",
+      "size_in_bytes": 500640,
+      "url": "https://api.github.com/repos/lapismd/agent-ui/actions/artifacts/14405220741",
+      "archive_download_url": "https://api.github.com/repos/lapismd/agent-ui/actions/artifacts/14405220741/zip",
+      "expired": false,
+      "digest": "sha256:5b93baede3bb9b83c8a16d77c5f1acc0b7228b219ebcc4e4e5aed27e5ff4fb01",
+      "created_at": "2026-11-18T06:45:50Z",
+      "updated_at": "2026-11-18T06:45:50Z",
+      "expires_at": "2026-12-02T06:45:49Z",
+      "workflow_run": {
+        "id": 44253603892,
+        "repository_id": 1437916710,
+        "head_repository_id": 1437916710,
+        "head_branch": "v0.2.9",
+        "head_sha": "cea9cdb3611b314cef1d9f94c084c6d53225fde3"
+      }
+    },
+    {
+      "id": 14404739449,
+      "node_id": "MDg6QXJ0aWZhY3QxNDQwNDczOTQ0OQ==",
+      "name": "agent-ui-registry-receipt-cea9cdb3611b314cef1d9f94c084c6d53225fde3",
+      "size_in_bytes": 31800,
+      "url": "https://api.github.com/repos/lapismd/agent-ui/actions/artifacts/14404739449",
+      "archive_download_url": "https://api.github.com/repos/lapismd/agent-ui/actions/artifacts/14404739449/zip",
+      "expired": false,
+      "digest": "sha256:aa892d525f1098c470ab05b10cf9b7b2933cbff05d553b3b89be9efc2f5d511c",
+      "created_at": "2026-11-18T06:53:25Z",
+      "updated_at": "2026-11-18T06:53:25Z",
+      "expires_at": "2027-02-16T06:52:59Z",
+      "workflow_run": {
+        "id": 44253603892,
+        "repository_id": 1437916710,
+        "head_repository_id": 1437916710,
+        "head_branch": "v0.2.9",
+        "head_sha": "cea9cdb3611b314cef1d9f94c084c6d53225fde3"
+      }
+    }
+  ]
+}

@@ -64,9 +64,19 @@ The complete measured proof is retained in
 
 **Requirement.** Agent UI publication MUST use a separate reject-by-default tagged-cohort contract for its existing npm publisher, authenticated through the unchanged standard verifier.
 
+Recovery is supported only for the immediately following attempt of the same
+origin run, after original prepare and both publishes succeeded and actual
+post-publication verification failed. Fresh latest and exact-attempt responses
+must bind the same repository, source, tag-push and reviewed workflow. Projected
+successful prepare/publish jobs must retain original timestamps and step evidence;
+virtual job IDs alone establish no republish. Repacking, republishing, reused
+verification, lost origin proof, incomplete coverage, unsupported later attempts
+and different-run recovery fail closed. Artifact creation remains within original
+prepare, with origin publication and recovered verification identities distinct.
+
 ### Acceptance details
 
 - Only repository `lapismd/agent-ui`, workflow400453743 at `.github/workflows/npm-publish.yml` with its exact reviewed source-byte hash, tag-push provenance and `npm-production` certificate environment qualify; the exact stable tag must equal the attested source Agent UI package version, without accepting branch, dispatch or arbitrary tag fallbacks.
 - Both exact public source packages and unequal versions must match the original three-file artifact schema, SHA256 artifact identity, source-bound manifest, each SHA512 tarball and fresh official registry bytes; missing, extra, duplicate, different-byte or expired evidence fails closed under existing archive bounds.
-- The exact successful prepare job, both version-specific matrix publish jobs, registry verification job and completed origin attempt remain required, together with complete source CI/status coverage, current package contract, source ancestry and all existing cryptographic issuer/signer/source/subject/registry checks.
+- Successful original prepare, both version-specific publishes and original or bounded recovered verification MUST remain required with distinct attempt identities, original artifact timing and complete source CI/status coverage, current contract, ancestry and unchanged cryptographic issuer/signer/source/subject/registry checks.
 - This profile grants no publication, tag mutation, new key, credential or completion authority; Notes/static profiles, channel floors, budgets and main-head completion remain unchanged, and an unsupported or unexercised publisher cannot become verified by registration alone.
