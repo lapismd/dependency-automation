@@ -1,0 +1,113 @@
+{
+  "bugs": { "url": "https://github.com/lapismd/agent-ui/issues" },
+  "dist": {
+    "shasum": "974d4ce84e7a1b57f315d70ef758878d63673349",
+    "tarball": "https://registry.npmjs.org/@lapismd/repository-ui/-/repository-ui-0.2.7.tgz",
+    "fileCount": 711,
+    "integrity": "sha512-+lAmMPwc2i3TS0NnIiqsAIR/tkFs2l3/lOXfZf51qwLa5v6WagxosVWAfvu+eJ3DPRyzV0hcsQv+jJTzSfvKtA==",
+    "signatures": [
+      {
+        "sig": "MEUCIFYc2sLv9BeYZb4DzdnEIQqD4WfXQkiE9UTRruQkt5Q5AiEAt2/GVT2iHxM1eA4pNmpH9Fbtbhm/kB6RSXtk3rqOvy8=",
+        "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+      },
+      {
+        "sig": "MEUCIQDAVGwTp3K8zeuyX23Ki0Z0oIZ287CqbYPrfwgriyzGggIgXzKFtHUUJvP9+FdmDdudpqyoAL9Bx/XiYRO00XKY4RE=",
+        "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+      }
+    ],
+    "attestations": {
+      "url": "https://registry.npmjs.org/-/npm/v1/attestations/@lapismd%2frepository-ui@0.2.7",
+      "provenance": { "predicateType": "https://slsa.dev/provenance/v1" }
+    },
+    "unpackedSize": 1603873
+  },
+  "name": "@lapismd/repository-ui",
+  "type": "module",
+  "_from": "file:.release/lapismd-repository-ui-0.2.7.tgz",
+  "types": "./dist/index.d.ts",
+  "svelte": "./dist/index.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "svelte": "./dist/index.js"
+    },
+    "./jj": {
+      "types": "./dist/jj/index.d.ts",
+      "import": "./dist/jj/index.js",
+      "svelte": "./dist/jj/index.js"
+    },
+    "./core": {
+      "types": "./dist/core/index.d.ts",
+      "import": "./dist/core/index.js",
+      "svelte": "./dist/core/index.js"
+    },
+    "./stacks": {
+      "types": "./dist/stacks/index.d.ts",
+      "import": "./dist/stacks/index.js",
+      "svelte": "./dist/stacks/index.js"
+    },
+    "./history": {
+      "types": "./dist/history/index.d.ts",
+      "import": "./dist/history/index.js"
+    },
+    "./screens": {
+      "types": "./dist/screens/index.d.ts",
+      "import": "./dist/screens/index.js",
+      "svelte": "./dist/screens/index.js"
+    },
+    "./settings": {
+      "types": "./dist/jj/settings/index.d.ts",
+      "import": "./dist/jj/settings/index.js",
+      "svelte": "./dist/jj/settings/index.js"
+    },
+    "./styles.css": "./dist/styles.css",
+    "./settings/styles.css": "./dist/jj/settings/styles.css"
+  },
+  "license": "Apache-2.0",
+  "scripts": {
+    "build": "node ../../scripts/build-agent-package.mjs repository-ui"
+  },
+  "_npmUser": {
+    "name": "GitHub Actions",
+    "email": "npm-oidc-no-reply@github.com",
+    "trustedPublisher": {
+      "id": "github",
+      "oidcConfigId": "eb54f3d4-14ef-4f2a-9ed0-61540411b5c4"
+    }
+  },
+  "homepage": "https://github.com/lapismd/agent-ui",
+  "_resolved": "/home/runner/work/agent-ui/agent-ui/.release/lapismd-repository-ui-0.2.7.tgz",
+  "_integrity": "sha512-+lAmMPwc2i3TS0NnIiqsAIR/tkFs2l3/lOXfZf51qwLa5v6WagxosVWAfvu+eJ3DPRyzV0hcsQv+jJTzSfvKtA==",
+  "repository": {
+    "url": "git+https://github.com/lapismd/agent-ui.git",
+    "type": "git",
+    "directory": "packages/repository-ui"
+  },
+  "_npmVersion": "12.0.2",
+  "description": "Reusable controller-driven Git and JJ repository screens for LapisMD",
+  "directories": {},
+  "maintainers": [{ "name": "stevejuma", "email": "steve@stevejuma.com" }],
+  "sideEffects": ["**/*.css"],
+  "_nodeVersion": "24.22.2",
+  "dependencies": {
+    "@lucide/svelte": "^1.57.0",
+    "@codemirror/view": "^6.43.15",
+    "@lezer/highlight": "^1.2.5",
+    "@codemirror/state": "^6.7.6",
+    "@lapismd/jj-history": "^0.1.0",
+    "@codemirror/language": "^6.13.1",
+    "@lapismd/design-core": "^0.13.5",
+    "@codemirror/autocomplete": "^6.20.4",
+    "@tanstack/svelte-virtual": "^3.13.46"
+  },
+  "publishConfig": { "access": "public" },
+  "_hasShrinkwrap": false,
+  "peerDependencies": { "svelte": "^5.0.0" },
+  "_npmOperationalInternal": {
+    "tmp": "tmp/repository-ui_0.2.7_1794984622903_0.09154229155424842",
+    "host": "s3://npm-registry-packages-npm-production"
+  },
+  "_id": "@lapismd/repository-ui@0.2.7",
+  "version": "0.2.7"
+}

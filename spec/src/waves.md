@@ -309,3 +309,11 @@ enumerated frozen prerequisites.
 - Frozen prerequisite separation MUST use structured exact path/field/name registry findings for runtime AI/Profile and development Tasks; unknown, local-path, coverage, source-CI, identity, audit and selected-SDK constraints MUST remain blocking; matching human text cannot grant authority.
 - Reports MUST retain deferred updates, typed holds and waits while only the selected SDK reaches ordinary canonical preparation and native frozen generation; private source/candidate audit and functional gates remain mandatory; all other dependency writers stay held.
 - Exact scope authority MUST enter operation identity and be rechecked during configuration, generation and copyback; candidate ownership, source/registry integrity, compatibility, fresh target revalidation and durable CAS remain mandatory; unknown or revoked grants MUST fail closed.
+
+## Tagged publisher verification recovery
+
+Agent UI DA-PUB-005 verification-only same-run recovery authenticates the original
+publication independently from the immediately following successful verification.
+It changes no writer/state gate, channel, release floor, current-source coverage
+or consumer admission. The actual0.2.9/0.2.7 pair and remaining independent holds
+are recorded in `spec/records/2026-11-18-agent-ui-verification-recovery.md`.

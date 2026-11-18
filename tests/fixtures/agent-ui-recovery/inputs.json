@@ -1,0 +1,429 @@
+{
+  "owners": [
+    {
+      "name": "@lapismd/agent-ui",
+      "repository": "lapismd/agent-ui",
+      "path": "packages/agent-ui/package.json",
+      "manifest": {
+        "name": "@lapismd/agent-ui",
+        "version": "0.2.9",
+        "description": "Reusable controller-driven agent screens for LapisMD",
+        "type": "module",
+        "license": "Apache-2.0",
+        "repository": {
+          "type": "git",
+          "url": "git+https://github.com/lapismd/agent-ui.git",
+          "directory": "packages/agent-ui"
+        },
+        "homepage": "https://github.com/lapismd/agent-ui",
+        "bugs": {
+          "url": "https://github.com/lapismd/agent-ui/issues"
+        },
+        "publishConfig": {
+          "access": "public"
+        },
+        "files": [
+          "dist",
+          "README.md",
+          "LICENSE.md",
+          "NOTICE.md",
+          "!dist/**/*.test.*"
+        ],
+        "sideEffects": ["**/*.css"],
+        "svelte": "./dist/index.js",
+        "types": "./dist/index.d.ts",
+        "exports": {
+          ".": {
+            "types": "./dist/index.d.ts",
+            "svelte": "./dist/index.js",
+            "import": "./dist/index.js"
+          },
+          "./styles.css": "./dist/styles.css",
+          "./core": {
+            "types": "./dist/core/index.d.ts",
+            "svelte": "./dist/core/index.js",
+            "import": "./dist/core/index.js"
+          },
+          "./chat": {
+            "types": "./dist/chat/index.d.ts",
+            "svelte": "./dist/chat/index.js",
+            "import": "./dist/chat/index.js"
+          },
+          "./screens": {
+            "types": "./dist/screens/index.d.ts",
+            "svelte": "./dist/screens/index.js",
+            "import": "./dist/screens/index.js"
+          },
+          "./sessions": {
+            "types": "./dist/sessions/index.d.ts",
+            "svelte": "./dist/sessions/index.js",
+            "import": "./dist/sessions/index.js"
+          }
+        },
+        "scripts": {
+          "build": "node ../../scripts/build-agent-package.mjs"
+        },
+        "dependencies": {
+          "@lapismd/design-core": "^0.13.5",
+          "@lucide/svelte": "^1.57.0"
+        },
+        "peerDependencies": {
+          "svelte": "^5.0.0"
+        }
+      }
+    },
+    {
+      "name": "@lapismd/repository-ui",
+      "repository": "lapismd/agent-ui",
+      "path": "packages/repository-ui/package.json",
+      "manifest": {
+        "name": "@lapismd/repository-ui",
+        "version": "0.2.7",
+        "description": "Reusable controller-driven Git and JJ repository screens for LapisMD",
+        "type": "module",
+        "license": "Apache-2.0",
+        "repository": {
+          "type": "git",
+          "url": "git+https://github.com/lapismd/agent-ui.git",
+          "directory": "packages/repository-ui"
+        },
+        "homepage": "https://github.com/lapismd/agent-ui",
+        "bugs": {
+          "url": "https://github.com/lapismd/agent-ui/issues"
+        },
+        "publishConfig": {
+          "access": "public"
+        },
+        "files": [
+          "dist",
+          "README.md",
+          "LICENSE.md",
+          "NOTICE.md",
+          "!dist/**/*.test.*"
+        ],
+        "sideEffects": ["**/*.css"],
+        "svelte": "./dist/index.js",
+        "types": "./dist/index.d.ts",
+        "exports": {
+          ".": {
+            "types": "./dist/index.d.ts",
+            "svelte": "./dist/index.js",
+            "import": "./dist/index.js"
+          },
+          "./styles.css": "./dist/styles.css",
+          "./core": {
+            "types": "./dist/core/index.d.ts",
+            "svelte": "./dist/core/index.js",
+            "import": "./dist/core/index.js"
+          },
+          "./stacks": {
+            "types": "./dist/stacks/index.d.ts",
+            "svelte": "./dist/stacks/index.js",
+            "import": "./dist/stacks/index.js"
+          },
+          "./screens": {
+            "types": "./dist/screens/index.d.ts",
+            "svelte": "./dist/screens/index.js",
+            "import": "./dist/screens/index.js"
+          },
+          "./jj": {
+            "types": "./dist/jj/index.d.ts",
+            "svelte": "./dist/jj/index.js",
+            "import": "./dist/jj/index.js"
+          },
+          "./settings": {
+            "types": "./dist/jj/settings/index.d.ts",
+            "svelte": "./dist/jj/settings/index.js",
+            "import": "./dist/jj/settings/index.js"
+          },
+          "./settings/styles.css": "./dist/jj/settings/styles.css",
+          "./history": {
+            "types": "./dist/history/index.d.ts",
+            "import": "./dist/history/index.js"
+          }
+        },
+        "scripts": {
+          "build": "node ../../scripts/build-agent-package.mjs repository-ui"
+        },
+        "dependencies": {
+          "@lapismd/design-core": "^0.13.5",
+          "@lucide/svelte": "^1.57.0",
+          "@tanstack/svelte-virtual": "^3.13.46",
+          "@lapismd/jj-history": "^0.1.0",
+          "@codemirror/autocomplete": "^6.20.4",
+          "@codemirror/language": "^6.13.1",
+          "@codemirror/state": "^6.7.6",
+          "@codemirror/view": "^6.43.15",
+          "@lezer/highlight": "^1.2.5"
+        },
+        "peerDependencies": {
+          "svelte": "^5.0.0"
+        }
+      }
+    }
+  ],
+  "registry": [
+    [
+      "@lapismd/agent-ui",
+      {
+        "dist-tags": {
+          "latest": "0.2.9"
+        },
+        "versions": {
+          "0.2.9": {
+            "_id": "@lapismd/agent-ui@0.2.9",
+            "bugs": {
+              "url": "https://github.com/lapismd/agent-ui/issues"
+            },
+            "dist": {
+              "shasum": "5b443e059dd5eac6631d3234e18a749f3f49f074",
+              "tarball": "https://registry.npmjs.org/@lapismd/agent-ui/-/agent-ui-0.2.9.tgz",
+              "fileCount": 333,
+              "integrity": "sha512-/QACTNXmAK6paenY+aDxOEVqVQ48aLUPDdbKTFMXvmfPRWWxm6nSji6Zkyk9jNRgvCM2XU7cA5mQIu3/Ms2ZTA==",
+              "signatures": [
+                {
+                  "sig": "MEQCICpEx7WXuljcgUfnaJTb+Rju+Xd3X5zoMX0QaT1U39NeAiAX7k+nOt/gVaWnED1TEGnTkUnztEBmQicWJekyzX/e0w==",
+                  "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+                },
+                {
+                  "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+                  "sig": "MEUCIQDyDTfn5NkENjxdgsmbtKwzap+5CLE7AjB4DGspcxdP6wIgces+M5PgZItQUcO9aDRI2aOfJq87bg+dVReZMM3wrRw="
+                }
+              ],
+              "attestations": {
+                "url": "https://registry.npmjs.org/-/npm/v1/attestations/@lapismd%2fagent-ui@0.2.9",
+                "provenance": {
+                  "predicateType": "https://slsa.dev/provenance/v1"
+                }
+              },
+              "unpackedSize": 719158
+            },
+            "name": "@lapismd/agent-ui",
+            "type": "module",
+            "_from": "file:.release/lapismd-agent-ui-0.2.9.tgz",
+            "types": "./dist/index.d.ts",
+            "svelte": "./dist/index.js",
+            "exports": {
+              ".": {
+                "types": "./dist/index.d.ts",
+                "import": "./dist/index.js",
+                "svelte": "./dist/index.js"
+              },
+              "./chat": {
+                "types": "./dist/chat/index.d.ts",
+                "import": "./dist/chat/index.js",
+                "svelte": "./dist/chat/index.js"
+              },
+              "./core": {
+                "types": "./dist/core/index.d.ts",
+                "import": "./dist/core/index.js",
+                "svelte": "./dist/core/index.js"
+              },
+              "./screens": {
+                "types": "./dist/screens/index.d.ts",
+                "import": "./dist/screens/index.js",
+                "svelte": "./dist/screens/index.js"
+              },
+              "./sessions": {
+                "types": "./dist/sessions/index.d.ts",
+                "import": "./dist/sessions/index.js",
+                "svelte": "./dist/sessions/index.js"
+              },
+              "./styles.css": "./dist/styles.css"
+            },
+            "license": "Apache-2.0",
+            "scripts": {
+              "build": "node ../../scripts/build-agent-package.mjs"
+            },
+            "version": "0.2.9",
+            "_npmUser": {
+              "name": "GitHub Actions",
+              "email": "npm-oidc-no-reply@github.com",
+              "trustedPublisher": {
+                "id": "github",
+                "oidcConfigId": "6485b027-f427-4344-983e-4b327c094af5"
+              }
+            },
+            "homepage": "https://github.com/lapismd/agent-ui",
+            "_resolved": "/home/runner/work/agent-ui/agent-ui/.release/lapismd-agent-ui-0.2.9.tgz",
+            "_integrity": "sha512-/QACTNXmAK6paenY+aDxOEVqVQ48aLUPDdbKTFMXvmfPRWWxm6nSji6Zkyk9jNRgvCM2XU7cA5mQIu3/Ms2ZTA==",
+            "repository": {
+              "url": "git+https://github.com/lapismd/agent-ui.git",
+              "type": "git",
+              "directory": "packages/agent-ui"
+            },
+            "_npmVersion": "12.0.2",
+            "description": "Reusable controller-driven agent screens for LapisMD",
+            "directories": {},
+            "maintainers": [
+              {
+                "name": "stevejuma",
+                "email": "steve@stevejuma.com"
+              }
+            ],
+            "sideEffects": ["**/*.css"],
+            "_nodeVersion": "24.22.2",
+            "dependencies": {
+              "@lucide/svelte": "^1.57.0",
+              "@lapismd/design-core": "^0.13.5"
+            },
+            "publishConfig": {
+              "access": "public"
+            },
+            "_hasShrinkwrap": false,
+            "peerDependencies": {
+              "svelte": "^5.0.0"
+            },
+            "_npmOperationalInternal": {
+              "host": "s3://npm-registry-packages-npm-production",
+              "tmp": "tmp/agent-ui_0.2.9_1794984499916_0.7890111655317269"
+            }
+          }
+        }
+      }
+    ],
+    [
+      "@lapismd/repository-ui",
+      {
+        "dist-tags": {
+          "latest": "0.2.7"
+        },
+        "versions": {
+          "0.2.7": {
+            "_id": "@lapismd/repository-ui@0.2.7",
+            "bugs": {
+              "url": "https://github.com/lapismd/agent-ui/issues"
+            },
+            "dist": {
+              "shasum": "974d4ce84e7a1b57f315d70ef758878d63673349",
+              "tarball": "https://registry.npmjs.org/@lapismd/repository-ui/-/repository-ui-0.2.7.tgz",
+              "fileCount": 711,
+              "integrity": "sha512-+lAmMPwc2i3TS0NnIiqsAIR/tkFs2l3/lOXfZf51qwLa5v6WagxosVWAfvu+eJ3DPRyzV0hcsQv+jJTzSfvKtA==",
+              "signatures": [
+                {
+                  "sig": "MEUCIFYc2sLv9BeYZb4DzdnEIQqD4WfXQkiE9UTRruQkt5Q5AiEAt2/GVT2iHxM1eA4pNmpH9Fbtbhm/kB6RSXtk3rqOvy8=",
+                  "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+                },
+                {
+                  "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+                  "sig": "MEUCIQDAVGwTp3K8zeuyX23Ki0Z0oIZ287CqbYPrfwgriyzGggIgXzKFtHUUJvP9+FdmDdudpqyoAL9Bx/XiYRO00XKY4RE="
+                }
+              ],
+              "attestations": {
+                "url": "https://registry.npmjs.org/-/npm/v1/attestations/@lapismd%2frepository-ui@0.2.7",
+                "provenance": {
+                  "predicateType": "https://slsa.dev/provenance/v1"
+                }
+              },
+              "unpackedSize": 1603873
+            },
+            "name": "@lapismd/repository-ui",
+            "type": "module",
+            "_from": "file:.release/lapismd-repository-ui-0.2.7.tgz",
+            "types": "./dist/index.d.ts",
+            "svelte": "./dist/index.js",
+            "exports": {
+              ".": {
+                "types": "./dist/index.d.ts",
+                "import": "./dist/index.js",
+                "svelte": "./dist/index.js"
+              },
+              "./jj": {
+                "types": "./dist/jj/index.d.ts",
+                "import": "./dist/jj/index.js",
+                "svelte": "./dist/jj/index.js"
+              },
+              "./core": {
+                "types": "./dist/core/index.d.ts",
+                "import": "./dist/core/index.js",
+                "svelte": "./dist/core/index.js"
+              },
+              "./stacks": {
+                "types": "./dist/stacks/index.d.ts",
+                "import": "./dist/stacks/index.js",
+                "svelte": "./dist/stacks/index.js"
+              },
+              "./history": {
+                "types": "./dist/history/index.d.ts",
+                "import": "./dist/history/index.js"
+              },
+              "./screens": {
+                "types": "./dist/screens/index.d.ts",
+                "import": "./dist/screens/index.js",
+                "svelte": "./dist/screens/index.js"
+              },
+              "./settings": {
+                "types": "./dist/jj/settings/index.d.ts",
+                "import": "./dist/jj/settings/index.js",
+                "svelte": "./dist/jj/settings/index.js"
+              },
+              "./styles.css": "./dist/styles.css",
+              "./settings/styles.css": "./dist/jj/settings/styles.css"
+            },
+            "license": "Apache-2.0",
+            "scripts": {
+              "build": "node ../../scripts/build-agent-package.mjs repository-ui"
+            },
+            "version": "0.2.7",
+            "_npmUser": {
+              "name": "GitHub Actions",
+              "email": "npm-oidc-no-reply@github.com",
+              "trustedPublisher": {
+                "id": "github",
+                "oidcConfigId": "eb54f3d4-14ef-4f2a-9ed0-61540411b5c4"
+              }
+            },
+            "homepage": "https://github.com/lapismd/agent-ui",
+            "_resolved": "/home/runner/work/agent-ui/agent-ui/.release/lapismd-repository-ui-0.2.7.tgz",
+            "_integrity": "sha512-+lAmMPwc2i3TS0NnIiqsAIR/tkFs2l3/lOXfZf51qwLa5v6WagxosVWAfvu+eJ3DPRyzV0hcsQv+jJTzSfvKtA==",
+            "repository": {
+              "url": "git+https://github.com/lapismd/agent-ui.git",
+              "type": "git",
+              "directory": "packages/repository-ui"
+            },
+            "_npmVersion": "12.0.2",
+            "description": "Reusable controller-driven Git and JJ repository screens for LapisMD",
+            "directories": {},
+            "maintainers": [
+              {
+                "name": "stevejuma",
+                "email": "steve@stevejuma.com"
+              }
+            ],
+            "sideEffects": ["**/*.css"],
+            "_nodeVersion": "24.22.2",
+            "dependencies": {
+              "@lucide/svelte": "^1.57.0",
+              "@codemirror/view": "^6.43.15",
+              "@lezer/highlight": "^1.2.5",
+              "@codemirror/state": "^6.7.6",
+              "@lapismd/jj-history": "^0.1.0",
+              "@codemirror/language": "^6.13.1",
+              "@lapismd/design-core": "^0.13.5",
+              "@codemirror/autocomplete": "^6.20.4",
+              "@tanstack/svelte-virtual": "^3.13.46"
+            },
+            "publishConfig": {
+              "access": "public"
+            },
+            "_hasShrinkwrap": false,
+            "peerDependencies": {
+              "svelte": "^5.0.0"
+            },
+            "_npmOperationalInternal": {
+              "host": "s3://npm-registry-packages-npm-production",
+              "tmp": "tmp/repository-ui_0.2.7_1794984622903_0.09154229155424842"
+            }
+          }
+        }
+      }
+    ]
+  ],
+  "repositories": [
+    {
+      "repository": "lapismd/agent-ui",
+      "sourceSha": "cea9cdb3611b314cef1d9f94c084c6d53225fde3",
+      "visibility": "public"
+    }
+  ]
+}

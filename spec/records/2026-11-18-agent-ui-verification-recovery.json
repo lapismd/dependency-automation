@@ -1,0 +1,110 @@
+{
+  "schemaVersion": 1,
+  "kind": "agent-ui-same-run-verification-recovery",
+  "coverage": {
+    "schemaVersion": 1,
+    "requests": 137,
+    "bytes": 24829268
+  },
+  "requestedWrites": false,
+  "effectiveWrites": false,
+  "stateWrites": false,
+  "publications": [
+    {
+      "name": "@lapismd/agent-ui",
+      "version": "0.2.9",
+      "integrity": "sha512-/QACTNXmAK6paenY+aDxOEVqVQ48aLUPDdbKTFMXvmfPRWWxm6nSji6Zkyk9jNRgvCM2XU7cA5mQIu3/Ms2ZTA==",
+      "evidence": {
+        "schemaVersion": 1,
+        "state": "verified",
+        "reason": "verified-publication",
+        "channel": {
+          "policy": "latest",
+          "admitted": true,
+          "latest": "0.2.9",
+          "tags": ["latest"]
+        },
+        "currentSourceSha": "cea9cdb3611b314cef1d9f94c084c6d53225fde3",
+        "currentContractSha256": "92d508741132df131545e5426f018397da666dbcb652fc0821bd42d151dbaad6",
+        "matchesCurrentContract": true,
+        "proof": {
+          "repository": "lapismd/agent-ui",
+          "sourceSha": "cea9cdb3611b314cef1d9f94c084c6d53225fde3",
+          "repositoryId": 1437916710,
+          "runId": 44253603892,
+          "runAttempt": 1,
+          "attestationSha256": "e750e4354b85ec8ecd99979c75b8eb400a34ddd7371385475dc28dc24bc50c66",
+          "subjectSha512": "fd00024cd5e600aea969e9d8f9a0f138456a550e3c68b50f0dd6ca4c5317be67cf4565b19ba9d28e2e9993293d8cd460bc23365d4edc03999022edff32cd994c",
+          "workflow": ".github/workflows/npm-publish.yml",
+          "ref": "refs/tags/v0.2.9",
+          "toolSha256": "78d23db0253c21065d8b570fb5a6f7c60d57d1e15e8076db75445fb500377e3d",
+          "artifact": {
+            "id": 14405220741,
+            "sha256": "5b93baede3bb9b83c8a16d77c5f1acc0b7228b219ebcc4e4e5aed27e5ff4fb01",
+            "manifestSha256": "7bfe4a0ea15e52e8942324888f851acc52d793ff9bbfed04db27737a0d8a3863",
+            "tarballSha256": "28b8152fe4c6892ec06a835ddf292b254ab342256282bd99dcf151243c3813b6"
+          },
+          "verification": {
+            "runId": 44253603892,
+            "runAttempt": 2,
+            "id": 14405220741,
+            "sha256": "5b93baede3bb9b83c8a16d77c5f1acc0b7228b219ebcc4e4e5aed27e5ff4fb01",
+            "manifestSha256": "7bfe4a0ea15e52e8942324888f851acc52d793ff9bbfed04db27737a0d8a3863",
+            "tarballSha256": "28b8152fe4c6892ec06a835ddf292b254ab342256282bd99dcf151243c3813b6"
+          },
+          "sourceContractSha256": "92d508741132df131545e5426f018397da666dbcb652fc0821bd42d151dbaad6",
+          "sourceCiSha256": "eaf306e1e15d9fdd84531d50d3473819fa3718d6a4a3476607c523ce41a6748d",
+          "dependencyContractSha256": "8d05c8f113caff2b4b794465fd7b4ed1c4b633a69b0aee4c32cbb757d1640b28"
+        }
+      }
+    },
+    {
+      "name": "@lapismd/repository-ui",
+      "version": "0.2.7",
+      "integrity": "sha512-+lAmMPwc2i3TS0NnIiqsAIR/tkFs2l3/lOXfZf51qwLa5v6WagxosVWAfvu+eJ3DPRyzV0hcsQv+jJTzSfvKtA==",
+      "evidence": {
+        "schemaVersion": 1,
+        "state": "verified",
+        "reason": "verified-publication",
+        "channel": {
+          "policy": "latest",
+          "admitted": true,
+          "latest": "0.2.7",
+          "tags": ["latest"]
+        },
+        "currentSourceSha": "cea9cdb3611b314cef1d9f94c084c6d53225fde3",
+        "currentContractSha256": "bf60d9688ea646d2dd5fd3581f734d914fe4e58d8f58595a8d3d81eddd839120",
+        "matchesCurrentContract": true,
+        "proof": {
+          "repository": "lapismd/agent-ui",
+          "sourceSha": "cea9cdb3611b314cef1d9f94c084c6d53225fde3",
+          "repositoryId": 1437916710,
+          "runId": 44253603892,
+          "runAttempt": 1,
+          "attestationSha256": "f8b4194fd2800796ff8bf16ac570a37eec1bcc75469cc77428005b00ba90934f",
+          "subjectSha512": "fa502630fc1cda2dd34b4367222aac00847fb6416cda5dff94e5df65fe75ab02dae6fe966a0c68b155807efbbe789dc33d1cb357485cb10bfe8c94f349fbcab4",
+          "workflow": ".github/workflows/npm-publish.yml",
+          "ref": "refs/tags/v0.2.9",
+          "toolSha256": "78d23db0253c21065d8b570fb5a6f7c60d57d1e15e8076db75445fb500377e3d",
+          "artifact": {
+            "id": 14405220741,
+            "sha256": "5b93baede3bb9b83c8a16d77c5f1acc0b7228b219ebcc4e4e5aed27e5ff4fb01",
+            "manifestSha256": "7bfe4a0ea15e52e8942324888f851acc52d793ff9bbfed04db27737a0d8a3863",
+            "tarballSha256": "79d8a880b9e660f77382f79e721917f79f19f996c4765b0e96365fea6aac8ebe"
+          },
+          "verification": {
+            "runId": 44253603892,
+            "runAttempt": 2,
+            "id": 14405220741,
+            "sha256": "5b93baede3bb9b83c8a16d77c5f1acc0b7228b219ebcc4e4e5aed27e5ff4fb01",
+            "manifestSha256": "7bfe4a0ea15e52e8942324888f851acc52d793ff9bbfed04db27737a0d8a3863",
+            "tarballSha256": "79d8a880b9e660f77382f79e721917f79f19f996c4765b0e96365fea6aac8ebe"
+          },
+          "sourceContractSha256": "bf60d9688ea646d2dd5fd3581f734d914fe4e58d8f58595a8d3d81eddd839120",
+          "sourceCiSha256": "eaf306e1e15d9fdd84531d50d3473819fa3718d6a4a3476607c523ce41a6748d",
+          "dependencyContractSha256": "fcdfd874ae15a939cd15acc5ce2d88fcac8e43dfa2b103de7800d37860c13a37"
+        }
+      }
+    }
+  ]
+}

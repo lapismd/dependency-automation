@@ -1,0 +1,18 @@
+{
+  "name": "dependency-completed.yml",
+  "path": ".github/workflows/dependency-completed.yml",
+  "sha": "a5fb744922f7fa752e83c6a5b03afa28e5fbba0c",
+  "size": 627,
+  "url": "https://api.github.com/repos/lapismd/agent-ui/contents/.github/workflows/dependency-completed.yml?ref=cea9cdb3611b314cef1d9f94c084c6d53225fde3",
+  "html_url": "https://github.com/lapismd/agent-ui/blob/cea9cdb3611b314cef1d9f94c084c6d53225fde3/.github/workflows/dependency-completed.yml",
+  "git_url": "https://api.github.com/repos/lapismd/agent-ui/git/blobs/a5fb744922f7fa752e83c6a5b03afa28e5fbba0c",
+  "download_url": "https://raw.githubusercontent.com/lapismd/agent-ui/cea9cdb3611b314cef1d9f94c084c6d53225fde3/.github/workflows/dependency-completed.yml",
+  "type": "file",
+  "content": "bmFtZTogTm90aWZ5IGRlcGVuZGVuY3kgY29tcGxldGlvbgoKb246CiAgd29y\na2Zsb3dfcnVuOgogICAgd29ya2Zsb3dzOgogICAgICAtIFZlcmlmeSBwYWNr\nYWdlcyBhbmQgcmV2aWV3IGNhdGFsb2cKICAgICAgLSBQdWJsaXNoIFN0b3J5\nYm9vayB0byBHaXRIdWIgUGFnZXMKICAgICAgLSBQcmVwYXJlIHBhY2thZ2Ug\ndmVyc2lvbnMKICAgIHR5cGVzOiBbY29tcGxldGVkXQoKcGVybWlzc2lvbnM6\nCiAgY29udGVudHM6IHJlYWQKICBhY3Rpb25zOiByZWFkCiAgcHVsbC1yZXF1\nZXN0czogcmVhZAoKam9iczoKICBub3RpZnk6CiAgICBpZjogZ2l0aHViLmV2\nZW50LndvcmtmbG93X3J1bi5jb25jbHVzaW9uID09ICdzdWNjZXNzJwogICAg\ndXNlczogbGFwaXNtZC9kZXBlbmRlbmN5LWF1dG9tYXRpb24vLmdpdGh1Yi93\nb3JrZmxvd3MvY29tcGxldGlvbi55bWxAMDUzYWM4YmU1NzM4NzFjY2M1YjAy\nMzJiYzkxZDhjZTdmM2JmZjAyZgogICAgd2l0aDoKICAgICAgYXV0b21hdGlv\nbi1yZWY6IDA1M2FjOGJlNTczODcxY2NjNWIwMjMyYmM5MWQ4Y2U3ZjNiZmYw\nMmYKICAgIHNlY3JldHM6CiAgICAgIGFwcC1wcml2YXRlLWtleTogJHt7IHNl\nY3JldHMuTEFQSVNfREVQRU5ERU5DWV9BUFBfUFJJVkFURV9LRVkgfX0K\n",
+  "encoding": "base64",
+  "_links": {
+    "self": "https://api.github.com/repos/lapismd/agent-ui/contents/.github/workflows/dependency-completed.yml?ref=cea9cdb3611b314cef1d9f94c084c6d53225fde3",
+    "git": "https://api.github.com/repos/lapismd/agent-ui/git/blobs/a5fb744922f7fa752e83c6a5b03afa28e5fbba0c",
+    "html": "https://github.com/lapismd/agent-ui/blob/cea9cdb3611b314cef1d9f94c084c6d53225fde3/.github/workflows/dependency-completed.yml"
+  }
+}
