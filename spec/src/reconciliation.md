@@ -24,6 +24,14 @@ must prove unchanged non-operational code/inputs. This only records recovery;
 fresh ordinary planning, source revalidation and every writer/merge gate still
 apply. No repair branch or live state is overwritten to resume an old attempt.
 
+Manual partial-operation reconciliation is distinct from recovery. It binds the
+exact admitted operation, completed originating run and current state revision,
+requires qualified advanced public source with empty dependency branch/PR/orphan
+evidence, and records only a strict target partition already proven by ordinary
+manifest, retained-minimum, peer and lock facts. Fresh planning must independently
+admit the remaining targets before the App writer runs; the reconciliation input
+cannot select or widen their generated update.
+
 ## DA-REC-001 — Restricted update managers
 
 **Requirement.** Generated reconciliation MUST handle only eligible first-party npm dependencies within discovered active manifest paths.

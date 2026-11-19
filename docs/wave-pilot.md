@@ -120,6 +120,26 @@ PR-head hint verification never replaces the current default-branch graph.
   checks still decide which targets may proceed. Never use a guessed SHA or
   remove a retained repair branch merely to satisfy recovery.
 
+- When a reviewed source prerequisite has already absorbed a strict nonempty
+  subset of an admitted operation, empty-attempt recovery remains unavailable:
+  manifest, lock, policy or implementation changes are not unchanged source.
+  After the originating run and all current-source checks finish, inspect the
+  exact target partition and prove there is still no dependency branch, open PR
+  or orphan branch. Reconcile that operation against the exact current state:
+
+  ```sh
+  gh workflow run reconcile.yml --ref main \
+    -f reconcile-operation=EXACT_64_HEX_OPERATION_ID \
+    -f expected-state-revision=EXACT_40_HEX_STATE_COMMIT
+  ```
+
+  The collector requires qualified advanced public source, a completed exact
+  originating run and a strict absorbed/remaining partition under the ordinary
+  manifest-minimum and lock predicates. It records the partition durably, then
+  fresh ordinary planning owns the remaining targets and writer admission. It
+  cannot accept none or all of the old targets, overwrite repair ownership, or
+  qualify changed source as an empty retry.
+
 - Manual commits hold their exact rolling or publisher compatibility family.
   Ambiguous branch names hold regeneration conservatively. Resolve/merge the
   repair through ordinary review, preserving its commits; reconcile ownership

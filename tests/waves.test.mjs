@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { planWaves, emptyState } from "../src/waves.mjs";
+import { planWaves, emptyState, validateState } from "../src/waves.mjs";
 import {
   qualification,
   branchOwnership,
@@ -481,6 +481,129 @@ test("manual recovery re-admits only exact completed empty attempts, preserving 
   assert.throws(
     () => recoverEmptyOperation(first.state, graph, recovery),
     /empty branch/,
+  );
+});
+
+test("manual operation reconciliation records a strict main-absorbed target subset before fresh planning", async () => {
+  const { reconcilePartiallyAcceptedOperation } =
+    await import("../src/waves.mjs");
+  const graph = fixture(),
+    repo = graph.repositories[1],
+    edge = graph.edges.find((entry) => entry.repository === repo.repository);
+  repo.manifests[0].manifest.optionalDependencies = {
+    "@lapismd/foundation": "^1.0.0",
+  };
+  repo.lock.importers["."].optionalDependencies = {
+    "@lapismd/foundation": { version: "1.0.0" },
+  };
+  const optionalEdge = { ...edge, type: "optionalDependencies" };
+  graph.edges.push(optionalEdge);
+  repo.evidence.dependencyBranches = [];
+  const first = planWaves(graph, emptyState(), {
+      ...options,
+      runId: "123",
+    }),
+    operation = first.state.operations[node(first, "publisher").operationId],
+    revision = "d".repeat(40);
+  assert.equal(operation.targets.length, 2);
+  repo.sourceSha = "c".repeat(40);
+  repo.evidence = {
+    ...repo.evidence,
+    sha: repo.sourceSha,
+    runs: [{ ...repo.evidence.runs[0], head_sha: repo.sourceSha }],
+    dependencyBranches: [],
+  };
+  repo.manifests[0].manifest.dependencies["@lapismd/foundation"] = "^1.0.1";
+  edge.range = "^1.0.1";
+  repo.lock.importers["."].dependencies["@lapismd/foundation"].version =
+    "1.0.1";
+  const request = {
+    operationId: operation.id,
+    expectedRevision: revision,
+    revision,
+    completedRun: {
+      id: 123,
+      status: "completed",
+      path: ".github/workflows/reconcile.yml",
+    },
+    now: "2026-11-19T23:30:00Z",
+  };
+  const reconciled = reconcilePartiallyAcceptedOperation(
+      first.state,
+      graph,
+      request,
+    ),
+    receipt = reconciled.operations[operation.id].reconciliation;
+  assert.equal(
+    reconciled.operations[operation.id].status,
+    "partially-accepted-on-main",
+  );
+  assert.equal(validateState(reconciled), reconciled);
+  assert.deepEqual(
+    receipt.absorbedTargets.map((target) => target.type),
+    ["dependencies"],
+  );
+  assert.deepEqual(
+    receipt.remainingTargets.map((target) => target.type),
+    ["optionalDependencies"],
+  );
+  const replanned = planWaves(graph, reconciled, options);
+  assert.equal(node(replanned, "publisher").status, "admitted");
+  assert.deepEqual(
+    node(replanned, "publisher").admittedUpdates.map((update) => update.type),
+    ["optionalDependencies"],
+  );
+  for (const mutate of [
+    (value) => ({ ...value, expectedRevision: "old" }),
+    (value) => ({
+      ...value,
+      completedRun: { ...value.completedRun, status: "in_progress" },
+    }),
+  ])
+    assert.throws(
+      () =>
+        reconcilePartiallyAcceptedOperation(
+          first.state,
+          graph,
+          mutate(request),
+        ),
+      /Operation reconciliation|originating reconcile run/,
+    );
+  for (const key of ["dependencyBranches", "prs", "orphanBranches"]) {
+    repo.evidence[key].push({ branch: "lapis-dependencies/repair" });
+    assert.throws(
+      () => reconcilePartiallyAcceptedOperation(first.state, graph, request),
+      /empty branch\/PR state/,
+    );
+    repo.evidence[key] = [];
+  }
+  repo.evidence.runs[0].conclusion = "failure";
+  assert.throws(
+    () => reconcilePartiallyAcceptedOperation(first.state, graph, request),
+    /qualified advanced public source/,
+  );
+  repo.evidence.runs[0].conclusion = "success";
+  repo.lock.importers["."].optionalDependencies["@lapismd/foundation"].version =
+    "1.0.1";
+  repo.manifests[0].manifest.optionalDependencies["@lapismd/foundation"] =
+    "^1.0.1";
+  optionalEdge.range = "^1.0.1";
+  assert.throws(
+    () => reconcilePartiallyAcceptedOperation(first.state, graph, request),
+    /strict partially accepted target partition/,
+  );
+  repo.manifests[0].manifest.dependencies["@lapismd/foundation"] = "^1.0.0";
+  repo.manifests[0].manifest.optionalDependencies["@lapismd/foundation"] =
+    "^1.0.0";
+  edge.range = "^1.0.0";
+  optionalEdge.range = "^1.0.0";
+  repo.lock.importers["."].dependencies["@lapismd/foundation"].version =
+    "1.0.0";
+  repo.lock.importers["."].optionalDependencies["@lapismd/foundation"].version =
+    "1.0.0";
+  assert.throws(
+    () => reconcilePartiallyAcceptedOperation(first.state, graph, request),
+    /strict partially accepted target partition/,
   );
 });
 

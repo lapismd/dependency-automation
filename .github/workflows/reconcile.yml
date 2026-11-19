@@ -11,8 +11,12 @@ on:
         description: Optional exact uncertain operation ID; retry only a proven empty completed attempt
         required: false
         type: string
+      reconcile-operation:
+        description: Exact admitted operation whose strict target subset is now qualified on main
+        required: false
+        type: string
       expected-state-revision:
-        description: Required with recovery; exact current state branch commit SHA
+        description: Required with recovery or reconciliation; exact current state branch commit SHA
         required: false
         type: string
       recover-source-revision:
@@ -63,6 +67,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           LAPIS_WAVE_RECOVER_OPERATION: ${{ inputs.recover-operation }}
+          LAPIS_WAVE_RECONCILE_OPERATION: ${{ inputs.reconcile-operation }}
           LAPIS_WAVE_EXPECTED_STATE: ${{ inputs.expected-state-revision }}
           LAPIS_WAVE_RECOVER_SOURCE: ${{ inputs.recover-source-revision }}
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7

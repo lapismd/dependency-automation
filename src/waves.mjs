@@ -108,6 +108,7 @@ export function validateState(state) {
         "status",
         "runId",
         "recovery",
+        "reconciliation",
         "firstObservedAt",
         "observedAt",
         "ownership",
@@ -131,9 +132,31 @@ export function validateState(state) {
         "uncertain",
         "planned",
         "accepted-on-main",
+        "partially-accepted-on-main",
         "retry-approved",
       ].includes(operation.status) ||
-      (operation.runId !== undefined && !/^\d+$/.test(operation.runId))
+      (operation.runId !== undefined && !/^\d+$/.test(operation.runId)) ||
+      (operation.reconciliation !== undefined &&
+        (!keys(operation.reconciliation, [
+          "action",
+          "expectedRevision",
+          "currentSourceSha",
+          "previousRunId",
+          "absorbedTargets",
+          "remainingTargets",
+          "observedAt",
+        ]) ||
+          operation.reconciliation.action !== "partition-observed-main" ||
+          !sha(operation.reconciliation.expectedRevision) ||
+          !sha(operation.reconciliation.currentSourceSha) ||
+          !/^\d+$/.test(operation.reconciliation.previousRunId ?? "") ||
+          !Array.isArray(operation.reconciliation.absorbedTargets) ||
+          !operation.reconciliation.absorbedTargets.every(target) ||
+          !operation.reconciliation.absorbedTargets.length ||
+          !Array.isArray(operation.reconciliation.remainingTargets) ||
+          !operation.reconciliation.remainingTargets.every(target) ||
+          !operation.reconciliation.remainingTargets.length ||
+          typeof operation.reconciliation.observedAt !== "string"))
     )
       throw Error("Unsupported stored operation evidence");
   for (const publication of Object.values(state.publications))
@@ -199,6 +222,33 @@ function retainedMinimumRequired(previous, repo, edge, target) {
         req.type === edge.type &&
         req.target === target,
     )
+  );
+}
+
+function operationTargetSatisfied(previous, graph, repo, operation, target) {
+  const edge = graph.edges.find(
+    (entry) =>
+      entry.repository === operation.repository &&
+      entry.path === target.path &&
+      entry.type === target.type &&
+      entry.name === target.name,
+  );
+  const manifest = repo.manifests.find(
+    (entry) => entry.path === target.path,
+  )?.manifest;
+  if (
+    !edge &&
+    repo.sourceSha !== operation.sourceSha &&
+    !Object.hasOwn(manifest?.[target.type] ?? {}, target.name)
+  )
+    return true;
+  if (edge?.type === "peerDependencies")
+    return semver.satisfies(target.target, edge.range);
+  const current = edge && lockVersion(repo, edge).version;
+  return (
+    current &&
+    semver.gte(current, target.target) &&
+    !retainedMinimumRequired(previous, repo, edge, target.target)
   );
 }
 
@@ -820,7 +870,11 @@ export function planWaves(graph, previous = emptyState(), options = {}) {
         operation.repository !== node.repository ||
         (!["admitted", "uncertain"].includes(operation.status) &&
           (!operation.runId ||
-            ["accepted-on-main", "retry-approved"].includes(operation.status)))
+            [
+              "accepted-on-main",
+              "partially-accepted-on-main",
+              "retry-approved",
+            ].includes(operation.status)))
       )
         return false;
       const repo = graph.repositories.find(
@@ -828,32 +882,9 @@ export function planWaves(graph, previous = emptyState(), options = {}) {
       );
       return (
         !operation.targets.length ||
-        !operation.targets.every((t) => {
-          const edge = graph.edges.find(
-            (e) =>
-              e.repository === node.repository &&
-              e.path === t.path &&
-              e.type === t.type &&
-              e.name === t.name,
-          );
-          const manifest = repo.manifests.find(
-            (p) => p.path === t.path,
-          )?.manifest;
-          if (
-            !edge &&
-            repo.sourceSha !== operation.sourceSha &&
-            !Object.hasOwn(manifest?.[t.type] ?? {}, t.name)
-          )
-            return true;
-          if (edge?.type === "peerDependencies")
-            return semver.satisfies(t.target, edge.range);
-          const current = edge && lockVersion(repo, edge).version;
-          return (
-            current &&
-            semver.gte(current, t.target) &&
-            !retainedMinimumRequired(previous, repo, edge, t.target)
-          );
-        })
+        !operation.targets.every((target) =>
+          operationTargetSatisfied(previous, graph, repo, operation, target),
+        )
       );
     });
     if (
@@ -909,28 +940,9 @@ export function planWaves(graph, previous = emptyState(), options = {}) {
     if (
       repo.sourceSha !== operation.sourceSha &&
       operation.targets.length &&
-      operation.targets.every((t) => {
-        const edge = graph.edges.find(
-          (e) =>
-            e.repository === operation.repository &&
-            e.path === t.path &&
-            e.name === t.name &&
-            e.type === t.type,
-        );
-        const manifest = repo.manifests.find(
-          (p) => p.path === t.path,
-        )?.manifest;
-        if (!edge && !Object.hasOwn(manifest?.[t.type] ?? {}, t.name))
-          return true;
-        if (edge?.type === "peerDependencies")
-          return semver.satisfies(t.target, edge.range);
-        const current = edge && lockVersion(repo, edge).version;
-        return (
-          current &&
-          semver.gte(current, t.target) &&
-          !retainedMinimumRequired(previous, repo, edge, t.target)
-        );
-      })
+      operation.targets.every((target) =>
+        operationTargetSatisfied(previous, graph, repo, operation, target),
+      )
     )
       operation.status = "accepted-on-main";
   }
@@ -1052,6 +1064,78 @@ export function recoverEmptyOperation(
     observedAt: now,
     previousRunId: operation.runId,
     ...(sourceTransition ? { sourceTransition: sourceProof } : {}),
+  };
+  return state;
+}
+
+export function reconcilePartiallyAcceptedOperation(
+  previous,
+  graph,
+  {
+    operationId,
+    expectedRevision,
+    revision,
+    completedRun,
+    now = new Date().toISOString(),
+  },
+) {
+  if (
+    !/^[a-f0-9]{64}$/.test(operationId ?? "") ||
+    expectedRevision !== revision ||
+    !revision
+  )
+    throw Error(
+      "Operation reconciliation requires exact operation and current state revision",
+    );
+  const operation = previous.operations[operationId];
+  if (
+    !operation ||
+    !["admitted", "uncertain"].includes(operation.status) ||
+    !operation.runId ||
+    String(completedRun?.id) !== operation.runId ||
+    completedRun.status !== "completed" ||
+    completedRun.path !== ".github/workflows/reconcile.yml"
+  )
+    throw Error(
+      "Prior originating reconcile run must be complete before operation reconciliation",
+    );
+  const repo = graph.repositories.find(
+    (entry) => entry.repository === operation.repository,
+  );
+  if (
+    !repo ||
+    repo.visibility !== "public" ||
+    repo.sourceSha === operation.sourceSha ||
+    qualification(repo.evidence, repo.sourceSha).state !== "qualified" ||
+    repo.evidence?.incomplete ||
+    !Array.isArray(repo.evidence?.dependencyBranches) ||
+    repo.evidence.dependencyBranches.length ||
+    repo.evidence.prs.length ||
+    repo.evidence.orphanBranches.length
+  )
+    throw Error(
+      "Operation reconciliation requires qualified advanced public source and proven empty branch/PR state",
+    );
+  const absorbedTargets = operation.targets.filter((target) =>
+      operationTargetSatisfied(previous, graph, repo, operation, target),
+    ),
+    remainingTargets = operation.targets.filter(
+      (target) => !absorbedTargets.includes(target),
+    );
+  if (!absorbedTargets.length || !remainingTargets.length)
+    throw Error(
+      "Operation reconciliation requires a strict partially accepted target partition",
+    );
+  const state = structuredClone(previous);
+  state.operations[operationId].status = "partially-accepted-on-main";
+  state.operations[operationId].reconciliation = {
+    action: "partition-observed-main",
+    expectedRevision,
+    currentSourceSha: repo.sourceSha,
+    previousRunId: operation.runId,
+    absorbedTargets,
+    remainingTargets,
+    observedAt: now,
   };
   return state;
 }

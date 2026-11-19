@@ -16,6 +16,10 @@ inventory recovery boundary. `qualifyRecoverySource` reads both exact public
 trees before `recoverEmptyOperation` can record a source transition. The
 existing exact-state CAS/read-back and consumer revalidation remain required;
 ordinary events cannot invoke this recovery path.
+`reconcile-operation` is a separate manual-only inventory boundary: it binds an
+exact completed admission and state revision, records only a strict target subset
+already qualified on advanced main, and returns the remaining subset to fresh
+ordinary planning. It does not use or widen source-recovery projection rules.
 
 This map describes executable entrypoints. It deliberately contains no secret
 values, live operational reports or copied repository inventories.
@@ -32,16 +36,16 @@ values, live operational reports or copied repository inventories.
 
 ## Hosted entrypoints
 
-| Workflow                | Trigger and jobs                                         | Inputs and entrypoints                                                                   | Outputs and authority                                                     |
-| ----------------------- | -------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
-| `check.yml`             | PR/main checks                                           | Frozen install, `pnpm verify`                                                            | Source/spec qualification; contents read                                  |
-| `reconcile.yml`         | Publication/completion dispatch, hourly catch-up, manual | `inventory` → matrix `reconcile`; inventory/config scripts → Renovate → `prepare-pr.mjs` | Ignored report artifacts; dry-run or explicit one-repository App writes   |
-| `completion.yml`        | Reusable trusted source `workflow_run` call              | Exact allowed source run/attempt → read-only verification → existing scoped App          | Completion hint; receiver waits for callback completion; no source writes |
-| `notify.yml`            | Reusable publisher call                                  | Exact coordinator/source revisions → `scripts/notify.mjs`                                | Registry-verified dispatch to coordinator; no npm publisher               |
-| `maintenance-audit.yml` | Daily/manual                                             | Shared monitoring policy → `scripts/audit-maintenance.mjs`                               | Read-only partial/complete JSON report, 14-day artifact                   |
-| `app-readiness.yml`     | Manual main-only                                         | One of the explicitly reviewed repositories and existing encrypted App credentials       | Scope/repository/PR read proof; no target writes                          |
-| `profile-refresh.yml`   | Gated hourly/manual                                      | Source generator → same-run artifact → coordinator `publish-profile.mjs`                 | Guarded rolling profile PR using scoped App writes                        |
-| `pages.yml`             | Main push/manual main                                    | Frozen install and complete verification → generated `spec/book`                         | Book-only Pages artifact; isolated Pages deployment authority             |
+| Workflow                | Trigger and jobs                                         | Inputs and entrypoints                                                                                                                                    | Outputs and authority                                                     |
+| ----------------------- | -------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
+| `check.yml`             | PR/main checks                                           | Frozen install, `pnpm verify`                                                                                                                             | Source/spec qualification; contents read                                  |
+| `reconcile.yml`         | Publication/completion dispatch, hourly catch-up, manual | `inventory` → matrix `reconcile`; exact manual recovery/operation reconciliation → fresh planning; inventory/config scripts → Renovate → `prepare-pr.mjs` | Ignored report artifacts; dry-run or explicit one-repository App writes   |
+| `completion.yml`        | Reusable trusted source `workflow_run` call              | Exact allowed source run/attempt → read-only verification → existing scoped App                                                                           | Completion hint; receiver waits for callback completion; no source writes |
+| `notify.yml`            | Reusable publisher call                                  | Exact coordinator/source revisions → `scripts/notify.mjs`                                                                                                 | Registry-verified dispatch to coordinator; no npm publisher               |
+| `maintenance-audit.yml` | Daily/manual                                             | Shared monitoring policy → `scripts/audit-maintenance.mjs`                                                                                                | Read-only partial/complete JSON report, 14-day artifact                   |
+| `app-readiness.yml`     | Manual main-only                                         | One of the explicitly reviewed repositories and existing encrypted App credentials                                                                        | Scope/repository/PR read proof; no target writes                          |
+| `profile-refresh.yml`   | Gated hourly/manual                                      | Source generator → same-run artifact → coordinator `publish-profile.mjs`                                                                                  | Guarded rolling profile PR using scoped App writes                        |
+| `pages.yml`             | Main push/manual main                                    | Frozen install and complete verification → generated `spec/book`                                                                                          | Book-only Pages artifact; isolated Pages deployment authority             |
 
 ## Source flow
 
