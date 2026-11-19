@@ -25,12 +25,12 @@
   "repositories": [
     {
       "repository": "lapismd/mira-mde",
-      "phase": "full",
+      "phase": "pilot",
       "emptyChangeset": true
     },
     {
       "repository": "lapismd/design-core",
-      "phase": "full"
+      "phase": "pilot"
     },
     {
       "repository": "lapismd/lapis-notes",
@@ -43,11 +43,11 @@
     },
     {
       "repository": "lapismd/lapis-plugin-tasks",
-      "phase": "full"
+      "phase": "pilot"
     },
     {
       "repository": "lapismd/lapis-plugin-docs",
-      "phase": "full"
+      "phase": "pilot"
     },
     {
       "repository": "lapismd/lapis-plugin-notebook",

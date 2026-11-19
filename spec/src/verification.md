@@ -90,3 +90,7 @@ AI and JJ Store's [source/flag qualification](https://github.com/lapismd/depende
 extends DA-POL-001/003 and DA-WAVE-003/004 without bypassing complete current-main
 CI or publication/source holds. Deployment, live settlement and repeat remain
 pending their actual observations.
+
+Mira, Design Core, Tasks and Docs post-merge activation uses the
+[independent source receipts](https://github.com/lapismd/dependency-automation/blob/main/spec/records/2026-11-19-mira-core-tasks-docs-activation.md);
+live reconciliation and repeat remain pending their actual observation.
