@@ -54,7 +54,7 @@ test("exact scope admits reviewed four versions while missing/changed contexts r
   const g = channelFixture(),
     before = JSON.stringify(g);
   const c = channelProjection(g);
-  assert.deepEqual(c.versions(edge), ["0.1.0", "0.6.9"]);
+  assert.deepEqual(c.versions(edge), ["0.1.0", "0.6.10"]);
   for (const changed of [
     { repository: "lapismd/lapis-desktop" },
     { path: "packages/other/package.json" },
@@ -66,8 +66,8 @@ test("exact scope admits reviewed four versions while missing/changed contexts r
   assert.deepEqual(g.available[api], ["0.1.0"]);
   assert.deepEqual(
     stableVersions({
-      "dist-tags": { latest: "0.1.0", next: "0.6.9" },
-      versions: { "0.1.0": {}, "0.6.9": {} },
+      "dist-tags": { latest: "0.1.0", next: "0.6.10" },
+      versions: { "0.1.0": {}, "0.6.10": {} },
     }),
     ["0.1.0"],
   );
@@ -77,18 +77,18 @@ for (const [name, change] of [
   ["missing pool", (g) => delete g.stableCandidates],
   [
     "moved channel",
-    (g) => (g.registry[api]["0.6.9"].publication.channel.tags = []),
+    (g) => (g.registry[api]["0.6.10"].publication.channel.tags = []),
   ],
-  ["changed integrity", (g) => (g.registry[api]["0.6.9"].integrity = "wrong")],
-  ["deprecated", (g) => (g.registry[api]["0.6.9"].deprecated = "retired")],
+  ["changed integrity", (g) => (g.registry[api]["0.6.10"].integrity = "wrong")],
+  ["deprecated", (g) => (g.registry[api]["0.6.10"].deprecated = "retired")],
   [
     "unverified proof",
-    (g) => (g.registry[api]["0.6.9"].publication.state = "unknown"),
+    (g) => (g.registry[api]["0.6.10"].publication.state = "unknown"),
   ],
   [
     "wrong source proof",
     (g) =>
-      (g.registry[api]["0.6.9"].publication.proof.sourceSha = "0".repeat(40)),
+      (g.registry[api]["0.6.10"].publication.proof.sourceSha = "0".repeat(40)),
   ],
   [
     "changed current source",
@@ -121,10 +121,10 @@ test("path-local prerequisite closure cannot leak an approved next provider to a
 });
 test("missing or malformed channel facts hold the cohort without aborting other consumers", () => {
   for (const change of [
-    (g) => delete g.registry[api]["0.6.9"].publication.channel,
-    (g) => delete g.registry[api]["0.6.9"].publication.channel.tags,
+    (g) => delete g.registry[api]["0.6.10"].publication.channel,
+    (g) => delete g.registry[api]["0.6.10"].publication.channel.tags,
     (g) => {
-      g.registry[api]["0.6.9"].publication.channel.tags = "next";
+      g.registry[api]["0.6.10"].publication.channel.tags = "next";
     },
   ]) {
     const g = channelFixture();

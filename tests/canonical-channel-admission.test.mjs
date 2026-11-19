@@ -13,9 +13,9 @@ function fixture() {
   const graph = channelFixture(),
     repo = graph.repositories[1];
   const coordinates = [
-    ["@lapis-notes/api", "0.6.7", "0.6.9"],
-    ["@lapis-notes/ui", "0.2.2", "0.2.4"],
-    ["@lapis-notes/workspace", "0.4.7", "0.4.8"],
+    ["@lapis-notes/api", "0.6.7", "0.6.10"],
+    ["@lapis-notes/ui", "0.2.2", "0.2.6"],
+    ["@lapis-notes/workspace", "0.4.7", "0.4.9"],
     [core, "0.13.4", "0.13.5"],
   ];
   const manifest = repo.manifests[0].manifest;
@@ -116,13 +116,13 @@ for (const [label, change] of [
   [
     "forged integrity",
     (f) => {
-      f.graph.registry["@lapis-notes/api"]["0.6.9"].integrity = identity;
+      f.graph.registry["@lapis-notes/api"]["0.6.10"].integrity = identity;
     },
   ],
   [
     "moved channel",
     (f) => {
-      f.graph.registry["@lapis-notes/api"]["0.6.9"].publication.channel.tags =
+      f.graph.registry["@lapis-notes/api"]["0.6.10"].publication.channel.tags =
         [];
     },
   ],
@@ -130,14 +130,14 @@ for (const [label, change] of [
     "wrong attested source",
     (f) => {
       f.graph.registry["@lapis-notes/api"][
-        "0.6.9"
+        "0.6.10"
       ].publication.proof.sourceSha = "f".repeat(40);
     },
   ],
   [
     "unknown publication",
     (f) => {
-      f.graph.registry["@lapis-notes/api"]["0.6.9"].publication.state =
+      f.graph.registry["@lapis-notes/api"]["0.6.10"].publication.state =
         "unknown";
     },
   ],

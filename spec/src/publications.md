@@ -16,6 +16,16 @@ distinct; file-explorer0.2.8, all consumer scopes and default latest are unchang
 The complete measured proof is retained in
 `spec/records/2026-11-18-notes-cohort-recovery.md`.
 
+The November19 refresh advances only those four exact identities to the
+current Notes source: API0.6.10, UI0.2.6, Workspace0.4.9 and Profile0.2.7 at
+source2838c3dc. Fresh registry signatures, Sigstore provenance, source
+contracts, publisher artifact and attempt3 verification agree under the
+reviewed Linux x64 Node24.15.0/gh2.102.0 verifier. File Explorer0.2.8,
+consumer scopes and default latest remain byte-for-byte unchanged. The
+measured read-only proof and prospective Server admission are retained in
+`spec/records/2026-11-19-notes-channel-refresh.md`; hosted merge, writes,
+settlement and replay remain separate gates.
+
 ## DA-PUB-001 — Verified publication identity
 
 **Requirement.** Published-source acceptance MUST bind package/version/integrity to authenticated provenance, the reviewed public publisher workflow and exact successful source qualification.

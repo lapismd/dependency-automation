@@ -83,7 +83,7 @@ function fixture(compound = false) {
   };
 }
 
-function requireProviderUi(f, range = "^0.2.4") {
+function requireProviderUi(f, range = "^0.2.6") {
   const notes = f.graph.repositories[0],
     entry = notes.manifests.find((p) => p.manifest.name === api);
   const previous = f.graph.registry[api][entry.manifest.version];
@@ -117,7 +117,7 @@ test("an approved API prerequisite may borrow only its verified cohort peer with
         type: "peerDependencies",
         name: api,
       })
-      .includes("0.6.9"),
+      .includes("0.6.10"),
   );
   assert.deepEqual(
     projection.versions({
@@ -133,8 +133,8 @@ test("an approved API prerequisite may borrow only its verified cohort peer with
 
 test("transitive closure cannot borrow a version outside the exact reviewed cohort", () => {
   const f = fixture();
-  requireProviderUi(f, "^0.2.5");
-  f.graph.registry["@lapis-notes/ui"]["0.2.5"] = {
+  requireProviderUi(f, "^0.2.7");
+  f.graph.registry["@lapis-notes/ui"]["0.2.7"] = {
     integrity: "unreviewed",
     dependencies: { [core]: "^0.13.4" },
   };
@@ -154,12 +154,12 @@ test("replaying settled publisher observations does not create another release o
 
 for (const change of [
   (f) =>
-    (f.graph.registry["@lapis-notes/ui"]["0.2.4"].publication.state =
+    (f.graph.registry["@lapis-notes/ui"]["0.2.6"].publication.state =
       "unknown"),
   (f) =>
-    (f.graph.registry["@lapis-notes/ui"]["0.2.4"].publication.channel.tags =
+    (f.graph.registry["@lapis-notes/ui"]["0.2.6"].publication.channel.tags =
       []),
-  (f) => (f.graph.registry["@lapis-notes/ui"]["0.2.4"].deprecated = "retired"),
+  (f) => (f.graph.registry["@lapis-notes/ui"]["0.2.6"].deprecated = "retired"),
 ])
   test("transitive cohort prerequisites retain their own fresh proof and channel gates", () => {
     const f = fixture();
@@ -177,7 +177,7 @@ test("a verified latest publication retires its wait using only its publisher's 
   assert.equal(JSON.stringify(f.graph), before);
   assert.deepEqual(f.graph.available[name], []);
   assert.equal(
-    f.graph.registry[api]["0.6.9"].publication.channel.admitted,
+    f.graph.registry[api]["0.6.10"].publication.channel.admitted,
     false,
   );
   assert.deepEqual(
@@ -216,15 +216,15 @@ for (const [label, edit] of [
   ["missing stable candidate pool", (f) => delete f.graph.stableCandidates],
   [
     "moved next tag",
-    (f) => (f.graph.registry[api]["0.6.9"].publication.channel.tags = []),
+    (f) => (f.graph.registry[api]["0.6.10"].publication.channel.tags = []),
   ],
   [
     "unverified provider",
-    (f) => (f.graph.registry[api]["0.6.9"].publication.state = "unknown"),
+    (f) => (f.graph.registry[api]["0.6.10"].publication.state = "unknown"),
   ],
   [
     "deprecated provider",
-    (f) => (f.graph.registry[api]["0.6.9"].deprecated = "retired"),
+    (f) => (f.graph.registry[api]["0.6.10"].deprecated = "retired"),
   ],
   [
     "wrong publisher path",

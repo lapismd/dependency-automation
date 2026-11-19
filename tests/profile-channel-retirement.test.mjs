@@ -8,11 +8,11 @@ import { planWaves, emptyState } from "../src/waves.mjs";
 const name = "@lapis-notes/app-profile";
 const pin = {
   name,
-  version: "0.2.6",
+  version: "0.2.7",
   integrity:
-    "sha512-SUaz5SPEYDadV/kvdnM8UFiSj4/EqIk5G88VxyjcLDy1PapBNQ7163Y1EFTGGMztJDUP2P+O4xqglClbo/iByg==",
+    "sha512-awlk7fTYMgYhbyGDR3U3zTvfNqYAWe8GUGH12YwzUFbdzSUtzKn13lLjt1S7Dz/z5yJ/LcEJo3P1/6vCj78Ecw==",
   repository: "lapismd/lapis-notes",
-  sourceSha: "538bb4697839a788f041e1830465907e10f50bba",
+  sourceSha: "2838c3dc84bdf713b4e4247d08721fb3025723d6",
 };
 function fixture(coreRange = "^0.13.4") {
   const graph = channelFixture(),
@@ -72,7 +72,7 @@ function fixture(coreRange = "^0.13.4") {
   };
   return { graph, state, metadata, repo };
 }
-test("Profile026 retains its exact publication pin and only the reviewed Server scope", () => {
+test("Profile027 retains its exact publication pin and only the reviewed Server scope", () => {
   const policy = loadChannelPolicy();
   assert.deepEqual(
     policy.cohort.packages.find((p) => p.name === name),
@@ -90,7 +90,7 @@ test("Profile026 retains its exact publication pin and only the reviewed Server 
     ],
   );
 });
-test("verified Profile026 retires its own wait without admitting other consumers, changing tags or duplicating replay", () => {
+test("verified Profile027 retires its own wait without admitting other consumers, changing tags or duplicating replay", () => {
   const { graph, state } = fixture(),
     before = JSON.stringify(graph);
   const first = planWaves(graph, state, options),
@@ -148,7 +148,7 @@ for (const [reason, change] of [
     (f) => (f.graph.channelPolicySha256 = "0".repeat(64)),
   ],
 ])
-  test(`Profile026 retirement retains ${reason} hold`, () => {
+  test(`Profile027 retirement retains ${reason} hold`, () => {
     const f = fixture();
     change(f);
     assert.equal(
