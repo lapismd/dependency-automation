@@ -73,6 +73,9 @@ final newline sequence after validating the entire candidate. Native pnpm
 trimming cannot invalidate an otherwise unchanged source-owned version-input
 binding. No other candidate bytes are reformatted, consumer guard is weakened
 or new output path introduced beyond the already governed workspace input.
+The adapter canonicalizes its caller-owned workspace root once so platform path
+aliases do not misclassify ordinary files, while every descendant file and
+output parent must still resolve to its exact canonical path before any write.
 
 The optional canonical-intake policy is data owned by each consumer. Shared
 rendering remains in the coordinator; an opted-in consumer verifies its actual

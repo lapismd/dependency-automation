@@ -2,7 +2,11 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { readFileSync } from "node:fs";
 import { gunzipSync } from "node:zlib";
-import { validateIntakePolicy } from "../src/canonical-intake.mjs";
+import semver from "semver";
+import { intakeHash, validateIntakePolicy } from "../src/canonical-intake.mjs";
+import { dependencies } from "../src/policy.mjs";
+import { emptyState, planWaves } from "../src/waves.mjs";
+import { lockVersion } from "../src/wave-evidence.mjs";
 import YAML from "yaml";
 import { format } from "prettier";
 import {
@@ -515,6 +519,97 @@ test("workspace admission binds the actual active importers and does not bypass 
   }
 });
 
+test("wave planning admits all seven Notes Core edges while retaining an unrelated Agent UI hold", () => {
+  const f = graphInput();
+  const agent = "@lapismd/agent-ui";
+  f.repo.visibility = "public";
+  f.repo.phase = "pilot";
+  f.repo.nonPortable = [];
+  f.repo.evidence = {
+    sha: f.repo.sourceSha,
+    expected: [1],
+    runs: [
+      {
+        head_sha: f.repo.sourceSha,
+        workflow_id: 1,
+        run_number: 1,
+        run_attempt: 1,
+        event: "push",
+        status: "completed",
+        conclusion: "success",
+      },
+    ],
+    checks: [],
+    statuses: [],
+    prs: [],
+    orphanBranches: [],
+  };
+  f.repo.canonicalIntake.sha256 = intakeHash(f.data.policyBytes);
+  f.graph.packages = f.repo.manifests.map((entry) => ({
+    ...entry,
+    name: entry.manifest.name,
+    repository: f.repo.repository,
+  }));
+  f.graph.edges = f.repo.manifests.flatMap((entry) =>
+    dependencies(entry.manifest, f.repo.workspace).map((edge) => ({
+      ...edge,
+      repository: f.repo.repository,
+      path: entry.path,
+      consumer: entry.manifest.name,
+    })),
+  );
+  for (const edge of f.graph.edges) {
+    if (["@lapismd/design-core", agent].includes(edge.name)) continue;
+    const current = lockVersion(f.repo, edge).version;
+    if (!current) continue;
+    const selected = f.graph.available[edge.name]?.[0];
+    f.graph.available[edge.name] = [
+      !selected || semver.lt(current, selected) ? current : selected,
+    ];
+  }
+  f.graph.available[agent] = ["0.2.9"];
+  f.graph.registry[agent] = {
+    "0.2.9": { integrity: f.data.admittedUpdates[0].integrity },
+  };
+  f.graph.coverage = [];
+  f.graph.excludedPackages = [];
+  const result = planWaves(f.graph, emptyState(), {
+    phase: "pilot",
+    writes: false,
+    policyRevision: "b".repeat(40),
+    botLogin: "dependency[bot]",
+    botAuthor: "Bot <bot@example.com>",
+    now: "2026-11-19T00:00:00Z",
+  });
+  const node = result.report.nodes.find(
+    (candidate) => candidate.repository === fixture.repository,
+  );
+  const coreUpdates = node.updates.filter(
+    (update) => update.name === "@lapismd/design-core",
+  );
+  assert.equal(coreUpdates.length, 7);
+  assert.deepEqual(
+    node.updates
+      .filter((update) => update.name === agent)
+      .map((update) => [update.path, update.type]),
+    [["packages/app-profile/package.json", "dependencies"]],
+  );
+  assert.equal(node.status, "admitted");
+  assert.deepEqual(
+    node.admittedUpdates.map((update) => update.path).sort(),
+    policy.manifests.toSorted(),
+  );
+  assert.ok(node.admittedUpdates.every((update) => update.name !== agent));
+  assert.ok(
+    node.holds.some(
+      (hold) =>
+        hold.startsWith(`packages/app-profile/package.json:${agent}:`) &&
+        hold.includes("source-owned canonical preparation"),
+    ),
+  );
+  assert.deepEqual(result.admitted, [fixture.repository]);
+});
+
 test("native workspace context carries exact target integrity and only owned outputs", async () => {
   const { repositoryConfig } = await import("../src/renovate.mjs");
   const { intakeHash } = await import("../src/canonical-intake.mjs");
@@ -536,7 +631,7 @@ test("native workspace context carries exact target integrity and only owned out
 });
 
 test("filesystem workspace preparation validates every output before writing and repeats safely", async (t) => {
-  const { mkdtemp, mkdir, writeFile, readFile, rm } =
+  const { mkdtemp, mkdir, writeFile, readFile, rm, symlink } =
     await import("node:fs/promises");
   const { join, dirname } = await import("node:path");
   const { tmpdir } = await import("node:os");
@@ -545,8 +640,15 @@ test("filesystem workspace preparation validates every output before writing and
     await import("../src/canonical-intake-files.mjs");
   const { intakeHash, intakePolicyPath } =
     await import("../src/canonical-intake.mjs");
-  const root = await mkdtemp(join(tmpdir(), "workspace-canonical-"));
-  t.after(() => rm(root, { recursive: true, force: true }));
+  const storage = await mkdtemp(join(tmpdir(), "workspace-canonical-"));
+  const alias = `${storage}-alias`;
+  await symlink(storage, alias, "dir");
+  const root = join(alias, "repository");
+  await mkdir(root);
+  t.after(async () => {
+    await rm(alias, { force: true });
+    await rm(storage, { recursive: true, force: true });
+  });
   const data = input();
   const write = async (path, bytes) => {
     await mkdir(dirname(join(root, path)), { recursive: true });

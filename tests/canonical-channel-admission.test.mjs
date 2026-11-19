@@ -87,6 +87,31 @@ test("canonical workspace preparation accepts reviewed scoped channel patches wi
   assert.equal(JSON.stringify(f), before);
 });
 
+test("canonical workspace preparation splits a complete policy subset from an unrelated update", () => {
+  const f = fixture();
+  const unrelated = {
+    ...f.node.updates[0],
+    name: "@lapismd/unrelated",
+    current: "1.0.0",
+    target: "1.0.1",
+    range: "^1.0.0",
+    targetRange: "^1.0.1",
+  };
+  f.node.updates.push(unrelated);
+  assert.equal(
+    canonicalPreparationHold(f.repo, f.node, f.graph, f.node.updates[0]),
+    null,
+  );
+  assert.match(
+    canonicalPreparationHold(f.repo, f.node, f.graph, unrelated),
+    /does not support/,
+  );
+  assert.match(
+    canonicalPreparationHold(f.repo, f.node, f.graph),
+    /does not support/,
+  );
+});
+
 for (const [label, change] of [
   [
     "forged integrity",
