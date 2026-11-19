@@ -47,6 +47,14 @@ upstream dependency floors and source-owned intake remain binding. Origin and
 recovery attempts retain the same artifact identity, without a new operation
 or synthetic publication.
 
+The November19 identity refresh advances those same four scoped Notes pins to
+the exact current publisher source and attempt3-verified artifact. Wave planning
+may use API0.6.10, UI0.2.6 and Workspace0.4.9 only on their pre-existing paths,
+and Profile0.2.7 only for Server's root runtime scope. File Explorer0.2.8,
+default latest, all scopes and independent waits remain unchanged. A read-only
+projection may prove Server admission, but only merged-source reconciliation can
+create its actual operation and writer target.
+
 Canonical schema2 preparation checks target availability through the same exact
 repository/path/dependency-type reviewed channel projection as wave planning.
 Raw latest-only availability stays unchanged; valid scoped `next` patches do

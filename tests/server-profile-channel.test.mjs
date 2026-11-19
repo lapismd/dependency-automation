@@ -28,11 +28,11 @@ test("Server can consume the exact verified Profile pin without rewriting regist
   const graph = channelFixture();
   const before = JSON.stringify(graph);
   const projection = channelProjection(graph);
-  assert.deepEqual(projection.versions(scope), ["0.1.0", "0.2.6"]);
-  assert.equal(projection.approved(scope, "0.2.6"), true);
+  assert.deepEqual(projection.versions(scope), ["0.1.0", "0.2.7"]);
+  assert.equal(projection.approved(scope, "0.2.7"), true);
   assert.deepEqual(graph.available[name], ["0.1.0"]);
   assert.equal(
-    graph.registry[name]["0.2.6"].publication.channel.admitted,
+    graph.registry[name]["0.2.7"].publication.channel.admitted,
     false,
   );
   assert.equal(JSON.stringify(graph), before);
@@ -68,19 +68,19 @@ for (const [reason, mutate] of [
   [
     "moved next tag",
     (graph) => {
-      graph.registry[name]["0.2.6"].publication.channel.tags = [];
+      graph.registry[name]["0.2.7"].publication.channel.tags = [];
     },
   ],
   [
     "wrong integrity",
     (graph) => {
-      graph.registry[name]["0.2.6"].integrity = "wrong";
+      graph.registry[name]["0.2.7"].integrity = "wrong";
     },
   ],
   [
     "wrong source",
     (graph) => {
-      graph.registry[name]["0.2.6"].publication.proof.sourceSha = "f".repeat(
+      graph.registry[name]["0.2.7"].publication.proof.sourceSha = "f".repeat(
         40,
       );
     },
@@ -88,13 +88,13 @@ for (const [reason, mutate] of [
   [
     "unknown proof",
     (graph) => {
-      graph.registry[name]["0.2.6"].publication.state = "unknown";
+      graph.registry[name]["0.2.7"].publication.state = "unknown";
     },
   ],
   [
     "deprecated package",
     (graph) => {
-      graph.registry[name]["0.2.6"].deprecated = "retired";
+      graph.registry[name]["0.2.7"].deprecated = "retired";
     },
   ],
   [
@@ -151,6 +151,6 @@ test("removing the reviewed Server scope revokes direct consumption even with ve
   const graph = channelFixture();
   graph.channelPolicySha256 = channelPolicyDigest(policy);
   const projection = channelProjection(graph, policy);
-  assert.equal(projection.publication(name, "0.2.6"), true);
+  assert.equal(projection.publication(name, "0.2.7"), true);
   assert.deepEqual(projection.versions(scope), ["0.1.0"]);
 });

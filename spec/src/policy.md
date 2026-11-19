@@ -27,6 +27,14 @@ Current-main qualification, source-owned canonical support and upstream floors
 remain independent holds; the normalized proof is recorded in
 `spec/records/2026-11-18-notes-cohort-recovery.md`.
 
+The November19 identity-only refresh advances those same four pins to the
+current source2838c3dc cohort after exact-source release run44609414345:
+API0.6.10, UI0.2.6, Workspace0.4.9 and Profile0.2.7. It changes no consumer
+scope, repository phase, write setting, File Explorer pin or defaultlatest
+behavior. Exact cryptographic and prospective planning evidence is recorded in
+`spec/records/2026-11-19-notes-channel-refresh.md`; live writes and settlement
+remain independently gated.
+
 The subsequent exact Server Profile scope changes only direct channel selection
 for its existing public prerequisite, as recorded in
 `spec/records/2026-11-18-server-profile-scope.md`; source compatibility,

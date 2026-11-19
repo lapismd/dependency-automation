@@ -1,0 +1,67 @@
+{
+  "observedAt": "2026-11-19T21:18:29Z",
+  "graph": {
+    "repositories": 19,
+    "owners": 42,
+    "edges": 212,
+    "coverageGaps": 0,
+    "cycles": 0
+  },
+  "publicationCoverage": {
+    "requests": 222,
+    "bytes": 115962611
+  },
+  "sourceSha": "2838c3dc84bdf713b4e4247d08721fb3025723d6",
+  "run": {
+    "id": 44609414345,
+    "publicationAttempt": 1,
+    "verificationAttempt": 3,
+    "artifactId": 14572691230,
+    "artifactSha256": "361ca776481012c62ba1474e44002ca18a94c7ce3e729ada223e1ca1b954bd92",
+    "manifestSha256": "f4cd7cd5905900a2bf46534daa504846ae7daaf77a61795f4643e2f70cb8fe1c"
+  },
+  "packages": {
+    "@lapis-notes/api@0.6.10": {
+      "integrity": "sha512-TjwHtpMBsHzN2n0GEcja8EgWHUP2WRtzJNx6fxY051t1qRZfkSlS6DfYSGILq2j/VRXX1kIfcH2I3pKOS45/aA==",
+      "attestationSha256": "302c485af0a23c5ea2f09c0c94f6bfc88f1b450c6efd765a2e1f9a01cf1cd396",
+      "contractSha256": "5c4e97e307a4769a8e2f7d760c1305734d1c40e08552033495511f260c1119cf",
+      "tarballSha256": "7eded035dc58f9021fb5bd2977bb1adb136cb48adb4a4eae54e5ca506470d6c0"
+    },
+    "@lapis-notes/ui@0.2.6": {
+      "integrity": "sha512-rOlwYPJv/5nAND+gEWjwAFUMtgODmEBQffKYYPsiJhGC5lukcZ859S1jwWtjHXALew9Ds2BPQRoFiP/u7pSvXA==",
+      "attestationSha256": "1496d51a2c5b629b4edd1caf52e33219b19d7d739b657829bf64b82ae05e4f6d",
+      "contractSha256": "9304fe2fe6971a7d24eba6486ae95f144e1adf26c58939f0fc6a6b2e46bb3310",
+      "tarballSha256": "85a71ff49197697958eb7ebe2e628a4b772e798c942b4f4f1eedb4e4f69757aa"
+    },
+    "@lapis-notes/workspace@0.4.9": {
+      "integrity": "sha512-1zTenmyDhU6zDQZ/lGCgHKfP9xx5zqZ1w1IaWyp5c7JgBBu1sdC41DQl+tIQ8UtibtS0vvrbahFsXChr9dUqsg==",
+      "attestationSha256": "0292c577acc2a7ce9ce57b817b453d15f6b1d0a4bf730c63bacf57294af579cb",
+      "contractSha256": "ec15b94b84b1984ce8f9950172a3f7d0c8ca9ca555f8ed4a7317096cadaf044d",
+      "tarballSha256": "14ff935d4609d493fb7ace5ca4f21fffe1875ad00e6d246756ed1f74d420f697"
+    },
+    "@lapis-notes/app-profile@0.2.7": {
+      "integrity": "sha512-awlk7fTYMgYhbyGDR3U3zTvfNqYAWe8GUGH12YwzUFbdzSUtzKn13lLjt1S7Dz/z5yJ/LcEJo3P1/6vCj78Ecw==",
+      "attestationSha256": "46c52931ee39bb5e30e237ab51b3e1e4f7e12d88cff218cd2f93e34609312c24",
+      "contractSha256": "fbfdd9d1f7c2efb423e01b1dbbbba2e1fbec882d1c014e5c5ed2c769e28d6e7d",
+      "tarballSha256": "e93940e6452685c371e050d14d8a240dc9bcd9aaeb66553f06fe074f07f9809e"
+    }
+  },
+  "server": {
+    "sourceSha": "c0b43f5f711aff0328634b283167d314bf5a87e8",
+    "status": "admitted",
+    "acceptance": "qualified",
+    "ownership": "bot-owned",
+    "holds": 0,
+    "admittedTargets": [
+      "package.json:dependencies:@lapis-notes/api@0.6.10",
+      "package.json:dependencies:@lapis-notes/ui@0.2.6",
+      "package.json:dependencies:@lapis-notes/workspace@0.4.9",
+      "package.json:dependencies:@lapismd/design-core@0.13.6"
+    ]
+  },
+  "requestedWrites": false,
+  "effectiveWrites": false,
+  "stateWrites": false,
+  "inventorySha256": "c36f1486d5110c0389d0699436f76099d673d583a25044f3a67fa50f867ddd75",
+  "wavesSha256": "f298e79a62cc60ec8d025caf819a2b80b2f62c111de237699f523378b02bbb43"
+}

@@ -7,24 +7,24 @@
     "packages": [
       {
         "name": "@lapis-notes/api",
-        "version": "0.6.9",
-        "integrity": "sha512-pfm2vhxXg06LoCn6rSCJ8/jGTrYakZGlYuxiwDMIFsiSgkO5yI8JgtoTuawIYAaXzq7LNWjsBfEtauN+5VdeeA==",
+        "version": "0.6.10",
+        "integrity": "sha512-TjwHtpMBsHzN2n0GEcja8EgWHUP2WRtzJNx6fxY051t1qRZfkSlS6DfYSGILq2j/VRXX1kIfcH2I3pKOS45/aA==",
         "repository": "lapismd/lapis-notes",
-        "sourceSha": "538bb4697839a788f041e1830465907e10f50bba"
+        "sourceSha": "2838c3dc84bdf713b4e4247d08721fb3025723d6"
       },
       {
         "name": "@lapis-notes/ui",
-        "version": "0.2.4",
-        "integrity": "sha512-dt+Ixm9IG2dfwUdizxqBksfLMRze/bOTU0Gh1d8+HBWR7wLyRkNYCOfSLlbfXpJ6u3954akVtuA94atja2HeVg==",
+        "version": "0.2.6",
+        "integrity": "sha512-rOlwYPJv/5nAND+gEWjwAFUMtgODmEBQffKYYPsiJhGC5lukcZ859S1jwWtjHXALew9Ds2BPQRoFiP/u7pSvXA==",
         "repository": "lapismd/lapis-notes",
-        "sourceSha": "538bb4697839a788f041e1830465907e10f50bba"
+        "sourceSha": "2838c3dc84bdf713b4e4247d08721fb3025723d6"
       },
       {
         "name": "@lapis-notes/workspace",
-        "version": "0.4.8",
-        "integrity": "sha512-0Thme5S9j0ji91z9mWMwZI7waJmF0C7v5m1uQWGawTNsl18BfH1Qh2UN2zL2iddaHOEisvT8NPoOZLeh0D/42Q==",
+        "version": "0.4.9",
+        "integrity": "sha512-1zTenmyDhU6zDQZ/lGCgHKfP9xx5zqZ1w1IaWyp5c7JgBBu1sdC41DQl+tIQ8UtibtS0vvrbahFsXChr9dUqsg==",
         "repository": "lapismd/lapis-notes",
-        "sourceSha": "538bb4697839a788f041e1830465907e10f50bba"
+        "sourceSha": "2838c3dc84bdf713b4e4247d08721fb3025723d6"
       },
       {
         "name": "@lapis-notes/file-explorer",
@@ -35,10 +35,10 @@
       },
       {
         "name": "@lapis-notes/app-profile",
-        "version": "0.2.6",
-        "integrity": "sha512-SUaz5SPEYDadV/kvdnM8UFiSj4/EqIk5G88VxyjcLDy1PapBNQ7163Y1EFTGGMztJDUP2P+O4xqglClbo/iByg==",
+        "version": "0.2.7",
+        "integrity": "sha512-awlk7fTYMgYhbyGDR3U3zTvfNqYAWe8GUGH12YwzUFbdzSUtzKn13lLjt1S7Dz/z5yJ/LcEJo3P1/6vCj78Ecw==",
         "repository": "lapismd/lapis-notes",
-        "sourceSha": "538bb4697839a788f041e1830465907e10f50bba"
+        "sourceSha": "2838c3dc84bdf713b4e4247d08721fb3025723d6"
       }
     ],
     "scopes": [
