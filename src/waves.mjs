@@ -719,9 +719,9 @@ export function planWaves(graph, previous = emptyState(), options = {}) {
       if (!node.holds.includes(text)) node.holds.push(text);
     };
     const independent = canonicalDevelopmentUpdate(repo, node, graph);
-    const preparationHold = canonicalPreparationHold(repo, node, graph);
     // Scope repair/orphan ownership to the exact rolling or compatibility family.
     for (const u of node.updates) {
+      const preparationHold = canonicalPreparationHold(repo, node, graph, u);
       if (preparationHold) block(u, preparationHold);
       if (node.waits.some((w) => w.path === u.path) && !independent)
         blocked.set(

@@ -20,6 +20,11 @@ export async function prepareCanonicalFiles({
   admittedUpdates,
   branchName,
 }) {
+  // The caller owns the workspace root. Canonicalize that trusted boundary
+  // once so platform path aliases (for example macOS /var -> /private/var)
+  // do not make ordinary files look like symlinks. Descendant files and
+  // output parents still have to resolve to their exact canonical paths.
+  const canonicalRoot = await realpath(root);
   const git = (args) =>
     execFileSync("git", args, {
       cwd: root,
@@ -35,7 +40,7 @@ export async function prepareCanonicalFiles({
     return git(["show", `${sourceSha}:${path}`]);
   };
   const current = async (path, maximum = 2 * 1024 * 1024) => {
-    const target = resolve(root, path);
+    const target = resolve(canonicalRoot, path);
     if (
       (await realpath(target)) !== target ||
       !(await lstat(target)).isFile() ||
@@ -119,14 +124,14 @@ export async function prepareCanonicalFiles({
   // Every byte/path/ownership check completes before touching any output.
   for (const path of Object.keys(outputs)) {
     if (
-      (await realpath(dirname(resolve(root, path)))) !==
-      dirname(resolve(root, path))
+      (await realpath(dirname(resolve(canonicalRoot, path)))) !==
+      dirname(resolve(canonicalRoot, path))
     )
       throw Error("Canonical intake held: unsafe output parent");
   }
   for (const [path, bytes] of Object.entries(outputs)) {
     if ((currentChapters[path] ?? after[path]) !== bytes)
-      await writeFile(resolve(root, path), bytes);
+      await writeFile(resolve(canonicalRoot, path), bytes);
   }
   return result;
 }

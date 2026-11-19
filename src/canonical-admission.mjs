@@ -163,16 +163,39 @@ function canonicalPreparationSupported(repo, node, graph) {
   }
 }
 
-export function canonicalPreparationHold(repo, node, graph) {
+export function canonicalPreparationHold(repo, node, graph, update = null) {
   if (
     !node.updates.length ||
     (!Object.hasOwn(repo, "canonicalIntake") &&
       !repo.paths?.includes(intakePolicyPath))
   )
     return null;
-  return canonicalPreparationSupported(repo, node, graph)
-    ? null
-    : "source-owned canonical preparation does not support this update set";
+  try {
+    const policy = validateIntakePolicy(
+      repo.canonicalIntake?.policy,
+      repo.repository,
+    );
+    if (policy.schemaVersion === 2 && update) {
+      const scoped = node.updates.filter(
+        (candidate) =>
+          policy.dependencies.includes(candidate.name) &&
+          policy.manifests.includes(candidate.path),
+      );
+      if (
+        scoped.some(
+          (candidate) =>
+            candidate.path === update.path &&
+            candidate.type === update.type &&
+            candidate.name === update.name,
+        ) &&
+        canonicalPreparationSupported(repo, { ...node, updates: scoped }, graph)
+      )
+        return null;
+    } else if (canonicalPreparationSupported(repo, node, graph)) return null;
+  } catch {
+    // Invalid or stale source policy grants no partial preparation authority.
+  }
+  return "source-owned canonical preparation does not support this update set";
 }
 
 /** Only the existing single-development source profile can separate a wait. */

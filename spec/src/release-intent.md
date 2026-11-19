@@ -15,6 +15,9 @@ Schema2 candidate eligibility uses the existing exact reviewed channel view
 for each selected manifest edge before preparation. All targets in the batch
 still require source policy/facts, patch compatibility and exact integrity;
 missing scope, moved tags or invalid publication proof retain the whole hold.
+When a node also contains unrelated updates, the complete policy-mapped subset
+may proceed only after those unchanged checks pass, and every unselected update
+retains its own visible hold rather than inheriting preparation authority.
 The ordinary available pool and schema1 independent-development profile remain
 unchanged. This does not grant schema2 an independent wait bypass.
 
@@ -63,6 +66,10 @@ forcing a consumer migration. Advisory policy and publication remain source-owne
 ## DA-REL-004 — Source-owned canonical intake
 
 A repeated schema1 preparation MAY inspect one changed maintenance Changeset only at the exact branch-derived path. It MUST be a regular valid UTF-8 file of at most 8192 bytes with blank or empty-map release metadata; null, arrays, nonempty/malformed headers, preambles, wrong paths/scopes, multiple notes or missing/unsafe files MUST fail before any canonical write.
+
+The filesystem boundary canonicalizes the trusted caller-owned workspace root
+once, preserving strict exact-path checks for every descendant input and output
+parent even when the host exposes that root through a platform path alias.
 
 Canonical preparation MUST NOT generate, overwrite or claim ownership of that note. Existing authored body and product intent remain intact; nonempty schema2 runtime intent retains its separate release-target validation.
 
