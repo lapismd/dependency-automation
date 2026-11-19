@@ -13,14 +13,12 @@ package, an existing Node24/Changesets3 recipe, green historical main and no
 open PRs at the November17 review. Their current source is preserved and their
 actual CI/Pages identities are registered before installing callbacks.
 
-A fresh full audit now reports the unfixed HIGH GHSA-fc5q-39xc-vjpf through
-`.>@changesets/cli>@changesets/config>picomatch` in both. This is a required
-consumer gate, not covered by the coordinator's separate Renovate exception.
-Docs' existing exact consumer mechanism accepts LOW only; Tasks runs raw full
-and production audits. Neither gate is relaxed or bypassed for adoption.
-Prepare source integration, retain the holds in tasks55/56, and require a
-published remediation or a separate concrete reviewed security decision before
-writable activation. Do not call the historical green runs current audit proof.
+Docs and Tasks previously reported HIGH GHSA-fc5q-39xc-vjpf through
+`.>@changesets/cli>@changesets/config>picomatch`. Upstream withdrew that
+advisory; fresh full and production audits are clean. Neither gate is relaxed
+or bypassed for adoption. Source merges for tasks55/56 are complete; coordinator
+activation still requires reviewed phase change, ordinary settlement and
+no-duplicate replay after current-main evidence.
 
 Spec Validator and Visual Delta are merged, enabled and have passing ordinary
 no-update settlement/replay. Terminal requires native/macOS
@@ -153,11 +151,11 @@ manual reconciliation and the shared scheduled recovery gate remain available.
 
 ## Batched source preparation and final merge pass
 
-Docs21 and Tasks31 are held drafts: current source functional lanes pass, but
-the same unapproved HIGH Changesets/picomatch advisory blocks their required
-audits. Track that exact hold in tasks55/56 and advisory71 rather than rerunning
-unchanged tests or inheriting the coordinator approval. Prepare other sources
-independently, then merge each qualified source under existing branch rules.
+Docs21 and Tasks31 are merged; their earlier HIGH Changesets/picomatch audit
+holds cleared after upstream advisory withdrawal. Track remaining coordinator
+activation in tasks55/56 rather than inheriting any retired coordinator
+approval. Prepare other sources independently, then merge each qualified
+source under existing branch rules.
 The operator's standing activation approval applies after merge and passing
 acceptance, followed by a reviewed one-entry phase change, ordinary settlement
 and no-duplicate replay. It grants neither a new advisory exception nor global

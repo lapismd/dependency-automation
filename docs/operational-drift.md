@@ -53,9 +53,15 @@ operator explicitly approved the exact coordinator deepmerge decision proposed
 in PR21 and its PR34 rebind. That decision is now retired after the upstream
 advisory was withdrawn and complete audit evidence reported zero findings.
 The [historical decision record](approved-coordinator-advisory.md) retains its
-exact source/lock/path/version/expiry. Active approvals are empty; the runtime
-can perform scoped bot writes only after the current audit qualifies. Credential provisioning, ordinary source checks and another
-repository's exception cannot create an approval.
+exact source/lock/path/version/expiry. The later November17 HIGH picomatch
+exception is likewise retired after upstream withdrawal at2026-11-18T15:38:56Z
+and zero-finding evidence; its
+[proposal](proposals/picomatch-high-2026-11-19.md) and
+[retirement record](../spec/records/2026-11-19-picomatch-retirement.md) retain
+the exact historical bindings. Active approvals are empty; the runtime can
+perform scoped bot writes only after the current audit qualifies. Credential
+provisioning, ordinary source checks and another repository's exception cannot
+create an approval.
 
 Each approval requires all of these fields:
 

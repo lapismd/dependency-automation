@@ -100,9 +100,10 @@ completion callers, but cannot enter the pilot writer matrix. Enabling the
 schedule does not promote `full` entries or bypass candidate/ownership checks.
 
 The next standalone-plugin wave prepares Docs/Tasks completion observation
-without changing those writer phases. Their source-owned full-audit gates now
-report an unapproved HIGH Changesets/picomatch finding and remain blocking; the
-coordinator-only exact runtime approval cannot authorize consumer findings.
+without changing those writer phases. Their source-owned full-audit gates
+previously reported an unapproved HIGH Changesets/picomatch finding; that
+advisory was withdrawn upstream and fresh consumer audits are clean. The
+retired coordinator-only runtime approval never authorized consumer findings.
 
 **Requirement.** Reconciliation MUST preserve manually repaired branches and require complete current revision qualification before advancing release chains.
 
