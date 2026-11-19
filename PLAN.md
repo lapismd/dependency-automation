@@ -7,16 +7,18 @@
       enabling writers; hosted deployment remains separate.
 - [ ] Install source-owned callback, independent canonical guard and qualified
       version-input setup; reuse existing App secret metadata, not copied keys.
-- [ ] Pass current required source/main checks before individual activation.
-- [ ] Promote one qualified entry at a time, verify normal reconciliation and
-      update tasks55/56. Preserve Notebook and the single shared schedule.
+- [x] Pass current required source/main checks before individual activation.
+- [x] Promote Mira, Design Core, Tasks and Docs together under standing
+      post-merge approval after green source/main/completion evidence; preserve
+      Notebook, Desktop hold, exclusions and the single shared schedule.
+- [ ] Verify normal reconciliation/replay and close tasks51/52/55/56 after
+      deployed settlement evidence.
 
-Docs/Tasks are structurally closest, but their fresh required full audits now
-report the unfixed HIGH Changesets/picomatch advisory. The coordinator approval
-covers only its two Renovate paths. Consumer full-audit gates stay blocking;
-source readiness and writable activation are separate. Deno packages stay
-excluded, and larger repositories are deferred until these smaller adoptions
-are qualified or have precise source-owned blockers.
+Docs/Tasks source merges are complete and fresh audits are clean after the
+picomatch advisory withdrawal. Coordinator activation for Mira (#51), Design
+Core (#52), Tasks (#55) and Docs (#56) is prepared in one policy slice; live
+settlement remains separate. Deno packages stay excluded, and Desktop retains
+its private-archive hold.
 
 ## Active objective — finish one pilot, then independent adoption
 
@@ -1513,7 +1515,7 @@ records actual tests, corrected preparation failures and remaining gates.
 - [x] Inspect Agent Redaction public Deno export/required validation; deploy explicit root/package exclusion in79 and close64 as not planned.
 - [x] Assign disjoint source ownership: Core/Mira/Plugins; Server/Agent UI/AI/Terminal/jj-store; Notes/Desktop/Registry. Parent owns central changes and Docs/Tasks audit follow-up.
 - [x] Deploy registration79 (73282218), pass main/Pages and all thirteen hosted owner-bound read probes; no GitHub secret value is retrieved.
-- [ ] Merge each independently qualified source, activate only accepted entries, verify ordinary settlement/replay and close its tracker.
+- [x] Merge each independently qualified source for Mira/Core/Tasks/Docs and prepare their full→pilot activation; verify ordinary settlement/replay and close trackers after deployed evidence.
 - [x] Preserve and resolve concrete main failures, unsupported projections and source audit holds; retire coordinator advisory71 after upstream withdrawal and zero-finding audit without inherited approvals.
 
 ### Source-owned long chapter preparation

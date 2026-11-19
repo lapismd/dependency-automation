@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 1,
+  "kind": "pre-merge-source-activation-qualification",
+  "observedAt": "2026-11-19T08:02:04.650Z",
+  "coordinatorParent": "fd5f9231411328c774c663c8e08d651f683d70fd",
+  "proposedRepositoryPolicySha256": "30fbe6779d960ede774fa28e5519e8f3d62a7d9dd3e3a6448a638a3af4ecf8ba",
+  "requestedWrites": false,
+  "effectiveWritableAdmission": false,
+  "sourceEntries": {
+    "lapismd/mira-mde": {
+      "sourceSha": "211737c7a82864e5fb7ffef205416555c83a5912",
+      "canonicalPolicySha256": "5e7a5cc6e47dad30f87c5e9053110bb62e6533e1dbdd139b5eecfdb535271dd8",
+      "phase": "pilot",
+      "acceptance": {
+        "state": "qualified",
+        "reason": "all observed current workflows and checks completed"
+      },
+      "status": "unchanged",
+      "availableUpdateInputs": 0,
+      "admittedUpdateInputs": 0,
+      "sourceHolds": 0,
+      "upstreamWaits": 0,
+      "branchOwnershipHolds": 0,
+      "operationId": "dbdc07ebc6a754e6d8f028c3381c32a21d3c8e3f1d2da6d77e0c0c693c1eb9dd",
+      "emptyChangeset": true
+    },
+    "lapismd/design-core": {
+      "sourceSha": "a031402fbff4b6e6c8acffba449379730b5c9df7",
+      "canonicalPolicySha256": "e5dea3181f7b71903aa1a87a2d4a0ad4fb88fa4bd0d633683c0f78fe8708a50d",
+      "phase": "pilot",
+      "acceptance": {
+        "state": "qualified",
+        "reason": "all observed current workflows and checks completed"
+      },
+      "status": "unchanged",
+      "availableUpdateInputs": 0,
+      "admittedUpdateInputs": 0,
+      "sourceHolds": 0,
+      "upstreamWaits": 0,
+      "branchOwnershipHolds": 0,
+      "operationId": "2960efbf28749a60233bab1fe42428312385949a1d8a3360fc5b8ec2158dd4f9",
+      "emptyChangeset": false
+    },
+    "lapismd/lapis-plugin-tasks": {
+      "sourceSha": "18f62a4d19dc72942d643dfec99bb3ac1fe1891f",
+      "canonicalPolicySha256": "d36b49de0dfaee07e8ef1c245dd263b5f0065ccc7b085aa2d311a1c21a2fd460",
+      "phase": "pilot",
+      "acceptance": {
+        "state": "qualified",
+        "reason": "all observed current workflows and checks completed"
+      },
+      "status": "held",
+      "availableUpdateInputs": 1,
+      "admittedUpdateInputs": 0,
+      "sourceHolds": 1,
+      "upstreamWaits": 4,
+      "branchOwnershipHolds": 2,
+      "operationId": "39624d966fb8a8d55b7e1b23f944a4d9aa09983cb12cb9deb882dde1b6e50bec",
+      "emptyChangeset": false
+    },
+    "lapismd/lapis-plugin-docs": {
+      "sourceSha": "9706847dd2d3a25562898c2290ae5b681080398f",
+      "canonicalPolicySha256": "a2723a9eb60f2e64b845adbfece1d5fba7bab4117d4ec4fa3e8c5b016cae9052",
+      "phase": "pilot",
+      "acceptance": {
+        "state": "qualified",
+        "reason": "all observed current workflows and checks completed"
+      },
+      "status": "held",
+      "availableUpdateInputs": 1,
+      "admittedUpdateInputs": 0,
+      "sourceHolds": 1,
+      "upstreamWaits": 4,
+      "branchOwnershipHolds": 1,
+      "operationId": "8fba307a237f9a871676782da43c5ef27ae9e1526770b8c5ac9a7ee15128da8d",
+      "emptyChangeset": false
+    }
+  },
+  "runtimeAdvisory": {
+    "dependencySource": "9d657a7458e40ca84962a12c9b8e361534b3470f",
+    "lockSha256": "a3e1f05fe6a25925d61b6af7baf5316c24156a0b71319611f6e3298bbca61b8b",
+    "acceptedExactPaths": 0,
+    "changed": false,
+    "approvalsEmpty": true
+  },
+  "inventory": {
+    "repositories": 19,
+    "packages": 42,
+    "edges": 213,
+    "coverage": 0,
+    "cycles": 0
+  },
+  "deployed": false,
+  "liveReconciliationAndRepeat": "pending; no release or update outcome inferred",
+  "previousPilotEntriesUnchanged": 11,
+  "proposedPilotCount": 15
+}

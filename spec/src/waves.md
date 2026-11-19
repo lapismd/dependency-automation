@@ -302,6 +302,21 @@ unchanged. Ordinary live reconciliation, exact settlement and repeat acceptance
 remain open until their own receipts exist. The user's unrelated JJ Store
 main/release repair exclusion does not alter the collector or assert a pass.
 
+## Mira, Design Core, Tasks and Docs activation
+
+Standing post-merge operator approval promotes only Mira, Design Core, Tasks
+and Docs from full to pilot after independently green source adoption,
+current-main checks and verified completion callbacks. Mira retains its
+existing `emptyChangeset: true` flag; the other three introduce no forced
+empty note. Desktop’s private-archive holdReason, every Deno/community/Nostr
+exclusion, every other phase/flag and global pilot settings remain unchanged.
+Active advisory approvals stay empty after the picomatch retirement. The
+[source activation receipt](https://github.com/lapismd/dependency-automation/blob/main/spec/records/2026-11-19-mira-core-tasks-docs-activation.md)
+records their independent evidence. Ordinary live reconciliation and repeat
+remain required; retained branch-ownership holds and upstream publication
+waits are not waived, and no dependency update, version PR or publication is
+invented to force activity.
+
 ## DA-WAVE-009 — Source-bound SDK scope
 
 **Requirement.** A separate explicit operator grant MAY isolate only Desktop's
