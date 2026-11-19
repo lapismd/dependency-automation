@@ -519,9 +519,33 @@ test("workspace admission binds the actual active importers and does not bypass 
   }
 });
 
-test("wave planning admits all seven Notes Core edges while retaining an unrelated Agent UI hold", () => {
+test("wave planning isolates unrelated same-manifest waits but binds selected dependency waits", () => {
   const f = graphInput();
   const agent = "@lapismd/agent-ui";
+  const unrelatedWaitingPackage = "@lapis-notes/search";
+  const unrelatedWaitingRepository = "lapismd/lapis-plugins";
+  const selectedWaitingRepository = "lapismd/design-core";
+  const waitingRepository = (repository, sourceSha) => ({
+    repository,
+    sourceSha,
+    visibility: "public",
+    phase: "pilot",
+    nonPortable: [],
+    missingChangesets: false,
+    paths: [],
+    manifests: [],
+    workspace: {},
+    lock: { importers: {}, packages: {} },
+    evidence: {
+      sha: sourceSha,
+      expected: [],
+      runs: [],
+      checks: [],
+      statuses: [],
+      prs: [],
+      orphanBranches: [],
+    },
+  });
   f.repo.visibility = "public";
   f.repo.phase = "pilot";
   f.repo.nonPortable = [];
@@ -571,16 +595,37 @@ test("wave planning admits all seven Notes Core edges while retaining an unrelat
   f.graph.registry[agent] = {
     "0.2.9": { integrity: f.data.admittedUpdates[0].integrity },
   };
+  f.graph.repositories.push(
+    waitingRepository(unrelatedWaitingRepository, "c".repeat(40)),
+    waitingRepository(selectedWaitingRepository, "d".repeat(40)),
+  );
   f.graph.coverage = [];
   f.graph.excludedPackages = [];
-  const result = planWaves(f.graph, emptyState(), {
+  const state = emptyState();
+  state.releases[unrelatedWaitingPackage] = {
+    name: unrelatedWaitingPackage,
+    repository: unrelatedWaitingRepository,
+    sourceSha: "c".repeat(40),
+    baseline: "0.1.12",
+    requires: [
+      {
+        name: "@lapismd/design-core",
+        type: "dependencies",
+        target: "0.13.6",
+      },
+    ],
+    status: "waiting",
+    policyRevision: "b".repeat(40),
+  };
+  const waveOptions = {
     phase: "pilot",
     writes: false,
     policyRevision: "b".repeat(40),
     botLogin: "dependency[bot]",
     botAuthor: "Bot <bot@example.com>",
     now: "2026-11-19T00:00:00Z",
-  });
+  };
+  const result = planWaves(f.graph, state, waveOptions);
   const node = result.report.nodes.find(
     (candidate) => candidate.repository === fixture.repository,
   );
@@ -588,6 +633,14 @@ test("wave planning admits all seven Notes Core edges while retaining an unrelat
     (update) => update.name === "@lapismd/design-core",
   );
   assert.equal(coreUpdates.length, 7);
+  assert.deepEqual(
+    node.waits
+      .filter((wait) => wait.package === unrelatedWaitingPackage)
+      .map((wait) => wait.path)
+      .filter(Boolean)
+      .sort(),
+    ["package.json", "packages/app-profile/package.json"],
+  );
   assert.deepEqual(
     node.updates
       .filter((update) => update.name === agent)
@@ -608,6 +661,38 @@ test("wave planning admits all seven Notes Core edges while retaining an unrelat
     ),
   );
   assert.deepEqual(result.admitted, [fixture.repository]);
+
+  const selectedState = structuredClone(state);
+  selectedState.releases["@lapismd/design-core"] = {
+    name: "@lapismd/design-core",
+    repository: selectedWaitingRepository,
+    sourceSha: "d".repeat(40),
+    baseline: "0.13.5",
+    requires: [
+      {
+        name: "@lapismd/mira",
+        type: "dependencies",
+        target: "0.2.0",
+      },
+    ],
+    status: "waiting",
+    policyRevision: "b".repeat(40),
+  };
+  const selectedResult = planWaves(f.graph, selectedState, waveOptions);
+  const selectedNode = selectedResult.report.nodes.find(
+    (candidate) => candidate.repository === fixture.repository,
+  );
+  assert.equal(
+    selectedNode.admittedUpdates.filter(
+      (update) => update.name === "@lapismd/design-core",
+    ).length,
+    0,
+  );
+  assert.equal(
+    selectedNode.waits.filter((wait) => wait.package === "@lapismd/design-core")
+      .length,
+    7,
+  );
 });
 
 test("native workspace context carries exact target integrity and only owned outputs", async () => {
