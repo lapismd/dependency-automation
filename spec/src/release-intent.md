@@ -19,7 +19,9 @@ When a node also contains unrelated updates, the complete policy-mapped subset
 may proceed only after those unchanged checks pass, and every unselected update
 retains its own visible hold rather than inheriting preparation authority.
 The ordinary available pool and schema1 independent-development profile remain
-unchanged. This does not grant schema2 an independent wait bypass.
+unchanged. A schema2 edge still cannot bypass a wait for its selected dependency;
+an unrelated package's same-manifest wait remains visible but cannot suppress a
+complete selected edge solely through path coincidence.
 
 ## DA-REL-001 — Candidate install before release intent
 

@@ -176,26 +176,40 @@ export function canonicalPreparationHold(repo, node, graph, update = null) {
       repo.repository,
     );
     if (policy.schemaVersion === 2 && update) {
-      const scoped = node.updates.filter(
-        (candidate) =>
-          policy.dependencies.includes(candidate.name) &&
-          policy.manifests.includes(candidate.path),
-      );
-      if (
-        scoped.some(
-          (candidate) =>
-            candidate.path === update.path &&
-            candidate.type === update.type &&
-            candidate.name === update.name,
-        ) &&
-        canonicalPreparationSupported(repo, { ...node, updates: scoped }, graph)
-      )
-        return null;
+      if (canonicalWorkspaceUpdate(repo, node, graph, update)) return null;
     } else if (canonicalPreparationSupported(repo, node, graph)) return null;
   } catch {
     // Invalid or stale source policy grants no partial preparation authority.
   }
   return "source-owned canonical preparation does not support this update set";
+}
+
+/** A complete schema2 cohort may isolate one selected edge from unrelated evidence. */
+export function canonicalWorkspaceUpdate(repo, node, graph, update) {
+  try {
+    const policy = validateIntakePolicy(
+      repo.canonicalIntake?.policy,
+      repo.repository,
+    );
+    if (policy.schemaVersion !== 2 || !update) return false;
+    const scoped = node.updates.filter(
+      (candidate) =>
+        policy.dependencies.includes(candidate.name) &&
+        policy.manifests.includes(candidate.path),
+    );
+    return (
+      scoped.some(
+        (candidate) =>
+          candidate.repository === update.repository &&
+          candidate.path === update.path &&
+          candidate.type === update.type &&
+          candidate.name === update.name,
+      ) &&
+      canonicalPreparationSupported(repo, { ...node, updates: scoped }, graph)
+    );
+  } catch {
+    return false;
+  }
 }
 
 /** Only the existing single-development source profile can separate a wait. */

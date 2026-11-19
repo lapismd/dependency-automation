@@ -9,8 +9,12 @@ verification; its source publisher and main-only completion gates remain distinc
 The schema2 workspace canonical capability applies to ordinary admitted
 compatible patches across explicitly covered manifests. It verifies source
 policy bytes, active importer coverage, current locked facts and exact registry
-targets before writer admission. It grants no independent wait bypass; only the
-existing schema1 development profile retains that separately bounded behavior.
+targets before writer admission. A wait on the selected dependency remains
+binding, but a wait on a different dependency MUST NOT contaminate a complete
+policy-mapped edge merely because both share one manifest; the unrelated wait
+remains visible and continues to block its own update. Only the existing schema1
+development profile retains the broader separately bounded independent-wait
+behavior.
 
 Wave admission is implemented behind `LAPIS_DEPENDENCY_WAVES=true`, default off.
 Hosted pilot qualification and activation remain separate operator decisions.
@@ -47,8 +51,9 @@ Canonical schema2 preparation checks target availability through the same exact
 repository/path/dependency-type reviewed channel projection as wave planning.
 Raw latest-only availability stays unchanged; valid scoped `next` patches do
 not become unsupported solely because they are absent from that raw pool.
-This preparation check never separates schema2 updates from upstream waits,
-current source qualification or any other admission gate.
+It may isolate an otherwise complete selected edge from an unrelated package's
+same-manifest wait without deleting that wait. A selected-dependency wait,
+current source qualification and every other admission gate remain binding.
 
 ## DA-WAVE-001 — Derived admission
 
@@ -243,7 +248,7 @@ guard, publication, ownership and state-concurrency requirements remain binding.
 ### Acceptance details
 
 - The existing bounded profile MUST require its complete source-bound single-development patch facts, not merely a matching package name or a successful upstream release.
-- Mixed families, unsupported development/runtime/peer updates and unavailable or inconsistent policy/override/lock evidence MUST stay visible without generating incompatible PRs, while a mixed source node MAY admit only its complete schema2 policy-mapped subset when every selected edge passes unchanged source checks and every unselected update retains its own visible hold.
+- Mixed or unsupported updates and inconsistent source evidence MUST stay visible, while a mixed node MAY admit only its complete schema2 policy subset; selected edges remain blocked by waits for their own dependency or unscoped waits, but MUST NOT inherit a different package's same-manifest wait, which remains visible and blocks its own update.
 - Supported source-owned patches and ordinary repositories without an opt-in MUST retain their existing admission paths and every qualification, ownership, registry, rollout and publication gate.
 - Ordinary candidate preparation MUST still validate the complete frozen install and mechanical lock/canonical closure; DA-REL-006's tooling artifact proof MUST NOT count as full private candidate qualification, which remains required before merge/completion, and pre-admission evidence MUST NOT assert unrun qualification or authorize a product migration.
 
