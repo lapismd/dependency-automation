@@ -59,11 +59,13 @@ advisory exception rules remain unchanged.
 
 S6b adds production maintenance drift reporting and exact coordinator advisory
 admission before dependency write planning and App minting. The earlier LOW
-decision is retired. The separately approved HIGH picomatch decision covers two
+decision is retired. The separately approved HIGH picomatch decision covered two
 exact runtime paths/source/lock bindings through November19,00:00UTC or sooner
-on a known fix. Issue71 tracks remediation and retirement; pilot success cannot
-renew it. Consumer adoption and source-owner treatment of reported unknowns
-remain separate; a matching static check name is not complete qualification.
+on a known fix; Issue71 owned remediation and retirement, and pilot success
+could not renew it. Those exact approvals are now retired after upstream
+withdrawal and zero-finding audit evidence, restoring the empty approval list.
+Consumer adoption and source-owner treatment of reported unknowns remain
+separate; a matching static check name is not complete qualification.
 
 The bounded canonical-intake preparer and Notebook source opt-in are hosted
 qualified through44, including strict native committed-payload and unchanged
@@ -137,18 +139,19 @@ waive a finding, rebind an exception or authorize tags, uploads or baselines.
 
 [Visual Delta80](https://github.com/lapismd/storybook-addon-visual-delta/issues/80)
 owns its separate publication audit remediation; completed adoption63 does not
-waive that finding. Docs21 and Tasks31 retain their actual required audit failures.
+waive that finding. Docs21 and Tasks31 previously retained required audit
+failures that cleared after the same upstream advisory withdrawal.
 
 ## Parallel completion pass
 
 Thirteen eligible adoption tasks remain after excluding Agent Redaction64
 under the operator’s any-Deno-package boundary. Independent source batches cover
 foundations/plugins, native/server packages and applications/registry. Docs and
-Tasks retain actual required audit failures; picomatch and Changesets latest
-metadata still record no patched version. The existing coordinator exception
-is unchanged and expires November19,00:00UTC; it cannot authorize consumer gates.
-Only reviewed individual source acceptance permits the subsequent per-entry
-activation, ordinary settlement and replay.
+Tasks previously retained required Changesets/picomatch audit failures; those
+consumer findings cleared after upstream advisory withdrawal. The coordinator
+exception is retired to an empty approval list and cannot authorize consumer
+gates by inheritance. Only reviewed individual source acceptance permits the
+subsequent per-entry activation, ordinary settlement and replay.
 
 ## Terminal and Registry activation
 

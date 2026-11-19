@@ -66,12 +66,14 @@ Community/Nostr/Deno-only exclusions. The exact evidence is retained in
       [the common runbook](docs/repository-adoption.md), including exact source
       registration/pins, acceptance, per-entry activation and rollback.
 
-[Issue71](https://github.com/lapismd/dependency-automation/issues/71) owns the
+[Issue71](https://github.com/lapismd/dependency-automation/issues/71) owned the
 separate time-bounded runtime remediation/approval retirement; pilot success
-cannot renew it. S3/S6 global adoption remains open in the16 tasks. Notes155's
-Cloudflare fetch failure on both PR and unchanged main belongs in53. JJ Store90
-is merged; its remaining workflow adoption belongs in66. Private projections,
-frozen hosts and unsupported runtime migrations remain held.
+could not renew it. Upstream withdrew GHSA-fc5q-39xc-vjpf and fresh audit is
+clean, so the exact two approvals are retired with an empty active list. S3/S6
+global adoption remains open in the16 tasks. Notes155's Cloudflare fetch
+failure on both PR and unchanged main belongs in53. JJ Store90 is merged; its
+remaining workflow adoption belongs in66. Private projections, frozen hosts and
+unsupported runtime migrations remain held.
 
 ## Current publication and tooling checkpoint — November 17
 
@@ -1512,7 +1514,7 @@ records actual tests, corrected preparation failures and remaining gates.
 - [x] Assign disjoint source ownership: Core/Mira/Plugins; Server/Agent UI/AI/Terminal/jj-store; Notes/Desktop/Registry. Parent owns central changes and Docs/Tasks audit follow-up.
 - [x] Deploy registration79 (73282218), pass main/Pages and all thirteen hosted owner-bound read probes; no GitHub secret value is retrieved.
 - [ ] Merge each independently qualified source, activate only accepted entries, verify ordinary settlement/replay and close its tracker.
-- [ ] Preserve and resolve concrete main failures, unsupported projections and source audit holds; retire coordinator advisory71 before its exact expiry without inherited approvals.
+- [x] Preserve and resolve concrete main failures, unsupported projections and source audit holds; retire coordinator advisory71 after upstream withdrawal and zero-finding audit without inherited approvals.
 
 ### Source-owned long chapter preparation
 

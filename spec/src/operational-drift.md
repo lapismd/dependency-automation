@@ -82,6 +82,14 @@ remain blocking, and hosted deployment/regeneration acceptance is separate.
 The [activation evidence](https://github.com/lapismd/dependency-automation/blob/main/spec/records/2026-11-17-picomatch-approval.md) records
 before/after qualification without treating the graph as clean.
 
+Those exact HIGH approvals are subsequently retired under DA-OPS-002 after
+upstream withdrawal at2026-11-18T15:38:56Z and complete zero-finding audit
+evidence. Preflight correctly holds writes on two `retire-stale-approval`
+cleanup items until reviewed removal restores the empty approval list without
+changing any rejection rule, source/lock bytes, scope, activation or pilot gate.
+The [retirement record](https://github.com/lapismd/dependency-automation/blob/main/spec/records/2026-11-19-picomatch-retirement.md)
+retains the before/after preflight and pending hosted reconciliation distinction.
+
 The retained exclusion checkpoint also names `lapismd/agent-redaction` and
 `@lapismd/agent-redaction`, matching the operator’s Deno-package exclusion.
 Removing either remains observable drift; this is not an advisory decision or

@@ -1,12 +1,18 @@
-# Approved exact coordinator picomatch exception
+# Retired exact coordinator picomatch exception
 
-**Status: explicitly approved by the operator and deployed through PR70.**
-Approval recorded at `2026-11-17T18:15:39.194Z` for exactly the two bindings below, reviewed in
+**Status: retired.** GitHub withdrew GHSA-fc5q-39xc-vjpf at
+`2026-11-18T15:38:56Z`. Fresh complete `pnpm audit` reports zero findings;
+`config/advisories.json` again contains no active approvals. The exact bindings
+below remain historical record only and do not authorize a future finding.
+
+**Historical status:** explicitly approved by the operator and deployed through
+PR70. Approval recorded at `2026-11-17T18:15:39.194Z` for exactly the two
+bindings below, reviewed in
 [PR69](https://github.com/lapismd/dependency-automation/pull/69).
-`config/advisories.json` is the sole active approval authority. This decision
-does not inherit the retired LOW deepmerge decision. Deployed audit admission
-qualifies exactly these two paths before the already-reviewed Notebook pilot
-writer is restored. Scheduling and broader rollout remain separate gates.
+`config/advisories.json` was the sole active approval authority. This decision
+did not inherit the retired LOW deepmerge decision. Deployed audit admission
+qualified exactly these two paths before the already-reviewed Notebook pilot
+writer was restored. Scheduling and broader rollout remained separate gates.
 
 Fresh audit at2026-11-17T17:34:18.479Z reports HIGH
 [GHSA-fc5q-39xc-vjpf](https://github.com/advisories/GHSA-fc5q-39xc-vjpf) on the two
@@ -53,6 +59,9 @@ qualification must pass before consumer writes are restored. Keep raw HIGH
 findings visible, retire approvals when fixed or stale, and never extend the
 expiry or transfer this decision to new source or lock bytes.
 
-[Issue71](https://github.com/lapismd/dependency-automation/issues/71) tracks
+[Issue71](https://github.com/lapismd/dependency-automation/issues/71) tracked
 remediation and retirement before the fixed expiry or earlier known fix. Pilot
-success cannot renew, extend or rebind this authority.
+success could not renew, extend or rebind this authority. The
+[retirement record](../../spec/records/2026-11-19-picomatch-retirement.md)
+retains before/after preflight evidence and the pending hosted reconciliation
+distinction.
