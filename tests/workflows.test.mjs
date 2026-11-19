@@ -196,6 +196,24 @@ test("wave admission gates the production matrix and isolates trusted-main state
   );
   assert.match(workflow.jobs.inventory.if, /refs\/heads\/main/);
   assert.deepEqual(
+    workflow.on.workflow_dispatch.inputs["reconcile-operation"],
+    {
+      description:
+        "Exact admitted operation whose strict target subset is now qualified on main",
+      required: false,
+      type: "string",
+    },
+  );
+  assert.deepEqual(
+    workflow.on.workflow_dispatch.inputs["expected-state-revision"],
+    {
+      description:
+        "Required with recovery or reconciliation; exact current state branch commit SHA",
+      required: false,
+      type: "string",
+    },
+  );
+  assert.deepEqual(
     workflow.on.workflow_dispatch.inputs["recover-source-revision"],
     {
       description:
@@ -203,6 +221,11 @@ test("wave admission gates the production matrix and isolates trusted-main state
       required: false,
       type: "string",
     },
+  );
+  assert.equal(
+    workflow.jobs.inventory.steps.find((s) => s.id === "inventory").env
+      .LAPIS_WAVE_RECONCILE_OPERATION,
+    "${{ inputs.reconcile-operation }}",
   );
   assert.equal(
     workflow.jobs.inventory.steps.find((s) => s.id === "inventory").env

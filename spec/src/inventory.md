@@ -22,6 +22,13 @@ equal; documentary/workflow/version-guard/test changes cannot conceal a changed
 manifest, lockfile, workspace, canonical intake policy or implementation. Unknown
 or truncated trees remain holds before state publication or consumer writes.
 
+Manual partial-operation reconciliation uses current inventory facts rather
+than immutable-tree recovery projection. It requires the exact stored operation,
+state revision and completed originating run, then accepts only qualified
+advanced public source with complete empty branch/PR/orphan evidence. Inventory
+records the strict already-satisfied/remaining target partition before ordinary
+planning independently decides whether a new matrix entry exists.
+
 ## DA-INV-001 — Revision-bound discovery
 
 **Requirement.** Inventory MUST discover active workspace manifests at an exact source revision and retain ownership, consumer and portability evidence.

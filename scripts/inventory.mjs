@@ -9,7 +9,11 @@ import {
   observeRepository,
   qualifyRecoverySource,
 } from "../src/wave-evidence.mjs";
-import { planWaves, recoverEmptyOperation } from "../src/waves.mjs";
+import {
+  planWaves,
+  recoverEmptyOperation,
+  reconcilePartiallyAcceptedOperation,
+} from "../src/waves.mjs";
 import { readWaveState } from "../src/wave-state.mjs";
 import { execFileSync } from "node:child_process";
 import { validateNotification, validateCompletion } from "../src/policy.mjs";
@@ -94,36 +98,52 @@ if (waveMode) {
   for (const repo of result.repositories)
     repo.evidence = await observeRepository(repo, options);
   const previous = await readWaveState(options);
-  if (process.env.LAPIS_WAVE_RECOVER_OPERATION) {
+  const recoverOperation = process.env.LAPIS_WAVE_RECOVER_OPERATION,
+    reconcileOperation = process.env.LAPIS_WAVE_RECONCILE_OPERATION;
+  if (recoverOperation && reconcileOperation)
+    throw Error("Recovery and operation reconciliation are mutually exclusive");
+  if (recoverOperation || reconcileOperation) {
     if (process.env.GITHUB_EVENT_NAME !== "workflow_dispatch")
-      throw Error("Recovery is manual-only");
-    const operation =
-      previous.state.operations[process.env.LAPIS_WAVE_RECOVER_OPERATION];
+      throw Error("Operation recovery and reconciliation are manual-only");
+    const operationId = recoverOperation || reconcileOperation;
+    const operation = previous.state.operations[operationId];
     if (!operation?.runId || !/^\d+$/.test(operation.runId))
-      throw Error("Recovery originating run is unknown");
+      throw Error("Originating reconcile run is unknown");
     const completedRun = await requestJson(
       `https://api.github.com/repos/lapismd/dependency-automation/actions/runs/${operation.runId}`,
       options,
     );
-    const repo = result.repositories.find(
-      (r) => r.repository === operation.repository,
-    );
-    const expectedSourceSha = process.env.LAPIS_WAVE_RECOVER_SOURCE;
-    const sourceProof =
-      repo?.sourceSha !== operation.sourceSha
-        ? await qualifyRecoverySource(operation, repo, {
-            ...options,
-            expectedSourceSha,
-          })
-        : undefined;
-    previous.state = recoverEmptyOperation(previous.state, result, {
-      operationId: process.env.LAPIS_WAVE_RECOVER_OPERATION,
-      expectedRevision: process.env.LAPIS_WAVE_EXPECTED_STATE,
-      revision: previous.revision,
-      completedRun,
-      expectedSourceSha,
-      sourceProof,
-    });
+    if (recoverOperation) {
+      const repo = result.repositories.find(
+        (r) => r.repository === operation.repository,
+      );
+      const expectedSourceSha = process.env.LAPIS_WAVE_RECOVER_SOURCE;
+      const sourceProof =
+        repo?.sourceSha !== operation.sourceSha
+          ? await qualifyRecoverySource(operation, repo, {
+              ...options,
+              expectedSourceSha,
+            })
+          : undefined;
+      previous.state = recoverEmptyOperation(previous.state, result, {
+        operationId,
+        expectedRevision: process.env.LAPIS_WAVE_EXPECTED_STATE,
+        revision: previous.revision,
+        completedRun,
+        expectedSourceSha,
+        sourceProof,
+      });
+    } else
+      previous.state = reconcilePartiallyAcceptedOperation(
+        previous.state,
+        result,
+        {
+          operationId,
+          expectedRevision: process.env.LAPIS_WAVE_EXPECTED_STATE,
+          revision: previous.revision,
+          completedRun,
+        },
+      );
   }
   waves = planWaves(result, previous.state, {
     ...options,
