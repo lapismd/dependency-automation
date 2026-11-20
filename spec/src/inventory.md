@@ -17,10 +17,13 @@ writes ignored local reports and a gated reconciliation matrix.
 
 Manual empty-attempt recovery may read complete immutable public trees at the
 originating and explicitly selected current source revisions. A source advance
-qualifies only when every non-operational blob/commit identity and mode remain
-equal; documentary/workflow/version-guard/test changes cannot conceal a changed
-manifest, lockfile, workspace, canonical intake policy or implementation. Unknown
-or truncated trees remain holds before state publication or consumer writes.
+qualifies when every non-operational blob/commit identity and mode remains equal,
+or through a separately operation-bound projection when the exact root manifest,
+lockfile, workspace, canonical intake policy and every targeted manifest blob
+remain equal. The operation-bound form permits unrelated source surfaces to
+advance only when the current source independently qualifies; it cannot conceal
+a changed target or grant that qualification. Unknown or truncated trees remain
+holds before state publication or consumer writes.
 
 Manual partial-operation reconciliation uses current inventory facts rather
 than immutable-tree recovery projection. It requires the exact stored operation,

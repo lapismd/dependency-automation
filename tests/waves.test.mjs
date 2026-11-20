@@ -674,6 +674,35 @@ test("source-advanced empty recovery requires exact proof and preserves all writ
   );
   assert.equal(first.state.operations[id].status, "admitted");
   assert.equal(recovered.operations[id].status, "retry-approved");
+  const targetSurfaceProof = {
+    ...recovery.sourceProof,
+    schemaVersion: 2,
+    operationId: id,
+    targetSurfacePaths: ["package.json", "pnpm-lock.yaml"],
+  };
+  repo.evidence.sha = repo.sourceSha;
+  repo.evidence.runs[0].head_sha = repo.sourceSha;
+  const targetRecovered = recoverEmptyOperation(first.state, graph, {
+    ...recovery,
+    sourceProof: targetSurfaceProof,
+  });
+  assert.deepEqual(
+    targetRecovered.operations[id].recovery.sourceTransition,
+    targetSurfaceProof,
+  );
+  assert.throws(
+    () =>
+      recoverEmptyOperation(first.state, graph, {
+        ...recovery,
+        sourceProof: {
+          ...targetSurfaceProof,
+          operationId: "0".repeat(64),
+        },
+      }),
+    /unchanged public source/,
+  );
+  repo.evidence.sha = sourceSha;
+  repo.evidence.runs[0].head_sha = sourceSha;
   assert.equal(
     node(
       planWaves(graph, recovered, { ...options, writes: false }),

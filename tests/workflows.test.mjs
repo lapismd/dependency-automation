@@ -249,10 +249,14 @@ test("wave admission gates the production matrix and isolates trusted-main state
   const validate = reconcile.steps.findIndex(
     (s) => s.run === "node scripts/validate-wave-target.mjs",
   );
-  const execute = reconcile.steps.findIndex((s) =>
-    s.run?.endsWith("renovate.js"),
+  const execute = reconcile.steps.findIndex(
+    (s) => s.run === "node scripts/run-renovate.mjs",
   );
   assert(validate > 0 && validate < execute);
+  assert(
+    !reconcile.steps.some((step) => step.run?.endsWith("renovate.js")),
+    "Renovate must run through the terminal-result guard",
+  );
 });
 
 test("generic notifier rejects completion calls before App minting", async () => {

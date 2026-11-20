@@ -80,7 +80,7 @@ governed by DA-DOC-002. Canonical source remains under `spec/src`.
 | ---------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
 | Discovery, registry closure, inventory                     | Inventory                                                                                    |
 | Repository/monitoring scope                                | Repository policy                                                                            |
-| Generated Renovate configuration / runner                  | Reconciliation                                                                               |
+| Renovate configuration and guarded runner                  | Reconciliation / workflow wiring                                                             |
 | Post-upgrade release intent                                | Release intent                                                                               |
 | Consumer workflows, wrappers and templates                 | Consumer integration                                                                         |
 | Audit and authentication detector                          | Monitoring                                                                                   |

@@ -1066,14 +1066,40 @@ export function recoverEmptyOperation(
     (r) => r.repository === operation.repository,
   );
   const sourceUnchanged = repo?.sourceSha === operation.sourceSha;
+  const requiredTargetSurface = new Set([
+    "package.json",
+    "pnpm-lock.yaml",
+    ...operation.targets.map((target) => target.path),
+  ]);
   const sourceTransition =
     !sourceUnchanged &&
     expectedSourceSha === repo?.sourceSha &&
-    sourceProof?.schemaVersion === 1 &&
+    [1, 2].includes(sourceProof?.schemaVersion) &&
     sourceProof.repository === operation.repository &&
     sourceProof.sourceSha === operation.sourceSha &&
     sourceProof.currentSourceSha === repo?.sourceSha &&
-    /^[a-f0-9]{64}$/.test(sourceProof.projectionSha256 ?? "");
+    /^[a-f0-9]{64}$/.test(sourceProof.projectionSha256 ?? "") &&
+    (sourceProof.schemaVersion === 1 ||
+      (sourceProof.operationId === operationId &&
+        Array.isArray(sourceProof.targetSurfacePaths) &&
+        sourceProof.targetSurfacePaths.length > 0 &&
+        sourceProof.targetSurfacePaths.length ===
+          new Set(sourceProof.targetSurfacePaths).size &&
+        requiredTargetSurface.size > 0 &&
+        [...requiredTargetSurface].every((path) =>
+          sourceProof.targetSurfacePaths.includes(path),
+        ) &&
+        qualification(repo?.evidence, repo?.sourceSha).state === "qualified" &&
+        sourceProof.targetSurfacePaths.every(
+          (path) =>
+            typeof path === "string" &&
+            path &&
+            !path.startsWith("/") &&
+            !/[\x00-\x1f\x7f\\]/.test(path) &&
+            !path
+              .split("/")
+              .some((part) => !part || part === "." || part === ".."),
+        )));
   if (
     !repo ||
     repo.visibility !== "public" ||

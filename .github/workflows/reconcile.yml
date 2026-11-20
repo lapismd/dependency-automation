@@ -163,7 +163,7 @@ jobs:
           CONSUMER_PNPM: ${{ matrix.pnpm }}
         run: corepack prepare "pnpm@$CONSUMER_PNPM" --activate
       - name: Reconcile published versions
-        run: node node_modules/renovate/dist/renovate.js
+        run: node scripts/run-renovate.mjs
         env:
           RENOVATE_CONFIG_FILE: ${{ github.workspace }}/renovate.config.cjs
           RENOVATE_TOKEN: ${{ steps.app.outputs.token || github.token }}
