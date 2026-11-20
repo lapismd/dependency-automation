@@ -112,6 +112,14 @@ new operation may rewrite the rolling dependency PR, so the later head cannot
 erase evidence for the older operation or resurrect its uncertainty. Ordinary
 retry, current-head CI and merge gates still apply.
 
+For state written by an older planner that admitted the successor without the
+new receipt, a different same-repository operation with a strictly later writer
+run is itself durable proof that the older operation passed observation: the
+planner cannot assign that later run while an unobserved earlier operation is
+unresolved. This backfill MUST require both stored run identities, MUST NOT infer
+from planned or held operations without a writer run, and grants only the same
+`observed-on-branch` outcome.
+
 Public reports MAY include a bounded presentation-only attention projection
 derived from existing holds, waits, qualification and ownership evidence. Each
 entry retains a stable category, remediation and validated public coordinates

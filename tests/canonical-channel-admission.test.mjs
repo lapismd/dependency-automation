@@ -220,6 +220,40 @@ test("uncertain operation observes an owned failed candidate on its reviewed sco
   }).report.nodes.find((node) => node.repository === f.repo.repository);
   assert.equal(afterRewrite.status, "admitted");
   assert.ok(!afterRewrite.holds.some((hold) => hold.includes("c".repeat(64))));
+
+  const legacy = structuredClone(first.state);
+  legacy.operations["c".repeat(64)].status = "uncertain";
+  legacy.operations["c".repeat(64)].reason =
+    "candidate observation was not persisted by the older planner";
+  const unproven = structuredClone(legacy);
+  for (const operation of Object.values(unproven.operations))
+    if (operation.id !== "c".repeat(64)) delete operation.runId;
+  const withoutWriterRun = planWaves(f.graph, unproven, {
+    ...writer,
+    runId: "124",
+  });
+  assert.equal(
+    withoutWriterRun.report.nodes.find(
+      (node) => node.repository === f.repo.repository,
+    ).status,
+    "uncertain",
+  );
+  assert.equal(
+    withoutWriterRun.state.operations["c".repeat(64)].status,
+    "uncertain",
+  );
+  const backfilled = planWaves(f.graph, legacy, {
+      ...writer,
+      runId: "124",
+    }),
+    afterBackfill = backfilled.report.nodes.find(
+      (node) => node.repository === f.repo.repository,
+    );
+  assert.equal(afterBackfill.status, "admitted");
+  assert.equal(
+    backfilled.state.operations["c".repeat(64)].status,
+    "observed-on-branch",
+  );
 });
 
 test("canonical workspace preparation splits a complete policy subset from an unrelated update", () => {

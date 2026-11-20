@@ -446,6 +446,20 @@ function observedOperationTargets(repo, operation, graph, options, channels) {
   });
 }
 
+function successorWriterReceipt(state, operation) {
+  if (!operation.runId) return null;
+  const origin = BigInt(operation.runId);
+  return Object.values(state.operations)
+    .filter(
+      (candidate) =>
+        candidate.id !== operation.id &&
+        candidate.repository === operation.repository &&
+        candidate.runId &&
+        BigInt(candidate.runId) > origin,
+    )
+    .sort((a, b) => (BigInt(a.runId) < BigInt(b.runId) ? -1 : 1))[0];
+}
+
 export function planWaves(graph, previous = emptyState(), options = {}) {
   validateState(previous);
   const now = options.now ?? new Date().toISOString();
@@ -464,6 +478,16 @@ export function planWaves(graph, previous = emptyState(), options = {}) {
     throw Error(
       "Stored source coverage unavailable; hold state without exposing coordinates",
     );
+  for (const operation of Object.values(state.operations)) {
+    if (!["admitted", "uncertain"].includes(operation.status)) continue;
+    const successor = successorWriterReceipt(previous, operation);
+    if (!successor) continue;
+    operation.status = "observed-on-branch";
+    operation.observedAt = now;
+    operation.reason =
+      `later admitted writer operation ${successor.id} run ${successor.runId} ` +
+      "proves exact prior candidate observation";
+  }
   const channels = channelProjection(graph);
   const excluded = new Set(graph.excludedPackages ?? []);
   const nodes = graph.repositories.map((repo) => {
@@ -866,7 +890,7 @@ export function planWaves(graph, previous = emptyState(), options = {}) {
     node.attention = nodeAttention(node);
     const old = state.operations[node.operationId];
     // An invocation without observed PR/source progress has uncertain outcome. Never replay it blindly.
-    const unresolved = Object.values(previous.operations).find((operation) => {
+    const unresolved = Object.values(state.operations).find((operation) => {
       if (
         operation.repository !== node.repository ||
         (!["admitted", "uncertain"].includes(operation.status) &&
