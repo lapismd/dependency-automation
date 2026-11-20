@@ -239,8 +239,30 @@ test("production post-upgrade hook rejects a new runtime before writing release 
   await writeFile(join(root, "pnpm-lock.yaml"), YAML.stringify(before.lock));
   execFileSync(process.execPath, [script], options);
   const { changesetPath } = await import("../src/changesets.mjs");
-  await access(
-    join(root, changesetPath("lapis-dependencies/lapis-first-party")),
+  const note = join(
+    root,
+    changesetPath("lapis-dependencies/lapis-first-party"),
+  );
+  await access(note);
+  const privateBefore = {
+      ...before.manifests[0].manifest,
+      private: true,
+      dependencies: { "@lapismd/mira": "~0.2.0" },
+    },
+    privateAfter = {
+      ...privateBefore,
+      dependencies: { "@lapismd/mira": "~0.2.1" },
+    };
+  await writeFile(join(root, "package.json"), JSON.stringify(privateAfter));
+  await writeFile(
+    join(root, "bin/git"),
+    `#!${process.execPath}\nconst args=process.argv.slice(2); if(args[0]==="show") process.stdout.write(args[1]==="HEAD:package.json"?${JSON.stringify(JSON.stringify(privateBefore))}:${JSON.stringify(YAML.stringify(before.lock))}); else process.stdout.write("package.json\\n");\n`,
+  );
+  options.env.LAPIS_EMPTY_CHANGESET = "1";
+  execFileSync(process.execPath, [script], options);
+  assert.equal(
+    await readFile(note, "utf8"),
+    "---\n---\n\nRefresh first-party Lapis dependencies to the published versions recorded in this pull request.\n",
   );
 });
 

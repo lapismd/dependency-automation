@@ -1,7 +1,11 @@
 import { execFileSync } from "node:child_process";
 import { readFile, access } from "node:fs/promises";
 import YAML from "yaml";
-import { releaseIntent, writeChangeset } from "../src/changesets.mjs";
+import {
+  releaseIntent,
+  runtimeDependencyChanged,
+  writeChangeset,
+} from "../src/changesets.mjs";
 import { activeManifests } from "../src/policy.mjs";
 import { intakePolicyPath } from "../src/canonical-intake.mjs";
 import { guardToolingChange, loadToolingPolicy } from "../src/tooling.mjs";
@@ -110,7 +114,8 @@ try {
   if (error.code !== "ENOENT") throw error;
 }
 const changes = [];
-let publicManifestChanged = false;
+let publicManifestChanged = false,
+  privateRuntimeManifestChanged = false;
 for (const path of changed) {
   const before = JSON.parse(git(["show", `HEAD:${path}`]));
   const after = JSON.parse(await readFile(path, "utf8"));
@@ -121,6 +126,14 @@ for (const path of changed) {
   });
   if (!after.private && (changedFiles.includes(path) || intent))
     publicManifestChanged = true;
+  if (
+    after.private &&
+    runtimeDependencyChanged(before, after, {
+      workspaceBefore,
+      workspaceAfter,
+    })
+  )
+    privateRuntimeManifestChanged = true;
   changes.push(intent);
 }
 if (context.canonicalPolicySha256) {
@@ -136,5 +149,6 @@ if (context.canonicalPolicySha256) {
   });
 }
 const empty =
-  process.env.LAPIS_EMPTY_CHANGESET === "1" && publicManifestChanged;
+  process.env.LAPIS_EMPTY_CHANGESET === "1" &&
+  (publicManifestChanged || privateRuntimeManifestChanged);
 await writeChangeset(root, changes, { empty, scope: context.branchName });

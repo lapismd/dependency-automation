@@ -40,9 +40,9 @@ complete selected edge solely through path coincidence.
 
 ### Acceptance details
 
-- Development-only changes MUST NOT trigger package release intent.
-- Private packages MUST remain excluded unless the owning Changesets config explicitly versions them.
+- Development-only changes MUST NOT trigger package release intent, and private packages MUST remain excluded unless the owning Changesets config explicitly versions them.
 - Required empty Changesets MAY preserve a repository's release-intent convention without publishing a private application.
+- For an explicitly configured private root, an actual first-party runtime, optional-runtime or peer change MUST select the empty note while package release intent remains null, and retries MUST remove incompatible generated bump metadata from that deterministic bot note while preserving its body.
 - Missing Changesets configuration or base branch MUST fail before release-intent writes.
 
 ## DA-REL-003 — Deterministic Changesets
