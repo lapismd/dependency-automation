@@ -372,7 +372,7 @@ function branchFamily(graph, branch) {
     : null;
 }
 
-function observedOperationTargets(repo, operation, graph, options) {
+function observedOperationTargets(repo, operation, graph, options, channels) {
   if (!operation.targets.length) return false;
   return operation.targets.every((target) => {
     const edge = graph.edges.find(
@@ -422,7 +422,7 @@ function observedOperationTargets(repo, operation, graph, options) {
         expected = targetRange(edge, target.target);
       if (
         !resolved ||
-        !(graph.available[target.name] ?? []).includes(resolved) ||
+        !channels.versions(edge).includes(resolved) ||
         !semver.satisfies(resolved, range) ||
         semver.prerelease(resolved) ||
         semver.lt(resolved, target.target) ||
@@ -890,7 +890,7 @@ export function planWaves(graph, previous = emptyState(), options = {}) {
     if (
       node.status === "admitted" &&
       unresolved &&
-      !observedOperationTargets(repo, unresolved, graph, options)
+      !observedOperationTargets(repo, unresolved, graph, options, channels)
     ) {
       node.status = "uncertain";
       node.holds.push(

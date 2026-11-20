@@ -1,7 +1,10 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { channelFixture } from "./channel-fixtures.mjs";
+import { options } from "./channel-fixtures.mjs";
 import { intakeHash } from "../src/canonical-intake.mjs";
+import { dependencies } from "../src/policy.mjs";
+import { emptyState, planWaves } from "../src/waves.mjs";
 import {
   canonicalPreparationHold,
   canonicalDevelopmentUpdate,
@@ -85,6 +88,83 @@ test("canonical workspace preparation accepts reviewed scoped channel patches wi
   assert.equal(canonicalPreparationHold(f.repo, f.node, f.graph), null);
   assert.equal(canonicalDevelopmentUpdate(f.repo, f.node, f.graph), false);
   assert.equal(JSON.stringify(f), before);
+});
+
+test("uncertain operation observes an owned failed candidate on its reviewed scoped channel", () => {
+  const f = fixture();
+  f.graph.edges = f.graph.repositories.flatMap((repo) =>
+    repo.manifests.flatMap((entry) =>
+      dependencies(entry.manifest, repo.workspace).map((edge) => ({
+        ...edge,
+        repository: repo.repository,
+        path: entry.path,
+        consumer: entry.manifest.name,
+      })),
+    ),
+  );
+  const writer = { ...options, writes: true, runId: "123" };
+  const workspaceUpdate = f.node.updates.find(
+    (update) => update.name === "@lapis-notes/workspace",
+  );
+  assert.ok(
+    !f.graph.available[workspaceUpdate.name].includes(workspaceUpdate.target),
+  );
+  const previous = emptyState();
+  previous.operations["c".repeat(64)] = {
+    id: "c".repeat(64),
+    repository: f.repo.repository,
+    sourceSha: f.repo.sourceSha,
+    policyRevision: writer.policyRevision,
+    targets: [
+      {
+        name: workspaceUpdate.name,
+        target: workspaceUpdate.target,
+        path: workspaceUpdate.path,
+        type: workspaceUpdate.type,
+      },
+    ],
+    status: "admitted",
+    runId: "122",
+  };
+
+  const head = "d".repeat(40),
+    candidate = structuredClone(f.repo);
+  candidate.sourceSha = head;
+  candidate.visibility = "public";
+  candidate.manifests.find(
+    (entry) => entry.path === workspaceUpdate.path,
+  ).manifest[workspaceUpdate.type][workspaceUpdate.name] =
+    workspaceUpdate.targetRange;
+  candidate.lock.importers["."][workspaceUpdate.type][workspaceUpdate.name] = {
+    specifier: workspaceUpdate.targetRange,
+    version: workspaceUpdate.target,
+  };
+  f.repo.evidence.prs.push({
+    number: 1,
+    user: { login: writer.botLogin },
+    head: { ref: "lapis-dependencies/lapis-first-party", sha: head },
+    commits: [
+      {
+        author: { login: writer.botLogin },
+        commit: { author: { name: "Bot", email: "bot@example.com" } },
+      },
+    ],
+    qualification: { state: "failed", reason: "current CI failure" },
+    candidate,
+  });
+
+  const retried = planWaves(f.graph, previous, writer).report.nodes.find(
+    (node) => node.repository === f.repo.repository,
+  );
+  assert.equal(retried.status, "admitted");
+  assert.ok(!retried.holds.some((hold) => hold.includes("no observed PR")));
+
+  f.graph.channelPolicySha256 = "0".repeat(64);
+  const stalePolicy = planWaves(f.graph, previous, writer).report.nodes.find(
+    (node) => node.repository === f.repo.repository,
+  );
+  assert.equal(stalePolicy.status, "uncertain");
+  assert.ok(stalePolicy.holds.some((hold) => hold.includes("no observed PR")));
 });
 
 test("canonical workspace preparation splits a complete policy subset from an unrelated update", () => {
