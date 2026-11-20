@@ -5,12 +5,12 @@ import YAML from "yaml";
 import { firstParty } from "./policy.mjs";
 
 const sections = ["dependencies", "optionalDependencies", "peerDependencies"];
-export function releaseIntent(
+export function runtimeDependencyChanged(
   before,
   after,
-  { versionPrivate = false, workspaceBefore = {}, workspaceAfter = {} } = {},
+  { workspaceBefore = {}, workspaceAfter = {} } = {},
 ) {
-  if (!after.name || (after.private && !versionPrivate)) return null;
+  if (!after.name) return false;
   const resolve = (values, workspace) =>
     Object.fromEntries(
       Object.entries(values ?? {}).map(([name, range]) => {
@@ -25,14 +25,27 @@ export function releaseIntent(
         ];
       }),
     );
-  const changed = sections.some((section) => {
+  return sections.some((section) => {
     const a = resolve(before[section], workspaceBefore),
       b = resolve(after[section], workspaceAfter);
     return new Set([...Object.keys(a), ...Object.keys(b)])
       .values()
       .some((name) => firstParty(name) && a[name] !== b[name]);
   });
-  return changed ? after.name : null;
+}
+
+export function releaseIntent(
+  before,
+  after,
+  { versionPrivate = false, workspaceBefore = {}, workspaceAfter = {} } = {},
+) {
+  if (!after.name || (after.private && !versionPrivate)) return null;
+  return runtimeDependencyChanged(before, after, {
+    workspaceBefore,
+    workspaceAfter,
+  })
+    ? after.name
+    : null;
 }
 
 export function changesetPath(scope = "lapis-first-party") {
@@ -112,6 +125,10 @@ export async function writeChangeset(
   } catch (error) {
     if (error.code !== "ENOENT") throw error;
   }
+  // Empty-note repositories explicitly own no package release intent. A retry
+  // must remove stale generated bump metadata from this deterministic bot note
+  // while preserving its review body.
+  if (empty && !packages.length) bumps = {};
   for (const name of packages) bumps[name] ??= "patch";
   const frontmatter = Object.keys(bumps)
     .sort()

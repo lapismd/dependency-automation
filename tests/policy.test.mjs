@@ -12,6 +12,7 @@ import {
 import {
   changesetPath,
   releaseIntent,
+  runtimeDependencyChanged,
   writeChangeset,
 } from "../src/changesets.mjs";
 import { repositoryConfig } from "../src/renovate.mjs";
@@ -122,6 +123,22 @@ test("Changesets include only runtime or peer manifest changes and configured pr
     null,
   );
   assert.equal(
+    runtimeDependencyChanged(before, {
+      ...before,
+      private: true,
+      dependencies: { "@lapismd/mira": "~0.1.5" },
+    }),
+    true,
+  );
+  assert.equal(
+    runtimeDependencyChanged(before, {
+      ...before,
+      private: true,
+      devDependencies: { "@lapismd/spec-validator": "^0.2.1" },
+    }),
+    false,
+  );
+  assert.equal(
     releaseIntent(before, {
       ...before,
       private: true,
@@ -161,6 +178,16 @@ test("repeated compatible updates rewrite one deterministic Changeset", async ()
   assert.match(
     await readFile(join(root, changesetPath("development-only")), "utf8"),
     /^---\n---/,
+  );
+  const privateScope = "private-runtime";
+  await writeChangeset(root, ["@lapismd/private-app"], {
+    scope: privateScope,
+  });
+  const privatePath = join(root, changesetPath(privateScope));
+  await writeChangeset(root, [], { empty: true, scope: privateScope });
+  assert.equal(
+    await readFile(privatePath, "utf8"),
+    "---\n---\n\nRefresh first-party Lapis dependencies to the published versions recorded in this pull request.\n",
   );
   await writeChangeset(root, ["@lapismd/c"]);
   const accumulated = await readFile(join(root, changesetPath()), "utf8");
