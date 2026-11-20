@@ -348,6 +348,27 @@ test("breaking families remain drafts and compatible versions are restricted by 
 
 test("current complete CI prevents stale, early-green and incomplete acceptance", () => {
   assert.equal(qualification(evidence(), sha).state, "qualified");
+  const unrelated = evidence();
+  unrelated.runs.push({
+    ...unrelated.runs[0],
+    workflow_id: 2,
+    event: "workflow_dispatch",
+    conclusion: "failure",
+  });
+  unrelated.checks.push({
+    name: "manual publisher",
+    app: "github-actions",
+    status: "completed",
+    conclusion: "failure",
+  });
+  assert.equal(qualification(unrelated, sha).state, "qualified");
+  unrelated.checks.push({
+    name: "external gate",
+    app: "external-ci",
+    status: "completed",
+    conclusion: "failure",
+  });
+  assert.equal(qualification(unrelated, sha).state, "failed");
   const concurrent = evidence();
   concurrent.runs.unshift({
     ...concurrent.runs[0],
