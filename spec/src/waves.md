@@ -156,7 +156,7 @@ retired coordinator-only runtime approval never authorized consumer findings.
 
 - Repair/orphan holds MUST apply to their exact rolling or publisher compatibility family while ambiguous history remains held.
 - Genuine PR creators and every branch commit author MUST establish ownership independently of rerun actors.
-- Auto-merge MUST require complete current workflow/check/status qualification for the exact existing candidate on current source.
+- Auto-merge MUST require complete current workflow/check/status qualification for the exact existing candidate on current source, with default-branch qualification evaluating the latest run for every active push workflow and independent external checks/statuses while manual, scheduled or otherwise non-expected GitHub Actions runs on the same commit remain visible operational evidence without falsely changing that push qualification.
 - Per-consumer failures MUST retain independent progress without weakening product, audit, publication or compatibility gates.
 
 ## DA-WAVE-004 — Gated workflow integration

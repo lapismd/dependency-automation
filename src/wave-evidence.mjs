@@ -118,9 +118,11 @@ export function qualification(evidence, sha) {
       state: "unknown",
       reason: "missing or stale qualification coverage",
     };
+  const expected = new Set(evidence.expected ?? []);
   const runs = evidence.runs.filter(
     (r) =>
       r.head_sha === sha &&
+      expected.has(r.workflow_id ?? r.path) &&
       [
         "push",
         "pull_request",
@@ -146,7 +148,9 @@ export function qualification(evidence, sha) {
     evidence.expected.some((id) => !latest.has(id))
   )
     return { state: "unknown", reason: "current workflow coverage incomplete" };
-  const checks = evidence.checks ?? [],
+  const checks = (evidence.checks ?? []).filter(
+      (check) => check.app !== "github-actions",
+    ),
     statuses = evidence.statuses ?? [];
   const currentStatuses = new Map();
   for (const status of statuses)
@@ -365,7 +369,12 @@ export async function observeRepository(repo, options = {}) {
     }),
   );
   observations.checks = observations.checks.map(
-    ({ name, status, conclusion }) => ({ name, status, conclusion }),
+    ({ name, status, conclusion, app }) => ({
+      name,
+      status,
+      conclusion,
+      app: app?.slug ?? null,
+    }),
   );
   observations.statuses = observations.statuses.map(({ context, state }) => ({
     context,
