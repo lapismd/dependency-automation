@@ -35,10 +35,9 @@ test("explicit full-phase held observer retains its write hold and every unrelat
     repository,
   );
   assert.deepEqual(entries, before);
-  assert(
-    entries
-      .find((e) => e.repository === repository)
-      .holdReason.includes("Private Profile/API"),
+  assert.equal(
+    entries.find((e) => e.repository === repository).holdReason,
+    "Desktop private archive projection remains outside registry-only automation; keep dependency writes disabled until source-owned update preparation and private-runtime qualification are reviewed.",
   );
 });
 

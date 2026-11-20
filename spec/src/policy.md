@@ -58,6 +58,12 @@ write activation. Excluded roots remain ineligible. A held full-phase source
 may register a separately reviewed metadata-only observer under DA-NOT-004;
 its hold and dependency-write ineligibility remain binding.
 
+Desktop's hold describes the durable boundary rather than a package version:
+its private archive projection remains outside registry-only automation until
+source-owned update preparation and private-runtime qualification are reviewed.
+Promoted public Notes tags do not remove that independent hold, change its
+`full` phase or admit dependency writes.
+
 ## DA-POL-001 — Explicit dependency scope
 
 **Requirement.** Dependency discovery and update targets MUST originate from validated repository entries with supported schema, unique identities and explicit rollout phases.

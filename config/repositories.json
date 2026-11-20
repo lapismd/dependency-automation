@@ -56,7 +56,7 @@
     {
       "repository": "lapismd/lapis-desktop",
       "phase": "full",
-      "holdReason": "Private Profile/API 0.2.3 remains pinned; qualify the unpublished archive projection before enabling dependency writes."
+      "holdReason": "Desktop private archive projection remains outside registry-only automation; keep dependency writes disabled until source-owned update preparation and private-runtime qualification are reviewed."
     },
     {
       "repository": "lapismd/lapis-server",
