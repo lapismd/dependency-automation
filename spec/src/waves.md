@@ -123,7 +123,12 @@ from planned or held operations without a writer run, and grants only the same
 Public reports MAY include a bounded presentation-only attention projection
 derived from existing holds, waits, qualification and ownership evidence. Each
 entry retains a stable category, remediation and validated public coordinates
-without granting command authority or replacing immutable evidence.
+without granting command authority or replacing immutable evidence. The
+projection MUST be derived only after the node's current status and holds are
+final, including unresolved-operation detection. A published package awaiting
+reviewed-channel admission or an unreviewed publisher contract MUST remain
+distinguishable from a missing publication and MUST NOT instruct an operator to
+publish the same bytes again.
 
 ### Acceptance details
 
