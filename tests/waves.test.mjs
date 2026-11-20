@@ -873,6 +873,12 @@ test("uncertain observations retain the originating write run across newer candi
   assert.equal(later.state.operations[current.operationId].runId, undefined);
   assert.equal(later.state.operations[original].runId, "123");
   assert(current.holds.some((h) => h.includes(original)));
+  assert.equal(current.attention[0].code, "operation-reconciliation");
+  assert.equal(
+    current.attention[0].summary,
+    "Dependency operation requires reconciliation",
+  );
+  assert.match(current.attention[0].detail, new RegExp(original));
 });
 
 test("Renovate validates admitted path/catalog rules and enforces them with its native rule engine", async () => {

@@ -109,3 +109,44 @@ test("keeps intentional exclusions distinct from actionable qualification", () =
   assert.equal(attention[1].category, "qualification");
   assert.match(attention[1].remediation, /current checks/i);
 });
+
+test("distinguishes channel and publisher review from missing publication", () => {
+  const node = base();
+  node.waits = [
+    {
+      package: "@lapis-notes/api",
+      repository: "lapismd/lapis-notes",
+      path: "packages/api/package.json",
+      reason:
+        "channel-not-admitted: 0.6.10; policy latest=0.6.9; observed next",
+    },
+    {
+      package: "@lapismd/design-core",
+      repository: "lapismd/design-core",
+      reason: "publisher-contract-unreviewed: current peer floor",
+    },
+  ];
+
+  const attention = nodeAttention(node);
+  assert.deepEqual(attention[0], {
+    code: "channel-admission",
+    category: "publication",
+    summary: "Published package requires channel review",
+    detail: "channel-not-admitted: 0.6.10; policy latest=0.6.9; observed next",
+    remediation:
+      "Review the exact channel policy for @lapis-notes/api, then refresh coordinator evidence.",
+    repository: "lapismd/lapis-notes",
+    package: "@lapis-notes/api",
+    path: "packages/api/package.json",
+  });
+  assert.deepEqual(attention[1], {
+    code: "publisher-policy",
+    category: "publication",
+    summary: "Publisher contract requires review",
+    detail: "publisher-contract-unreviewed: current peer floor",
+    remediation:
+      "Review and qualify the publisher policy for @lapismd/design-core, then refresh coordinator evidence.",
+    repository: "lapismd/design-core",
+    package: "@lapismd/design-core",
+  });
+});

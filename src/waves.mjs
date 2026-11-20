@@ -887,7 +887,6 @@ export function planWaves(graph, previous = emptyState(), options = {}) {
         .map((u) => [u.path, u.type, u.name, u.target])
         .sort(),
     });
-    node.attention = nodeAttention(node);
     const old = state.operations[node.operationId];
     // An invocation without observed PR/source progress has uncertain outcome. Never replay it blindly.
     const unresolved = Object.values(state.operations).find((operation) => {
@@ -963,6 +962,7 @@ export function planWaves(graph, previous = emptyState(), options = {}) {
       ].join("; "),
       acceptance: node.acceptance.state,
     };
+    node.attention = nodeAttention(node);
   }
   for (const operation of Object.values(state.operations)) {
     const repo = graph.repositories.find(

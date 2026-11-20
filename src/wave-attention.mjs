@@ -66,6 +66,20 @@ function hold(node, detail) {
         "Review the repository exclusion policy before enabling dependency writes.",
       ...base(node),
     };
+  if (
+    /previous admission .* has no observed PR|reconcile operation before retry/i.test(
+      detail,
+    )
+  )
+    return {
+      code: "operation-reconciliation",
+      category: "branch-reconciliation",
+      summary: "Dependency operation requires reconciliation",
+      detail,
+      remediation:
+        "Reconcile or supersede the exact prior operation before retrying dependency writes.",
+      ...base(node),
+    };
   if (/retained branch|repair-owned branch|reconcil/i.test(detail))
     return {
       code: "branch-reconciliation",
@@ -111,6 +125,40 @@ function hold(node, detail) {
   };
 }
 
+function waitAttention(wait) {
+  const coordinates = {
+    repository: wait.repository,
+    package: wait.package,
+    ...(wait.path ? { path: wait.path } : {}),
+  };
+  if (/channel-not-admitted:/i.test(wait.reason))
+    return {
+      code: "channel-admission",
+      category: "publication",
+      summary: "Published package requires channel review",
+      detail: wait.reason,
+      remediation: `Review the exact channel policy for ${wait.package}, then refresh coordinator evidence.`,
+      ...coordinates,
+    };
+  if (/publisher-contract-unreviewed/i.test(wait.reason))
+    return {
+      code: "publisher-policy",
+      category: "publication",
+      summary: "Publisher contract requires review",
+      detail: wait.reason,
+      remediation: `Review and qualify the publisher policy for ${wait.package}, then refresh coordinator evidence.`,
+      ...coordinates,
+    };
+  return {
+    code: "upstream-publication",
+    category: "publication",
+    summary: `Waiting for ${wait.package}`,
+    detail: wait.reason,
+    remediation: `Complete qualification or publication in ${wait.repository}, then refresh coordinator evidence.`,
+    ...coordinates,
+  };
+}
+
 /** Public presentation projection only. It never grants command authority. */
 export function nodeAttention(node) {
   const result = [];
@@ -138,16 +186,7 @@ export function nodeAttention(node) {
     const id = `${wait.repository}\0${wait.package}\0${wait.reason}`;
     if (waits.has(id)) continue;
     waits.add(id);
-    result.push({
-      code: "upstream-publication",
-      category: "publication",
-      summary: `Waiting for ${wait.package}`,
-      detail: wait.reason,
-      remediation: `Complete qualification or publication in ${wait.repository}, then refresh coordinator evidence.`,
-      repository: wait.repository,
-      package: wait.package,
-      ...(wait.path ? { path: wait.path } : {}),
-    });
+    result.push(waitAttention(wait));
   }
   if (node.ownership?.state === "repair-owned")
     result.push({
