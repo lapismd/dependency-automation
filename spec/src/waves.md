@@ -102,6 +102,12 @@ target requires bot-owned branch-family and exact public candidate-head evidence
 covering its manifest/lock tuple; missing candidate data and empty historic
 targets remain uncertain until explicit recovery. A later compatible candidate
 may cover an older target without relaxing minimum or peer-support requirements.
+Candidate observation MUST evaluate resolved targets through the same exact
+repository/path/dependency-type reviewed channel projection that admitted the
+operation. Raw `latest` availability cannot strand a genuine scoped-channel PR,
+while stale, forged or out-of-scope channel evidence remains unobserved. A failed
+candidate may prove that the writer created the owned branch without qualifying
+that head for merge; ordinary retry, current-head CI and merge gates still apply.
 
 Public reports MAY include a bounded presentation-only attention projection
 derived from existing holds, waits, qualification and ownership evidence. Each
