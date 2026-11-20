@@ -107,7 +107,10 @@ repository/path/dependency-type reviewed channel projection that admitted the
 operation. Raw `latest` availability cannot strand a genuine scoped-channel PR,
 while stale, forged or out-of-scope channel evidence remains unobserved. A failed
 candidate may prove that the writer created the owned branch without qualifying
-that head for merge; ordinary retry, current-head CI and merge gates still apply.
+that head for merge. The state writer MUST record that exact observation before a
+new operation may rewrite the rolling dependency PR, so the later head cannot
+erase evidence for the older operation or resurrect its uncertainty. Ordinary
+retry, current-head CI and merge gates still apply.
 
 Public reports MAY include a bounded presentation-only attention projection
 derived from existing holds, waits, qualification and ownership evidence. Each
