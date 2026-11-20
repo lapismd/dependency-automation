@@ -132,6 +132,7 @@ export function validateState(state) {
         "uncertain",
         "planned",
         "accepted-on-main",
+        "observed-on-branch",
         "partially-accepted-on-main",
         "retry-approved",
       ].includes(operation.status) ||
@@ -872,6 +873,7 @@ export function planWaves(graph, previous = emptyState(), options = {}) {
           (!operation.runId ||
             [
               "accepted-on-main",
+              "observed-on-branch",
               "partially-accepted-on-main",
               "retry-approved",
             ].includes(operation.status)))
@@ -887,15 +889,20 @@ export function planWaves(graph, previous = emptyState(), options = {}) {
         )
       );
     });
-    if (
+    const observedUnresolved =
       node.status === "admitted" &&
       unresolved &&
-      !observedOperationTargets(repo, unresolved, graph, options, channels)
-    ) {
+      observedOperationTargets(repo, unresolved, graph, options, channels);
+    if (node.status === "admitted" && unresolved && !observedUnresolved) {
       node.status = "uncertain";
       node.holds.push(
         `previous admission ${unresolved.id} has no observed PR; reconcile operation before retry`,
       );
+    } else if (observedUnresolved && unresolved.id !== node.operationId) {
+      state.operations[unresolved.id].status = "observed-on-branch";
+      state.operations[unresolved.id].observedAt = now;
+      state.operations[unresolved.id].reason =
+        "exact bot-owned candidate observed on reviewed channel";
     }
     state.operations[node.operationId] = {
       id: node.operationId,

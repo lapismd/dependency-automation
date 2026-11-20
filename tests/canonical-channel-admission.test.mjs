@@ -102,12 +102,13 @@ test("uncertain operation observes an owned failed candidate on its reviewed sco
       })),
     ),
   );
-  const writer = { ...options, writes: true, runId: "123" };
-  const workspaceUpdate = f.node.updates.find(
+  const writer = { ...options, writes: true, runId: "123" },
+    reviewedChannel = f.graph.channelPolicySha256;
+  const scopedUpdate = f.node.updates.find(
     (update) => update.name === "@lapis-notes/workspace",
   );
   assert.ok(
-    !f.graph.available[workspaceUpdate.name].includes(workspaceUpdate.target),
+    !f.graph.available[scopedUpdate.name].includes(scopedUpdate.target),
   );
   const previous = emptyState();
   previous.operations["c".repeat(64)] = {
@@ -117,14 +118,29 @@ test("uncertain operation observes an owned failed candidate on its reviewed sco
     policyRevision: writer.policyRevision,
     targets: [
       {
-        name: workspaceUpdate.name,
-        target: workspaceUpdate.target,
-        path: workspaceUpdate.path,
-        type: workspaceUpdate.type,
+        name: scopedUpdate.name,
+        target: scopedUpdate.target,
+        path: scopedUpdate.path,
+        type: scopedUpdate.type,
       },
     ],
     status: "admitted",
     runId: "122",
+  };
+  previous.releases[scopedUpdate.name] = {
+    name: scopedUpdate.name,
+    repository: "lapismd/lapis-notes",
+    sourceSha: f.graph.repositories[0].sourceSha,
+    baseline: scopedUpdate.target,
+    requires: [
+      {
+        name: core,
+        type: "dependencies",
+        target: "0.13.5",
+      },
+    ],
+    status: "waiting",
+    policyRevision: writer.policyRevision,
   };
 
   const head = "d".repeat(40),
@@ -132,12 +148,11 @@ test("uncertain operation observes an owned failed candidate on its reviewed sco
   candidate.sourceSha = head;
   candidate.visibility = "public";
   candidate.manifests.find(
-    (entry) => entry.path === workspaceUpdate.path,
-  ).manifest[workspaceUpdate.type][workspaceUpdate.name] =
-    workspaceUpdate.targetRange;
-  candidate.lock.importers["."][workspaceUpdate.type][workspaceUpdate.name] = {
-    specifier: workspaceUpdate.targetRange,
-    version: workspaceUpdate.target,
+    (entry) => entry.path === scopedUpdate.path,
+  ).manifest[scopedUpdate.type][scopedUpdate.name] = scopedUpdate.targetRange;
+  candidate.lock.importers["."][scopedUpdate.type][scopedUpdate.name] = {
+    specifier: scopedUpdate.targetRange,
+    version: scopedUpdate.target,
   };
   f.repo.evidence.prs.push({
     number: 1,
@@ -153,18 +168,58 @@ test("uncertain operation observes an owned failed candidate on its reviewed sco
     candidate,
   });
 
-  const retried = planWaves(f.graph, previous, writer).report.nodes.find(
-    (node) => node.repository === f.repo.repository,
-  );
+  f.graph.channelPolicySha256 = "0".repeat(64);
+  const stale = planWaves(f.graph, previous, writer),
+    stalePolicy = stale.report.nodes.find(
+      (node) => node.repository === f.repo.repository,
+    );
+  assert.equal(stalePolicy.status, "uncertain");
+  assert.equal(stale.state.operations["c".repeat(64)].status, "admitted");
+  assert.ok(stalePolicy.holds.some((hold) => hold.includes("no observed PR")));
+
+  f.graph.channelPolicySha256 = reviewedChannel;
+  const first = planWaves(f.graph, previous, writer),
+    retried = first.report.nodes.find(
+      (node) => node.repository === f.repo.repository,
+    );
   assert.equal(retried.status, "admitted");
   assert.ok(!retried.holds.some((hold) => hold.includes("no observed PR")));
-
-  f.graph.channelPolicySha256 = "0".repeat(64);
-  const stalePolicy = planWaves(f.graph, previous, writer).report.nodes.find(
-    (node) => node.repository === f.repo.repository,
+  assert.ok(retried.admittedUpdates.length > 0);
+  assert.ok(
+    !retried.admittedUpdates.some(
+      (update) => update.name === scopedUpdate.name,
+    ),
   );
-  assert.equal(stalePolicy.status, "uncertain");
-  assert.ok(stalePolicy.holds.some((hold) => hold.includes("no observed PR")));
+  assert.equal(
+    first.state.operations["c".repeat(64)].status,
+    "observed-on-branch",
+  );
+
+  const replacement = structuredClone(f.repo),
+    replacementHead = "e".repeat(40);
+  replacement.sourceSha = replacementHead;
+  replacement.visibility = "public";
+  for (const update of retried.admittedUpdates) {
+    replacement.manifests.find((entry) => entry.path === update.path).manifest[
+      update.type
+    ][update.name] = update.targetRange;
+    replacement.lock.importers["."][update.type][update.name] = {
+      specifier: update.targetRange,
+      version: update.target,
+    };
+  }
+  f.repo.evidence.prs[0].head.sha = replacementHead;
+  f.repo.evidence.prs[0].candidate = replacement;
+  assert.equal(
+    replacement.manifests[0].manifest[scopedUpdate.type][scopedUpdate.name],
+    scopedUpdate.range,
+  );
+  const afterRewrite = planWaves(f.graph, first.state, {
+    ...writer,
+    runId: "124",
+  }).report.nodes.find((node) => node.repository === f.repo.repository);
+  assert.equal(afterRewrite.status, "admitted");
+  assert.ok(!afterRewrite.holds.some((hold) => hold.includes("c".repeat(64))));
 });
 
 test("canonical workspace preparation splits a complete policy subset from an unrelated update", () => {
