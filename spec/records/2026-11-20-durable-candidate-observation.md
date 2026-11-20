@@ -17,3 +17,12 @@ owned failed candidate, then replaces the rolling candidate with the newer
 operation's targets. The next plan remains admitted because the durable receipt
 survives replacement. A stale channel policy remains uncertain and writes no
 receipt.
+
+The first hosted replay found that Server's rolling pull request had already
+been rewritten before this receipt existed. Its durable state nevertheless
+contains the later admitted writer operation and strictly later run identity.
+Because the planner cannot assign that successor run while the earlier operation
+is unobserved, the successor is an exact stored proof of the missing observation.
+The migration records the same `observed-on-branch` outcome only from that
+same-repository successor-run invariant; planned or held operations without a
+writer run do not qualify.
