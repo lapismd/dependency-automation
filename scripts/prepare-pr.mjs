@@ -116,6 +116,7 @@ try {
 const changes = [];
 let publicManifestChanged = false,
   privateRuntimeManifestChanged = false;
+const emptyChangeset = process.env.LAPIS_EMPTY_CHANGESET === "1";
 for (const path of changed) {
   const before = JSON.parse(git(["show", `HEAD:${path}`]));
   const after = JSON.parse(await readFile(path, "utf8"));
@@ -126,15 +127,14 @@ for (const path of changed) {
   });
   if (!after.private && (changedFiles.includes(path) || intent))
     publicManifestChanged = true;
-  if (
+  const privateRuntimeChanged =
     after.private &&
     runtimeDependencyChanged(before, after, {
       workspaceBefore,
       workspaceAfter,
-    })
-  )
-    privateRuntimeManifestChanged = true;
-  changes.push(intent);
+    });
+  if (privateRuntimeChanged) privateRuntimeManifestChanged = true;
+  changes.push(emptyChangeset && privateRuntimeChanged ? null : intent);
 }
 if (context.canonicalPolicySha256) {
   const { prepareCanonicalFiles } =
@@ -149,6 +149,5 @@ if (context.canonicalPolicySha256) {
   });
 }
 const empty =
-  process.env.LAPIS_EMPTY_CHANGESET === "1" &&
-  (publicManifestChanged || privateRuntimeManifestChanged);
+  emptyChangeset && (publicManifestChanged || privateRuntimeManifestChanged);
 await writeChangeset(root, changes, { empty, scope: context.branchName });

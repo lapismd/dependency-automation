@@ -255,6 +255,13 @@ test("production post-upgrade hook rejects a new runtime before writing release 
     };
   await writeFile(join(root, "package.json"), JSON.stringify(privateAfter));
   await writeFile(
+    join(root, ".changeset/config.json"),
+    JSON.stringify({
+      baseBranch: "main",
+      privatePackages: { version: true, tag: true },
+    }),
+  );
+  await writeFile(
     join(root, "bin/git"),
     `#!${process.execPath}\nconst args=process.argv.slice(2); if(args[0]==="show") process.stdout.write(args[1]==="HEAD:package.json"?${JSON.stringify(JSON.stringify(privateBefore))}:${JSON.stringify(YAML.stringify(before.lock))}); else process.stdout.write("package.json\\n");\n`,
   );
