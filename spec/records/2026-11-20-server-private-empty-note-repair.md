@@ -17,9 +17,11 @@ retained on another attempt.
 Preparation now distinguishes actual first-party runtime, optional-runtime and
 peer changes from package release intent. An explicitly configured private root
 selects its empty managed note for those changes while remaining excluded from
-version intent. Empty-note retry removes incompatible generated bump metadata
-from the deterministic bot-owned note and preserves its body. Development-only
-private changes still create neither package intent nor a forced empty note.
+version intent, including when its ordinary Changesets policy has
+`privatePackages.version` enabled. Empty-note retry removes incompatible
+generated bump metadata from the deterministic bot-owned note and preserves its
+body. Development-only private changes still create neither package intent nor
+a forced empty note.
 
 Focused and hosted coordinator qualification, repaired Server PR checks,
 completion settlement and repeat no-duplicate evidence are recorded in the
