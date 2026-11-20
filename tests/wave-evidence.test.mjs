@@ -116,6 +116,72 @@ test("source-advanced recovery proves unchanged code and dependency inputs from 
     );
 });
 
+test("source-advanced recovery accepts only an unchanged exact operation target surface", async () => {
+  const { qualifyRecoverySource } = await import("../src/wave-evidence.mjs");
+  const sourceSha = "b".repeat(40),
+    currentSourceSha = "c".repeat(40),
+    entry = (path, value) => ({
+      path,
+      sha: value,
+      mode: "100644",
+      type: "blob",
+    }),
+    before = {
+      sha: sourceSha,
+      truncated: false,
+      tree: [
+        entry("package.json", "1".repeat(40)),
+        entry("pnpm-lock.yaml", "2".repeat(40)),
+        entry("pnpm-workspace.yaml", "3".repeat(40)),
+        entry("packages/released/package.json", "4".repeat(40)),
+        entry("src/index.mjs", "5".repeat(40)),
+      ],
+    },
+    after = structuredClone(before),
+    operation = {
+      id: "6".repeat(64),
+      repository: repo.repository,
+      sourceSha,
+      targets: [
+        {
+          name: "@lapis-notes/api",
+          path: "package.json",
+          type: "devDependencies",
+          target: "0.6.10",
+        },
+      ],
+    },
+    source = { ...repo, sourceSha: currentSourceSha, visibility: "public" },
+    options = {
+      expectedSourceSha: currentSourceSha,
+      fetcher: async (url) => ok(url.includes(sourceSha) ? before : after),
+    };
+  after.tree.find(
+    (item) => item.path === "packages/released/package.json",
+  ).sha = "7".repeat(40);
+  const proof = await qualifyRecoverySource(operation, source, options);
+  assert.equal(proof.schemaVersion, 2);
+  assert.equal(proof.operationId, operation.id);
+  assert.deepEqual(proof.targetSurfacePaths, [
+    "package.json",
+    "pnpm-lock.yaml",
+    "pnpm-workspace.yaml",
+  ]);
+  assert.match(proof.projectionSha256, /^[a-f0-9]{64}$/);
+
+  for (const path of proof.targetSurfacePaths) {
+    const changed = structuredClone(after);
+    changed.tree.find((item) => item.path === path).sha = "8".repeat(40);
+    await assert.rejects(
+      qualifyRecoverySource(operation, source, {
+        ...options,
+        fetcher: async (url) => ok(url.includes(sourceSha) ? before : changed),
+      }),
+      /unchanged operation target surface/,
+    );
+  }
+});
+
 test("private and unclassified scopes are opaque coverage holds before reading source", async () => {
   for (const visibility of [{ private: true }, {}]) {
     const calls = [];

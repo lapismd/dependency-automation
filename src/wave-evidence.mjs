@@ -26,7 +26,8 @@ export async function qualifyRecoverySource(operation, repo, options = {}) {
     )
       throw Error("Recovery requires complete immutable source trees");
     const paths = new Set(),
-      entries = [];
+      entries = [],
+      all = new Map();
     for (const entry of tree.tree) {
       if (
         typeof entry.path !== "string" ||
@@ -47,6 +48,7 @@ export async function qualifyRecoverySource(operation, repo, options = {}) {
         if (entry.mode !== "040000") throw Error("Invalid recovery tree mode");
         continue;
       }
+      all.set(entry.path, [entry.path, entry.type, entry.mode, entry.sha]);
       const operational =
         entry.type === "blob" &&
         entry.mode === "100644" &&
@@ -57,24 +59,98 @@ export async function qualifyRecoverySource(operation, repo, options = {}) {
       if (!operational)
         entries.push([entry.path, entry.type, entry.mode, entry.sha]);
     }
-    return createHash("sha256")
-      .update(
-        JSON.stringify(entries.sort((a, b) => a[0].localeCompare(b[0], "en"))),
-      )
-      .digest("hex");
+    return {
+      all,
+      legacy: createHash("sha256")
+        .update(
+          JSON.stringify(
+            entries.sort((a, b) => a[0].localeCompare(b[0], "en")),
+          ),
+        )
+        .digest("hex"),
+    };
   };
   const before = await projection(operation.sourceSha);
   const after = await projection(repo.sourceSha);
-  if (before !== after)
-    throw Error(
-      "Source-advanced recovery requires unchanged code and dependency inputs",
-    );
-  return {
-    schemaVersion: 1,
+  const proof = {
     repository: repo.repository,
     sourceSha: operation.sourceSha,
     currentSourceSha: repo.sourceSha,
-    projectionSha256: before,
+  };
+  if (before.legacy === after.legacy)
+    return {
+      schemaVersion: 1,
+      ...proof,
+      projectionSha256: before.legacy,
+    };
+
+  const safeManifest = (path) =>
+    typeof path === "string" &&
+    (path === "package.json" || path.endsWith("/package.json")) &&
+    !path.startsWith("/") &&
+    !/[\x00-\x1f\x7f\\]/.test(path) &&
+    !path.split("/").some((part) => !part || part === "." || part === "..");
+  if (
+    !/^[a-f0-9]{64}$/.test(operation.id ?? "") ||
+    !operation.targets?.length ||
+    operation.targets.some(
+      (target) =>
+        !safeManifest(target.path) ||
+        ![
+          "dependencies",
+          "devDependencies",
+          "optionalDependencies",
+          "peerDependencies",
+        ].includes(target.type) ||
+        typeof target.name !== "string" ||
+        !target.name ||
+        !semver.valid(target.target),
+    )
+  )
+    throw Error(
+      "Source-advanced recovery requires unchanged code and dependency inputs",
+    );
+  const surface = new Set([
+    "package.json",
+    "pnpm-lock.yaml",
+    ...operation.targets.map((target) => target.path),
+  ]);
+  for (const optional of [
+    "pnpm-workspace.yaml",
+    ".github/dependency-automation/canonical-intake.json",
+  ])
+    if (before.all.has(optional) || after.all.has(optional))
+      surface.add(optional);
+  const targetSurfacePaths = [...surface].sort((a, b) =>
+    a.localeCompare(b, "en"),
+  );
+  const surfaceProjection = (tree) => {
+    const entries = targetSurfacePaths.map((path) => tree.all.get(path));
+    if (
+      entries.some(
+        (entry) =>
+          !entry ||
+          entry[1] !== "blob" ||
+          !["100644", "100755"].includes(entry[2]),
+      )
+    )
+      throw Error(
+        "Source-advanced recovery requires unchanged operation target surface",
+      );
+    return createHash("sha256").update(JSON.stringify(entries)).digest("hex");
+  };
+  const beforeSurface = surfaceProjection(before),
+    afterSurface = surfaceProjection(after);
+  if (beforeSurface !== afterSurface)
+    throw Error(
+      "Source-advanced recovery requires unchanged operation target surface",
+    );
+  return {
+    schemaVersion: 2,
+    ...proof,
+    operationId: operation.id,
+    targetSurfacePaths,
+    projectionSha256: beforeSurface,
   };
 }
 

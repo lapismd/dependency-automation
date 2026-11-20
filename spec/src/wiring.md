@@ -13,9 +13,14 @@ consumer copies the engine or independently enables another schedule.
 
 `reconcile.yml` passes optional manual `recover-source-revision` only to the
 inventory recovery boundary. `qualifyRecoverySource` reads both exact public
-trees before `recoverEmptyOperation` can record a source transition. The
+trees before `recoverEmptyOperation` can record a source transition. Its legacy
+whole-input projection remains preferred; an operation-bound target-surface
+projection is accepted only when exact manifest/lock/workspace/policy identities
+are unchanged and current-source qualification independently succeeds. The
 existing exact-state CAS/read-back and consumer revalidation remain required;
-ordinary events cannot invoke this recovery path.
+ordinary events cannot invoke this recovery path. The Renovate wrapper also
+turns terminal repository `*-error` results into a failing job even if the CLI
+process itself exits zero.
 `reconcile-operation` is a separate manual-only inventory boundary: it binds an
 exact completed admission and state revision, records only a strict target subset
 already qualified on advanced main, and returns the remaining subset to fresh

@@ -111,8 +111,8 @@ export default defineConfig(headingRequirements(), {
         { pattern: "^config/", chapters: ["spec/src/policy.md"] },
         {
           pattern:
-            "^src/renovate\\.mjs$|^scripts/configure-renovate\\.mjs$|^renovate\\.config\\.cjs$",
-          chapters: ["spec/src/reconciliation.md"],
+            "^src/renovate(?:-result)?\\.mjs$|^scripts/(?:configure-renovate|run-renovate)\\.mjs$|^renovate\\.config\\.cjs$",
+          chapters: ["spec/src/reconciliation.md", "spec/src/wiring.md"],
         },
         {
           pattern: "^src/changesets\\.mjs$|^scripts/prepare-pr\\.mjs$",

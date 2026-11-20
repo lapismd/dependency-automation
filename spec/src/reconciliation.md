@@ -20,9 +20,14 @@ remains subject to the complete source-owned semantic/scope validation.
 Manual recovery binds the exact stored operation, completed originating run,
 current state revision and empty dependency branch/PR evidence. If source has
 advanced, a separate exact current-source input and immutable-tree projection
-must prove unchanged non-operational code/inputs. This only records recovery;
-fresh ordinary planning, source revalidation and every writer/merge gate still
-apply. No repair branch or live state is overwritten to resume an old attempt.
+must prove either unchanged non-operational code/inputs or an unchanged exact
+operation target surface. The latter binds the operation ID and exact root
+manifest, lockfile, workspace, canonical-intake policy and targeted manifest
+blobs while allowing unrelated source surfaces to advance only after the current
+source is independently qualified. This
+only records recovery; fresh ordinary planning, current-source qualification,
+source revalidation and every writer/merge gate still apply. No repair branch or
+live state is overwritten to resume an old attempt.
 
 Manual partial-operation reconciliation is distinct from recovery. It binds the
 exact admitted operation, completed originating run and current state revision,
@@ -80,7 +85,9 @@ cannot select or widen their generated update.
 
 Native artifact-error status writes MUST be disabled for the status-read-only
 token. Preparation errors MUST retain native PR reporting and functional CI/merge
-gates rather than require additional status-write authority.
+gates rather than require additional status-write authority. A Renovate terminal
+`*-error` repository result MUST fail the coordinator job even when the Renovate
+process exits zero, so an empty failed attempt cannot appear successful.
 
 ## DA-REC-005 — Native review context
 
