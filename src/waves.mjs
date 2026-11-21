@@ -1074,7 +1074,7 @@ export function recoverEmptyOperation(
   const sourceTransition =
     !sourceUnchanged &&
     expectedSourceSha === repo?.sourceSha &&
-    [1, 2].includes(sourceProof?.schemaVersion) &&
+    [1, 2, 3].includes(sourceProof?.schemaVersion) &&
     sourceProof.repository === operation.repository &&
     sourceProof.sourceSha === operation.sourceSha &&
     sourceProof.currentSourceSha === repo?.sourceSha &&
@@ -1099,7 +1099,14 @@ export function recoverEmptyOperation(
             !path
               .split("/")
               .some((part) => !part || part === "." || part === ".."),
-        )));
+        ) &&
+        (sourceProof.schemaVersion !== 3 ||
+          (/^[a-f0-9]{40}$/.test(sourceProof.sourceLockSha ?? "") &&
+            /^[a-f0-9]{40}$/.test(sourceProof.currentLockSha ?? "") &&
+            sourceProof.sourceLockSha !== sourceProof.currentLockSha &&
+            /^[a-f0-9]{64}$/.test(
+              sourceProof.targetLockProjectionSha256 ?? "",
+            )))));
   if (
     !repo ||
     repo.visibility !== "public" ||

@@ -16,7 +16,11 @@ inventory recovery boundary. `qualifyRecoverySource` reads both exact public
 trees before `recoverEmptyOperation` can record a source transition. Its legacy
 whole-input projection remains preferred; an operation-bound target-surface
 projection is accepted only when exact manifest/lock/workspace/policy identities
-are unchanged and current-source qualification independently succeeds. The
+are unchanged. A third operation-bound form accepts a separately qualified
+lock-only prerequisite only when both exact Git lock blobs parse and their
+admitted-package projections are identical while every manifest, workspace and
+policy identity remains unchanged. Current-source qualification independently
+succeeds for both operation-bound forms. The
 existing exact-state CAS/read-back and consumer revalidation remain required;
 ordinary events cannot invoke this recovery path. The Renovate wrapper also
 turns terminal repository `*-error` results into a failing job even if the CLI

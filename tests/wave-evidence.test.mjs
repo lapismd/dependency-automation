@@ -8,6 +8,16 @@ const sha = "a".repeat(40),
   repo = { repository: "lapismd/source", phase: "pilot" };
 const ok = (data) => ({ ok: true, status: 200, json: async () => data });
 const blob = (value) => ({ content: Buffer.from(value).toString("base64") });
+const gitBlob = (value) => {
+  const bytes = Buffer.from(value);
+  return {
+    sha: createHash("sha1")
+      .update(`blob ${bytes.length}\0`)
+      .update(bytes)
+      .digest("hex"),
+    response: { encoding: "base64", ...blob(value) },
+  };
+};
 
 test("source-advanced recovery proves unchanged code and dependency inputs from complete exact trees", async () => {
   const { qualifyRecoverySource } = await import("../src/wave-evidence.mjs");
@@ -177,7 +187,97 @@ test("source-advanced recovery accepts only an unchanged exact operation target 
         ...options,
         fetcher: async (url) => ok(url.includes(sourceSha) ? before : changed),
       }),
-      /unchanged operation target surface/,
+      path === "pnpm-lock.yaml"
+        ? /exact pnpm lock blobs/
+        : /unchanged operation target surface/,
+    );
+  }
+});
+
+test("source-advanced recovery accepts a target-disjoint qualified lock stabilization", async () => {
+  const { qualifyRecoverySource } = await import("../src/wave-evidence.mjs");
+  const sourceSha = "b".repeat(40),
+    currentSourceSha = "c".repeat(40),
+    beforeLock = `lockfileVersion: '9.0'\nsettings:\n  autoInstallPeers: true\nimporters:\n  .:\n    devDependencies:\n      '@lapis-notes/api':\n        specifier: ^0.6.10\n        version: 0.6.10(peer@1.0.0)\n      '@codemirror/lint':\n        specifier: ^6.9.7\n        version: 6.9.7\npackages:\n  '@lapis-notes/api@0.6.10':\n    resolution: {integrity: sha512-api}\n  '@codemirror/lint@6.9.7':\n    resolution: {integrity: sha512-old}\nsnapshots:\n  '@lapis-notes/api@0.6.10(peer@1.0.0)': {}\n  '@codemirror/lint@6.9.7': {}\n`,
+    afterLock = beforeLock
+      .replaceAll("6.9.7", "6.9.8")
+      .replaceAll("peer@1.0.0", "peer@2.0.0")
+      .replace("sha512-old", "sha512-new"),
+    beforeBlob = gitBlob(beforeLock),
+    afterBlob = gitBlob(afterLock),
+    entry = (path, value) => ({
+      path,
+      sha: value,
+      mode: "100644",
+      type: "blob",
+    }),
+    before = {
+      sha: sourceSha,
+      truncated: false,
+      tree: [
+        entry("package.json", "1".repeat(40)),
+        entry("pnpm-lock.yaml", beforeBlob.sha),
+        entry("pnpm-workspace.yaml", "3".repeat(40)),
+        entry(
+          ".github/dependency-automation/canonical-intake.json",
+          "4".repeat(40),
+        ),
+      ],
+    },
+    after = structuredClone(before),
+    operation = {
+      id: "6".repeat(64),
+      repository: repo.repository,
+      sourceSha,
+      targets: [
+        {
+          name: "@lapis-notes/api",
+          path: "package.json",
+          type: "devDependencies",
+          target: "0.6.12",
+        },
+      ],
+    },
+    source = { ...repo, sourceSha: currentSourceSha, visibility: "public" };
+  after.tree.find((item) => item.path === "pnpm-lock.yaml").sha = afterBlob.sha;
+  const options = {
+    expectedSourceSha: currentSourceSha,
+    fetcher: async (url) => {
+      if (url.includes("/git/trees/"))
+        return ok(url.includes(sourceSha) ? before : after);
+      if (url.endsWith(beforeBlob.sha)) return ok(beforeBlob.response);
+      if (url.endsWith(afterBlob.sha)) return ok(afterBlob.response);
+      throw Error(`Unexpected request: ${url}`);
+    },
+  };
+  const proof = await qualifyRecoverySource(operation, source, options);
+  assert.equal(proof.schemaVersion, 3);
+  assert.equal(proof.operationId, operation.id);
+  assert.equal(proof.sourceLockSha, beforeBlob.sha);
+  assert.equal(proof.currentLockSha, afterBlob.sha);
+  assert.match(proof.targetLockProjectionSha256, /^[a-f0-9]{64}$/);
+  assert.match(proof.projectionSha256, /^[a-f0-9]{64}$/);
+
+  for (const changedLock of [
+    afterLock.replace("version: 0.6.10", "version: 0.6.11"),
+    afterLock.replace("sha512-api", "sha512-forged"),
+  ]) {
+    const changedBlob = gitBlob(changedLock),
+      changedAfter = structuredClone(after);
+    changedAfter.tree.find((item) => item.path === "pnpm-lock.yaml").sha =
+      changedBlob.sha;
+    await assert.rejects(
+      qualifyRecoverySource(operation, source, {
+        ...options,
+        fetcher: async (url) => {
+          if (url.includes("/git/trees/"))
+            return ok(url.includes(sourceSha) ? before : changedAfter);
+          if (url.endsWith(beforeBlob.sha)) return ok(beforeBlob.response);
+          if (url.endsWith(changedBlob.sha)) return ok(changedBlob.response);
+          throw Error(`Unexpected request: ${url}`);
+        },
+      }),
+      /unchanged operation target lock projection/,
     );
   }
 });

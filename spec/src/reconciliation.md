@@ -24,7 +24,12 @@ must prove either unchanged non-operational code/inputs or an unchanged exact
 operation target surface. The latter binds the operation ID and exact root
 manifest, lockfile, workspace, canonical-intake policy and targeted manifest
 blobs while allowing unrelated source surfaces to advance only after the current
-source is independently qualified. This
+source is independently qualified. A separately qualified lock-only prerequisite
+may use the same operation binding when every non-lock target-surface blob is
+identical and both exact Git lock blobs have the same admitted-package
+projection. That projection covers direct and transitive target references,
+package/snapshot identities and integrities, catalogs, patches and lock metadata;
+any target drift rejects. This
 only records recovery; fresh ordinary planning, current-source qualification,
 source revalidation and every writer/merge gate still apply. No repair branch or
 live state is overwritten to resume an old attempt.
