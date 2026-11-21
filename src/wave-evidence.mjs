@@ -1,7 +1,170 @@
 import semver from "semver";
+import YAML from "yaml";
 import { createHash } from "node:crypto";
 import { workflowApplies } from "./policy.mjs";
 import { discoverRepository, requestJson } from "./github.mjs";
+
+const object = (value) =>
+  value && typeof value === "object" && !Array.isArray(value);
+const canonical = (value) =>
+  Array.isArray(value)
+    ? value.map(canonical)
+    : object(value)
+      ? Object.fromEntries(
+          Object.keys(value)
+            .sort((a, b) => a.localeCompare(b, "en"))
+            .map((key) => [key, canonical(value[key])]),
+        )
+      : value;
+const digest = (value) =>
+  createHash("sha256")
+    .update(JSON.stringify(canonical(value)))
+    .digest("hex");
+
+function targetLockProjection(lock, targetNames) {
+  if (!object(lock) || !object(lock.importers))
+    throw Error("Recovery requires a valid pnpm lockfile");
+  const names = [...new Set(targetNames)].sort((a, b) =>
+      a.localeCompare(b, "en"),
+    ),
+    normalizeReference = (value) => {
+      if (typeof value === "string") {
+        const version = value.split("(")[0];
+        return semver.valid(version) ? version : value;
+      }
+      if (!object(value)) return value;
+      const normalized = { ...value };
+      if (typeof normalized.version === "string") {
+        const version = normalized.version.split("(")[0];
+        if (semver.valid(version)) normalized.version = version;
+      }
+      return normalized;
+    },
+    selectedNames = (value) =>
+      object(value)
+        ? Object.fromEntries(
+            names
+              .filter((name) => Object.hasOwn(value, name))
+              .map((name) => [name, normalizeReference(value[name])]),
+          )
+        : {},
+    ownCoordinate = (key) => {
+      if (typeof key !== "string") return null;
+      for (const name of names) {
+        const clean = key.startsWith("/") ? key.slice(1) : key;
+        for (const separator of ["@", "/"])
+          if (clean.startsWith(`${name}${separator}`)) {
+            const version = clean
+              .slice(name.length + 1)
+              .split("(")[0]
+              .split("/")[0];
+            if (semver.valid(version)) return `${name}@${version}`;
+          }
+      }
+      return null;
+    },
+    dependencyFields = [
+      "specifiers",
+      "dependencies",
+      "devDependencies",
+      "optionalDependencies",
+      "peerDependencies",
+      "dependenciesMeta",
+      "peerDependenciesMeta",
+    ],
+    importers = {};
+  for (const [path, importer] of Object.entries(lock.importers)) {
+    if (!object(importer))
+      throw Error("Recovery requires a valid pnpm lock importer");
+    const selected = {};
+    for (const field of dependencyFields) {
+      const values = selectedNames(importer[field]);
+      if (Object.keys(values).length) selected[field] = values;
+    }
+    if (Object.keys(selected).length) importers[path] = selected;
+  }
+  const graphTable = (value, packageRecords = false) => {
+    if (value === undefined) return {};
+    if (!object(value))
+      throw Error("Recovery requires a valid pnpm lock graph");
+    const selected = {};
+    for (const [key, record] of Object.entries(value)) {
+      const own = ownCoordinate(key);
+      if (!object(record)) continue;
+      const fields = {};
+      if (own && packageRecords)
+        for (const field of [
+          "resolution",
+          "id",
+          "name",
+          "version",
+          "engines",
+          "cpu",
+          "os",
+          "libc",
+          "deprecated",
+          "hasBin",
+        ])
+          if (record[field] !== undefined) fields[field] = record[field];
+      for (const field of dependencyFields) {
+        const values = selectedNames(record[field]);
+        if (Object.keys(values).length) fields[field] = values;
+      }
+      if (Array.isArray(record.transitivePeerDependencies)) {
+        const peers = record.transitivePeerDependencies.filter((name) =>
+          names.includes(name),
+        );
+        if (peers.length) fields.transitivePeerDependencies = peers;
+      }
+      if (own || Object.keys(fields).length) {
+        const coordinate = own ?? key.split("(")[0];
+        selected[coordinate] ??= [];
+        const normalized = canonical(fields),
+          signature = JSON.stringify(normalized);
+        if (
+          !selected[coordinate].some(
+            (candidate) => JSON.stringify(candidate) === signature,
+          )
+        )
+          selected[coordinate].push(normalized);
+      }
+    }
+    return selected;
+  };
+  const catalogs = {};
+  if (lock.catalogs !== undefined) {
+    if (!object(lock.catalogs))
+      throw Error("Recovery requires a valid pnpm lock catalog");
+    for (const [catalog, values] of Object.entries(lock.catalogs)) {
+      const selected = selectedNames(values);
+      if (Object.keys(selected).length) catalogs[catalog] = selected;
+    }
+  }
+  const graphKeys = new Set([
+    "importers",
+    "packages",
+    "snapshots",
+    "catalogs",
+    "patchedDependencies",
+  ]);
+  return canonical({
+    targetNames: names,
+    metadata: Object.fromEntries(
+      Object.entries(lock).filter(([key]) => !graphKeys.has(key)),
+    ),
+    importers,
+    packages: graphTable(lock.packages, true),
+    snapshots: graphTable(lock.snapshots),
+    catalogs,
+    patchedDependencies: object(lock.patchedDependencies)
+      ? Object.fromEntries(
+          Object.entries(lock.patchedDependencies).filter(([key]) =>
+            Boolean(ownCoordinate(key)),
+          ),
+        )
+      : {},
+  });
+}
 
 export async function qualifyRecoverySource(operation, repo, options = {}) {
   const validSha = (value) => /^[a-f0-9]{40}$/.test(value ?? "");
@@ -141,16 +304,93 @@ export async function qualifyRecoverySource(operation, repo, options = {}) {
   };
   const beforeSurface = surfaceProjection(before),
     afterSurface = surfaceProjection(after);
-  if (beforeSurface !== afterSurface)
+  if (beforeSurface === afterSurface)
+    return {
+      schemaVersion: 2,
+      ...proof,
+      operationId: operation.id,
+      targetSurfacePaths,
+      projectionSha256: beforeSurface,
+    };
+
+  const changedSurface = targetSurfacePaths.filter(
+    (path) =>
+      JSON.stringify(before.all.get(path)) !==
+      JSON.stringify(after.all.get(path)),
+  );
+  if (changedSurface.length !== 1 || changedSurface[0] !== "pnpm-lock.yaml")
+    throw Error(
+      "Source-advanced recovery requires unchanged operation target surface",
+    );
+  const readBlob = async (tree) => {
+    const entry = tree.all.get("pnpm-lock.yaml"),
+      value = await requestJson(
+        `https://api.github.com/repos/${repo.repository}/git/blobs/${entry[3]}`,
+        options,
+      );
+    if (
+      value?.encoding !== "base64" ||
+      typeof value.content !== "string" ||
+      (value.sha !== undefined && value.sha !== entry[3])
+    )
+      throw Error("Recovery requires exact pnpm lock blobs");
+    const bytes = Buffer.from(value.content.replace(/\s/gu, ""), "base64");
+    if (!bytes.length || bytes.length > 16 * 1024 * 1024)
+      throw Error("Recovery requires bounded pnpm lock blobs");
+    const observed = createHash("sha1")
+      .update(`blob ${bytes.length}\0`)
+      .update(bytes)
+      .digest("hex");
+    if (observed !== entry[3])
+      throw Error("Recovery requires exact pnpm lock blobs");
+    return { bytes: bytes.toString("utf8"), sha: entry[3] };
+  };
+  const beforeLock = await readBlob(before),
+    afterLock = await readBlob(after);
+  let beforeDocument, afterDocument;
+  try {
+    beforeDocument = YAML.parse(beforeLock.bytes);
+    afterDocument = YAML.parse(afterLock.bytes);
+  } catch {
+    throw Error("Recovery requires valid pnpm lock blobs");
+  }
+  const targetNames = operation.targets.map((target) => target.name),
+    beforeLockProjection = digest(
+      targetLockProjection(beforeDocument, targetNames),
+    ),
+    afterLockProjection = digest(
+      targetLockProjection(afterDocument, targetNames),
+    );
+  if (beforeLockProjection !== afterLockProjection)
+    throw Error(
+      "Source-advanced recovery requires unchanged operation target lock projection",
+    );
+  const stableSurface = (tree) =>
+      targetSurfacePaths.map((path) =>
+        path === "pnpm-lock.yaml"
+          ? [
+              path,
+              tree.all.get(path)[1],
+              tree.all.get(path)[2],
+              beforeLockProjection,
+            ]
+          : tree.all.get(path),
+      ),
+    beforeStable = digest(stableSurface(before)),
+    afterStable = digest(stableSurface(after));
+  if (beforeStable !== afterStable)
     throw Error(
       "Source-advanced recovery requires unchanged operation target surface",
     );
   return {
-    schemaVersion: 2,
+    schemaVersion: 3,
     ...proof,
     operationId: operation.id,
     targetSurfacePaths,
-    projectionSha256: beforeSurface,
+    sourceLockSha: beforeLock.sha,
+    currentLockSha: afterLock.sha,
+    targetLockProjectionSha256: beforeLockProjection,
+    projectionSha256: beforeStable,
   };
 }
 

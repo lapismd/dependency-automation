@@ -20,7 +20,7 @@ on:
         required: false
         type: string
       recover-source-revision:
-        description: Exact current source SHA for a proven documentation/workflow/test-only source transition
+        description: Exact current source SHA for a proven target-safe source transition
         required: false
         type: string
 

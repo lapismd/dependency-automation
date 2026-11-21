@@ -217,7 +217,7 @@ test("wave admission gates the production matrix and isolates trusted-main state
     workflow.on.workflow_dispatch.inputs["recover-source-revision"],
     {
       description:
-        "Exact current source SHA for a proven documentation/workflow/test-only source transition",
+        "Exact current source SHA for a proven target-safe source transition",
       required: false,
       type: "string",
     },

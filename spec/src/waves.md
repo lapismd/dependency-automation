@@ -83,6 +83,13 @@ to differ. A separately operation-bound projection may permit unrelated package
 release surfaces to advance only when the exact root manifest, lockfile,
 workspace, canonical intake policy and every targeted manifest blob retain
 identical identities and modes, and the current source independently qualifies.
+An operation-bound lock-stabilization projection may additionally permit only
+the lockfile blob to differ after a separately qualified source prerequisite.
+It requires every other target-surface blob and mode to remain identical and
+proves that all admitted package edges, package/snapshot records, integrities,
+catalog entries, patch entries, transitive references and lock metadata retain
+one exact target projection across both Git-verified lock blobs. The receipt
+records both lock blob identities and the unchanged target-lock projection.
 Changed target surfaces, missing operation bindings, unqualified current source,
 truncation, unavailable trees, duplicate/unsafe paths and changed symlinks fail
 closed. Recovery records both revisions and the unchanged projection digest;
@@ -139,7 +146,7 @@ publish the same bytes again.
 - Registry-verified version/integrity identities coalesce duplicate hints; complete scheduled scans recover missed events without treating payloads as authority.
 - Persistent operations retain exact targets, source/policy revisions, publication baselines and blocked/failed/uncertain outcomes for future operator UI use.
 - State lives only on the dedicated coordinator state branch, with optimistic concurrency and read-back after uncertain writes; conflicting state is never overwritten or blindly retried.
-- Exact manual recovery MAY re-admit only a completed origin with empty branch/PR evidence and either unchanged source, immutable unchanged implementation/dependency inputs or an operation-bound unchanged target surface; exact operation reconciliation MAY partition only a completed admission with a strict satisfied subset, without granting the remaining writer operation.
+- Exact manual recovery MAY re-admit only a completed origin with empty branch/PR evidence and either unchanged source, immutable unchanged implementation/dependency inputs, an operation-bound unchanged target surface or an operation-bound target-disjoint lock stabilization; exact operation reconciliation MAY partition only a completed admission with a strict satisfied subset, without granting the remaining writer operation.
 
 ## DA-WAVE-003 — Qualification and repair ownership
 

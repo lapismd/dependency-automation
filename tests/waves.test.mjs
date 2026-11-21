@@ -690,6 +690,33 @@ test("source-advanced empty recovery requires exact proof and preserves all writ
     targetRecovered.operations[id].recovery.sourceTransition,
     targetSurfaceProof,
   );
+  const lockStableProof = {
+    ...targetSurfaceProof,
+    schemaVersion: 3,
+    sourceLockSha: "1".repeat(40),
+    currentLockSha: "2".repeat(40),
+    targetLockProjectionSha256: "3".repeat(64),
+  };
+  const lockStableRecovered = recoverEmptyOperation(first.state, graph, {
+    ...recovery,
+    sourceProof: lockStableProof,
+  });
+  assert.deepEqual(
+    lockStableRecovered.operations[id].recovery.sourceTransition,
+    lockStableProof,
+  );
+  for (const invalidProof of [
+    { ...lockStableProof, currentLockSha: lockStableProof.sourceLockSha },
+    { ...lockStableProof, targetLockProjectionSha256: "invalid" },
+  ])
+    assert.throws(
+      () =>
+        recoverEmptyOperation(first.state, graph, {
+          ...recovery,
+          sourceProof: invalidProof,
+        }),
+      /unchanged public source/,
+    );
   assert.throws(
     () =>
       recoverEmptyOperation(first.state, graph, {
