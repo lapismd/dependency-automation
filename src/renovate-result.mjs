@@ -5,15 +5,21 @@ export function renovateResultFailure(line) {
   } catch {
     return null;
   }
-  if (
-    row?.msg !== "Repository finished" ||
-    typeof row.result !== "string" ||
-    !/(?:^|-)error$/.test(row.result)
-  )
-    return null;
   const repository =
     typeof row.repository === "string" && row.repository
       ? row.repository
       : "unknown repository";
-  return `${repository}: ${row.result}`;
+  if (
+    row?.msg === "artifactErrors" &&
+    Array.isArray(row.artifactErrors) &&
+    row.artifactErrors.length
+  )
+    return `${repository}: artifact-errors`;
+  if (
+    row?.msg === "Repository finished" &&
+    typeof row.result === "string" &&
+    /(?:^|-)error$/.test(row.result)
+  )
+    return `${repository}: ${row.result}`;
+  return null;
 }
