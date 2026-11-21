@@ -25,3 +25,31 @@ test("Renovate lockfile errors fail the coordinator runner", () => {
   );
   assert.equal(renovateResultFailure("ordinary non-JSON output"), null);
 });
+
+test("Renovate artifact update errors fail even when the repository finishes done", () => {
+  assert.equal(
+    renovateResultFailure(
+      JSON.stringify({
+        repository: "lapismd/lapis-plugins",
+        artifactErrors: [
+          {
+            stderr:
+              "Canonical intake held: unadmitted first-party package metadata or identity",
+          },
+        ],
+        msg: "artifactErrors",
+      }),
+    ),
+    "lapismd/lapis-plugins: artifact-errors",
+  );
+  assert.equal(
+    renovateResultFailure(
+      JSON.stringify({
+        repository: "lapismd/lapis-plugins",
+        artifactErrors: [],
+        msg: "artifactErrors",
+      }),
+    ),
+    null,
+  );
+});

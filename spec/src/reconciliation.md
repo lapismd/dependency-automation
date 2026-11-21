@@ -92,7 +92,10 @@ Native artifact-error status writes MUST be disabled for the status-read-only
 token. Preparation errors MUST retain native PR reporting and functional CI/merge
 gates rather than require additional status-write authority. A Renovate terminal
 `*-error` repository result MUST fail the coordinator job even when the Renovate
-process exits zero, so an empty failed attempt cannot appear successful.
+process exits zero. A nonempty native `artifactErrors` event MUST also fail the
+job even when Renovate later reports the repository result as `done`, so an
+incomplete candidate and its native warning cannot appear as successful
+reconciliation.
 
 ## DA-REC-005 — Native review context
 

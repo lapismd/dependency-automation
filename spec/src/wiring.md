@@ -23,8 +23,9 @@ policy identity remains unchanged. Current-source qualification independently
 succeeds for both operation-bound forms. The
 existing exact-state CAS/read-back and consumer revalidation remain required;
 ordinary events cannot invoke this recovery path. The Renovate wrapper also
-turns terminal repository `*-error` results into a failing job even if the CLI
-process itself exits zero.
+turns terminal repository `*-error` results and nonempty native
+`artifactErrors` events into a failing job even if the CLI process exits zero
+or later reports the repository as `done`.
 `reconcile-operation` is a separate manual-only inventory boundary: it binds an
 exact completed admission and state revision, records only a strict target subset
 already qualified on advanced main, and returns the remaining subset to fresh
@@ -73,6 +74,7 @@ policy + GitHub default-branch manifests + npm metadata
 | ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
 | Discovery / registry closure | `src/github.mjs`, `src/policy.mjs`, `scripts/inventory.mjs`                                                                     |
 | Central Renovate rules       | `src/renovate.mjs`, `scripts/configure-renovate.mjs`, `renovate.config.cjs`                                                     |
+| Renovate result guard        | `src/renovate-result.mjs`, `scripts/run-renovate.mjs`                                                                           |
 | Release intent               | `src/changesets.mjs`, `scripts/prepare-pr.mjs`                                                                                  |
 | Consumer integration         | `scripts/prepare-consumer.mjs`, `scripts/onboard-changesets.mjs`, `src/consumer-ci.mjs`, `src/docker-context.mjs`, `templates/` |
 | Publication notification     | `scripts/notify.mjs`, `notify.yml`                                                                                              |
